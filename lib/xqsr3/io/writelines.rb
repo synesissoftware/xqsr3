@@ -69,13 +69,13 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 		contents.size
 	end
 
-	def self.deduce_line_separator_ contents
+	def self.deduce_line_separator_ contents, eol_lookahead_limit
 
 		if contents.instance_of? ::Hash
 
 			contents.each_with_index do |k, v, index|
 
-				if Constants_::NUMBER_OF_LINES_TO_EXAMINE == index
+				if eol_lookahead_limit == index
 
 					break
 				else
@@ -88,7 +88,7 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 
 			contents.each_with_index do |element, index|
 
-				if Constants_::NUMBER_OF_LINES_TO_EXAMINE == index
+				if eol_lookahead_limit == index
 
 					break
 				else
@@ -105,7 +105,7 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 
 	#
 	# 
-	def self.writelines(target, contents, line_separator = nil, column_separator = nil)
+	def self.writelines target, contents, options = {}
 
 		# process parameters
 
@@ -120,8 +120,10 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 			end
 		end
 
-		column_separator	||=	''
-		line_separator		||=	self.deduce_line_separator_ contents
+		options				||=	{}
+		eol_lookahead_limit	=	options[:eol_lookahead_limit] || Constants_::NUMBER_OF_LINES_TO_EXAMINE
+		column_separator	=	options[:column_separator] || ''
+		line_separator		=	options[:line_separator] || self.deduce_line_separator_(contents, eol_lookahead_limit)
 
 		if not contents.kind_of? ::Enumerable and not contents.instance_of? ::Hash
 

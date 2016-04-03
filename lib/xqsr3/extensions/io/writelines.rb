@@ -45,7 +45,7 @@ class IO
 
 	def self.writelines(path, contents, lineSep = nil, columnSep = nil)
 
-		::Xqsr3::IO.writelines path, contents, lineSep, columnSep
+		::Xqsr3::IO.writelines path, contents, line_separator: lineSep, column_separator: columnSep, eol_lookahead_limit: 20
 
 	end # self.writelines
 end # class IO

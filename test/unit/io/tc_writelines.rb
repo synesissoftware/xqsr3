@@ -66,7 +66,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
 		s = StringIO.new '', 'a'
 
-		r = ::Xqsr3::IO.writelines s, input, ''
+		r = ::Xqsr3::IO.writelines s, input, line_separator: ''
 
 		assert_equal 2, r
 		assert_equal "abcdef", s.string
@@ -82,6 +82,18 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
 		assert_equal 2, r
 		assert_equal "abc\ndef\n", s.string
+	end
+
+	def test_two_strings_in_hash_with_col_sep
+
+		input = { 'ab' => 'c', 'de' => 'f' }
+
+		s = StringIO.new '', 'a'
+
+		r = ::Xqsr3::IO.writelines s, input, column_separator: "\t"
+
+		assert_equal 2, r
+		assert_equal "ab\tc\nde\tf\n", s.string
 	end
 
 	def test_ten_strings_in_array
@@ -106,6 +118,18 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
 		assert_equal 3, r
 		assert_equal "abc\ndef\nghi\n", s.string
+	end
+
+	def test_strings_with_cr_in_array_and_line_sep
+
+		input = [ "abc\n", "def\n", "ghi\n" ]
+
+		s = StringIO.new
+
+		r = ::Xqsr3::IO.writelines s, input, line_separator: '|'
+
+		assert_equal 3, r
+		assert_equal "abc\n|def\n|ghi\n|", s.string
 	end
 end
 
