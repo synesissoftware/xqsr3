@@ -1,0 +1,301 @@
+
+# ######################################################################## #
+# File:         lib/xqsr3/quality/parameter_checking.rb
+#
+# Purpose:      Definition of the ParameterChecking module
+#
+# Created:      12th February 2015
+# Updated:      3rd April 2016
+#
+# Author:       Matt Wilson
+#
+# Copyright:    Synesis Software Pty Ltd, 2015-2016
+#
+# ######################################################################## #
+
+
+module Xqsr3
+module Quality
+
+module ParameterChecking
+
+	#
+	# @param +value+ the parameter whose value and type is to be checked
+	# @param +name+ the name of the parameter to be checked
+	# @param +options+ options
+	#
+	# @option +:allow_nil+ the +value+ must not be +nil+ unless this option
+	#          is true
+	# @option +:types+ an array of types one of which +value+ must be (or
+	#          must be derived from)
+	# @option +:values+ an array of values one of which +value+ must be
+	# @option +:reject_empty+ requires value to respond to +empty?+
+	#          message and to do so with false, unless +nil+
+	# @option +:require_empty+ requires value to respond to +empty?+
+	#          message and to do so with true, unless +nil+
+	# @option +:nothrow+ causes failure to be indicated by a +nil+ return
+	#          rather than a thrown exception
+	# @option +:message+ specifies a message to be used in any thrown
+	#          exception, which suppresses internal message preparation
+	# @option +:treat_as_option+ if true, the value will be treated as an
+	#          option when reporting check failure
+	def check_parameter value, name, options = {}, &block
+
+		failed_check	=	false
+		options			||=	{}
+		message			=	options[:message]
+		treat_as_option	=	options[:treat_as_option]
+		return_value	=	value
+		param_s			=	treat_as_option	? 'option' : 'parameter'
+
+		warn "#{self}::check_parameter: invoked with non-string/non-symbol name: name.class=#{name.class}" unless name && [ ::String, ::Symbol ].any? { |c| name.is_a?(c) }
+
+		name			=	name.to_s if name.is_a?(::Symbol)
+		name			=	(':' + name.to_s) if treat_as_option and name.is_a?(::String)
+
+		# nil check
+
+		if value.nil? && !options[:allow_nil]
+
+			failed_check	=	true
+
+			unless options[:nothrow]
+
+				unless message
+
+					if name.nil?
+
+						message	=	"#{param_s} may not be nil"
+					else
+
+						message	=	"#{param_s} '#{name}' may not be nil"
+					end
+				end
+
+				raise ArgumentError, message
+			end
+		end
+
+		# check type(s)
+
+		unless value.nil?
+
+			types		=	options[:types] || []
+			types		=	[value.class] if types.empty?
+			type_found	=	false
+
+			warn "#{self}::check_parameter: options[:types] of type #{types.class} - should be #{::Array}" unless types.is_a?(Array)
+
+			unless types.any? { |t| value.is_a?(t) }
+
+				failed_check	=	true
+
+				unless options[:nothrow]
+
+					unless message
+
+						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+
+						case	types.size
+						when	1
+							s_types	=	"#{types[0]}"
+						when	2
+							s_types	=	"#{types[0]} or #{types[1]}"
+						else
+							s_types	=	"#{types[0...-1].join(', ')}, or #{types[-1]}"
+						end
+
+						message		=	"#{param_s} #{s_name}(#{value.class}) must be an instance of #{s_types}"
+					end
+
+					raise TypeError, message
+				end
+			end
+		end
+
+		# reject/require empty?
+
+		if options[:reject_empty]
+
+			warn "#{self}::check_parameter: value '#{value}' of type #{value.class} does not respond to empty?" unless value.respond_to? :empty?
+
+			if value.empty?
+
+				failed_check	=	true
+
+				unless options[:nothrow]
+
+					unless message
+						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+
+						message		=	"#{param_s} #{s_name}must not be empty"
+					end
+
+					raise ArgumentError, message
+				end
+			end
+		end
+
+		if options[:require_empty]
+
+			warn "#{self}::check_parameter: value '#{value}' of type #{value.class} does not respond to empty?" unless value.respond_to? :empty?
+
+			unless value.empty?
+
+				failed_check	=	true
+
+				unless options[:nothrow]
+
+					unless message
+						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+
+						message		=	"#{param_s} #{s_name}must be empty"
+					end
+
+					raise ArgumentError, message
+				end
+			end
+		end
+
+		# check value(s)
+
+		unless value.nil?
+
+			values	=	options[:values] || [ value ]
+
+			warn "#{self}::check_parameter: options[:values] of type #{values.class} - should be #{::Array}" unless values.is_a?(Array)
+
+			found	=	false
+
+			values.each do |v|
+
+				if ::Range === v && !(::Range === value) && v.cover?(value)
+
+					found = true
+					break
+				end
+
+				if value == v
+
+					found = true
+					break
+				end
+			end
+
+			unless found
+
+				failed_check	=	true
+
+				unless options[:nothrow]
+
+					unless message
+						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+
+						message		=	"#{param_s} #{s_name}value '#{value}' not found equal/within any of required values or ranges"
+					end
+
+					if value.is_a?(::Numeric)
+
+						raise RangeError, message
+					else
+
+						raise ArgumentError, message
+					end
+				end
+			end
+		end
+
+		# run block
+
+		if value and block
+
+			warn "#{self}::check_parameter: block arity must be 1" unless block.arity == 1
+
+			r	=	nil
+
+			begin
+
+				r = block.call(value)
+
+			rescue StandardError => x
+
+				xmsg	=	x.message || ''
+
+				if xmsg.empty?
+
+					xmsg	||=	message
+
+					if xmsg.empty?
+
+						s_name	=	name.is_a?(String) ? "'#{name}' " : ''
+						xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
+					end
+
+					raise $!, xmsg, $!.backtrace
+				end
+
+				raise
+			end
+
+			if r.is_a?(::Exception)
+
+				# An exception returned from the block, so raise it, with
+				# its message or a custom message
+
+				x		=	r
+				xmsg	=	x.message || ''
+
+				if xmsg.empty?
+
+					xmsg	||=	message
+
+					if xmsg.empty?
+
+						s_name	=	name.is_a?(String) ? "'#{name}' " : ''
+						xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
+					end
+
+					raise x, xmsg
+				end
+
+				raise x
+
+			elsif !r
+
+				failed_check	=	true
+
+				unless options[:nothrow]
+
+					s_name	=	name.is_a?(String) ? "'#{name}' " : ''
+					xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
+
+					if value.is_a?(::Numeric)
+
+						raise RangeError, xmsg
+					else
+
+						raise ArgumentError, xmsg
+					end
+				end
+
+			elsif r.is_a?(::TrueClass)
+
+				;
+			else
+
+				return_value	=	r
+			end
+		end
+
+		failed_check ? nil : return_value
+	end
+
+	alias check_param check_parameter
+
+end # module ParameterChecking
+
+end # module Quality
+end # module Xqsr3
+
+# ############################## end of file ############################## #
+
