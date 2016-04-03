@@ -10,7 +10,7 @@ require 'stringio'
 
 include ::Xqsr3::IO
 
-class Test_IO_writelines < Test::Unit::TestCase
+class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
 	def test_single_string
 
