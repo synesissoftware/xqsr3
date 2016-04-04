@@ -63,13 +63,13 @@ module Enumerable
 				raise ArgumentError, "block requires two parameters"
 			end
 
-			ar = self.to_a
+			ar	=	self.to_a
 
 			return ar if ar.length < 2
 
-			ar = ar.clone
+			ar	=	ar.clone
 
-			i = 0
+			i	=	0
 
 			while i < ar.length do
 
