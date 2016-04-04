@@ -9,7 +9,7 @@
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matt Wilson
+# Author:       Matthew Wilson
 #
 # Copyright (c) 2015-2016, Matthew Wilson and Synesis Software
 # All rights reserved.
