@@ -4,7 +4,7 @@
 # Purpose:      Adds a writelines() method to the IO module
 #
 # Created:      13th April 2007
-# Updated:      4th April 2016
+# Updated:      5th April 2016
 #
 # Author:       Matthew Wilson
 #
@@ -56,13 +56,13 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 
 			contents.each do |k, v|
 
-				target << k << column_separator << v << line_separator
+				target << "#{k}#{column_separator}#{v}#{line_separator}"
 			end
 		else
 
 			contents.each do |element|
 
-				target << element << line_separator
+				target << "#{element}#{line_separator}"
 			end
 		end
 
@@ -103,7 +103,7 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 
 	public
 
-	#
+	# Writes the contents to the target, subject to the options
 	# 
 	def self.writelines target, contents, options = {}
 
@@ -130,9 +130,11 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 			raise ArgumentError, "writelines() must be passed a #{::String}, or a #{::Hash}, or an #{::Enumerable} (or derived)"
 		end
 
-		if ::String == target
+		# do the writing
 
-			File.open(path, "w") do |io|
+		if ::String === target
+
+			File.open(target, "w") do |io|
 
 				self.write_to_target_ io, contents, line_separator, column_separator
 			end
