@@ -1,25 +1,25 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/extensions/kernel/raise_with_options.rb
+# File:         lib/xqsr3/extensions/enumerable/collect_with_index.rb
 #
-# Purpose:      Adds a raise_with_options() method to the Kernel module
+# Purpose:      Adds a collect_with_index() method to the Enumerable module
 #
-# Created:      12th February 2015
-# Updated:      3rd April 2016
+# Created:      24th October 2010
+# Updated:      4th April 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2015-2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2010-2016, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
 # met:
 #
-# * Redistributions of source code must retain the above copyright
-#   notice, this list of conditions and the following disclaimer.
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
 #
 # * Redistributions in binary form must reproduce the above copyright
 #   notice, this list of conditions and the following disclaimer in the
@@ -44,20 +44,25 @@
 # ######################################################################## #
 
 
-require 'xqsr3/diagnostics/exception_utilities'
-
 # ##########################################################
-# ::Kernel
+# ::Enumerable
 
-module Kernel
+module Enumerable
 
-	def raise_with_options *args, **options
+	## Two-parameter #collect, where the second parameter is a #base-based
+	# index, which increments by 1 for each enumerated element.
+	def collect_with_index(base = 0)
 
-		options	||=	{}
+		a = []
 
-		::Xqsr3::Diagnostics::ExceptionUtilities.raise_with_options *args, **(options.merge({ :called_indirectly_06d353cb_5a6c_47ca_8dbe_ff76359c7e96 => 1}))
+		self.each_with_index do |element, index|
+
+			a.push yield(element, base + index)
+		end
+
+		a
 	end
-end # module Kernel
+end # module Enumerable
 
 # ############################## end of file ############################# #
 
