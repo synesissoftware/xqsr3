@@ -261,7 +261,7 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 
 	def test_delete
 
-		test_count
+		test_count_and_delete
 	end
 
 	def test_dup
@@ -391,7 +391,7 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal 0, fm.count
 	end
 
-	def test_eql
+	def test_eql?
 
 		fm1 = FrequencyMap.new
 		fm2 = FrequencyMap.new
@@ -425,7 +425,6 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_raise(::TypeError) { fm.fetch(:does_not_exist, :wrong_type) }
 		assert_equal 33, fm.fetch(:does_not_exist) { |k| 33 }
 		assert_equal 34, fm.fetch(:does_not_exist) { 34 }
-
 
 		fm << :abc << :abc << :abc
 
