@@ -54,15 +54,6 @@ class MultiMap < ::Hash
 
 	include Enumerable
 
-#	private
-#	alias old_new new
-#	public
-#
-#	def new
-#
-#		old_new
-#	end
-
 	def initialize
 
 		@inner	=	Hash.new
@@ -211,7 +202,33 @@ class MultiMap < ::Hash
 
 	def flatten
 
-		@inner.flatten
+		r = []
+
+		@inner.each do |key, values|
+
+			if values.empty?
+
+				r << key << []
+			else
+
+				values.each do |value|
+
+					r << key << value
+				end
+			end
+		end
+
+		r
+	end
+
+	def has_key? key
+
+		@inner.has_key? key
+	end
+
+	def has_value? value
+
+		@inner.has_value? value
 	end
 
 	def key value
@@ -219,9 +236,31 @@ class MultiMap < ::Hash
 		@inner.key value
 	end
 
+	def merge fm
+
+		raise TypeError, "parameter must be an instance of type #{self.class}" unless fm.instance_of? self.class
+
+		fm_new = self.class.new
+
+		fm_new.merge! self
+		fm_new.merge! fm
+
+		fm_new
+	end
+
+	def merge! fm
+
+		fm.each do |k, v|
+
+			self.push k, v
+		end
+
+		self
+	end
+
 	def push key, *values
 
-		@inner[key]	=	[]	unless @inner.has_key? key
+		@inner[key] = [] unless @inner.has_key? key
 
 		@inner[key].push(*values)
 	end
@@ -239,6 +278,16 @@ class MultiMap < ::Hash
 	def store key, *values
 
 		@inner[key]	=	values
+	end
+
+	def to_a
+
+		self.flatten
+	end
+
+	def to_h
+
+		@inner.dup
 	end
 
 	def values

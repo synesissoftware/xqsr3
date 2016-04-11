@@ -92,6 +92,15 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
 	def test_dup
 
+		mm1 = MultiMap.new
+
+		mm1.push :def
+		mm1.push :abc, 'a1', 'a2', 'a3', 'a4'
+		mm1.push :ghi, 'g1', 'g2'
+
+		mm2 = mm1.dup
+
+		assert_eql mm1, mm2
 	end
 
 	def test_each
@@ -264,23 +273,45 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
 		mm.push :abc, 1, 2, 3
 
-		assert_equal [ :abc, [ 1, 2, 3 ] ], mm.flatten
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3 ], mm.flatten
 
 		mm.push :abc, 4, 5
 
-		assert_equal [ :abc, [ 1, 2, 3, 4, 5 ] ], mm.flatten
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :abc, 5 ], mm.flatten
 
 		mm.push :def
 
-		assert_equal [ :abc, [ 1, 2, 3, 4, 5 ], :def, [] ], mm.flatten
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :abc, 5, :def, [] ], mm.flatten
 	end
 
 	def test_has_key?
 
+		mm = MultiMap.new
+
+		assert_not mm.has_key? :abc
+
+		mm.push :abc
+
+		assert mm.has_key? :abc
+
+		mm.delete :abc
+
+		assert_not mm.has_key? :abc
 	end
 
 	def test_has_value?
 
+		mm = MultiMap.new
+
+		assert_not mm.has_value? []
+
+		mm.push :abc
+
+		assert mm.has_value? []
+
+		mm.delete :abc
+
+		assert_not mm.has_value? []
 	end
 
 	def test_key
@@ -329,10 +360,38 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
 	def test_merge
 
+		mm1 = MultiMap.new
+
+		mm1.push :abc, 1, 2, 3
+
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3 ], mm1.flatten
+
+		mm2 = MultiMap.new
+
+		mm2.push :abc, 4, 5
+		mm2.push :def, 'a'
+
+		mm3 = mm1.merge mm2
+
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :abc, 5, :def, 'a' ], mm3.flatten
 	end
 
 	def test_merge!
 
+		mm1 = MultiMap.new
+
+		mm1.push :abc, 1, 2, 3
+
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3 ], mm1.flatten
+
+		mm2 = MultiMap.new
+
+		mm2.push :abc, 4, 5
+		mm2.push :def, 'a'
+
+		mm1.merge! mm2
+
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :abc, 5, :def, 'a' ], mm1.flatten
 	end
 
 	def test_push
@@ -416,10 +475,36 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
 	def test_to_a
 
+		mm = MultiMap.new
+
+		mm.push :abc
+
+		assert_equal [ :abc, [] ], mm.to_a
+
+		mm.push :abc, 1, 2, 3, 4, 5
+
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :abc, 5 ], mm.to_a
+
+		mm.push :def
+
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :abc, 5, :def, [] ], mm.to_a
 	end
 
 	def test_to_h
 
+		mm = MultiMap.new
+
+		mm.push :abc
+
+		assert_equal ({ abc: [] }), mm.to_h
+
+		mm.push :abc, 1, 2, 3, 4, 5
+
+		assert_equal ({ abc: [ 1, 2, 3, 4, 5 ] }), mm.to_h
+
+		mm.push :def
+
+		assert_equal ({ abc: [ 1, 2, 3, 4, 5 ], def: [] }), mm.to_h
 	end
 
 	def test_values

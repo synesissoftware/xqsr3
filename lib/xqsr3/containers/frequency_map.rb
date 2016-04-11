@@ -2,7 +2,7 @@
 # ######################################################################## #
 # File:         lib/xqsr3/containers/frequency_map.rb
 #
-# Purpose:      Frequency map container
+# Purpose:      FrequencyMap container
 #
 # Created:      28th January 2005
 # Updated:      10th April 2016
@@ -199,7 +199,7 @@ class FrequencyMap
 
 	def dup
 
-		fm = FrequencyMap::new
+		fm = self.new
 
 		fm.merge! self
 	end
@@ -375,7 +375,7 @@ class FrequencyMap
 
 		raise TypeError, "parameter must be an instance of type #{self.class}" unless fm.instance_of? self.class
 
-		fm_new = FrequencyMap::new
+		fm_new = self.new
 
 		fm_new.merge! self
 		fm_new.merge! fm
