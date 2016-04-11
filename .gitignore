@@ -33,7 +33,10 @@ build/
 
 # files (by pattern)
 
+*~
+*.b64
 *.gem
 *.rbc
 *.swp
+*.zip
 
