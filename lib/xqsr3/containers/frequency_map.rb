@@ -5,7 +5,7 @@
 # Purpose:      FrequencyMap container
 #
 # Created:      28th January 2005
-# Updated:      10th April 2016
+# Updated:      11th April 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #

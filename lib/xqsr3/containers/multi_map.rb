@@ -54,6 +54,77 @@ class MultiMap < ::Hash
 
 	include Enumerable
 
+	def self.[] *args
+
+		return self.new if 0 == args.length
+
+		if 1 == args.length
+
+			arg = args[0]
+
+			case	arg
+			when	::NilClass
+
+				return self.new
+			when	::Hash
+
+				fm = self.new
+
+				arg.each do |k, v|
+
+					raise ArgumentError, "mapped elements in hashes must be arrays, #{v.class} given" unless v.kind_of? ::Array
+
+					fm.store k, *v
+				end
+
+				return fm
+			when	::Array
+
+				# accepted forms:
+				#
+				# 1. Empty array
+				# 2. Array exclusively of arrays
+
+				# 1. Empty array
+
+				return self.new if arg.empty?
+
+				# 2. Array exclusively of arrays
+
+				if arg.all? { |el| ::Array === el }
+
+					h = Hash.new { |hash, key| hash[key] = [] }
+
+					arg.each do |ar|
+
+						raise ArgumentError, "cannot pass an empty array in array of arrays initialiser" if ar.empty?
+
+						key = ar.shift
+
+						ar.each { |value| h[key] << value }
+					end
+
+					return self.[](h)
+				end
+
+
+
+				raise ArgumentError, "array parameter not in an accepted form for subscript initialisation"
+			else
+
+				return self.[] arg.to_hash if arg.respond_to? :to_hash
+
+				raise TypeError, "given argument is neither a #{::Hash} nor an #{::Array} and does not respond to the to_hash method"
+			end
+
+		else
+
+			# treat all other argument permutations as having passed in an array
+
+			return self.[] [ *args ]
+		end
+	end
+
 	def initialize
 
 		@inner	=	Hash.new
@@ -62,6 +133,15 @@ class MultiMap < ::Hash
 	def [] key
 
 		return @inner[key]
+	end
+
+	def []= key, values
+
+		values = [] if values.nil?
+
+		raise TypeError, "values must be an array, but #{values.class} given" unless values.kind_of? ::Array
+
+		store key, *values
 	end
 
 	def == rhs
@@ -277,7 +357,7 @@ class MultiMap < ::Hash
 
 	def store key, *values
 
-		@inner[key]	=	values
+		@inner[key] = values
 	end
 
 	def to_a

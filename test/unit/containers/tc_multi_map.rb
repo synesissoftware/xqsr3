@@ -11,6 +11,121 @@ include ::Xqsr3::Containers
 
 class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
+	def test_class_operator_subscript_1
+
+		mm = MultiMap[]
+
+		assert mm.empty?
+		assert_equal 0, mm.size
+	end
+
+	def test_class_operator_subscript_2
+
+		# as hash
+
+		mm = MultiMap[ abc: [ 1 ], def: [ 'd' ] ]
+
+		assert_not mm.empty?
+		assert_equal [ :abc, 1, :def, 'd' ], mm.flatten
+		assert_equal 2, mm.size
+	end
+
+	def test_class_operator_subscript_3
+
+		mm = MultiMap[ [ :abc, 1 ], [ :def, 'd' ] ]
+
+		assert_not mm.empty?
+		assert_equal [ :abc, 1, :def, 'd' ], mm.flatten
+		assert_equal 2, mm.size
+	end
+
+	def test_class_operator_subscript_4
+
+		mm = MultiMap[ [ :abc, 1, 2, 3, 4 ], [ :def, 'd' ] ]
+
+		assert_not mm.empty?
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :def, 'd' ], mm.flatten
+		assert_equal 2, mm.size
+	end
+
+	def test_class_operator_subscript_5
+
+		assert_raise(::TypeError) { MultiMap[:not_a_hash] }
+
+		assert_raise(::ArgumentError) { MultiMap[ abc: 1 ] }
+
+		assert_raise(::ArgumentError) { MultiMap[ [ :abc ], 1 ] }
+
+		assert_raise(::ArgumentError) { MultiMap[ [ :abc ], [] ] }
+	end
+
+	def test_instance_operator_equals
+
+		mm1 = MultiMap.new
+		mm2 = MultiMap.new
+
+		assert_equal mm1, mm2
+
+		mm1.push :abc
+
+		assert_not_equal mm1, mm2
+
+		mm2.push :abc
+
+		assert_equal mm1, mm2
+
+		mm1.push :abc, 1, 2, 3, 4, 5
+		mm2.push :abc, 1, 2, 3, 4, 5
+
+		assert_equal mm1, mm2
+	end
+
+	def test_instance_operator_subscript
+
+		mm = MultiMap.new
+
+		assert_nil mm[:abc]
+
+		mm.push :abc
+
+		assert_equal [], mm[:abc]
+
+		mm.push :abc, 1, 2, 3
+
+		assert_equal [ 1, 2, 3 ], mm[:abc]
+	end
+
+	def test_instance_operator_subscript_assign
+
+		mm = MultiMap.new
+
+		assert_nil mm[:abc]
+		assert_equal 0, mm.count
+		assert mm.empty?
+		assert_equal 0, mm.size
+
+		mm[:abc] = nil
+
+		assert_equal [], mm[:abc]
+		assert_equal 0, mm.count
+		assert_not mm.empty?
+		assert_equal 1, mm.size
+
+		mm.store :abc, 1, 2, '3', nil, false
+
+		assert_equal [ 1, 2, '3', nil, false ], mm[:abc]
+		assert_equal 5, mm.count
+		assert_not mm.empty?
+		assert_equal 1, mm.size
+
+		mm.store :abc
+
+		assert_equal [], mm[:abc]
+		assert_equal 0, mm.count
+		assert_not mm.empty?
+		assert_equal 1, mm.size
+	end
+
 	def test_assoc
 
 		mm = MultiMap.new
