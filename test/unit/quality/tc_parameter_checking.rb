@@ -1,22 +1,6 @@
 #!/usr/bin/ruby
 
-# ######################################################################## #
-# File:         test/unit/quality/tc_parameter_checking.rb
-#
-# Purpose:      Tests Xqsr3::ParameterChecking module
-#
-# Created:      12th February 2015
-# Updated:      3rd April 2016
-#
-# Author:       Matt Wilson
-#
-# Copyright:    Synesis Software Pty Ltd, 2015-2016
-#
-# ######################################################################## #
-
-
 $:.unshift File.join(File.dirname(__FILE__), '../../../..', 'lib')
-
 
 require 'xqsr3/quality/parameter_checking'
 
