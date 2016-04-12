@@ -5,7 +5,7 @@
 # Purpose:      Adds a writelines() method to the IO class
 #
 # Created:      13th April 2007
-# Updated:      4th April 2016
+# Updated:      13th April 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -56,7 +56,7 @@ class IO
 		::Xqsr3::IO.writelines path, contents, line_separator: lineSep, column_separator: columnSep, eol_lookahead_limit: 20
 
 	end # self.writelines
-end # class IO
+end
 
 # ############################## end of file ############################# #
 
