@@ -5,7 +5,7 @@
 # Purpose:      FrequencyMap container
 #
 # Created:      28th January 2005
-# Updated:      11th April 2016
+# Updated:      13th April 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -199,7 +199,7 @@ class FrequencyMap
 
 	def dup
 
-		fm = self.new
+		fm = self.class.new
 
 		fm.merge! self
 	end
@@ -375,7 +375,7 @@ class FrequencyMap
 
 		raise TypeError, "parameter must be an instance of type #{self.class}" unless fm.instance_of? self.class
 
-		fm_new = self.new
+		fm_new = self.class.new
 
 		fm_new.merge! self
 		fm_new.merge! fm

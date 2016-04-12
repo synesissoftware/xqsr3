@@ -1,11 +1,11 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/containers/frequency_map.rb
+# File:         lib/xqsr3/containers/multi_map.rb
 #
 # Purpose:      multimap container
 #
 # Created:      21st March 2007
-# Updated:      11th April 2016
+# Updated:      13th April 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
