@@ -1,10 +1,11 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/version.rb
+# File:         lib/xqsr3/extension_modules/ends_with.rb
 #
-# Purpose:      Version for Xqsr3 library
+# Purpose:      Definition of the ::Xqsr3::StringUtilities::EndsWith
+#               module
 #
-# Created:      3rd April 2016
+# Created:      13th April 2016
 # Updated:      13th April 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
@@ -18,8 +19,8 @@
 # modification, are permitted provided that the following conditions are
 # met:
 #
-# * Redistributions of source code must retain the above copyright
-#   notice, this list of conditions and the following disclaimer.
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
 #
 # * Redistributions in binary form must reproduce the above copyright
 #   notice, this list of conditions and the following disclaimer in the
@@ -44,23 +45,80 @@
 # ######################################################################## #
 
 
-# Main module for Xqsr3 library
-module Xqsr3
+# ##########################################################
+# ::Xqsr3::StringUtilities::EndsWith
 
-	# Current version of the Xqsr3 library
-	VERSION				=	'0.6.1'
+module Xqsr3
+module StringUtilities
+
+module EndsWith
 
 	private
-	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
-	public
-	# Major version of the Xqsr3 library
-	VERSION_MAJOR		=	VERSION_PARTS_[0] # :nodoc:
-	# Minor version of the Xqsr3 library
-	VERSION_MINOR		=	VERSION_PARTS_[1] # :nodoc:
-	# Revision version of the Xqsr3 library
-	VERSION_REVISION	=	VERSION_PARTS_[2] # :nodoc:
+	module EndsWith_Helper_
 
-end # module Xqsr3
+		def self.string_ends_with_helper_ s, prefix
+
+			if prefix.nil? || prefix.empty?
+
+				return ''
+			elsif prefix.size < s.size
+
+				return prefix if s[(s.size - prefix.size) ... s.size] == prefix
+			elsif prefix.size == s.size
+
+				return prefix if prefix == s
+			else
+
+				false
+			end
+
+			false
+		end
+
+		def self.string_ends_with_array_ s, args
+
+			return '' if args.empty?
+
+			args.each do |prefix|
+
+				case	prefix
+				when	::NilClass
+
+					return ''
+				when	::String
+
+					r = self.string_ends_with_helper_ s, prefix
+
+					return r if r
+				else
+
+					if prefix.respond_to? :to_str
+
+						return self.string_ends_with_helper_ s.prefix.to_str
+					end
+
+					raise TypeError, "ends_with? can be passed instances of #{::String}, or nil, or types that respond to to_str"
+				end
+			end
+
+			return false
+		end
+	end
+	public
+
+	def self.string_ends_with? s, *args
+
+		EndsWith_Helper_.string_ends_with_array_ s, args
+	end
+
+	def ends_with? *args
+
+		EndsWith_Helper_.string_ends_with_array_ self, args
+	end
+end
+
+end
+end
 
 # ############################## end of file ############################# #
 
