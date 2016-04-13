@@ -69,10 +69,10 @@ module StartsWith
 				return prefix if prefix == s
 			else
 
-				false
+				nil
 			end
 
-			false
+			nil
 		end
 
 		def self.string_starts_with_array_ s, args
@@ -101,7 +101,7 @@ module StartsWith
 				end
 			end
 
-			return false
+			return nil
 		end
 	end
 	public

@@ -69,10 +69,10 @@ module EndsWith
 				return prefix if prefix == s
 			else
 
-				false
+				nil
 			end
 
-			false
+			nil
 		end
 
 		def self.string_ends_with_array_ s, args
@@ -101,7 +101,7 @@ module EndsWith
 				end
 			end
 
-			return false
+			return nil
 		end
 	end
 	public
