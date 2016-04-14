@@ -1,10 +1,11 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/version.rb
+# File:         lib/xqsr3/string_utilities/to_symbol.rb
 #
-# Purpose:      Version for Xqsr3 library
+# Purpose:      Definition of the ::Xqsr3::StringUtilities::ToSymbol
+#               module
 #
-# Created:      3rd April 2016
+# Created:      14th April 2016
 # Updated:      14th April 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
@@ -18,8 +19,8 @@
 # modification, are permitted provided that the following conditions are
 # met:
 #
-# * Redistributions of source code must retain the above copyright
-#   notice, this list of conditions and the following disclaimer.
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
 #
 # * Redistributions in binary form must reproduce the above copyright
 #   notice, this list of conditions and the following disclaimer in the
@@ -44,23 +45,89 @@
 # ######################################################################## #
 
 
-# Main module for Xqsr3 library
-module Xqsr3
+# ##########################################################
+# ::Xqsr3::StringUtilities::ToSymbol
 
-	# Current version of the Xqsr3 library
-	VERSION				=	'0.7.1'
+module Xqsr3
+module StringUtilities
+
+module ToSymbol
 
 	private
-	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
-	public
-	# Major version of the Xqsr3 library
-	VERSION_MAJOR		=	VERSION_PARTS_[0] # :nodoc:
-	# Minor version of the Xqsr3 library
-	VERSION_MINOR		=	VERSION_PARTS_[1] # :nodoc:
-	# Revision version of the Xqsr3 library
-	VERSION_REVISION	=	VERSION_PARTS_[2] # :nodoc:
+	module ToSymbol_Helper_
 
-end # module Xqsr3
+		module Constants
+
+			SymbolCharacters = 'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		end
+
+		def self.string_to_symbol_with_options_ s, options
+
+			case	s
+			when	::String
+				;
+			else
+				if s.respond_to? :to_str
+
+					s = s.to_str
+				else
+
+					raise TypeError, "string argument must be of type #{::String} or a type that will respond to to_str"
+				end
+			end
+
+			case	options
+			when	::Hash
+				;
+			else
+				raise TypeError, "options must be of type #{::Hash}, #{options.class} given"
+			end
+
+			return nil if s.empty?
+
+			transform_characters = options[:transform_characters] || []
+
+			s.chars.map do |c|
+
+				if Constants::SymbolCharacters.include? c
+
+					c
+				else
+					case	c
+					when	'-'
+
+						return nil if options[:reject_hyphens]
+					when	' '
+
+						return nil if options[:reject_spaces] || options[:reject_whitespace]
+					when	?\t
+
+						return nil if options[:reject_tabs] || options[:reject_whitespace]
+					else
+
+						return nil unless transform_characters.include? c
+					end
+
+					'_'
+				end
+			end.join('').to_sym
+		end
+	end
+	public
+
+	def self.string_to_symbol s, options = {}
+
+		ToSymbol_Helper_.string_to_symbol_with_options_ s, options
+	end
+
+	def to_symbol options = {}
+
+		ToSymbol_Helper_.string_to_symbol_with_options_ self, options
+	end
+end
+
+end
+end
 
 # ############################## end of file ############################# #
 
