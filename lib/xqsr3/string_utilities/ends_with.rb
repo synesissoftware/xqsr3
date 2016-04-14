@@ -1,12 +1,12 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/extension_modules/ends_with.rb
+# File:         lib/xqsr3/string_utilities/ends_with.rb
 #
 # Purpose:      Definition of the ::Xqsr3::StringUtilities::EndsWith
 #               module
 #
 # Created:      13th April 2016
-# Updated:      13th April 2016
+# Updated:      14th April 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
