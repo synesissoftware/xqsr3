@@ -27,10 +27,12 @@ class Test_String_ends_with < Test::Unit::TestCase
 		assert 'a'.ends_with? ''
 		assert 'a'.ends_with? 'a'
 		assert_not 'b'.ends_with? 'a'
+		assert_nil 'b'.ends_with? 'a'
 		assert 'ab'.ends_with? 'b'
 		assert 'abc'.ends_with? 'c'
 		assert 'abc'.ends_with? 'bc'
 		assert_not 'abc'.ends_with? 'ac'
+		assert_nil 'abc'.ends_with? 'ac'
 
 		assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? ''
 		assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? 'z'
@@ -44,6 +46,7 @@ class Test_String_ends_with < Test::Unit::TestCase
 
 		assert ''.ends_with? '', 'd'
 		assert_not ''.ends_with? 'c', 'd'
+		assert_nil ''.ends_with? 'c', 'd'
 		assert 'c'.ends_with? 'c', 'd'
 		assert 'd'.ends_with? 'c', 'd'
 
@@ -55,9 +58,11 @@ class Test_String_ends_with < Test::Unit::TestCase
 		prefixes = %w{ a c def }
 
 		assert_not ''.ends_with? *prefixes
+		assert_nil ''.ends_with? *prefixes
 		assert ''.ends_with? *prefixes, ''
 		assert 'abc'.ends_with? *prefixes
 		assert_not 'd'.ends_with? *prefixes
+		assert_nil 'd'.ends_with? *prefixes
 		assert 'abcdef'.ends_with? *prefixes
 	end
 end
