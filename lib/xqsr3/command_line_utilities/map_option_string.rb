@@ -1,10 +1,11 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/version.rb
+# File:         lib/xqsr3/command_line_utilities/map_option_string.rb
 #
-# Purpose:      Version for Xqsr3 library
+# Purpose:      Definition of the ::Xqsr3::CommandLineUtilities::ToSymbol
+#               module
 #
-# Created:      3rd April 2016
+# Created:      15th April 2016
 # Updated:      17th April 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
@@ -18,8 +19,8 @@
 # modification, are permitted provided that the following conditions are
 # met:
 #
-# * Redistributions of source code must retain the above copyright
-#   notice, this list of conditions and the following disclaimer.
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
 #
 # * Redistributions in binary form must reproduce the above copyright
 #   notice, this list of conditions and the following disclaimer in the
@@ -44,23 +45,83 @@
 # ######################################################################## #
 
 
-# Main module for Xqsr3 library
-module Xqsr3
 
-	# Current version of the Xqsr3 library
-	VERSION				=	'0.8.1'
+# ##########################################################
+# ::Xqsr3::CommandLineUtilities::ToSymbol
+
+require 'xqsr3/string_utilities/to_symbol'
+
+module Xqsr3
+module CommandLineUtilities
+
+module MapOptionString
+
+	def self.included includer
+
+		raise TypeError, "module #{self} cannot be included into #{includer} because it does not respond to to_str" unless includer.method_defined? :to_str
+	end
 
 	private
-	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
-	public
-	# Major version of the Xqsr3 library
-	VERSION_MAJOR		=	VERSION_PARTS_[0] # :nodoc:
-	# Minor version of the Xqsr3 library
-	VERSION_MINOR		=	VERSION_PARTS_[1] # :nodoc:
-	# Revision version of the Xqsr3 library
-	VERSION_REVISION	=	VERSION_PARTS_[2] # :nodoc:
+	module MapOptionString_Helper_
 
-end # module Xqsr3
+		def self.map_option_string_with_options_ s, option_strings, options
+
+			h = {}
+
+			option_strings.each do |os|
+
+				t	=	os.dup
+				v	=	os.dup
+
+				if t =~ /\[.+?\]/
+
+					k = ''
+					v = ''
+
+					while t =~ /\[(.+?)\]/
+
+						k	+=	$1
+						v	+=	"#$`#$1"
+						t	=	$'
+					end
+
+					v	+=	t
+				else
+
+					k = v
+				end
+
+				h[k] = v
+				h[v] = v
+			end
+
+			r = h[s]
+
+			if r
+
+				r = ::Xqsr3::StringUtilities::ToSymbol.string_to_symbol r
+			end
+
+			r
+		end
+	end
+	public
+
+	def self.map_option_string_from_string s, option_strings, options = {}
+
+		MapOptionString_Helper_.map_option_string_with_options_ s, option_strings, options
+	end
+
+	def map_option_string option_strings, options = {}
+
+		s = self.kind_of?(::String) ? self : self.to_str
+
+		MapOptionString_Helper_.map_option_string_with_options_ s, option_strings, options
+	end
+end
+
+end
+end
 
 # ############################## end of file ############################# #
 

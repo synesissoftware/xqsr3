@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      14th April 2016
-# Updated:      14th April 2016
+# Updated:      16th April 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -58,7 +58,8 @@ module ToSymbol
 
 		module Constants
 
-			SymbolCharacters = 'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+			SymbolCharacters0	=	'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+			SymbolCharactersN	=	'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789'
 		end
 
 		def self.string_to_symbol_with_options_ s, options
@@ -87,9 +88,12 @@ module ToSymbol
 
 			transform_characters = options[:transform_characters] || []
 
-			s.chars.map do |c|
+			s.chars.map.with_index do |c, index|
 
-				if Constants::SymbolCharacters.include? c
+				if 0 != index && Constants::SymbolCharactersN.include?(c)
+
+					c
+				elsif 0 == index && Constants::SymbolCharacters0.include?(c)
 
 					c
 				else
