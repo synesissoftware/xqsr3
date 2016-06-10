@@ -54,6 +54,7 @@ module Quality
 #
 module ParameterChecking
 
+	# Check a given parameter (value=+value+, name=+name+) for type and value
 	#
 	# @param +value+ the parameter whose value and type is to be checked
 	# @param +name+ the name of the parameter to be checked
@@ -120,6 +121,7 @@ module ParameterChecking
 			type_found	=	false
 
 			warn "#{self}::check_parameter: options[:types] of type #{types.class} - should be #{::Array}" unless types.is_a?(Array)
+			warn "#{self}::check_parameter: options[:types] should contain only classes" if types.is_a?(Array) && !types.all? { |c| ::Class === c }
 
 			unless types.any? { |t| value.is_a?(t) }
 
@@ -133,10 +135,13 @@ module ParameterChecking
 
 						case	types.size
 						when	1
+
 							s_types	=	"#{types[0]}"
 						when	2
+
 							s_types	=	"#{types[0]} or #{types[1]}"
 						else
+
 							s_types	=	"#{types[0...-1].join(', ')}, or #{types[-1]}"
 						end
 
@@ -326,6 +331,8 @@ module ParameterChecking
 	end
 
 	alias check_param check_parameter
+
+	module_function :check_parameter
 
 end # module ParameterChecking
 

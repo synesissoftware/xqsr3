@@ -44,8 +44,7 @@
 # ######################################################################## #
 
 
-# ##########################################################
-# Xqsrt3::IO
+require 'xqsr3/quality/parameter_checking'
 
 =begin
 =end
@@ -81,13 +80,17 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 		contents.size
 	end
 
+	# This function checks to see if any part of the entries contains an
+	# embedded eol, in which case the empty string is returned to force no
+	# (additional) separator will be used. Otherwise, it returns "\n" to
+	# ensure that that is used.
 	def self.deduce_line_separator_ contents, eol_lookahead_limit
 
 		if contents.instance_of? ::Hash
 
 			contents.each_with_index do |k, v, index|
 
-				if eol_lookahead_limit == index
+				if eol_lookahead_limit && eol_lookahead_limit == index
 
 					break
 				else
@@ -100,7 +103,7 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 
 			contents.each_with_index do |element, index|
 
-				if eol_lookahead_limit == index
+				if eol_lookahead_limit && eol_lookahead_limit == index
 
 					break
 				else
@@ -117,22 +120,31 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 
 	# Writes the contents to the target, subject to the options
 	#
-	# === Parameters
+	# === Signature
 	#
 	# * *Parameters*:
 	#   - +target+:: The target of the write, which may be a string containing the path or a stream instance that supports write
-	#   - +contents+:: The contents to be write, which may be a hash or an array of strings
-	#   - +options+:: An options hash
+	#   - +contents+:: The contents to be write, which may be a +Hash+, or an +Array+, or a +String+ containing delimited fields
+	#   - +options+:: An options hash, containing any of the following options
 	#
 	# * *Options*:
-	#   - +:column_separator+:: {optional} The column separator, to be applied between the fields of each entry
-	#   - +:eol_lookahead_limit+:: {optional} The number of content elements (line/pair) to inspect to determine whether element has a terminating end-of-line sequence. Defaults to 20
-	#   - +:line_separator+:: {optional} The line separator, to be applied to the end of line created from each entry. Defaults to <tt>"\n"</tt>
+	#   - +:column_separator+:: {optional} The column separator, to be applied between each field in the case where +contents+ is a +Hash+.
+	#   - +:eol_lookahead_limit+:: {optional} The number of content elements (line/pair) to inspect to determine whether element has a terminating end-of-line sequence. Defaults to 20. If 0, and +:line_separator+ is not specified, then will default to <tt>"\n"</tt>. If +nil+, then every line will be inspected.
+	#   - +:line_separator+:: {optional} The line separator, to be applied to the end of line created from each entry. When not specified, it will be deduced by inspecting +contents+ (according to +eol_lookahead_limit+).
 	#
 	# === Return
 	#
 	# The number of entries in +contents+
 	def self.writelines target, contents, options = {}
+
+		# validate parameters
+
+		::Xqsr3::Quality::ParameterChecking.check_parameter(target, 'target', allow_nil: false) do |v|
+
+			raise TypeError, "#{self}#writeline() 'target' parameter must be a #{::String} or respond to <<" unless ::String === v || v.respond_to?(:<<)
+			true
+		end
+		::Xqsr3::Quality::ParameterChecking.check_parameter(contents, 'contents', allow_nil: false, types: [ ::String, ::Hash, ::Array ])
 
 		# process parameters
 
@@ -150,7 +162,10 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 		options				||=	{}
 		eol_lookahead_limit	=	options[:eol_lookahead_limit] || WriteLine_Constants_::NUMBER_OF_LINES_TO_EXAMINE
 		column_separator	=	options[:column_separator] || ''
-		line_separator		=	options[:line_separator] || self.deduce_line_separator_(contents, eol_lookahead_limit)
+		line_separator		=	nil
+		line_separator		||=	options[:line_separator]
+		line_separator		||=	self.deduce_line_separator_(contents, eol_lookahead_limit) unless !eol_lookahead_limit.kind_of?(::Integer) || 0 == eol_lookahead_limit
+		line_separator		||=	"\n"
 
 		if not contents.kind_of? ::Enumerable and not contents.instance_of? ::Hash
 
