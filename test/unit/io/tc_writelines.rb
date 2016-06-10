@@ -130,6 +130,70 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 		assert_equal 3, r
 		assert_equal "abc\n|def\n|ghi\n|", s.string
 	end
+
+	def test_many_strings_in_array_with_eol
+
+		input = []
+
+		(0...1000).each { |n| input << "entry-#{n.to_s().rjust(4, '0')}\n" }
+
+		assert_equal 1000, input.size
+
+		s = StringIO.new
+
+		r = ::Xqsr3::IO.writelines s, input
+
+		assert_equal 1000, r
+		assert_equal "entry-0000\nentry-0001\n", s.string[0 ... 22]
+	end
+
+	def test_many_strings_in_array_without_eol
+
+		input = []
+
+		(0...1000).each { |n| input << "entry-#{n.to_s().rjust(4, '0')}" }
+
+		assert_equal 1000, input.size
+
+		s = StringIO.new
+
+		r = ::Xqsr3::IO.writelines s, input
+
+		assert_equal 1000, r
+		assert_equal "entry-0000\nentry-0001\n", s.string[0 ... 22]
+	end
+
+	def test_many_strings_in_array_with_eol_and_line_sep
+
+		input = []
+
+		(0...1000).each { |n| input << "entry-#{n.to_s().rjust(4, '0')}\n" }
+
+		assert_equal 1000, input.size
+
+		s = StringIO.new
+
+		r = ::Xqsr3::IO.writelines s, input, line_separator: '|'
+
+		assert_equal 1000, r
+		assert_equal "entry-0000\n|entry-0001\n|", s.string[0 ... 24]
+	end
+
+	def test_many_strings_in_array_without_eol_and_line_sep
+
+		input = []
+
+		(0...1000).each { |n| input << "entry-#{n.to_s().rjust(4, '0')}" }
+
+		assert_equal 1000, input.size
+
+		s = StringIO.new
+
+		r = ::Xqsr3::IO.writelines s, input, line_separator: '|'
+
+		assert_equal 1000, r
+		assert_equal "entry-0000|entry-0001|", s.string[0 ... 22]
+	end
 end
 
 

@@ -54,11 +54,11 @@ module Xqsr3
 module IO
 
 	private
-	module Constants_
+	module WriteLine_Constants_ #:nodoc:
 
 		NUMBER_OF_LINES_TO_EXAMINE	=	20
 
-	end # module Constants_
+	end # module WriteLine_Constants_
 
 	private
 
@@ -116,7 +116,22 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 	public
 
 	# Writes the contents to the target, subject to the options
-	# 
+	#
+	# === Parameters
+	#
+	# * *Parameters*:
+	#   - +target+:: The target of the write, which may be a string containing the path or a stream instance that supports write
+	#   - +contents+:: The contents to be write, which may be a hash or an array of strings
+	#   - +options+:: An options hash
+	#
+	# * *Options*:
+	#   - +:column_separator+:: {optional} The column separator, to be applied between the fields of each entry
+	#   - +:eol_lookahead_limit+:: {optional} The number of content elements (line/pair) to inspect to determine whether element has a terminating end-of-line sequence. Defaults to 20
+	#   - +:line_separator+:: {optional} The line separator, to be applied to the end of line created from each entry. Defaults to <tt>"\n"</tt>
+	#
+	# === Return
+	#
+	# The number of entries in +contents+
 	def self.writelines target, contents, options = {}
 
 		# process parameters
@@ -133,7 +148,7 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 		end
 
 		options				||=	{}
-		eol_lookahead_limit	=	options[:eol_lookahead_limit] || Constants_::NUMBER_OF_LINES_TO_EXAMINE
+		eol_lookahead_limit	=	options[:eol_lookahead_limit] || WriteLine_Constants_::NUMBER_OF_LINES_TO_EXAMINE
 		column_separator	=	options[:column_separator] || ''
 		line_separator		=	options[:line_separator] || self.deduce_line_separator_(contents, eol_lookahead_limit)
 
