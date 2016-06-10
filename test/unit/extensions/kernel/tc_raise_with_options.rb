@@ -9,7 +9,9 @@ require 'test/unit'
 class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 	class ArgumentErrorWithOptions < ArgumentError
+
 		def initialize(message = nil, **options)
+
 			super(message)
 			options	||= {}
 			@options = options
@@ -37,10 +39,11 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# standard raise: message-only
 		begin
+
 			raise "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(RuntimeError, x)
 			assert_equal "abc", x.message
@@ -48,10 +51,11 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# RWO: message-only
 		begin
+
 			raise_with_options "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(RuntimeError, x)
 			assert_equal "abc", x.message
@@ -62,10 +66,11 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# standard raise: class
 		begin
+
 			raise ArgumentError
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "ArgumentError", x.message
@@ -73,10 +78,11 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# RWO: class + message
 		begin
+
 			raise_with_options ArgumentError
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "ArgumentError", x.message
@@ -87,10 +93,11 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# standard raise: class + message
 		begin
+
 			raise ArgumentError, "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -98,10 +105,11 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# RWO: class + message
 		begin
+
 			raise_with_options ArgumentError, "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -112,10 +120,11 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# standard raise: class + message
 		begin
+
 			raise ArgumentErrorWithOptions, "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -123,10 +132,11 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# RWO: class + message
 		begin
+
 			raise_with_options ArgumentErrorWithOptions, "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -137,10 +147,11 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# standard raise: class + message + options
 		begin
+
 			raise ArgumentErrorWithOptions.new("abc", blah: :blech, id: 23)
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -149,10 +160,11 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# RWO: class + message + options (raise-way)
 		begin
+
 			raise_with_options ArgumentErrorWithOptions.new("abc", blah: :blech, id: 23)
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -161,10 +173,11 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# RWO: class + message + options (raise_with_options-way)
 		begin
+
 			raise_with_options ArgumentErrorWithOptions, "abc", blah: :blech, id: 23
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -174,18 +187,22 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 
 	def test_with_backtrace
+
 		line_number	=	nil
 
 		# standard raise: class + message + stack trace
 		begin
+
 			begin
+
 				execute { line_number = __LINE__; raise ArgumentError }
 			rescue => x
+
 				raise x, "abc", x.backtrace
 			end
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -196,16 +213,19 @@ class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
 		# RWO: class + message + stack trace
 		begin
+
 			begin
+
 				execute { line_number = __LINE__; raise_with_options ArgumentErrorWithOptions, blah: :blech, id: 23 }
 
 				assert false, "should not get here"
 			rescue => x
+
 				raise x, "abc", x.backtrace
 			end
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message

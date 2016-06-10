@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      13th April 2016
-# Updated:      14th April 2016
+# Updated:      10th June 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -48,13 +48,16 @@
 # ##########################################################
 # ::Xqsr3::StringUtilities::StartsWith
 
+=begin
+=end
+
 module Xqsr3
 module StringUtilities
 
 module StartsWith
 
 	private
-	module StartsWith_Helper_
+	module StartsWith_Helper_ #:nodoc:
 
 		def self.string_starts_with_helper_ s, prefix
 
@@ -115,10 +118,10 @@ module StartsWith
 
 		StartsWith_Helper_.string_starts_with_array_ self, args
 	end
-end
+end # module StartsWith
 
-end
-end
+end # module StringUtilities
+end # module Xqsr3
 
 # ############################## end of file ############################# #
 

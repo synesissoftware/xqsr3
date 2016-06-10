@@ -5,7 +5,7 @@
 # Purpose:      Version for Xqsr3 library
 #
 # Created:      3rd April 2016
-# Updated:      17th April 2016
+# Updated:      10th May 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -44,11 +44,13 @@
 # ######################################################################## #
 
 
-# Main module for Xqsr3 library
+=begin
+=end
+
 module Xqsr3
 
 	# Current version of the Xqsr3 library
-	VERSION				=	'0.8.1'
+	VERSION				=	'0.8.2'
 
 	private
 	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:

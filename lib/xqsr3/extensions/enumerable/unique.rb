@@ -47,6 +47,9 @@
 # ##########################################################
 # ::Enumerable
 
+=begin
+=end
+
 module Enumerable
 
 	## Removes all elements to the sequence in order to return an array
@@ -92,7 +95,7 @@ module Enumerable
 			return ar
 		end
 	end
-end
+end # module Enumerable
 
 # ############################## end of file ############################# #
 

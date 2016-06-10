@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      13th April 2016
-# Updated:      14th April 2016
+# Updated:      10th June 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -48,13 +48,16 @@
 # ##########################################################
 # ::Xqsr3::StringUtilities::EndsWith
 
+=begin
+=end
+
 module Xqsr3
 module StringUtilities
 
 module EndsWith
 
 	private
-	module EndsWith_Helper_
+	module EndsWith_Helper_ #:nodoc:
 
 		def self.string_ends_with_helper_ s, prefix
 
@@ -106,6 +109,13 @@ module EndsWith
 	end
 	public
 
+	# Reports on whether a string +s+ ends with a given prefix or set of
+	# prefixes (+args+)
+	#
+	# === *Parameters*
+	#
+	# * *Required parameters*:
+	#   - +s+:: [String] The string to be evaluated
 	def self.string_ends_with? s, *args
 
 		EndsWith_Helper_.string_ends_with_array_ s, args
@@ -115,10 +125,10 @@ module EndsWith
 
 		EndsWith_Helper_.string_ends_with_array_ self, args
 	end
-end
+end # module EndsWith
 
-end
-end
+end # module StringUtilities
+end # module Xqsr3
 
 # ############################## end of file ############################# #
 

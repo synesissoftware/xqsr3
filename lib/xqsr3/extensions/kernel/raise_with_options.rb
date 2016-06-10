@@ -49,8 +49,13 @@ require 'xqsr3/diagnostics/exception_utilities'
 # ##########################################################
 # ::Kernel
 
+=begin
+=end
+
 module Kernel
 
+	# Extends +Kernel+ module with the ::Xqsr3::Diagnostics::ExceptionUtilities::raise_with_options
+	# method
 	def raise_with_options *args, **options
 
 		options	||=	{}

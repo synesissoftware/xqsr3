@@ -1,11 +1,10 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/command_line_utilities/map_option_string.rb
+# File:         lib/xqsr3/doc_.rb
 #
-# Purpose:      Definition of the ::Xqsr3::CommandLineUtilities::ToSymbol
-#               module
+# Purpose:      Documentation of the ::Xqsr3 modules
 #
-# Created:      15th April 2016
+# Created:      10th June 2016
 # Updated:      10th June 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
@@ -45,92 +44,72 @@
 # ######################################################################## #
 
 
-
-require 'xqsr3/string_utilities/to_symbol'
-
 =begin
 =end
 
-module Xqsr3
-module CommandLineUtilities
-
-# Facilities for mapping strings to options
+# Main module for Xqsr3 library
 #
-# === Components of interest
-# * ::Xqsr3::CommandLineUtilities::MapOptionString.map_option_string
-module MapOptionString
+# === Subordinate modules of interest
+# * ::Xqsr3::CommandLineUtilities
+# * ::Xqsr3::Containers
+# * ::Xqsr3::Diagnostics
+# * ::Xqsr3::IO
+# * ::Xqsr3::Quality
+# * ::Xqsr3::StringUtilities
+module Xqsr3
 
-	# :nodoc:
-	def self.included includer
+	# Command-line Utilities
+	#
+	# === Subordinate modules of interest
+	# * ::Xqsr3::CommandLineUtilities::MapOptionString
+	module CommandLineUtilities
 
-		raise TypeError, "module #{self} cannot be included into #{includer} because it does not respond to to_str" unless includer.method_defined? :to_str
-	end
+	end # module CommandLineUtilities
 
-	private
-	# :nodoc:
-	module MapOptionString_Helper_ # :nodoc:
+	# Containers
+	#
+	module Containers
 
-		def self.map_option_string_with_options_ s, option_strings, options
+	end # module Containers
 
-			h = {}
+	# Diagnostic facilities
+	#
+	# === Subordinate modules of interest
+	# * ::Xqsr3::Diagnostics::ExceptionUtilities
+	#
+	module Diagnostics
 
-			option_strings.each do |os|
+		# Exception-related utilities
+		#
+		# === Components of interest
+		# * ::Xqsr3::Diagnostics::ExceptionUtilities::raise_with_options
+		#
+		module ExceptionUtilities
+		end # module ExceptionUtilities
+	end # module Diagnostics
 
-				t	=	os.dup
-				v	=	os.dup
+	# IO
+	#
+	module IO
 
-				if t =~ /\[.+?\]/
+	end # module IO
 
-					k = ''
-					v = ''
+	# Quality
+	#
+	# === Subordinate modules of interest
+	# * ::Xqsr3::Quality::ParameterChecking
+	module Quality
 
-					while t =~ /\[(.+?)\]/
+	end # module Quality
 
-						k	+=	$1
-						v	+=	"#$`#$1"
-						t	=	$'
-					end
+	# String utilities
+	#
+	# === Subordinate modules of interest
+	# * ::Xqsr3::StringUtilities::ToSymbol
+	module StringUtilities
 
-					v	+=	t
-				else
+	end # module StringUtilities
 
-					k = v
-				end
-
-				h[k] = v
-				h[v] = v
-			end
-
-			r = h[s]
-
-			if r
-
-				r = ::Xqsr3::StringUtilities::ToSymbol.string_to_symbol r
-			end
-
-			r
-		end
-	end
-	public
-
-	# Attempts to translate the value of a given string according
-	# to a collection of options strings
-	def self.map_option_string_from_string s, option_strings, options = {}
-
-		MapOptionString_Helper_.map_option_string_with_options_ s, option_strings, options
-	end
-
-	# Attempts to translate the (string) value of the receiver according
-	# to a collection of options strings
-	def map_option_string option_strings, options = {}
-
-		s = self.kind_of?(::String) ? self : self.to_str
-
-		MapOptionString_Helper_.map_option_string_with_options_ s, option_strings, options
-	end
-end # module MapOptionString
-
-end # module CommandLineUtilities
 end # module Xqsr3
 
 # ############################## end of file ############################# #

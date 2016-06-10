@@ -5,7 +5,7 @@
 # Purpose:      Adds a writelines() method to the IO module
 #
 # Created:      13th April 2007
-# Updated:      5th April 2016
+# Updated:      10th June 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -46,6 +46,9 @@
 
 # ##########################################################
 # Xqsrt3::IO
+
+=begin
+=end
 
 module Xqsr3
 module IO

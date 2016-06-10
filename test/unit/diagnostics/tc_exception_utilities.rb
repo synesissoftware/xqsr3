@@ -42,7 +42,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			raise "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(RuntimeError, x)
 			assert_equal "abc", x.message
@@ -53,7 +53,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			ExceptionUtilities.raise_with_options "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(RuntimeError, x)
 			assert_equal "abc", x.message
@@ -67,7 +67,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			raise ArgumentError
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "ArgumentError", x.message
@@ -78,7 +78,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			ExceptionUtilities.raise_with_options ArgumentError
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "ArgumentError", x.message
@@ -92,7 +92,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			raise ArgumentError, "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -103,7 +103,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			ExceptionUtilities.raise_with_options ArgumentError, "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -117,7 +117,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			raise ArgumentErrorWithOptions, "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -128,7 +128,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			ExceptionUtilities.raise_with_options ArgumentErrorWithOptions, "abc"
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -142,7 +142,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			raise ArgumentErrorWithOptions.new("abc", blah: :blech, id: 23)
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -154,7 +154,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			ExceptionUtilities.raise_with_options ArgumentErrorWithOptions.new("abc", blah: :blech, id: 23)
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -166,7 +166,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			ExceptionUtilities.raise_with_options ArgumentErrorWithOptions, "abc", blah: :blech, id: 23
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -187,7 +187,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			end
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
@@ -207,7 +207,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			end
 
 			assert false, "should not get here"
-		rescue Exception => x
+		rescue => x
 
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message

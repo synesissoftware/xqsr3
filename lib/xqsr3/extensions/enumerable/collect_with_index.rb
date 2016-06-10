@@ -47,6 +47,9 @@
 # ##########################################################
 # ::Enumerable
 
+=begin
+=end
+
 module Enumerable
 
 	## Two-parameter #collect, where the second parameter is a #base-based

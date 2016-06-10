@@ -5,7 +5,7 @@
 # Purpose:      FrequencyMap container
 #
 # Created:      28th January 2005
-# Updated:      13th April 2016
+# Updated:      10th June 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -44,8 +44,8 @@
 # ######################################################################## #
 
 
-# ##########################################################
-# Xqsrt3::IO
+=begin
+=end
 
 module Xqsr3
 module Containers
@@ -464,7 +464,7 @@ class FrequencyMap
 
 		@counts.values
 	end
-end
+end # class FrequencyMap
 
 end # module Containers
 end # module Xqsr3

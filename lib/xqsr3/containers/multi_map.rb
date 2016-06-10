@@ -5,7 +5,7 @@
 # Purpose:      multimap container
 #
 # Created:      21st March 2007
-# Updated:      13th April 2016
+# Updated:      10th June 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -44,8 +44,8 @@
 # ######################################################################## #
 
 
-# ##########################################################
-# Xqsrt3::IO
+=begin
+=end
 
 module Xqsr3
 module Containers
@@ -374,7 +374,7 @@ class MultiMap < ::Hash
 
 		@inner.values
 	end
-end
+end # class MultiMap
 
 end # module Containers
 end # module Xqsr3

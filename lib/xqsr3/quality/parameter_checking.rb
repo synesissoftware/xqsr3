@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      3rd April 2016
+# Updated:      10th June 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -44,9 +44,14 @@
 # ######################################################################## #
 
 
+=begin
+=end
+
 module Xqsr3
 module Quality
 
+# Parameter-checking utilities
+#
 module ParameterChecking
 
 	#

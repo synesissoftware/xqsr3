@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      14th April 2016
-# Updated:      16th April 2016
+# Updated:      10th June 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -48,15 +48,20 @@
 # ##########################################################
 # ::Xqsr3::StringUtilities::ToSymbol
 
+=begin
+=end
+
 module Xqsr3
 module StringUtilities
 
+# To-symbol conversion facilities
+#
 module ToSymbol
 
 	private
-	module ToSymbol_Helper_
+	module ToSymbol_Helper_ #:nodoc:
 
-		module Constants
+		module Constants #:nodoc:
 
 			SymbolCharacters0	=	'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 			SymbolCharactersN	=	'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789'
@@ -68,6 +73,7 @@ module ToSymbol
 			when	::String
 				;
 			else
+
 				if s.respond_to? :to_str
 
 					s = s.to_str
@@ -81,6 +87,7 @@ module ToSymbol
 			when	::Hash
 				;
 			else
+
 				raise TypeError, "options must be of type #{::Hash}, #{options.class} given"
 			end
 
@@ -97,6 +104,7 @@ module ToSymbol
 
 					c
 				else
+
 					case	c
 					when	'-'
 
@@ -128,10 +136,10 @@ module ToSymbol
 
 		ToSymbol_Helper_.string_to_symbol_with_options_ self, options
 	end
-end
+end # module ToSymbol
 
-end
-end
+end # module StringUtilities
+end # module Xqsr3
 
 # ############################## end of file ############################# #
 
