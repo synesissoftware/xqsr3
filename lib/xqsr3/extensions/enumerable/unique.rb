@@ -52,8 +52,9 @@
 
 module Enumerable
 
-	## Removes all elements to the sequence in order to return an array
-	# containing unique elements
+	# Removes all duplicate elements in a sequence subject to an optional
+	# two-parameter block in order to return an array containing unique
+	# elements
 	def unique(&block)
 
 		if not block
