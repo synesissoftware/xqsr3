@@ -40,11 +40,13 @@ rdoc
 
 # files (by pattern)
 
-*.*~
+*~
 .dat*
+*.b64
 *.gem
 *.rbc
 *.scc
 *.suo
 *.swp
+*.zip
 
