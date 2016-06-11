@@ -1,6 +1,8 @@
 # xqsr3
 eXtensions by fine Quantum for Standard Ruby and 3rd-party libraries
 
+[![Gem Version](https://badge.fury.io/rb/xqsr3.svg)](https://badge.fury.io/rb/xqsr3)
+
 ## Installation & usage
 
 Install using `gem install xqsr3` or add it to your `Gemfile`.
