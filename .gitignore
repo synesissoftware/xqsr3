@@ -7,7 +7,12 @@
 /.git/
 /.svn/
 
+/.bundle/
+/.yardoc/
+/_yardoc/
+
 /InstalledFiles/
+
 /build/
 /coverage/
 /doc/
@@ -33,10 +38,7 @@
 _yardoc
 Gemfile.lock
 
-InstalledFiles
-coverage
-pkg
-rdoc
+/spec/examples.txt
 
 # files (by pattern)
 
