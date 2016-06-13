@@ -1,7 +1,11 @@
 
 # directories (by name)
 
-build/
+/.bzr/
+/.bundle/
+/.config/
+/.git/
+/.svn/
 
 /.bundle/
 /.yardoc/
@@ -9,34 +13,42 @@ build/
 
 /InstalledFiles/
 
+/build/
 /coverage/
 /doc/
 /lib/bundler/man/
 /pkg/
 /rdoc/
-/spec/examples.txt
 /spec/reports/
 /test/tmp/
 /test/version_tmp/
 /tmp/
-/vendor/bundle
+/vendor/bundle/
 
 # directories (by pattern)
 
 # files (by name)
 
-/.config
-
 .DS_Store
+.bundle
+.config
 .repl_history
 .rvmrc
+.yardoc
+_yardoc
+Gemfile.lock
+
+/spec/examples.txt
 
 # files (by pattern)
 
 *~
+.dat*
 *.b64
 *.gem
 *.rbc
+*.scc
+*.suo
 *.swp
 *.zip
 

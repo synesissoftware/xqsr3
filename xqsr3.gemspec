@@ -10,11 +10,15 @@ Gem::Specification.new do |gs|
 	gs.version		=	Xqsr3::VERSION
 	gs.date			=	Date.today.to_s
 	gs.summary		=	'xqsr3'
-	gs.description	=	'xqsr3 Ruby library'
+	gs.description	=	<<END_DESC
+eXtensions by fine Quantum for Standard Ruby and 3rd-party libraries is a
+lightweight, low-coupling library of assorted extensions to standard ruby and
+3rd-party libraries.
+END_DESC
 	gs.authors		=	[ 'Matt Wilson' ]
 	gs.email		=	'matthew@synesis.com.au'
 	gs.files		=	Dir[ 'Rakefile', '{bin,examples,lib,man,spec,test}/**/*', 'README*', 'LICENSE*' ] & `git ls-files -z`.split("\0")
 	gs.homepage		=	'http://github.com/synesissoftware/xqsr3'
-	gs.license		=	'Modified BSD'
+	gs.license		=	'3-clause BSD'
 end
 
