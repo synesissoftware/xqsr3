@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../..', 'lib')
 
@@ -174,8 +174,6 @@ end
 
 			assert(false, "wrong exception type (#{x.class})")
 		end
-
 	end
-
 end
 
