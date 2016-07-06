@@ -1,4 +1,4 @@
-#! /usr/bin/ruby
+#! /usr/bin/env ruby
 
 $:.unshift File.join(File.dirname(__FILE__), '../../lib')
 
@@ -33,5 +33,4 @@ class Test_version < Test::Unit::TestCase
 		assert_equal Xqsr3::VERSION, "#{Xqsr3::VERSION_MAJOR}.#{Xqsr3::VERSION_MINOR}.#{Xqsr3::VERSION_REVISION}"
 	end
 end
-
 
