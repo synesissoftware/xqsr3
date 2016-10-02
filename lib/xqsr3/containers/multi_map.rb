@@ -5,7 +5,7 @@
 # Purpose:      multimap container
 #
 # Created:      21st March 2007
-# Updated:      10th June 2016
+# Updated:      2nd October 2016
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -200,6 +200,16 @@ class MultiMap < ::Hash
 	def each_key
 
 		@inner.each_key { |key| yield key }
+	end
+
+	def each_unflattened
+
+		@inner.each { |key, value| yield key, value }
+	end
+
+	def each_unflattened_with_index
+
+		@inner.each_with_index { |kv, index| yield kv, index }
 	end
 
 	def each_value

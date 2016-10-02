@@ -59,6 +59,36 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 		assert_raise(::ArgumentError) { MultiMap[ [ :abc ], [] ] }
 	end
 
+	def test_class_operator_subscript_6
+
+		ar = [ [ :abc, '1' ] ]
+
+		mm = MultiMap[ar]
+
+		assert_equal 1, ar.size
+		assert_equal 1, mm.size
+		assert_equal [ '1' ], mm[:abc]
+
+		ar = [ [ :abc, '1' ], [ :def, '2' ] ]
+
+		mm = MultiMap[ar]
+
+		assert_equal 2, ar.size
+		assert_equal 2, mm.size
+		assert_equal [ '1' ], mm[:abc]
+		assert_equal [ '2' ], mm[:def]
+
+		ar = [ [ 1, 11 ], [ 1, 111 ], [ 2, 22 ], [ 3, 333 ], [ 1, 1111 ] ]
+
+		mm = MultiMap[ar]
+
+		assert_equal 5, ar.size
+		assert_equal 3, mm.size
+		assert_equal [ 11, 111, 1111 ], mm[1]
+		assert_equal [ 22 ], mm[2]
+		assert_equal [ 333 ], mm[3]
+	end
+
 	def test_instance_operator_equals
 
 		mm1 = MultiMap.new
@@ -321,6 +351,52 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
 		assert_equal 6, r.size
 		assert_equal [ [ :abc, 'a1', 0 ], [ :abc, 'a2', 1 ], [ :abc, 'a3', 2 ], [ :abc, 'a4', 3 ], [ :ghi, 'g1', 4 ], [ :ghi, 'g2', 5 ] ], r
+	end
+
+	def test_each_unflattened
+
+		mm = MultiMap.new
+
+		mm.push :def
+		mm.push :abc, 'a1', 'a2', 'a3', 'a4'
+		mm.push :ghi, 'g1', 'g2'
+
+		r = []
+
+		mm.each_unflattened do |key, value|
+
+			r << [ key, value ]
+		end
+
+		r.sort!
+
+		assert_equal 3, r.size
+		assert_equal [ :abc, [ 'a1', 'a2', 'a3', 'a4' ] ], r[0]
+		assert_equal [ :def, [] ], r[1]
+		assert_equal [ :ghi, [ 'g1', 'g2' ] ], r[2]
+	end
+
+	def test_each_unflattened_with_index
+
+		mm = MultiMap.new
+
+		mm.push :def
+		mm.push :abc, 'a1', 'a2', 'a3', 'a4'
+		mm.push :ghi, 'g1', 'g2'
+
+		r = []
+
+		mm.each_unflattened_with_index do |(key, value), index|
+
+			r << [ key, value, index ]
+		end
+
+		r.sort!
+
+		assert_equal 3, r.size
+		assert_equal [ :abc, [ 'a1', 'a2', 'a3', 'a4' ], 1 ], r[0]
+		assert_equal [ :def, [], 0 ], r[1]
+		assert_equal [ :ghi, [ 'g1', 'g2' ], 2 ], r[2]
 	end
 
 	def test_empty
