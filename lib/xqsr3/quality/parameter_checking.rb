@@ -5,13 +5,13 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      10th June 2016
+# Updated:      26th February 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2015-2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2015-2017, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -54,6 +54,23 @@ module Quality
 #
 module ParameterChecking
 
+	private
+	module Util_
+
+		def self.join_with_or a
+
+			case a.size
+			when 1
+				a[0]
+			when 2
+				"#{a[0]} or #{a[1]}"
+			else
+				"#{a[0...-1].join(', ')}, or #{a[-1]}"
+			end
+		end
+	end # module Util_
+
+	public
 	# Check a given parameter (value=+value+, name=+name+) for type and value
 	#
 	# @param +value+ the parameter whose value and type is to be checked
@@ -63,7 +80,9 @@ module ParameterChecking
 	# @option +:allow_nil+ the +value+ must not be +nil+ unless this option
 	#          is true
 	# @option +:types+ an array of types one of which +value+ must be (or
-	#          must be derived from)
+	#          must be derived from). One of these types may be an array
+	#          of types, in which case +value+ may be an array that must
+	#          consist wholly of those types
 	# @option +:values+ an array of values one of which +value+ must be
 	# @option +:reject_empty+ requires value to respond to +empty?+
 	#          message and to do so with false, unless +nil+
@@ -121,9 +140,22 @@ module ParameterChecking
 			type_found	=	false
 
 			warn "#{self}::check_parameter: options[:types] of type #{types.class} - should be #{::Array}" unless types.is_a?(Array)
-			warn "#{self}::check_parameter: options[:types] should contain only classes" if types.is_a?(Array) && !types.all? { |c| ::Class === c }
+			warn "#{self}::check_parameter: options[:types] should contain only classes or arrays of classes" if types.is_a?(::Array) && !types.all? { |c| ::Class === c || (::Array === c || c.all? { |c2| ::Class === c2 }) }
 
-			unless types.any? { |t| value.is_a?(t) }
+			unless types.any? do |t|
+
+					case t
+					when ::Class
+
+						# the (presumed) scalar argument is of type t?
+						value.is_a?(t)
+					when ::Array
+
+						# the (presumed) vector argument's elements are the
+						# possible types
+						value.all? { |v| t.any? { |t2| v.is_a?(t2) }}
+					end
+				end
 
 				failed_check	=	true
 
@@ -132,20 +164,29 @@ module ParameterChecking
 					unless message
 
 						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+						s_be		=	'be' #::Array === value ? 'contain' : 'be'
 
-						case	types.size
-						when	1
+						types_0		=	types.select { |t| ::Class === t }.uniq
+						types_ar	=	types.select { |t| ::Array === t }.flatten.uniq
 
-							s_types	=	"#{types[0]}"
-						when	2
+						if types_ar.empty?
 
-							s_types	=	"#{types[0]} or #{types[1]}"
+							s_types_0	=	Util_.join_with_or types_0
+
+							message		=	"#{param_s} #{s_name}(#{value.class}) must be an instance of #{s_types_0}"
+						elsif types_0.empty?
+
+							s_types_ar	=	Util_.join_with_or types_ar
+
+							message		=	"#{param_s} #{s_name}(#{value.class}) must be an array containing instance(s) of #{s_types_ar}"
 						else
 
-							s_types	=	"#{types[0...-1].join(', ')}, or #{types[-1]}"
-						end
+							s_types_0	=	Util_.join_with_or types_0
 
-						message		=	"#{param_s} #{s_name}(#{value.class}) must be an instance of #{s_types}"
+							s_types_ar	=	Util_.join_with_or types_ar
+
+							message		=	"#{param_s} #{s_name}(#{value.class}) must be an instance of #{s_types_0}, or an array containing instance(s) of #{s_types_ar}"
+						end
 					end
 
 					raise TypeError, message

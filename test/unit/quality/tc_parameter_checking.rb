@@ -175,5 +175,53 @@ end
 			assert(false, "wrong exception type #{x.class} (with message '#{x.message}')")
 		end
 	end
+
+
+	# test 7 - verify that can include an array of types in the array of types
+
+	def check_method_7 a, types, values, options = {}, &block
+
+		self.class.check_param a, 'a', options.merge({ types: types, values: values }), &block
+	end
+
+	def test_7
+
+		assert_equal [], check_method_7([], [ ::Array ], nil)
+
+		assert_equal [ 'abc' ], check_method_7([ 'abc' ], [ ::Array ], nil)
+
+		assert_equal [ 'abc' ], check_method_7([ 'abc' ], [ [ ::String ] ], nil)
+
+		assert_equal [ 'abc' ], check_method_7([ 'abc' ], [ [ ::Regexp, ::String ] ], nil)
+
+		assert_equal [ :'abc' ], check_method_7([ :'abc' ], [ [ ::Regexp, ::Symbol ] ], nil)
+
+
+		begin
+			check_method_7 [ 'abc' ], [ ::Symbol, [ ::Regexp, ::Symbol ], ::Hash ], nil
+
+			assert(false, 'should not get here')
+		rescue TypeError => ax
+
+			assert_match /^parameter 'a' \(Array\) must be an instance of Symbol or Hash, or an array containing instance\(s\) of Regexp or Symbol$/, ax.message
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+
+
+		begin
+			check_method_7 [ 'abc' ], [ [ ::Regexp, ::Symbol ] ], nil
+
+			assert(false, 'should not get here')
+		rescue TypeError => ax
+
+			assert_match /^parameter 'a' \(Array\) must be an array containing instance\(s\) of Regexp or Symbol$/, ax.message
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+
+	end
 end
 
