@@ -55,7 +55,7 @@ module Quality
 module ParameterChecking
 
 	private
-	module Util_
+	module Util_ # :nodoc:
 
 		def self.join_with_or a
 
