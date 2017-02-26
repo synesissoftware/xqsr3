@@ -159,7 +159,7 @@ end
 			assert_match /^parameter 'a' \(String\) must be an instance of Hash$/, ax.message
 		rescue => x
 
-			assert(false, "wrong exception type (#{x.class})")
+			assert(false, "wrong exception type #{x.class} (with message '#{x.message}')")
 		end
 
 
@@ -172,7 +172,7 @@ end
 			assert_match /^parameter 'a' value '' not found equal\/within any of required values or ranges$/, ax.message
 		rescue => x
 
-			assert(false, "wrong exception type (#{x.class})")
+			assert(false, "wrong exception type #{x.class} (with message '#{x.message}')")
 		end
 	end
 end
