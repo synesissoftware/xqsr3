@@ -8,7 +8,7 @@ module Assertions
 
 		def assert_true(expression, failure_message = '')
 
-			assert (expression), failure_message
+			assert ::TrueClass === (expression), failure_message
 		end
 	end
 
