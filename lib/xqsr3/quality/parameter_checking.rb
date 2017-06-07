@@ -84,6 +84,8 @@ module ParameterChecking
 	#          of types, in which case +value+ may be an array that must
 	#          consist wholly of those types
 	# @option +:values+ an array of values one of which +value+ must be
+	# @option +:responds_to+ an array of symbols specifying all messages to
+	#          which the parameter will respond
 	# @option +:reject_empty+ requires value to respond to +empty?+
 	#          message and to do so with false, unless +nil+
 	# @option +:require_empty+ requires value to respond to +empty?+
@@ -134,6 +136,8 @@ module ParameterChecking
 		# check type(s)
 
 		unless value.nil?
+
+			# types
 
 			types		=	options[:types] || []
 			types		=	[value.class] if types.empty?
@@ -192,6 +196,25 @@ module ParameterChecking
 					raise TypeError, message
 				end
 			end
+
+
+			# messages
+
+			messages	=	options[:responds_to] || []
+
+			warn "#{self}::check_parameter: options[:responds_to] of type #{messages.class} - should be #{::Array}" unless messages.is_a?(Array)
+			warn "#{self}::check_parameter: options[:responds_to] should contain only symbols or strings" if messages.is_a?(::Array) && !messages.all? { |m| ::Symbol === m || ::String === m }
+
+			messages.each do |m|
+
+				unless value.respond_to? m
+
+					s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+
+					raise TypeError, "#{param_s} #{s_name}(#{value.class}) must respond to the '#{m}' message"
+				end
+			end
+
 		end
 
 		# reject/require empty?

@@ -221,7 +221,23 @@ end
 
 			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
 		end
+	end
 
+
+	# responds_to
+
+	def check_responds_to a, messages, options = {}, &block
+
+		self.class.check_param a, 'a', options.merge({ responds_to: messages }), &block
+	end
+
+	def test_responds_to
+
+		assert check_responds_to Hash.new, [ :[], :map, :to_s ]
+		assert_raise ::TypeError do
+
+			check_responds_to Hash.new, [ :this_is_not_a_Hash_method ]
+		end
 	end
 end
 
