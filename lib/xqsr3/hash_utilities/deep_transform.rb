@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      3rd June 2017
-# Updated:      7th June 2017
+# Updated:      22nd June 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -67,8 +67,8 @@ module DeepTransform
 			h = 
 			Hash[h.map do |k, v|
 
-				k = k.deep_transform &block if ::Hash === k
-				v = v.deep_transform &block if ::Hash === v
+				k = k.deep_transform(&block) if ::Hash === k
+				v = v.deep_transform(&block) if ::Hash === v
 
 				[yield(k), v]
 			end]
@@ -77,8 +77,8 @@ module DeepTransform
 			h = 
 			Hash[h.map do |k, v|
 
-				k = k.deep_transform &block if ::Hash === k
-				v = v.deep_transform &block if ::Hash === v
+				k = k.deep_transform(&block) if ::Hash === k
+				v = v.deep_transform(&block) if ::Hash === v
 
 				yield(k, v)
 			end]
@@ -101,8 +101,8 @@ module DeepTransform
 
 				v	=	self.delete k
 
-				k	=	k.deep_transform &block if ::Hash === k
-				v	=	v.deep_transform &block if ::Hash === v
+				k	=	k.deep_transform(&block) if ::Hash === k
+				v	=	v.deep_transform(&block) if ::Hash === v
 
 				self[yield(k)] = v
 			end
@@ -112,8 +112,8 @@ module DeepTransform
 
 				v	=	self.delete k
 
-				k	=	k.deep_transform &block if ::Hash === k
-				v	=	v.deep_transform &block if ::Hash === v
+				k	=	k.deep_transform(&block) if ::Hash === k
+				v	=	v.deep_transform(&block) if ::Hash === v
 
 				k, v	=	yield(k, v)
 			end
@@ -130,7 +130,7 @@ module DeepTransform
 	# block) or keys and values (2-parameter block) are transformed.
 	def deep_transform &block
 
-		DeepTransform.do_deep_transform_on_hashlike_ self, &block
+		DeepTransform.do_deep_transform_on_hashlike_(self, &block)
 	end
 
 	# Executes the given mandatory 1- or 2-parameter block on the receiving
@@ -142,7 +142,7 @@ module DeepTransform
 	#  transformation can result in a partially transformed instance
 	def deep_transform! &block
 
-		do_deep_transform_on_self_ &block
+		do_deep_transform_on_self_(&block)
 	end
 
 end # module DeepTransform

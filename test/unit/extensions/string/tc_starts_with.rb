@@ -57,13 +57,13 @@ class Test_String_starts_with < Test::Unit::TestCase
 
 		prefixes = %w{ a c def }
 
-		assert_not ''.starts_with? *prefixes
-		assert_nil ''.starts_with? *prefixes
-		assert ''.starts_with? *prefixes, ''
-		assert 'abc'.starts_with? *prefixes
-		assert_not 'd'.starts_with? *prefixes
-		assert_nil 'd'.starts_with? *prefixes
-		assert 'defghi'.starts_with? *prefixes
+		assert_not ''.starts_with?(*prefixes)
+		assert_nil ''.starts_with?(*prefixes)
+		assert ''.starts_with?(*prefixes), ''
+		assert 'abc'.starts_with?(*prefixes)
+		assert_not 'd'.starts_with?(*prefixes)
+		assert_nil 'd'.starts_with?(*prefixes)
+		assert 'defghi'.starts_with?(*prefixes)
 	end
 end
 

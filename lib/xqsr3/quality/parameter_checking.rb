@@ -141,7 +141,6 @@ module ParameterChecking
 
 			types		=	options[:types] || []
 			types		=	[value.class] if types.empty?
-			type_found	=	false
 
 			warn "#{self}::check_parameter: options[:types] of type #{types.class} - should be #{::Array}" unless types.is_a?(Array)
 			warn "#{self}::check_parameter: options[:types] should contain only classes or arrays of classes" if types.is_a?(::Array) && !types.all? { |c| ::Class === c || (::Array === c || c.all? { |c2| ::Class === c2 }) }
@@ -168,7 +167,6 @@ module ParameterChecking
 					unless message
 
 						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
-						s_be		=	'be' #::Array === value ? 'contain' : 'be'
 
 						types_0		=	types.select { |t| ::Class === t }.uniq
 						types_ar	=	types.select { |t| ::Array === t }.flatten.uniq

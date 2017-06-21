@@ -156,7 +156,7 @@ end
 			assert(false, 'should not get here')
 		rescue TypeError => ax
 
-			assert_match /^parameter 'a' \(String\) must be an instance of Hash$/, ax.message
+			assert_match(/^parameter 'a' \(String\) must be an instance of Hash$/, ax.message)
 		rescue => x
 
 			assert(false, "wrong exception type #{x.class} (with message '#{x.message}')")
@@ -169,7 +169,7 @@ end
 			assert(false, 'should not get here')
 		rescue ArgumentError => ax
 
-			assert_match /^parameter 'a' value '' not found equal\/within any of required values or ranges$/, ax.message
+			assert_match(/^parameter 'a' value '' not found equal\/within any of required values or ranges$/, ax.message)
 		rescue => x
 
 			assert(false, "wrong exception type #{x.class} (with message '#{x.message}')")
@@ -203,7 +203,7 @@ end
 			assert(false, 'should not get here')
 		rescue TypeError => ax
 
-			assert_match /^parameter 'a' \(Array\) must be an instance of Symbol or Hash, or an array containing instance\(s\) of Regexp or Symbol$/, ax.message
+			assert_match(/^parameter 'a' \(Array\) must be an instance of Symbol or Hash, or an array containing instance\(s\) of Regexp or Symbol$/, ax.message)
 		rescue => x
 
 			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
@@ -216,7 +216,7 @@ end
 			assert(false, 'should not get here')
 		rescue TypeError => ax
 
-			assert_match /^parameter 'a' \(Array\) must be an array containing instance\(s\) of Regexp or Symbol$/, ax.message
+			assert_match(/^parameter 'a' \(Array\) must be an array containing instance\(s\) of Regexp or Symbol$/, ax.message)
 		rescue => x
 
 			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")

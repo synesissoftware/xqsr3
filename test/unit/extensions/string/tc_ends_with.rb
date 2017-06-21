@@ -57,13 +57,13 @@ class Test_String_ends_with < Test::Unit::TestCase
 
 		prefixes = %w{ a c def }
 
-		assert_not ''.ends_with? *prefixes
-		assert_nil ''.ends_with? *prefixes
-		assert ''.ends_with? *prefixes, ''
-		assert 'abc'.ends_with? *prefixes
-		assert_not 'd'.ends_with? *prefixes
-		assert_nil 'd'.ends_with? *prefixes
-		assert 'abcdef'.ends_with? *prefixes
+		assert_not ''.ends_with?(*prefixes)
+		assert_nil ''.ends_with?(*prefixes)
+		assert ''.ends_with?(*prefixes), ''
+		assert 'abc'.ends_with?(*prefixes)
+		assert_not 'd'.ends_with?(*prefixes)
+		assert_nil 'd'.ends_with?(*prefixes)
+		assert 'abcdef'.ends_with?(*prefixes)
 	end
 end
 

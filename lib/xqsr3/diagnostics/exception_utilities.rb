@@ -5,13 +5,13 @@
 # Purpose:      Definition of the ExceptionUtilities module
 #
 # Created:      12th February 2015
-# Updated:      10th June 2016
+# Updated:      22nd June 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2015-2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2015-2017, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -165,7 +165,7 @@ module ExceptionUtilities
 
 			xargs	<<	args.shift unless args.empty?
 
-			x		=	exception_class_or_instance_or_message_string.new *xargs, **options
+			x		=	exception_class_or_instance_or_message_string.new(*xargs, **options)
 
 			rargs	=	[]
 			rargs	<<	x
@@ -175,7 +175,7 @@ module ExceptionUtilities
 
 			begin
 
-				Kernel.raise *rargs
+				Kernel.raise(*rargs)
 			rescue => x
 
 				bt = x.backtrace
@@ -199,7 +199,7 @@ module ExceptionUtilities
 
 		begin
 
-			Kernel.raise *args
+			Kernel.raise(*args)
 		rescue => x
 
 			bt = x.backtrace
