@@ -59,7 +59,6 @@ class Test_String_starts_with < Test::Unit::TestCase
 
 		assert_not ''.starts_with?(*prefixes)
 		assert_nil ''.starts_with?(*prefixes)
-		assert ''.starts_with?(*prefixes), ''
 		assert 'abc'.starts_with?(*prefixes)
 		assert_not 'd'.starts_with?(*prefixes)
 		assert_nil 'd'.starts_with?(*prefixes)
