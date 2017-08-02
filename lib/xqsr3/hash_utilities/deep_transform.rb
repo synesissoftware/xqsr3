@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      3rd June 2017
-# Updated:      22nd June 2017
+# Updated:      28th July 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -151,5 +151,4 @@ end # module HashUtilities
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-
 

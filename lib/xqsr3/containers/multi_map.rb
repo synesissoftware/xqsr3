@@ -5,13 +5,13 @@
 # Purpose:      multimap container
 #
 # Created:      21st March 2007
-# Updated:      2nd October 2016
+# Updated:      30th July 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2007-2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2007-2017, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -43,6 +43,9 @@
 #
 # ######################################################################## #
 
+
+# ##########################################################
+# ::Xqsr3::Containers::MultiMap
 
 =begin
 =end

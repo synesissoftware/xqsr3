@@ -5,13 +5,13 @@
 # Purpose:      FrequencyMap container
 #
 # Created:      28th January 2005
-# Updated:      10th June 2016
+# Updated:      30th July 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2005-2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2005-2017, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -43,6 +43,9 @@
 #
 # ######################################################################## #
 
+
+# ##########################################################
+# ::Xqsr3::Containers::FrequencyMap
 
 =begin
 =end

@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ExceptionUtilities module
 #
 # Created:      12th February 2015
-# Updated:      22nd June 2017
+# Updated:      2nd August 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -43,6 +43,9 @@
 #
 # ######################################################################## #
 
+
+# ##########################################################
+# ::Xqsr3::Diagnostics::ExceptionUtilities
 
 =begin
 =end

@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      3rd June 2017
-# Updated:      7th June 2017
+# Updated:      28th July 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -46,7 +46,7 @@
 
 
 # ##########################################################
-# ::Xqsr3::Conversion::ToBool
+# ::Xqsr3::Conversion::BoolParser
 
 =begin
 =end
@@ -115,6 +115,4 @@ end # module Conversion
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-
-
 

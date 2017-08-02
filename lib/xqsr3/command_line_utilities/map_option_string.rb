@@ -2,17 +2,17 @@
 # ######################################################################## #
 # File:         lib/xqsr3/command_line_utilities/map_option_string.rb
 #
-# Purpose:      Definition of the ::Xqsr3::CommandLineUtilities::ToSymbol
-#               module
+# Purpose:      Definition of the
+#               ::Xqsr3::CommandLineUtilities::MapOptionString module
 #
 # Created:      15th April 2016
-# Updated:      10th June 2016
+# Updated:      2nd August 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2016-2017, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -45,6 +45,8 @@
 # ######################################################################## #
 
 
+# ##########################################################
+# ::Xqsr3::CommandLineUtilities::MapOptionString
 
 require 'xqsr3/string_utilities/to_symbol'
 
