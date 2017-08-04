@@ -64,6 +64,7 @@ END_OF_rhs
 		r		=	xml_compare(lhs, rhs, normalize_whitespace: false)
 
 		assert_false r.succeeded, "#{r.details}"
+		assert_equal :different_node_contents, r.reason
 
 		r		=	xml_compare(lhs, rhs, normalize_whitespace: true)
 
