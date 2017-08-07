@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      30th July 2017
-# Updated:      4th August 2017
+# Updated:      7th August 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -75,30 +75,33 @@ module Compare
 		#
 		# Options:
 		#
+		# +:different_attributes+
+		# +:different_attribute_count+
+		# +:different_attribute_order+
+		# +:different_child_node_count+
+		# +:different_child_node_order+
 		# +:different_child_nodes+
-		# +:different_number_of_child_nodes+
-		# +:different_ordering_of_child_nodes+
 		# +:different_node_names+
 		# +:different_node_contents+
 		# +:parameter_is_empty+
 		# +:parameter_is_nil+
 		# +:+
 
-		def initialize succeeded, reason, **options
+		def initialize status, reason, **options
 
-			check_parameter succeeded, 'succeeded', types: [ ::FalseClass, ::TrueClass ]
+			check_parameter status, 'status', types: [ ::FalseClass, ::TrueClass ]
 			check_parameter reason, 'reason', type: ::Symbol
 
-			@succeeded	=	succeeded
+			@status		=	status
 			@reason		=	reason
 
 			@lhs_node	=	options[:lhs_node]
 			@rhs_node	=	options[:rhs_node]
 		end
 
-		def self.return succeeded, reason, **options
+		def self.return status, reason, **options
 
-			return self.new succeeded, reason, **options
+			return self.new status, reason, **options
 		end
 
 		def self.same reason = '', **options
@@ -111,8 +114,18 @@ module Compare
 			return self.new false, reason, **options
 		end
 
-		attr_reader	:succeeded
+		attr_reader	:status
 		attr_reader	:reason
+
+		def different?
+
+			!status
+		end
+
+		def same?
+
+			status
+		end
 
 		def details
 
@@ -142,16 +155,98 @@ module Compare
 
 		extend ::Xqsr3::Quality::ParameterChecking
 
+		DEFAULT_OPTIONS = {
+
+			debug: false,
+#			element_order: false,
+			equate_nil_and_empty: false,
+			ignore_attributes: false,
+			ignore_attribute_order: true,
+			ignore_child_node_order: true,
+			normalise_whitespace: true,
+#			normalize_whitespace: true,
+			validate_params: true,
+		}
+
+		ORDER_OPTIONS_SYMBOLS = [
+
+			:element_order,
+			:ignore_attribute_order,
+			:ignore_child_node_order,
+		]
+
+		WHITESPACE_OPTIONS_SYMBOLS = [
+
+			:normalise_whitespace,
+			:normalize_whitespace,
+		]
+
+		def self.derive_options_ given_options
+
+			default_options	=	DEFAULT_OPTIONS
+			derived_options	=	{}.merge given_options
+
+
+			# sort whitespace
+
+			if WHITESPACE_OPTIONS_SYMBOLS.any? { |sym| given_options.has_key? sym }
+
+				default_options	=	default_options.reject { |k, v| WHITESPACE_OPTIONS_SYMBOLS.include? k }
+			end
+
+			if given_options.has_key? :normalise_whitespace
+
+				derived_options.delete :normalize_whitespace
+			elsif given_options.has_key? :normalize_whitespace
+
+				derived_options[:normalise_whitespace] = given_options[:normalize_whitespace]
+
+				derived_options.delete :normalize_whitespace
+			end
+
+
+			# sort element-order
+
+			if ORDER_OPTIONS_SYMBOLS.any? { |sym| given_options.has_key? sym }
+
+				default_options	=	default_options.reject { |k, v| ORDER_OPTIONS_SYMBOLS.include? k }
+			end
+
+			if given_options.has_key? :element_order
+
+				element_order	=	given_options[:element_order]
+
+				derived_options[:ignore_attribute_order]	=	!element_order
+				derived_options[:ignore_child_node_order]	=	!element_order
+			end
+
+			derived_options[:ignore_attribute_order]	=	given_options[:ignore_attribute_order] if given_options.has_key? :ignore_attribute_order
+			derived_options[:ignore_child_node_order]	=	given_options[:ignore_child_node_order] if given_options.has_key? :ignore_child_node_order
+
+			default_options.merge derived_options
+		end
+
 		def self.one_line_ s
 
 			s = s.to_s.gsub(/\s+/, ' ')
 		end
 
+		#
+		# +:debug+
+		# +:element_order+
+		# +:equate_nil_and_empty+
+		# +:ignore_attributes+
+		# +:ignore_attribute_order+
+		# +:normalise_whitespace+
+		# +:normalize_whitespace+
+		# +:validate_params+
+		#
+
 		def self.xml_compare_ lhs, rhs, options
 
 			$stderr.puts "#{self}#{__method__}(lhs (#{lhs.class})=#{self.one_line_ lhs}, rhs (#{rhs.class})=#{self.one_line_ rhs}, options (#{options.class})=#{options})" if $DEBUG
 
-			# validate type(s)
+			# validate parameter(s)
 
 			check_param options, 'options', type: ::Hash if $DEBUG
 
@@ -160,6 +255,7 @@ module Compare
 			check_param lhs, 'lhs', types: [ ::String, ::Nokogiri::XML::Node ], allow_nil: true if validate_params
 			check_param rhs, 'rhs', types: [ ::String, ::Nokogiri::XML::Node ], allow_nil: true if validate_params
 
+			options			=	self.derive_options_ options
 
 			# deal with nil(s)
 
@@ -197,6 +293,7 @@ module Compare
 			# Compare:
 			#
 			# - name
+			# - attributes
 			# - content
 			# - children
 			# - 
@@ -212,18 +309,54 @@ module Compare
 
 
 			# ##########################
+			# attributes
+
+			unless options[:ignore_attributes]
+
+				lhs_attributes	=	lhs.attribute_nodes
+				rhs_attributes	=	rhs.attribute_nodes
+
+				return Result.different :different_attribute_count, lhs_node: lhs, rhs_node: rhs if lhs_attributes.count != rhs_attributes.count
+
+
+				lhs_attr_list	=	lhs_attributes.map { |attr| [ attr.name, attr.content ] }
+				rhs_attr_list	=	rhs_attributes.map { |attr| [ attr.name, attr.content ] }
+
+				if lhs_attr_list != rhs_attr_list
+
+					# do the sort first
+
+					lhs_attr_list.sort! { |l, r| l[0] <=> r[0] }
+					rhs_attr_list.sort! { |l, r| l[0] <=> r[0] }
+
+					# Now there are four possibiliies:
+					#
+					# 1. Different attributes
+					# 2. Different attribute order
+					# 3. Same (when reordered)
+
+					if lhs_attr_list == rhs_attr_list
+
+						if options[:ignore_attribute_order]
+
+							# 3
+						else
+
+							# 2
+
+							return Result.different :different_attribute_order, lhs_node: lhs, rhs_node: rhs
+						end
+					else
+
+						return Result.different :different_attributes, lhs_node: lhs, rhs_node: rhs
+					end
+				end
+			end
+
+			# ##########################
 			# content
 
-			if options.has_key? :normalise_whitespace
-
-				normalise_ws	=	options[:normalise_whitespace]
-			elsif options.has_key? :normalize_whitespace
-
-				normalise_ws	=	options[:normalize_whitespace]
-			else
-
-				normalise_ws	=	false
-			end
+			normalise_ws	=	options[:normalise_whitespace]
 
 			lhs_content	=	normalise_ws ? lhs.content.gsub(/\s+/, ' ').strip : lhs.content
 			rhs_content	=	normalise_ws ? rhs.content.gsub(/\s+/, ' ').strip : rhs.content
@@ -247,7 +380,7 @@ module Compare
 			lhs_children_count	=	lhs_children.count
 			rhs_children_count	=	rhs_children.count
 
-			return Result.different :different_number_of_child_nodes, lhs_node: lhs, rhs_node: rhs if lhs_children_count != rhs_children_count
+			return Result.different :different_child_node_count, lhs_node: lhs, rhs_node: rhs if lhs_children_count != rhs_children_count
 
 
 			# ##########################
@@ -270,7 +403,7 @@ module Compare
 				ch_names_sorted_lhs	=	children_sorted_lhs.map { |ch| ch.name }
 				ch_names_sorted_rhs	=	children_sorted_rhs.map { |ch| ch.name }
 
-				ignore_order = options.has_key? :element_order && !options[:element_order]
+				ignore_order		=	options[:ignore_child_node_order]
 
 				if ignore_order
 
@@ -289,7 +422,7 @@ module Compare
 
 					if ch_names_sorted_lhs == ch_names_sorted_rhs
 
-						return Result.different :different_ordering_of_child_nodes, lhs_node: lhs, rhs_node: rhs
+						return Result.different :different_child_node_order, lhs_node: lhs, rhs_node: rhs
 					else
 
 						return Result.different :different_child_nodes, lhs_node: lhs, rhs_node: rhs
@@ -304,7 +437,7 @@ module Compare
 
 				r = self.xml_compare_nodes_ ch_lhs, ch_rhs, options
 
-				return r unless r.succeeded
+				return r unless r.status
 			end
 
 			return Result.same
