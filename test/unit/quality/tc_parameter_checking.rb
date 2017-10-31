@@ -12,7 +12,7 @@ class Test_parameter_checks_as_separate_module < Test::Unit::TestCase
 	end
 	include TestConstants
 
-	extend ::Xqsr3::Quality::ParameterChecking
+	include ::Xqsr3::Quality::ParameterChecking
 
 
 	# test 1

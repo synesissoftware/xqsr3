@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      2nd August 2017
+# Updated:      1st November 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -72,8 +72,32 @@ module ParameterChecking
 			end
 		end
 	end # module Util_
-
 	public
+
+	def self.included base
+
+		base.extend self
+
+		base.class_eval do
+
+			public
+			def self.check_parameter value, name, options = {}, &block
+
+				Util_.check_parameter value, name, options, &block
+			end
+
+			# @see check_parameter
+			#
+			# @note This is obsolete, and will be removed in a future
+			# version. Please use +check_parameter+ instead
+			public
+			def self.check_param value, name, options = {}, &block
+
+				Util_.check_parameter value, name, options, &block
+			end
+		end
+	end
+
 	# Check a given parameter (value=+value+, name=+name+) for type and value
 	#
 	# @param +value+ the parameter whose value and type is to be checked
@@ -99,7 +123,67 @@ module ParameterChecking
 	#          exception, which suppresses internal message preparation
 	# @option +:treat_as_option+ if true, the value will be treated as an
 	#          option when reporting check failure
+	#
+	# This method is private, because it should only be used within methods
+	private
 	def check_parameter value, name, options = {}, &block
+
+		Util_.check_parameter value, name, options, &block
+	end
+
+	# @see check_parameter
+	#
+	# @note This is obsolete, and will be removed in a future version.
+	# Please use +check_parameter+ instead
+	private
+	def check_param value, name, options = {}, &block
+
+		Util_.check_parameter value, name, options, &block
+	end
+
+	# Check a given parameter (value=+value+, name=+name+) for type and value
+	#
+	# @param +value+ the parameter whose value and type is to be checked
+	# @param +name+ the name of the parameter to be checked
+	# @param +options+ options
+	#
+	# @option +:allow_nil+ the +value+ must not be +nil+ unless this option
+	#          is true
+	# @option +:types+ an array of types one of which +value+ must be (or
+	#          must be derived from). One of these types may be an array
+	#          of types, in which case +value+ may be an array that must
+	#          consist wholly of those types
+	# @option +:values+ an array of values one of which +value+ must be
+	# @option +:responds_to+ an array of symbols specifying all messages to
+	#          which the parameter will respond
+	# @option +:reject_empty+ requires value to respond to +empty?+
+	#          message and to do so with false, unless +nil+
+	# @option +:require_empty+ requires value to respond to +empty?+
+	#          message and to do so with true, unless +nil+
+	# @option +:nothrow+ causes failure to be indicated by a +nil+ return
+	#          rather than a thrown exception
+	# @option +:message+ specifies a message to be used in any thrown
+	#          exception, which suppresses internal message preparation
+	# @option +:treat_as_option+ if true, the value will be treated as an
+	#          option when reporting check failure
+	public
+	def self.check_parameter value, name, options = {}, &block
+
+		Util_.check_parameter value, name, options, &block
+	end
+
+	# @see check_parameter
+	#
+	# @note This is obsolete, and will be removed in a future version.
+	# Please use +check_parameter+ instead
+	public
+	def self.check_param value, name, options = {}, &block
+
+		Util_.check_parameter value, name, options, &block
+	end
+
+	private
+	def Util_.check_parameter value, name, options, &block
 
 		failed_check	=	false
 		options			||=	{}
@@ -394,10 +478,6 @@ module ParameterChecking
 
 		failed_check ? nil : return_value
 	end
-
-	alias check_param check_parameter
-
-	module_function :check_parameter
 
 end # module ParameterChecking
 

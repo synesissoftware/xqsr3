@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      30th July 2017
-# Updated:      7th August 2017
+# Updated:      29th October 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -248,12 +248,12 @@ module Compare
 
 			# validate parameter(s)
 
-			check_param options, 'options', type: ::Hash if $DEBUG
+			check_parameter options, 'options', type: ::Hash if $DEBUG
 
 			validate_params	=	$DEBUG || options[:debug] || options[:validate_params]
 
-			check_param lhs, 'lhs', types: [ ::String, ::Nokogiri::XML::Node ], allow_nil: true if validate_params
-			check_param rhs, 'rhs', types: [ ::String, ::Nokogiri::XML::Node ], allow_nil: true if validate_params
+			check_parameter lhs, 'lhs', types: [ ::String, ::Nokogiri::XML::Node ], allow_nil: true if validate_params
+			check_parameter rhs, 'rhs', types: [ ::String, ::Nokogiri::XML::Node ], allow_nil: true if validate_params
 
 			options			=	self.derive_options_ options
 
