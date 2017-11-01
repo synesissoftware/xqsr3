@@ -239,5 +239,24 @@ end
 			check_responds_to Hash.new, [ :this_is_not_a_Hash_method ]
 		end
 	end
+
+
+
+	# test type:
+
+	def check_method_type a, type
+
+		self.class.check_parameter a, 'a', type: type
+	end
+
+	def test_type
+
+		check_method_type '', ::String
+
+		assert_raise TypeError do
+
+			check_method_type :sym, ::String
+		end
+	end
 end
 

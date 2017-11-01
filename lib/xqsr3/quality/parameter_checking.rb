@@ -110,6 +110,8 @@ module ParameterChecking
 	#          must be derived from). One of these types may be an array
 	#          of types, in which case +value+ may be an array that must
 	#          consist wholly of those types
+	# @option +:type+ a single type parameter, used only if +:types+ is not
+	#          specified
 	# @option +:values+ an array of values one of which +value+ must be
 	# @option +:responds_to+ an array of symbols specifying all messages to
 	#          which the parameter will respond
@@ -153,6 +155,8 @@ module ParameterChecking
 	#          must be derived from). One of these types may be an array
 	#          of types, in which case +value+ may be an array that must
 	#          consist wholly of those types
+	# @option +:type+ a single type parameter, used only if +:types+ is not
+	#          specified
 	# @option +:values+ an array of values one of which +value+ must be
 	# @option +:responds_to+ an array of symbols specifying all messages to
 	#          which the parameter will respond
@@ -227,6 +231,10 @@ module ParameterChecking
 			# types
 
 			types		=	options[:types] || []
+			if options.has_key? :type
+
+				types	<<	options[:type] if types.empty?
+			end
 			types		=	[value.class] if types.empty?
 
 			warn "#{self}::check_parameter: options[:types] of type #{types.class} - should be #{::Array}" unless types.is_a?(Array)
@@ -398,13 +406,19 @@ module ParameterChecking
 
 		if value and block
 
-			warn "#{self}::check_parameter: block arity must be 1" unless block.arity == 1
+			warn "#{self}::check_parameter: block arity must be 1 or 2" unless (1..2).include? block.arity
 
 			r	=	nil
 
 			begin
 
-				r = block.call(value)
+				if 1 == block.arity
+
+					r = block.call(value)
+				else
+
+					r = block.call(value, options)
+				end
 
 			rescue StandardError => x
 

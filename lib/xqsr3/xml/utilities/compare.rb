@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      30th July 2017
-# Updated:      29th October 2017
+# Updated:      1st November 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -90,7 +90,7 @@ module Compare
 		def initialize status, reason, **options
 
 			check_parameter status, 'status', types: [ ::FalseClass, ::TrueClass ]
-			check_parameter reason, 'reason', type: ::Symbol
+			check_parameter reason, 'reason', type: ::Symbol, allow_nil: true
 
 			@status		=	status
 			@reason		=	reason
@@ -104,7 +104,7 @@ module Compare
 			return self.new status, reason, **options
 		end
 
-		def self.same reason = '', **options
+		def self.same reason = nil, **options
 
 			return self.new true, reason, **options
 		end
