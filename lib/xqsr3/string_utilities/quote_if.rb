@@ -1,18 +1,18 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/command_line_utilities/map_option_string.rb
+# File:         lib/xqsr3/string_utilities/quote_if.rb
 #
-# Purpose:      Definition of the
-#               ::Xqsr3::CommandLineUtilities::MapOptionString module
+# Purpose:      Definition of the ::Xqsr3::StringUtilities::QuoteIf
+#               module
 #
-# Created:      15th April 2016
-# Updated:      2nd August 2017
+# Created:      3rd June 2017
+# Updated:      7th June 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2016-2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2017, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -46,94 +46,83 @@
 
 
 # ##########################################################
-# ::Xqsr3::CommandLineUtilities::MapOptionString
-
-require 'xqsr3/string_utilities/to_symbol'
+# ::Xqsr3::StringUtilities::QuoteIf
 
 =begin
 =end
 
 module Xqsr3
-module CommandLineUtilities
+module StringUtilities
 
-# Facilities for mapping strings to options
-#
-# === Components of interest
-# * ::Xqsr3::CommandLineUtilities::MapOptionString.map_option_string
-module MapOptionString
-
-	# :nodoc:
-	def self.included includer
-
-		raise TypeError, "module #{self} cannot be included into #{includer} because it does not respond to to_str" unless includer.method_defined? :to_str
-	end
+module QuoteIf
 
 	private
-	# :nodoc:
-	module MapOptionString_Helper_ # :nodoc:
+	module QuoteIf_Helper_ #:nodoc:
 
-		def self.map_option_string_with_options_ s, option_strings, options
+		def self.string_quote_if_array_ s, options
 
-			h = {}
+			s			=	s.to_s unless String === s
 
-			option_strings.each do |os|
+			quotes		=	options[:quotes] || [ '"', '"' ]
+			quotes		=	[ quotes, quotes ] if String === quotes
 
-				t	=	os.dup
-				v	=	os.dup
+			quotables	=	options[:quotables] || /\s/
 
-				if t =~ /\[.+?\]/
+			case quotables
+			when ::String
 
-					k = ''
-					v = ''
+				return s unless s.include? quotables
+			when ::Array
 
-					while t =~ /\[(.+?)\]/
+				return s unless quotables.any? { |quotable| s.include? quotable }
+			when ::Regexp
 
-						k	+=	$1
-						v	+=	"#$`#$1"
-						t	=	$'
-					end
+				return s unless s =~ quotables
+			else
 
-					v	+=	t
-				else
-
-					k = v
-				end
-
-				h[k] = v
-				h[v] = v
+				raise ArgumentError, "Invalid type (#{quotables.class}) specified for quotables parameter"
 			end
 
-			r = h[s]
-
-			if r
-
-				r = ::Xqsr3::StringUtilities::ToSymbol.string_to_symbol r
-			end
-
-			r
+			return quotes[0] + s + quotes[1]
 		end
 	end
 	public
 
-	# Attempts to translate the value of a given string according
-	# to a collection of options strings
-	def self.map_option_string_from_string s, option_strings, options = {}
+	# Converts a string to a quoted form if necessary
+	#
+	# === *Parameters*
+	#
+	# * *Required parameters*:
+	#   - +s+:: [String] The string to be evaluated
+	#
+	# * *Options parameters*:
+	#   - +options+:: [Hash] Options that control the behaviour of the
+	#       method
+	#
+	# * *Options*:
+	#
+	#   - +:quotes+:: [String, Array] A string that is used as the opening
+	#       and closing quotes, or an array whose first two elements are
+	#       used as the opening and closing quotes. Defaults to '"'
+	#   - +:quotables+:: [String, Array, Regexp] A string representing the
+	#       quotable character, or an array containing the quotable
+	#       characters, or a regular expression that determines by match
+	#       whether the string should be quoted. Defaults to the regular
+	#       expression /\s/
+	def self.quote_if s, **options
 
-		MapOptionString_Helper_.map_option_string_with_options_ s, option_strings, options
+		QuoteIf_Helper_.string_quote_if_array_ s, options
 	end
 
-	# Attempts to translate the (string) value of the receiver according
-	# to a collection of options strings
-	def map_option_string option_strings, options = {}
+	def quote_if **options
 
-		s = self.kind_of?(::String) ? self : self.to_str
-
-		MapOptionString_Helper_.map_option_string_with_options_ s, option_strings, options
+		QuoteIf_Helper_.string_quote_if_array_ self, options
 	end
-end # module MapOptionString
+end # module QuoteIf
 
-end # module CommandLineUtilities
+end # module StringUtilities
 end # module Xqsr3
 
 # ############################## end of file ############################# #
+
 

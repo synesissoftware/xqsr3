@@ -5,13 +5,13 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      10th June 2016
+# Updated:      1st November 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2015-2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2015-2017, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -44,6 +44,9 @@
 # ######################################################################## #
 
 
+# ##########################################################
+# ::Xqsr3::Quality::ParameterChecking
+
 =begin
 =end
 
@@ -54,6 +57,47 @@ module Quality
 #
 module ParameterChecking
 
+	private
+	module Util_ # :nodoc:
+
+		def self.join_with_or a
+
+			case a.size
+			when 1
+				a[0]
+			when 2
+				"#{a[0]} or #{a[1]}"
+			else
+				"#{a[0...-1].join(', ')}, or #{a[-1]}"
+			end
+		end
+	end # module Util_
+	public
+
+	def self.included base
+
+		base.extend self
+
+		base.class_eval do
+
+			public
+			def self.check_parameter value, name, options = {}, &block
+
+				Util_.check_parameter value, name, options, &block
+			end
+
+			# @see check_parameter
+			#
+			# @note This is obsolete, and will be removed in a future
+			# version. Please use +check_parameter+ instead
+			public
+			def self.check_param value, name, options = {}, &block
+
+				Util_.check_parameter value, name, options, &block
+			end
+		end
+	end
+
 	# Check a given parameter (value=+value+, name=+name+) for type and value
 	#
 	# @param +value+ the parameter whose value and type is to be checked
@@ -63,8 +107,14 @@ module ParameterChecking
 	# @option +:allow_nil+ the +value+ must not be +nil+ unless this option
 	#          is true
 	# @option +:types+ an array of types one of which +value+ must be (or
-	#          must be derived from)
+	#          must be derived from). One of these types may be an array
+	#          of types, in which case +value+ may be an array that must
+	#          consist wholly of those types
+	# @option +:type+ a single type parameter, used only if +:types+ is not
+	#          specified
 	# @option +:values+ an array of values one of which +value+ must be
+	# @option +:responds_to+ an array of symbols specifying all messages to
+	#          which the parameter will respond
 	# @option +:reject_empty+ requires value to respond to +empty?+
 	#          message and to do so with false, unless +nil+
 	# @option +:require_empty+ requires value to respond to +empty?+
@@ -75,7 +125,69 @@ module ParameterChecking
 	#          exception, which suppresses internal message preparation
 	# @option +:treat_as_option+ if true, the value will be treated as an
 	#          option when reporting check failure
+	#
+	# This method is private, because it should only be used within methods
+	private
 	def check_parameter value, name, options = {}, &block
+
+		Util_.check_parameter value, name, options, &block
+	end
+
+	# @see check_parameter
+	#
+	# @note This is obsolete, and will be removed in a future version.
+	# Please use +check_parameter+ instead
+	private
+	def check_param value, name, options = {}, &block
+
+		Util_.check_parameter value, name, options, &block
+	end
+
+	# Check a given parameter (value=+value+, name=+name+) for type and value
+	#
+	# @param +value+ the parameter whose value and type is to be checked
+	# @param +name+ the name of the parameter to be checked
+	# @param +options+ options
+	#
+	# @option +:allow_nil+ the +value+ must not be +nil+ unless this option
+	#          is true
+	# @option +:types+ an array of types one of which +value+ must be (or
+	#          must be derived from). One of these types may be an array
+	#          of types, in which case +value+ may be an array that must
+	#          consist wholly of those types
+	# @option +:type+ a single type parameter, used only if +:types+ is not
+	#          specified
+	# @option +:values+ an array of values one of which +value+ must be
+	# @option +:responds_to+ an array of symbols specifying all messages to
+	#          which the parameter will respond
+	# @option +:reject_empty+ requires value to respond to +empty?+
+	#          message and to do so with false, unless +nil+
+	# @option +:require_empty+ requires value to respond to +empty?+
+	#          message and to do so with true, unless +nil+
+	# @option +:nothrow+ causes failure to be indicated by a +nil+ return
+	#          rather than a thrown exception
+	# @option +:message+ specifies a message to be used in any thrown
+	#          exception, which suppresses internal message preparation
+	# @option +:treat_as_option+ if true, the value will be treated as an
+	#          option when reporting check failure
+	public
+	def self.check_parameter value, name, options = {}, &block
+
+		Util_.check_parameter value, name, options, &block
+	end
+
+	# @see check_parameter
+	#
+	# @note This is obsolete, and will be removed in a future version.
+	# Please use +check_parameter+ instead
+	public
+	def self.check_param value, name, options = {}, &block
+
+		Util_.check_parameter value, name, options, &block
+	end
+
+	private
+	def Util_.check_parameter value, name, options, &block
 
 		failed_check	=	false
 		options			||=	{}
@@ -116,14 +228,32 @@ module ParameterChecking
 
 		unless value.nil?
 
+			# types
+
 			types		=	options[:types] || []
+			if options.has_key? :type
+
+				types	<<	options[:type] if types.empty?
+			end
 			types		=	[value.class] if types.empty?
-			type_found	=	false
 
 			warn "#{self}::check_parameter: options[:types] of type #{types.class} - should be #{::Array}" unless types.is_a?(Array)
-			warn "#{self}::check_parameter: options[:types] should contain only classes" if types.is_a?(Array) && !types.all? { |c| ::Class === c }
+			warn "#{self}::check_parameter: options[:types] should contain only classes or arrays of classes" if types.is_a?(::Array) && !types.all? { |c| ::Class === c || (::Array === c || c.all? { |c2| ::Class === c2 }) }
 
-			unless types.any? { |t| value.is_a?(t) }
+			unless types.any? do |t|
+
+					case t
+					when ::Class
+
+						# the (presumed) scalar argument is of type t?
+						value.is_a?(t)
+					when ::Array
+
+						# the (presumed) vector argument's elements are the
+						# possible types
+						value.all? { |v| t.any? { |t2| v.is_a?(t2) }}
+					end
+				end
 
 				failed_check	=	true
 
@@ -133,24 +263,51 @@ module ParameterChecking
 
 						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
 
-						case	types.size
-						when	1
+						types_0		=	types.select { |t| ::Class === t }.uniq
+						types_ar	=	types.select { |t| ::Array === t }.flatten.uniq
 
-							s_types	=	"#{types[0]}"
-						when	2
+						if types_ar.empty?
 
-							s_types	=	"#{types[0]} or #{types[1]}"
+							s_types_0	=	Util_.join_with_or types_0
+
+							message		=	"#{param_s} #{s_name}(#{value.class}) must be an instance of #{s_types_0}"
+						elsif types_0.empty?
+
+							s_types_ar	=	Util_.join_with_or types_ar
+
+							message		=	"#{param_s} #{s_name}(#{value.class}) must be an array containing instance(s) of #{s_types_ar}"
 						else
 
-							s_types	=	"#{types[0...-1].join(', ')}, or #{types[-1]}"
-						end
+							s_types_0	=	Util_.join_with_or types_0
 
-						message		=	"#{param_s} #{s_name}(#{value.class}) must be an instance of #{s_types}"
+							s_types_ar	=	Util_.join_with_or types_ar
+
+							message		=	"#{param_s} #{s_name}(#{value.class}) must be an instance of #{s_types_0}, or an array containing instance(s) of #{s_types_ar}"
+						end
 					end
 
 					raise TypeError, message
 				end
 			end
+
+
+			# messages
+
+			messages	=	options[:responds_to] || []
+
+			warn "#{self}::check_parameter: options[:responds_to] of type #{messages.class} - should be #{::Array}" unless messages.is_a?(Array)
+			warn "#{self}::check_parameter: options[:responds_to] should contain only symbols or strings" if messages.is_a?(::Array) && !messages.all? { |m| ::Symbol === m || ::String === m }
+
+			messages.each do |m|
+
+				unless value.respond_to? m
+
+					s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+
+					raise TypeError, "#{param_s} #{s_name}(#{value.class}) must respond to the '#{m}' message"
+				end
+			end
+
 		end
 
 		# reject/require empty?
@@ -249,13 +406,19 @@ module ParameterChecking
 
 		if value and block
 
-			warn "#{self}::check_parameter: block arity must be 1" unless block.arity == 1
+			warn "#{self}::check_parameter: block arity must be 1 or 2" unless (1..2).include? block.arity
 
 			r	=	nil
 
 			begin
 
-				r = block.call(value)
+				if 1 == block.arity
+
+					r = block.call(value)
+				else
+
+					r = block.call(value, options)
+				end
 
 			rescue StandardError => x
 
@@ -329,10 +492,6 @@ module ParameterChecking
 
 		failed_check ? nil : return_value
 	end
-
-	alias check_param check_parameter
-
-	module_function :check_parameter
 
 end # module ParameterChecking
 

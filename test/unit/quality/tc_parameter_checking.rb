@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../..', 'lib')
 
@@ -12,7 +12,7 @@ class Test_parameter_checks_as_separate_module < Test::Unit::TestCase
 	end
 	include TestConstants
 
-	extend ::Xqsr3::Quality::ParameterChecking
+	include ::Xqsr3::Quality::ParameterChecking
 
 
 	# test 1
@@ -156,10 +156,10 @@ end
 			assert(false, 'should not get here')
 		rescue TypeError => ax
 
-			assert_match /^parameter 'a' \(String\) must be an instance of Hash$/, ax.message
+			assert_match(/^parameter 'a' \(String\) must be an instance of Hash$/, ax.message)
 		rescue => x
 
-			assert(false, "wrong exception type (#{x.class})")
+			assert(false, "wrong exception type #{x.class} (with message '#{x.message}')")
 		end
 
 
@@ -169,13 +169,94 @@ end
 			assert(false, 'should not get here')
 		rescue ArgumentError => ax
 
-			assert_match /^parameter 'a' value '' not found equal\/within any of required values or ranges$/, ax.message
+			assert_match(/^parameter 'a' value '' not found equal\/within any of required values or ranges$/, ax.message)
 		rescue => x
 
-			assert(false, "wrong exception type (#{x.class})")
+			assert(false, "wrong exception type #{x.class} (with message '#{x.message}')")
 		end
-
 	end
 
+
+	# test 7 - verify that can include an array of types in the array of types
+
+	def check_method_7 a, types, values, options = {}, &block
+
+		self.class.check_param a, 'a', options.merge({ types: types, values: values }), &block
+	end
+
+	def test_7
+
+		assert_equal [], check_method_7([], [ ::Array ], nil)
+
+		assert_equal [ 'abc' ], check_method_7([ 'abc' ], [ ::Array ], nil)
+
+		assert_equal [ 'abc' ], check_method_7([ 'abc' ], [ [ ::String ] ], nil)
+
+		assert_equal [ 'abc' ], check_method_7([ 'abc' ], [ [ ::Regexp, ::String ] ], nil)
+
+		assert_equal [ :'abc' ], check_method_7([ :'abc' ], [ [ ::Regexp, ::Symbol ] ], nil)
+
+
+		begin
+			check_method_7 [ 'abc' ], [ ::Symbol, [ ::Regexp, ::Symbol ], ::Hash ], nil
+
+			assert(false, 'should not get here')
+		rescue TypeError => ax
+
+			assert_match(/^parameter 'a' \(Array\) must be an instance of Symbol or Hash, or an array containing instance\(s\) of Regexp or Symbol$/, ax.message)
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+
+
+		begin
+			check_method_7 [ 'abc' ], [ [ ::Regexp, ::Symbol ] ], nil
+
+			assert(false, 'should not get here')
+		rescue TypeError => ax
+
+			assert_match(/^parameter 'a' \(Array\) must be an array containing instance\(s\) of Regexp or Symbol$/, ax.message)
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+	end
+
+
+	# responds_to
+
+	def check_responds_to a, messages, options = {}, &block
+
+		self.class.check_param a, 'a', options.merge({ responds_to: messages }), &block
+	end
+
+	def test_responds_to
+
+		assert check_responds_to Hash.new, [ :[], :map, :to_s ]
+		assert_raise ::TypeError do
+
+			check_responds_to Hash.new, [ :this_is_not_a_Hash_method ]
+		end
+	end
+
+
+
+	# test type:
+
+	def check_method_type a, type
+
+		self.class.check_parameter a, 'a', type: type
+	end
+
+	def test_type
+
+		check_method_type '', ::String
+
+		assert_raise TypeError do
+
+			check_method_type :sym, ::String
+		end
+	end
 end
 
