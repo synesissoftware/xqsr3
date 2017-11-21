@@ -1,17 +1,17 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/version.rb
+# File:         lib/xqsr3/extensions/kernel/integer.rb
 #
-# Purpose:      Version for Xqsr3 library
+# Purpose:      Adds a Integer 'overload' to the Kernel module
 #
-# Created:      3rd April 2016
-# Updated:      22nd November 2017
+# Created:      21st November 2017
+# Updated:      21st November 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2016-2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2017, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -44,25 +44,39 @@
 # ######################################################################## #
 
 
+# ##########################################################
+# ::Kernel
+
 =begin
 =end
 
-module Xqsr3
+module Kernel
 
-	# Current version of the Xqsr3 library
-	VERSION				=	'0.15.1'
+	alias xqsr3_Integer_original_method Integer
 
-	private
-	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
-	public
-	# Major version of the Xqsr3 library
-	VERSION_MAJOR		=	VERSION_PARTS_[0] # :nodoc:
-	# Minor version of the Xqsr3 library
-	VERSION_MINOR		=	VERSION_PARTS_[1] # :nodoc:
-	# Revision version of the Xqsr3 library
-	VERSION_REVISION	=	VERSION_PARTS_[2] # :nodoc:
+	def Integer(arg, base = 0, **options)
 
-end # module Xqsr3
+		if options.has_key?(:default) || options[:nil]
+
+			unless arg.nil?
+
+				begin
+
+					return xqsr3_Integer_original_method arg, base
+				rescue ArgumentError
+				end
+			end
+
+			return options[:default] if options.has_key? :default
+
+			return nil
+		else
+
+			xqsr3_Integer_original_method arg, base
+		end
+	end
+end # module Kernel
 
 # ############################## end of file ############################# #
+
 
