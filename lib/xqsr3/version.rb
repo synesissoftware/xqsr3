@@ -50,7 +50,7 @@
 module Xqsr3
 
 	# Current version of the Xqsr3 library
-	VERSION				=	'0.15.1'
+	VERSION				=	'0.15.2'
 
 	private
 	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:

@@ -60,6 +60,16 @@ class Test_X_Kernel_Integer < Test::Unit::TestCase
 		assert_equal :sentinel, Integer('plus 1', default: :sentinel)
 		assert_equal :sentinel, Integer('/0', default: :sentinel)
 	end
+
+	def test_Integer_with_invalid_values_returning_sentinel_of_nil
+
+		assert_equal nil, Integer(nil, default: nil)
+		assert_equal nil, Integer('', default: nil)
+		assert_equal nil, Integer('abc', default: nil)
+		assert_equal nil, Integer('zero', default: nil)
+		assert_equal nil, Integer('plus 1', default: nil)
+		assert_equal nil, Integer('/0', default: nil)
+	end
 end
 
 

@@ -5,7 +5,7 @@
 # Purpose:      Adds a Integer 'overload' to the Kernel module
 #
 # Created:      21st November 2017
-# Updated:      21st November 2017
+# Updated:      22nd November 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -54,6 +54,22 @@ module Kernel
 
 	alias xqsr3_Integer_original_method Integer
 
+	# A monkey-patch extension of +Kernel#Integer+ with +options+
+	#
+	# === Signature
+	#
+	# * *Parameters*:
+	#   - +arg+:: The argument to be converted (to +Fixnum+ or +Bignum+)
+	#   - +base+:: A value of 0, or between 2 and 36. Defaults to 0
+	#   - +options+:: An options hash, containing any of the following
+	#   options
+	#
+	# * *Options*:
+	#   - +:default+:: A default value to be used when +arg+ is +nil+ or
+	#     cannot be converted by (the original) +Kernel#Integer+
+	#   - +:nil+:: Returns +nil+ if +arg+ is +nil+ or cannot be
+	#     converted by (the original) +Kernel#Integer+. Ignored if
+	#     +:default+ is specified
 	def Integer(arg, base = 0, **options)
 
 		if options.has_key?(:default) || options[:nil]
@@ -75,6 +91,8 @@ module Kernel
 			xqsr3_Integer_original_method arg, base
 		end
 	end
+
+	private :xqsr3_Integer_original_method
 end # module Kernel
 
 # ############################## end of file ############################# #
