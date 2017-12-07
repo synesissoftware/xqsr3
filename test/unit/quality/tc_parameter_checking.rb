@@ -8,23 +8,19 @@ require 'test/unit'
 
 class Test_parameter_checks_as_separate_module < Test::Unit::TestCase
 
-	module TestConstants
-	end
-	include TestConstants
-
-	include ::Xqsr3::Quality::ParameterChecking
-
+	PC = ::Xqsr3::Quality::ParameterChecking
 
 	# test 1
 
 	def check_method_1 a
 
-		self.class.check_param a, 'a'
+		PC.check_param a, 'a'
 	end
 
 	def test_1
 
 		assert_raise ArgumentError do
+
 			check_method_1(nil)
 		end
 
@@ -36,10 +32,71 @@ class Test_parameter_checks_as_separate_module < Test::Unit::TestCase
 
 
 	# test 2
+end
+
+class Test_parameter_checks_as_included_module < Test::Unit::TestCase
+
+	include ::Xqsr3::Quality::ParameterChecking
+
+	# test 0
+
+	def test_access_control_instance
+
+		assert private_methods.include?(:check_param), "check_param() must be a private method of the instance"
+		assert private_methods.include?(:check_parameter), "check_param() must be a private method of the instance"
+
+		assert self.class.private_instance_methods.include?(:check_param), "check_param() must be a private method of the instance"
+		assert self.class.private_instance_methods.include?(:check_parameter), "check_param() must be a private method of the instance"
+	end
+
+	def test_access_control_private
+
+		assert self.class.private_methods.include?(:check_param), "check_param() must be a private method of the class"
+		assert self.class.private_methods.include?(:check_parameter), "check_param() must be a private method of the class"
+	end
+
+
+	# test 1
+
+	def check_method_1 a
+
+		check_param a, 'a'
+	end
+
+	def self.check_method_1_class a
+
+		check_param a, 'a'
+	end
+
+	def test_1
+
+		assert_raise ArgumentError do
+
+			check_method_1(nil)
+		end
+
+		assert_raise ArgumentError do
+
+			self.class.check_method_1_class(nil)
+		end
+
+		assert_equal true, check_method_1(true)
+		assert_equal '', check_method_1('')
+		assert_equal [], check_method_1([])
+		assert_equal Hash.new, check_method_1(Hash.new)
+
+		assert_equal true, self.class.check_method_1_class(true)
+		assert_equal '', self.class.check_method_1_class('')
+		assert_equal [], self.class.check_method_1_class([])
+		assert_equal Hash.new, self.class.check_method_1_class(Hash.new)
+	end
+
+
+	# test 2
 
 	def check_method_2 a, types, options = {}
 
-		self.class.check_param a, 'a', options.merge({ types: types })
+		check_param a, 'a', options.merge({ types: types })
 	end
 
 	def test_2
@@ -58,7 +115,7 @@ class Test_parameter_checks_as_separate_module < Test::Unit::TestCase
 
 	def check_method_3 a, types, values, options = {}
 
-		self.class.check_param a, 'a', options.merge({ types: types, values: values })
+		check_param a, 'a', options.merge({ types: types, values: values })
 	end
 
 	def test_3
@@ -79,7 +136,7 @@ class Test_parameter_checks_as_separate_module < Test::Unit::TestCase
 
 	def check_method_4 a, types, values, options = {}, &block
 
-		self.class.check_param a, 'a', options.merge({ types: types, values: values }), &block
+		check_param a, 'a', options.merge({ types: types, values: values }), &block
 	end
 
 	def test_4
@@ -116,7 +173,7 @@ class Test_parameter_checks_as_separate_module < Test::Unit::TestCase
 
 	def check_method_5 a, options = {}
 
-		self.class.check_param a, 'a', options
+		check_param a, 'a', options
 	end
 
 	def test_5
@@ -145,7 +202,7 @@ end
 
 	def check_method_6 a, types, values, options = {}, &block
 
-		self.class.check_param a, 'a', options.merge({ types: types, values: values }), &block
+		check_param a, 'a', options.merge({ types: types, values: values }), &block
 	end
 
 	def test_6
@@ -181,7 +238,7 @@ end
 
 	def check_method_7 a, types, values, options = {}, &block
 
-		self.class.check_param a, 'a', options.merge({ types: types, values: values }), &block
+		check_param a, 'a', options.merge({ types: types, values: values }), &block
 	end
 
 	def test_7
@@ -228,7 +285,7 @@ end
 
 	def check_responds_to a, messages, options = {}, &block
 
-		self.class.check_param a, 'a', options.merge({ responds_to: messages }), &block
+		check_param a, 'a', options.merge({ responds_to: messages }), &block
 	end
 
 	def test_responds_to
@@ -246,16 +303,28 @@ end
 
 	def check_method_type a, type
 
-		self.class.check_parameter a, 'a', type: type
+		check_parameter a, 'a', type: type
+	end
+
+	def self.check_method_type_class a, type
+
+		check_parameter a, 'a', type: type
 	end
 
 	def test_type
 
-		check_method_type '', ::String
+		assert_kind_of ::String, check_method_type('', ::String)
 
 		assert_raise TypeError do
 
 			check_method_type :sym, ::String
+		end
+
+		assert_kind_of ::String, self.class.check_method_type_class('', ::String)
+
+		assert_raise TypeError do
+
+			self.class.check_method_type_class :sym, ::String
 		end
 	end
 end

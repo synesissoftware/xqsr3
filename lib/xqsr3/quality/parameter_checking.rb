@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      1st November 2017
+# Updated:      7th December 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -76,11 +76,9 @@ module ParameterChecking
 
 	def self.included base
 
-		base.extend self
 
 		base.class_eval do
 
-			public
 			def self.check_parameter value, name, options = {}, &block
 
 				Util_.check_parameter value, name, options, &block
@@ -90,11 +88,13 @@ module ParameterChecking
 			#
 			# @note This is obsolete, and will be removed in a future
 			# version. Please use +check_parameter+ instead
-			public
 			def self.check_param value, name, options = {}, &block
 
 				Util_.check_parameter value, name, options, &block
 			end
+
+			private_class_method :check_param
+			private_class_method :check_parameter
 		end
 	end
 
