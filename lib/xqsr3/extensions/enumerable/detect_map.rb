@@ -1,17 +1,17 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/version.rb
+# File:         lib/xqsr3/extensions/enumerable/detect_map.rb
 #
-# Purpose:      Version for Xqsr3 library
+# Purpose:      ::Enumerable#detect_map extension
 #
-# Created:      3rd April 2016
+# Created:      3rd December 2017
 # Updated:      9th December 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2016-2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2017, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -47,22 +47,51 @@
 =begin
 =end
 
-module Xqsr3
+module Enumerable
 
-	# Current version of the Xqsr3 library
-	VERSION				=	'0.17.1'
+	# The +Enumerable#detect+ method provides a way to detect the presence
+	# of a particular value in a collection. The only constraint is that you
+	# get back the object unchanged.
+	#
+	# The +Enumerable#map+ method provides a way to transform the contents of
+	# a collection. The only constraint is that you get back another
+	# collection.
+	#
+	# This extension method, +Enumerable#detect_map+ combines the features
+	# of both, in that it detects the presence of a particular value in a
+	# collection and transform the detected value.
+	#
+	#  [ 1, 2, 3 ].detect_map { |v| -2 * v if v > 2 } # => -6
+	#
+	#  { :ab => 'cd', :ef => 'gh' }.detect_map { |k, v| v.upcase if k == :ef } # => 'GH'
+	#
+	# @note The block is required (for technical reasons), and must have
+	# arity 1 for sequences or 2 for associations
+	def detect_map &block
 
-	private
-	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
-	public
-	# Major version of the Xqsr3 library
-	VERSION_MAJOR		=	VERSION_PARTS_[0] # :nodoc:
-	# Minor version of the Xqsr3 library
-	VERSION_MINOR		=	VERSION_PARTS_[1] # :nodoc:
-	# Revision version of the Xqsr3 library
-	VERSION_REVISION	=	VERSION_PARTS_[2] # :nodoc:
+		case block.arity
+		when 1
 
-end # module Xqsr3
+			self.each do |v|
+
+				r = yield(v) and return r
+			end
+		when 2
+
+			self.each do |k, v|
+
+				r = yield(k, v) and return r
+			end
+		else
+
+			raise ArgumentError, "detect_map requires block with arity of 1 (for sequences) or 2 (for associations); block with arity #{block.arity} given to instance of #{self.class}"
+		end
+
+		nil
+	end
+
+end # module Enumerable
 
 # ############################## end of file ############################# #
+
 
