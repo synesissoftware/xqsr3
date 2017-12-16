@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      7th December 2017
+# Updated:      16th December 2017
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -76,26 +76,7 @@ module ParameterChecking
 
 	def self.included base
 
-
-		base.class_eval do
-
-			def self.check_parameter value, name, options = {}, &block
-
-				Util_.check_parameter value, name, options, &block
-			end
-
-			# @see check_parameter
-			#
-			# @note This is obsolete, and will be removed in a future
-			# version. Please use +check_parameter+ instead
-			def self.check_param value, name, options = {}, &block
-
-				Util_.check_parameter value, name, options, &block
-			end
-
-			private_class_method :check_param
-			private_class_method :check_parameter
-		end
+		base.extend self
 	end
 
 	# Check a given parameter (value=+value+, name=+name+) for type and value
