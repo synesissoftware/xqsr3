@@ -327,5 +327,56 @@ end
 			self.class.check_method_type_class :sym, ::String
 		end
 	end
+
+
+	# test treat_as_option
+
+	def check_method_tao_1 h, o, options = {}, &block
+
+		check_parameter h[o], o, options.merge({ treat_as_option: true }), &block
+	end
+
+	def test_tao
+
+		assert_true check_method_tao_1({ thing: true }, :thing)
+		assert_false check_method_tao_1({ thing: false }, :thing)
+		assert_equal [], check_method_tao_1({ thing: [] }, :thing)
+
+		begin
+			check_method_tao_1({ thing: true }, :thingy)
+
+			assert(false, 'should not get here')
+		rescue ArgumentError => ax
+
+			assert_equal "option ':thingy' may not be nil", ax.message
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+
+		begin
+			check_method_tao_1({ thing: true }, 'thingy')
+
+			assert(false, 'should not get here')
+		rescue ArgumentError => ax
+
+			assert_equal "option ':thingy' may not be nil", ax.message
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+
+		begin
+			check_method_tao_1({ thing: true }, ':thingy')
+
+			assert(false, 'should not get here')
+		rescue ArgumentError => ax
+
+			assert_equal "option ':thingy' may not be nil", ax.message
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+	end
 end
 
