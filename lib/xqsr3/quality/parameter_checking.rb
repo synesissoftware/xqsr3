@@ -110,7 +110,7 @@ module ParameterChecking
 	#          +empty?+ message and to do so with true, unless +nil+
 	# @option +:nothrow+ [boolean] causes failure to be indicated by a +nil+
 	#          return rather than a thrown exception
-	# @option +:message+ [boolean] specifies a message to be used in any
+	# @option +:message+ [::String] specifies a message to be used in any
 	#          thrown exception, which suppresses internal message
 	#          preparation
 	# @option +:treat_as_option+ [boolean] If true, the value will be
