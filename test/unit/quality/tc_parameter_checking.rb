@@ -336,7 +336,7 @@ end
 		check_parameter h[o], o, options.merge({ treat_as_option: true }), &block
 	end
 
-	def test_tao
+	def test_tao_1
 
 		assert_true check_method_tao_1({ thing: true }, :thing)
 		assert_false check_method_tao_1({ thing: false }, :thing)
@@ -368,6 +368,66 @@ end
 
 		begin
 			check_method_tao_1({ thing: true }, ':thingy')
+
+			assert(false, 'should not get here')
+		rescue ArgumentError => ax
+
+			assert_equal "option ':thingy' may not be nil", ax.message
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+	end
+
+
+	# test treat_as_option
+
+	def check_method_tao_2 h, o, options = {}, &block
+
+		check_option h, o, options.merge({ }), &block
+	end
+
+	def check_method_tao_class_2 h, o, options = {}, &block
+
+		check_option h, o, options.merge({ }), &block
+	end
+
+	def test_tao_2
+
+		assert_true check_method_tao_2({ thing: true }, :thing)
+		assert_false check_method_tao_2({ thing: false }, :thing)
+		assert_equal [], check_method_tao_2({ thing: [] }, :thing)
+
+		assert_true check_method_tao_class_2({ thing: true }, :thing)
+		assert_false check_method_tao_class_2({ thing: false }, :thing)
+		assert_equal [], check_method_tao_class_2({ thing: [] }, :thing)
+
+		begin
+			check_method_tao_2({ thing: true }, :thingy)
+
+			assert(false, 'should not get here')
+		rescue ArgumentError => ax
+
+			assert_equal "option ':thingy' may not be nil", ax.message
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+
+		begin
+			check_method_tao_2({ thing: true }, 'thingy')
+
+			assert(false, 'should not get here')
+		rescue ArgumentError => ax
+
+			assert_equal "option ':thingy' may not be nil", ax.message
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+
+		begin
+			check_method_tao_2({ thing: true }, ':thingy')
 
 			assert(false, 'should not get here')
 		rescue ArgumentError => ax

@@ -87,8 +87,9 @@ module ParameterChecking
 	# Check a given parameter (value=+value+, name=+name+) for type and value
 	#
 	# @param +value+ the parameter whose value and type is to be checked
-	# @param +name+ the name of the parameter to be checked
-	# @param +options+ options
+	# @param +name+ [::String, ::Symbol] the name of the parameter to be
+	#         checked
+	# @param +options+ [::Hash] options that moderate the behaviour
 	#
 	# @option +:allow_nil+ [boolean] The +value+ must not be +nil+ unless
 	#          this option is true
@@ -128,6 +129,24 @@ module ParameterChecking
 	def check_param value, name, options = {}, &block
 
 		Util_.check_parameter value, name, options, &block
+	end
+
+	# Specific form of the +check_parameter()+ that is used to check
+	# options, taking instead the hash and the key
+	#
+	# @param +h+ [::Hash] The options hash from which the named element is
+	#         to be tested. May not be +nil+
+	# @param +name+ [::String, ::Symbol] The options key name. May not be
+	#         +nil+
+	# @param +options+ [::Hash] options that moderate the behaviour in the
+	#         same way as for +check_parameter()+ except that the
+	#         +:treat_as_option+ option (with the value +true+) is merged in
+	#         before calling +check_parameter()+
+	#
+	# 
+	def check_option h, name, options = {}, &block
+
+		Util_.check_parameter h[name], name, options.merge({ treat_as_option: true }), &block
 	end
 
 	public
