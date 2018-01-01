@@ -5,13 +5,13 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      21st December 2017
+# Updated:      2nd January 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2015-2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2015-2018, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -269,7 +269,7 @@ module ParameterChecking
 
 						# the (presumed) vector argument's elements are the
 						# possible types
-						value.all? { |v| t.any? { |t2| v.is_a?(t2) }}
+						value.all? { |v| t.any? { |t2| v.is_a?(t2) }} if ::Array === value
 					end
 				end
 
