@@ -7,4 +7,5 @@ require 'xqsr3/extensions/test/unit/assert_raise_with_message'
 require 'xqsr3/extensions/test/unit/assert_subclass_of'
 require 'xqsr3/extensions/test/unit/assert_superclass_of'
 require 'xqsr3/extensions/test/unit/assert_true'
+require 'xqsr3/extensions/test/unit/assert_type_has_instance_methods'
 
