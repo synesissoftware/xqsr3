@@ -256,7 +256,7 @@ module ParameterChecking
 			types		=	[value.class] if types.empty?
 
 			warn "#{self}::check_parameter: options[:types] of type #{types.class} - should be #{::Array}" unless types.is_a?(Array)
-			warn "#{self}::check_parameter: options[:types] should contain only classes or arrays of classes" if types.is_a?(::Array) && !types.all? { |c| ::Class === c || (::Array === c || c.all? { |c2| ::Class === c2 }) }
+			warn "#{self}::check_parameter: options[:types] - '#{options[:types]}' - should contain only classes or arrays of classes" if types.is_a?(::Array) && !types.all? { |c| ::Class === c || (::Array === c && c.all? { |c2| ::Class === c2 }) }
 
 			unless types.any? do |t|
 

@@ -108,6 +108,9 @@ class Test_parameter_checks_as_included_module < Test::Unit::TestCase
 		end
 		assert_equal true, check_method_2(true, [ ::TrueClass ], nothrow: true)
 		assert_nil check_method_2(true, [ ::FalseClass ], nothrow: true)
+		assert_nil check_method_2('abc', [ ::Symbol, ::Regexp ], nothrow: true)
+		assert_nil check_method_2([ 'abc' ], [ [ ::Symbol ], ::Regexp ], nothrow: true)
+		assert_not_nil check_method_2([ 'abc' ], [ [ ::String ], ::Regexp ], nothrow: true)
 	end
 
 
