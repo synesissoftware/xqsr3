@@ -111,6 +111,34 @@ class Test_parameter_checks_as_included_module < Test::Unit::TestCase
 		assert_nil check_method_2('abc', [ ::Symbol, ::Regexp ], nothrow: true)
 		assert_nil check_method_2([ 'abc' ], [ [ ::Symbol ], ::Regexp ], nothrow: true)
 		assert_not_nil check_method_2([ 'abc' ], [ [ ::String ], ::Regexp ], nothrow: true)
+		assert_not_nil check_method_2(//, [ [ ::String ], ::Regexp ], nothrow: true)
+		assert_not_nil check_method_2([ [ 'abc', 'def' ], [ 'ghi', 'jkl' ] ], [ [ ::String ], ::Regexp, [ ::Array ] ], nothrow: true)
+
+		assert_not_nil check_method_2([ [ 'abc', 'def' ], [ 'ghi', 'jkl' ] ], [ [ ::String ], ::Regexp, [ ::Array ] ], nothrow: true) do |v|
+
+			if ::Array === v
+
+				na = v.count { |v2| ::Array === v2 }
+
+				0 == na || v.size == na
+			else
+
+				true
+			end
+		end
+
+		assert_nil check_method_2([ [ 'abc', 'def' ], nil, [ 'ghi', 'jkl' ] ], [ [ ::String ], ::Regexp, [ ::Array ] ], nothrow: true) do |v|
+
+			if ::Array === v
+
+				na = v.count { |v2| ::Array === v2 }
+
+				0 == na || v.size == na
+			else
+
+				true
+			end
+		end
 	end
 
 
