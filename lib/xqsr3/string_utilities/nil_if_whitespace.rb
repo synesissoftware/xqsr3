@@ -1,8 +1,8 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/string_utilities/nil_if_empty.rb
+# File:         lib/xqsr3/string_utilities/nil_if_whitespace.rb
 #
-# Purpose:      Definition of the ::Xqsr3::StringUtilities::NilIfEmpty
+# Purpose:      Definition of the ::Xqsr3::StringUtilities::NilIfWhitespace
 #               module
 #
 # Created:      25th January 2018
@@ -46,7 +46,7 @@
 
 
 # ##########################################################
-# ::Xqsr3::StringUtilities::NilIfEmpty
+# ::Xqsr3::StringUtilities::NilIfWhitespace
 
 =begin
 =end
@@ -54,37 +54,37 @@
 module Xqsr3
 module StringUtilities
 
-module NilIfEmpty
+module NilIfWhitespace
 
 	private
-	module NilIfEmpty_Helper_ #:nodoc:
+	module NilIfWhitespace_Helper_ #:nodoc:
 
-		def self.string_nil_if_empty_array_ s
+		def self.string_nil_if_whitespace_array_ s
 
-			return s if s && !s.empty?
+			return nil if s.strip.empty?
 
-			nil
+			s
 		end
 	end
 	public
 
-	# Returns +nil+ if the given string is empty, otherwise returning the
-	# given string
+	# Returns +nil+ if the given string is empty or contains only whitespace,
+	# otherwise returning the given string
 	#
 	# === *Parameters*
 	#
 	# * *Required parameters*:
 	#   - +s+:: [String] The string to be evaluated
-	def self.string_nil_if_empty s
+	def self.string_nil_if_whitespace s
 
-		NilIfEmpty_Helper_.string_nil_if_empty_array_ s
+		NilIfWhitespace_Helper_.string_nil_if_whitespace_array_ s
 	end
 
-	def nil_if_empty
+	def nil_if_whitespace
 
-		NilIfEmpty_Helper_.string_nil_if_empty_array_ self
+		NilIfWhitespace_Helper_.string_nil_if_whitespace_array_ self
 	end
-end # module NilIfEmpty
+end # module NilIfWhitespace
 
 end # module StringUtilities
 end # module Xqsr3

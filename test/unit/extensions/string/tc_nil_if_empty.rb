@@ -19,6 +19,7 @@ class Test_String_nil_if_empty < Test::Unit::TestCase
 	def test_nil_if_empty
 
 		assert_nil ''.nil_if_empty
+		assert_equal ' ', ' '.nil_if_empty
 		assert_equal 'a', 'a'.nil_if_empty
 	end
 end
