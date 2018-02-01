@@ -6,13 +6,13 @@
 #               module
 #
 # Created:      30th July 2017
-# Updated:      1st November 2017
+# Updated:      1st February 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2017-2018, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -148,6 +148,13 @@ module Compare
 			r = "#{r}: #{qualifying}" unless qualifying.empty?
 
 			r
+		end
+
+		def to_s
+
+			return 'same' if same?
+
+			"different, because: #{details}"
 		end
 	end
 
