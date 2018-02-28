@@ -19,6 +19,8 @@ END_DESC
 	gs.email		=	'matthew@synesis.com.au'
 	gs.files		=	Dir[ 'Rakefile', '{bin,examples,lib,man,spec,test}/**/*', 'README*', 'LICENSE*' ] & `git ls-files -z`.split("\0")
 	gs.homepage		=	'http://github.com/synesissoftware/xqsr3'
-	gs.license		=	'3-clause BSD'
+	gs.license		=	'BSD-3-clause'
+
+	gs.required_ruby_version = '~> 2.0'
 end
 
