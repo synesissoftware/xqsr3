@@ -5,7 +5,7 @@
 # Purpose:      Version for Xqsr3 library
 #
 # Created:      3rd April 2016
-# Updated:      1st February 2018
+# Updated:      28th February 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -50,7 +50,7 @@
 module Xqsr3
 
 	# Current version of the Xqsr3 library
-	VERSION				=	'0.22.2'
+	VERSION				=	'0.22.3'
 
 	private
 	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:

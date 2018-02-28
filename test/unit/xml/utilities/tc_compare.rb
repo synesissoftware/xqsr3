@@ -127,5 +127,62 @@ END_OF_rhs
 		assert r.same?, "#{r.details}"
 	end
 
+	def test_different_declarations_and_dont_ignore
+
+		lhs_str	=	<<END_OF_lhs_doc
+<?xml version="1.0"?>
+<outer>
+ <mid>
+  <inner>some text</inner>
+ </mid>
+</outer>
+END_OF_lhs_doc
+
+		rhs_str	=	<<END_OF_rhs_doc
+<?xml version="1.0"?>
+ <mid>
+  <inner>some text</inner>
+ </mid>
+END_OF_rhs_doc
+
+		lhs_doc		=	Nokogiri::XML lhs_str
+		rhs_doc		=	Nokogiri::XML rhs_str
+
+		expected	=	rhs_doc
+		actual		=	lhs_doc.at_xpath('/outer/mid')
+
+		r			=	xml_compare expected, actual, normalise_whitespace: true, ignore_xml_declarations: false
+
+		assert !r.same?
+	end
+
+	def test_different_declarations_and_do_ignore
+
+		lhs_str	=	<<END_OF_lhs_doc
+<?xml version="1.0"?>
+<outer>
+ <mid>
+  <inner>some text</inner>
+ </mid>
+</outer>
+END_OF_lhs_doc
+
+		rhs_str	=	<<END_OF_rhs_doc
+<?xml version="1.0"?>
+ <mid>
+  <inner>some text</inner>
+ </mid>
+END_OF_rhs_doc
+
+		lhs_doc		=	Nokogiri::XML lhs_str
+		rhs_doc		=	Nokogiri::XML rhs_str
+
+		expected	=	rhs_doc
+		actual		=	lhs_doc.at_xpath('/outer/mid')
+
+		r			=	xml_compare expected, actual, normalise_whitespace: true, ignore_xml_declarations: true
+
+		assert r.same?, "#{r.details}"
+	end
 end
 

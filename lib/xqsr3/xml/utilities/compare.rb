@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      30th July 2017
-# Updated:      1st February 2018
+# Updated:      28th February 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -170,6 +170,7 @@ module Compare
 			ignore_attributes: false,
 			ignore_attribute_order: true,
 			ignore_child_node_order: true,
+			ignore_xml_declarations: true,
 			normalise_whitespace: true,
 #			normalize_whitespace: true,
 			validate_params: true,
@@ -244,6 +245,7 @@ module Compare
 		# +:equate_nil_and_empty+
 		# +:ignore_attributes+
 		# +:ignore_attribute_order+
+		# +:ignore_xml_declarations+
 		# +:normalise_whitespace+
 		# +:normalize_whitespace+
 		# +:validate_params+
@@ -287,6 +289,25 @@ module Compare
 
 			lhs	=	Nokogiri::XML(lhs) if ::String === lhs
 			rhs	=	Nokogiri::XML(rhs) if ::String === rhs
+
+
+
+			# deal with XML Declaration(s)
+
+			if options[:ignore_xml_declarations]
+
+				if ::Nokogiri::XML::Document === lhs
+
+					lhs_root	=	lhs.root
+					lhs			=	lhs_root if lhs_root
+				end
+
+				if ::Nokogiri::XML::Document === rhs
+
+					rhs_root	=	rhs.root
+					rhs			=	rhs_root if rhs_root
+				end
+			end
 
 
 			self.xml_compare_nodes_ lhs, rhs, options
