@@ -5,13 +5,13 @@
 # Purpose:      Definition of the WithCause inclusion module
 #
 # Created:      16th December 2017
-# Updated:      17th December 2017
+# Updated:      14th March 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2017-2018, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -92,7 +92,7 @@ module WithCause
 
 			@has_implicit_message = args.empty?
 
-			super *args
+			super(*args)
 
 			warn 'unexpected implicit message' if @has_implicit_message && self.message != self.class.to_s
 
@@ -123,7 +123,7 @@ module WithCause
 
 			@has_implicit_message = args.empty?
 
-			super *args
+			super(*args)
 
 			warn 'unexpected implicit message' if @has_implicit_message && self.message != self.class.to_s
 
