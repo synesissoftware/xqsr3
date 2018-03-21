@@ -94,9 +94,9 @@ module ParameterChecking
 	# @option +:allow_nil+:: (boolean) The +value+ must not be +nil+ unless
 	#          this option is true
 	# @option +:nil+:: an alias for +:allow_nil+
-	# @option +:types+:: (::Array) An array of types one of which +value+ must
-	#          be (or must be derived from). One of these types may be an
-	#          array of types, in which case +value+ may be an array that
+	# @option +:types+:: (::Array) An array of types one of which +value+
+	#          must be (or must be derived from). One of these types may be
+	#          an array of types, in which case +value+ may be an array that
 	#          must consist wholly of those types
 	# @option +:type+:: (::Class) A single type parameter, used only if
 	#          +:types+ is not specified
@@ -104,12 +104,12 @@ module ParameterChecking
 	#          must be
 	# @option +:responds_to+:: (::Array) An array of symbols specifying all
 	#          messages to which the parameter will respond
-	# @option +:reject_empty+:: (boolean) requires value to respond to +empty?+
-	#          message and to do so with false, unless +nil+
+	# @option +:reject_empty+:: (boolean) requires value to respond to
+	#          +empty?+ message and to do so with false, unless +nil+
 	# @option +:require_empty+:: (boolean) requires value to respond to
 	#          +empty?+ message and to do so with true, unless +nil+
-	# @option +:nothrow+:: (boolean) causes failure to be indicated by a +nil+
-	#          return rather than a thrown exception
+	# @option +:nothrow+:: (boolean) causes failure to be indicated by a
+	#          +nil+ return rather than a thrown exception
 	# @option +:message+:: (::String) specifies a message to be used in any
 	#          thrown exception, which suppresses internal message
 	#          preparation
@@ -143,7 +143,6 @@ module ParameterChecking
 	#         +:treat_as_option+ option (with the value +true+) is merged in
 	#         before calling +check_parameter()+
 	#
-	# 
 	def check_option h, name, options = {}, &block
 
 		Util_.check_parameter h[name], name, options.merge({ treat_as_option: true }), &block
