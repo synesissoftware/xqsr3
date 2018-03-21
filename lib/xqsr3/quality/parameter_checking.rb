@@ -133,6 +133,10 @@ module ParameterChecking
 	# @option +:message+:: (::String) specifies a message to be used in any
 	#          thrown exception, which suppresses internal message
 	#          preparation
+	# @option +:strip_str_whitespace+:: (boolean) If +value+ is a string (as
+	#          determined by responding to +to_str+ message), then it will
+	#          be stripped - leading and trailing whitespace removed -
+	#          before any processing
 	# @option +:treat_as_option+:: (boolean) If true, the value will be
 	#          treated as an option when reporting check failure
 	#
@@ -229,6 +233,15 @@ module ParameterChecking
 
 				warn s
 			end
+		end
+
+		# strip whitespace
+
+		if options[:strip_str_whitespace]
+
+			warn "#{self}::#{__method__}: options[:strip_str_whitespace] specified but value - '#{value}' (#{value.class}) - does not respond to to_str" unless value.respond_to? :to_str
+
+			value = value.to_str.strip
 		end
 
 

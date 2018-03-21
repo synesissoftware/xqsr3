@@ -469,5 +469,22 @@ end
 			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
 		end
 	end
+
+	def check_method_strip_str_whitespace v, name, options = {}, &block
+
+		check_parameter v, name, options, &block
+	end
+
+	def test_strip_str_whitespace
+
+		assert_equal ' ', check_method_strip_str_whitespace(' ', 's')
+		assert_equal ' ', check_method_strip_str_whitespace(' ', 's', strip_str_whitespace: false)
+		assert_equal ' ', check_method_strip_str_whitespace(' ', 's', reject_empty: true, strip_str_whitespace: false)
+		assert_equal '', check_method_strip_str_whitespace(' ', 's', strip_str_whitespace: true)
+		assert_equal 'abc', check_method_strip_str_whitespace("\tabc     ", 's', strip_str_whitespace: true)
+
+		assert_raise_with_message(::ArgumentError, /param.*s.*(?:may|must) not be empty/) { check_method_strip_str_whitespace('', 's', reject_empty: true) }
+		assert_raise_with_message(::ArgumentError, /param.*s.*(?:may|must) not be empty/) { check_method_strip_str_whitespace(' ', 's', reject_empty: true, strip_str_whitespace: true) }
+	end
 end
 
