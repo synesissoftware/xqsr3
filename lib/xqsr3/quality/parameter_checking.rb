@@ -75,6 +75,26 @@ module ParameterChecking
 				"#{a[0...-1].join(', ')}, or #{a[-1]}"
 			end
 		end
+
+		module Constants
+
+			RECOGNISED_OPTION_NAMES = %w{
+
+				allow_nil
+				nil
+				types
+				type
+				values
+				responds_to
+				reject_empty
+				require_empty
+				nothrow
+				message
+				strip_str_whitespace
+				treat_as_option
+			}.map { |v| v.to_sym }
+
+		end # module Constants
 	end # module Util_
 	public
 
@@ -196,6 +216,21 @@ module ParameterChecking
 
 	private
 	def Util_.check_parameter value, name, options, &block
+
+		if $DEBUG
+
+			unrecognised_option_names	=	options.keys - Util_::Constants::RECOGNISED_OPTION_NAMES
+
+			unless unrecognised_option_names.empty?
+
+				s	=	"#{self}::check_parameter: the following options are not recognised:"
+
+				unrecognised_option_names.each { |n| s += "\n\t'#{n}'" }
+
+				warn s
+			end
+		end
+
 
 		failed_check	=	false
 		options			||=	{}
