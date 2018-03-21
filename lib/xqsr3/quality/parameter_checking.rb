@@ -237,11 +237,15 @@ module ParameterChecking
 
 		# strip whitespace
 
-		if options[:strip_str_whitespace]
+		if !value.nil? && options[:strip_str_whitespace]
 
-			warn "#{self}::#{__method__}: options[:strip_str_whitespace] specified but value - '#{value}' (#{value.class}) - does not respond to to_str" unless value.respond_to? :to_str
+			if value.respond_to? :to_str
 
-			value = value.to_str.strip
+				value = value.to_str.strip
+			else
+
+				warn "#{self}::#{__method__}: options[:strip_str_whitespace] specified but value - '#{value}' (#{value.class}) - does not respond to to_str" unless value.respond_to? :to_str
+			end
 		end
 
 
