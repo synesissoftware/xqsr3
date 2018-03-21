@@ -40,12 +40,15 @@ module Assertions
 
 				yield
 
-				assert false, "expected did not throw an exception"
+				assert false, 'the block did not throw an exception as was expected'
+			rescue Test::Unit::AssertionFailedError
+
+				raise
 			rescue Exception => x
 
 				if type_spec
 
-					assert false, "exception not of any of required types (#{type_spec.join(', ')}); #{x.class} given" unless type_spec.any? { |c| x.is_a? c}
+					assert false, "exception (#{x.class}) not of any of required types (#{type_spec.join(', ')}); #{x.class} given" unless type_spec.any? { |c| x.is_a? c}
 				end
 
 				if message_spec
