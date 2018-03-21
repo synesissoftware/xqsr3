@@ -87,33 +87,33 @@ module ParameterChecking
 	# Check a given parameter (value=+value+, name=+name+) for type and value
 	#
 	# @param +value+:: the parameter whose value and type is to be checked
-	# @param +name+:: [::String, ::Symbol] the name of the parameter to be
+	# @param +name+:: (::String, ::Symbol) the name of the parameter to be
 	#         checked
-	# @param +options+:: [::Hash] options that moderate the behaviour
+	# @param +options+:: (::Hash) options that moderate the behaviour
 	#
-	# @option +:allow_nil+:: [boolean] The +value+ must not be +nil+ unless
+	# @option +:allow_nil+:: (boolean) The +value+ must not be +nil+ unless
 	#          this option is true
 	# @option +:nil+:: an alias for +:allow_nil+
-	# @option +:types+:: [::Array] An array of types one of which +value+ must
+	# @option +:types+:: (::Array) An array of types one of which +value+ must
 	#          be (or must be derived from). One of these types may be an
 	#          array of types, in which case +value+ may be an array that
 	#          must consist wholly of those types
-	# @option +:type+:: [::Class] A single type parameter, used only if
+	# @option +:type+:: (::Class) A single type parameter, used only if
 	#          +:types+ is not specified
-	# @option +:values+:: [::Array] an array of values one of which +value+
+	# @option +:values+:: (::Array) an array of values one of which +value+
 	#          must be
-	# @option +:responds_to+:: [::Array] An array of symbols specifying all
+	# @option +:responds_to+:: (::Array) An array of symbols specifying all
 	#          messages to which the parameter will respond
-	# @option +:reject_empty+:: [boolean] requires value to respond to +empty?+
+	# @option +:reject_empty+:: (boolean) requires value to respond to +empty?+
 	#          message and to do so with false, unless +nil+
-	# @option +:require_empty+:: [boolean] requires value to respond to
+	# @option +:require_empty+:: (boolean) requires value to respond to
 	#          +empty?+ message and to do so with true, unless +nil+
-	# @option +:nothrow+:: [boolean] causes failure to be indicated by a +nil+
+	# @option +:nothrow+:: (boolean) causes failure to be indicated by a +nil+
 	#          return rather than a thrown exception
-	# @option +:message+:: [::String] specifies a message to be used in any
+	# @option +:message+:: (::String) specifies a message to be used in any
 	#          thrown exception, which suppresses internal message
 	#          preparation
-	# @option +:treat_as_option+:: [boolean] If true, the value will be
+	# @option +:treat_as_option+:: (boolean) If true, the value will be
 	#          treated as an option when reporting check failure
 	#
 	# This method is private, because it should only be used within methods
@@ -134,11 +134,11 @@ module ParameterChecking
 	# Specific form of the +check_parameter()+ that is used to check
 	# options, taking instead the hash and the key
 	#
-	# @param +h+:: [::Hash] The options hash from which the named element is
+	# @param +h+:: (::Hash) The options hash from which the named element is
 	#         to be tested. May not be +nil+
-	# @param +name+:: [::String, ::Symbol] The options key name. May not be
+	# @param +name+:: (::String, ::Symbol) The options key name. May not be
 	#         +nil+
-	# @param +options+:: [::Hash] options that moderate the behaviour in the
+	# @param +options+:: (::Hash) options that moderate the behaviour in the
 	#         same way as for +check_parameter()+ except that the
 	#         +:treat_as_option+ option (with the value +true+) is merged in
 	#         before calling +check_parameter()+
@@ -156,29 +156,29 @@ module ParameterChecking
 	# @param +name+:: the name of the parameter to be checked
 	# @param +options+:: options
 	#
-	# @option +:allow_nil+:: [boolean] The +value+ must not be +nil+ unless
+	# @option +:allow_nil+:: (boolean) The +value+ must not be +nil+ unless
 	#          this option is true
 	# @option +:nil+:: an alias for +:allow_nil+
-	# @option +:types+:: [::Array] An array of types one of which +value+ must
+	# @option +:types+:: (::Array) An array of types one of which +value+ must
 	#          be (or must be derived from). One of these types may be an
 	#          array of types, in which case +value+ may be an array that
 	#          must consist wholly of those types
-	# @option +:type+:: [::Class] A single type parameter, used only if
+	# @option +:type+:: (::Class) A single type parameter, used only if
 	#          +:types+ is not specified
-	# @option +:values+:: [::Array] an array of values one of which +value+
+	# @option +:values+:: (::Array) an array of values one of which +value+
 	#          must be
-	# @option +:responds_to+:: [::Array] An array of symbols specifying all
+	# @option +:responds_to+:: (::Array) An array of symbols specifying all
 	#          messages to which the parameter will respond
-	# @option +:reject_empty+:: [boolean] requires value to respond to +empty?+
+	# @option +:reject_empty+:: (boolean) requires value to respond to +empty?+
 	#          message and to do so with false, unless +nil+
-	# @option +:require_empty+:: [boolean] requires value to respond to
+	# @option +:require_empty+:: (boolean) requires value to respond to
 	#          +empty?+ message and to do so with true, unless +nil+
-	# @option +:nothrow+:: [boolean] causes failure to be indicated by a +nil+
+	# @option +:nothrow+:: (boolean) causes failure to be indicated by a +nil+
 	#          return rather than a thrown exception
-	# @option +:message+:: [boolean] specifies a message to be used in any
+	# @option +:message+:: (boolean) specifies a message to be used in any
 	#          thrown exception, which suppresses internal message
 	#          preparation
-	# @option +:treat_as_option+:: [boolean] If true, the value will be
+	# @option +:treat_as_option+:: (boolean) If true, the value will be
 	#          treated as an option when reporting check failure
 	#
 	def self.check_parameter value, name, options = {}, &block
