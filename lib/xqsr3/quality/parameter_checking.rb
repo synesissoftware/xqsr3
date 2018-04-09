@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      21st March 2018
+# Updated:      5th April 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -381,44 +381,47 @@ module ParameterChecking
 
 		# reject/require empty?
 
-		if options[:reject_empty]
+		unless value.nil?
 
-			warn "#{self}::check_parameter: value '#{value}' of type #{value.class} does not respond to empty?" unless value.respond_to? :empty?
+			if options[:reject_empty]
 
-			if value.empty?
+				warn "#{self}::check_parameter: value '#{value}' of type #{value.class} does not respond to empty?" unless value.respond_to? :empty?
 
-				failed_check	=	true
+				if value.empty?
 
-				unless options[:nothrow]
+					failed_check	=	true
 
-					unless message
-						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+					unless options[:nothrow]
 
-						message		=	"#{param_s} #{s_name}must not be empty"
+						unless message
+							s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+
+							message		=	"#{param_s} #{s_name}must not be empty"
+						end
+
+						raise ArgumentError, message
 					end
-
-					raise ArgumentError, message
 				end
 			end
-		end
 
-		if options[:require_empty]
+			if options[:require_empty]
 
-			warn "#{self}::check_parameter: value '#{value}' of type #{value.class} does not respond to empty?" unless value.respond_to? :empty?
+				warn "#{self}::check_parameter: value '#{value}' of type #{value.class} does not respond to empty?" unless value.respond_to? :empty?
 
-			unless value.empty?
+				unless value.empty?
 
-				failed_check	=	true
+					failed_check	=	true
 
-				unless options[:nothrow]
+					unless options[:nothrow]
 
-					unless message
-						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+						unless message
+							s_name		=	name.is_a?(String) ? "'#{name}' " : ''
 
-						message		=	"#{param_s} #{s_name}must be empty"
+							message		=	"#{param_s} #{s_name}must be empty"
+						end
+
+						raise ArgumentError, message
 					end
-
-					raise ArgumentError, message
 				end
 			end
 		end

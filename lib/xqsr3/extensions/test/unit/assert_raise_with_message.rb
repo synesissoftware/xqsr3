@@ -48,7 +48,7 @@ module Assertions
 
 				if type_spec
 
-					assert false, "exception (#{x.class}) not of any of required types (#{type_spec.join(', ')}); #{x.class} given" unless type_spec.any? { |c| x.is_a? c}
+					assert false, "exception (#{x.class}) - message: '#{x.message}' - not of any of required types (#{type_spec.join(', ')}); #{x.class} given" unless type_spec.any? { |c| x.is_a? c}
 				end
 
 				if message_spec
