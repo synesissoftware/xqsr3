@@ -1,25 +1,26 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/version.rb
+# File:         lib/xqsr3/string_utilities/truncate.rb
 #
-# Purpose:      Version for Xqsr3 library
+# Purpose:      Definition of the ::Xqsr3::StringUtilities::Truncate
+#               module
 #
-# Created:      3rd April 2016
+# Created:      12th April 2018
 # Updated:      12th April 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2016-2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2018, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
 # met:
 #
-# * Redistributions of source code must retain the above copyright
-#   notice, this list of conditions and the following disclaimer.
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
 #
 # * Redistributions in binary form must reproduce the above copyright
 #   notice, this list of conditions and the following disclaimer in the
@@ -44,24 +45,75 @@
 # ######################################################################## #
 
 
+# ##########################################################
+# ::Xqsr3::StringUtilities::Truncate
+
 =begin
 =end
 
 module Xqsr3
+module StringUtilities
 
-	# Current version of the Xqsr3 library
-	VERSION				=	'0.24.1'
+# To-symbol conversion facilities
+#
+module Truncate
 
 	private
-	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
-	public
-	# Major version of the Xqsr3 library
-	VERSION_MAJOR		=	VERSION_PARTS_[0] # :nodoc:
-	# Minor version of the Xqsr3 library
-	VERSION_MINOR		=	VERSION_PARTS_[1] # :nodoc:
-	# Revision version of the Xqsr3 library
-	VERSION_REVISION	=	VERSION_PARTS_[2] # :nodoc:
+	module Truncate_Helper_ #:nodoc:
 
+		def self.string_truncate_with_options_ s, width, options
+
+			case	s
+			when	::String
+				;
+			else
+
+				if s.respond_to? :to_str
+
+					s = s.to_str
+				else
+
+					raise TypeError, "string argument must be of type #{::String} or a type that will respond to to_str"
+				end
+			end
+
+			case	options
+			when	::Hash
+				;
+			else
+
+				raise TypeError, "options must be of type #{::Hash}, #{options.class} given"
+			end
+
+			len	=	s.size
+
+			return s if len <= width
+
+			omission	=	options[:omission] || '...'
+
+			if width < omission.size
+
+				return omission[0...width]
+			else
+
+				return s[0...(width - omission.size)] + omission
+			end
+		end
+	end
+	public
+
+	def self.string_truncate s, width, options = {}
+
+		Truncate_Helper_.string_truncate_with_options_ s, width, options
+	end
+
+	def truncate width, options = {}
+
+		Truncate_Helper_.string_truncate_with_options_ self, width, options
+	end
+end # module Truncate
+
+end # module StringUtilities
 end # module Xqsr3
 
 # ############################## end of file ############################# #
