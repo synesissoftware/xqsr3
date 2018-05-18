@@ -5,13 +5,13 @@
 # Purpose:      Adds a Integer 'overload' to the Kernel module
 #
 # Created:      21st November 2017
-# Updated:      22nd November 2017
+# Updated:      18th May 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2017-2018, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -63,6 +63,10 @@ module Kernel
 	#   - +base+:: A value of 0, or between 2 and 36. Defaults to 0
 	#   - +options+:: An options hash, containing any of the following
 	#   options
+	#   - +block+:: An optional caller-supplied block that will be invoked
+	#     with the +ArgumentError+ exception, allowing the caller to take
+	#     additional action. If the block returns then its return value will
+	#     be returned to the caller
 	#
 	# * *Options*:
 	#   - +:default+:: A default value to be used when +arg+ is +nil+ or
@@ -70,7 +74,18 @@ module Kernel
 	#   - +:nil+:: Returns +nil+ if +arg+ is +nil+ or cannot be
 	#     converted by (the original) +Kernel#Integer+. Ignored if
 	#     +:default+ is specified
-	def Integer(arg, base = 0, **options)
+	def Integer(arg, base = 0, **options, &block)
+
+		if block_given?
+
+			begin
+
+				return xqsr3_Integer_original_method arg, base
+			rescue ArgumentError, TypeError => x
+
+				return yield x
+			end
+		end
 
 		if options.has_key?(:default) || options[:nil]
 

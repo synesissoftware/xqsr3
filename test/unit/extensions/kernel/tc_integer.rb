@@ -8,6 +8,8 @@ require 'test/unit'
 
 class Test_X_Kernel_Integer < Test::Unit::TestCase
 
+	class SomeRandomException < Exception; end
+
 	def test_Integer_with_valid_values
 
 		assert_equal 0, Integer(0)
@@ -69,6 +71,17 @@ class Test_X_Kernel_Integer < Test::Unit::TestCase
 		assert_equal nil, Integer('zero', default: nil)
 		assert_equal nil, Integer('plus 1', default: nil)
 		assert_equal nil, Integer('/0', default: nil)
+	end
+
+	def test_Integer_with_invalid_values_and_block
+
+		assert_equal nil, Integer(nil) { nil }
+		assert_equal nil, Integer('blah') { nil }
+
+		assert_equal 'one', Integer(nil) { 'one' }
+		assert_equal 'one', Integer('blah') { 'one' }
+
+		assert_raise(SomeRandomException) { Integer(nil) { raise SomeRandomException.new } }
 	end
 end
 
