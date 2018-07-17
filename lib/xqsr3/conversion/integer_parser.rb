@@ -90,7 +90,7 @@ module IntegerParser
 					return self.invoke_Integer arg, base
 				rescue ArgumentError, TypeError => x
 
-					return yield x
+					return yield x, arg, base, options
 				end
 			end
 
@@ -126,11 +126,11 @@ module IntegerParser
 	#   - +base+:: A value of 0, or between 2 and 36. Defaults to 0
 	#   - +options+:: An options hash, containing any of the following
 	#     options
-	#   - +block+:: An optional caller-supplied 2-parameter block -
-	#     taking +arg+ and +base+ - that will be invoked with the
-	#     +ArgumentError+ exception, allowing the caller to take additional
-	#     action. If the block returns then its return value will be
-	#     returned to the caller
+	#   - +block+:: An optional caller-supplied 4-parameter block -
+	#     taking the exception, +arg+, +base+, and +options+ - that will be
+	#     invoked with the +ArgumentError+ exception, allowing the caller to
+	#     take additional action. If the block returns then its return value
+	#     will be returned to the caller
 	#
 	# * *Options*:
 	#   - +:default+:: A default value to be used when +arg+ is +nil+ or
