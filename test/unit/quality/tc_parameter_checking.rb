@@ -470,6 +470,8 @@ end
 		end
 	end
 
+	# test strip_str_whitespace
+
 	def check_method_strip_str_whitespace v, name, options = {}, &block
 
 		check_parameter v, name, options, &block
