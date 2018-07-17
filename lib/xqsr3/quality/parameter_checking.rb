@@ -255,6 +255,7 @@ module ParameterChecking
 		treat_as_option	=	options[:treat_as_option]
 		return_value	=	value
 		param_s			=	treat_as_option	? 'option' : 'parameter'
+		allow_nil		=	options[:allow_nil] || options[:nil]
 
 		warn "#{self}::check_parameter: invoked with non-string/non-symbol name: name.class=#{name.class}" unless name && [ ::String, ::Symbol ].any? { |c| name.is_a?(c) }
 
@@ -272,7 +273,7 @@ module ParameterChecking
 
 		# nil check
 
-		if value.nil? && !options[:allow_nil]
+		if value.nil? && !allow_nil
 
 			failed_check	=	true
 

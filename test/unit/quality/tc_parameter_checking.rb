@@ -488,5 +488,17 @@ end
 		assert_raise_with_message(::ArgumentError, /param.*s.*(?:may|must) not be empty/) { check_method_strip_str_whitespace('', 's', reject_empty: true) }
 		assert_raise_with_message(::ArgumentError, /param.*s.*(?:may|must) not be empty/) { check_method_strip_str_whitespace(' ', 's', reject_empty: true, strip_str_whitespace: true) }
 	end
+
+
+	# test_allow_nil
+
+	def test_allow_nil
+
+		assert_raise_with_message(::ArgumentError, /parameter .*the_param.* may not be nil/) { check_parameter(nil, 'the_param') }
+
+		assert_nil(check_parameter(nil, 'the_param', allow_nil: true))
+
+		assert_nil(check_parameter(nil, 'the_param', nil: true))
+	end
 end
 
