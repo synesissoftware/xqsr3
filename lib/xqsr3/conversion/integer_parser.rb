@@ -1,11 +1,12 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/extensions/kernel/integer.rb
+# File:         lib/xqsr3/conversion/integer_parser.rb
 #
-# Purpose:      Adds a Integer 'overload' to the Kernel module
+# Purpose:      Definition of the ::Xqsr3::Conversion::IntegerParser
+#               module
 #
 # Created:      21st November 2017
-# Updated:      18th May 2018
+# Updated:      17th July 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -18,8 +19,8 @@
 # modification, are permitted provided that the following conditions are
 # met:
 #
-# * Redistributions of source code must retain the above copyright
-#   notice, this list of conditions and the following disclaimer.
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
 #
 # * Redistributions in binary form must reproduce the above copyright
 #   notice, this list of conditions and the following disclaimer in the
@@ -44,19 +45,79 @@
 # ######################################################################## #
 
 
-require 'xqsr3/conversion/integer_parser'
-
 # ##########################################################
-# ::Kernel
+# ::Xqsr3::Conversion::IntegerParser
 
 =begin
 =end
 
-module Kernel
+module Xqsr3
+module Conversion
 
-	alias xqsr3_Integer_original_method Integer
+module IntegerParser
 
-	# A monkey-patch extension of +Kernel#Integer+ with +options+
+	private
+	module IntegerParser_Helper_ # :nodoc:
+
+		if Kernel.respond_to?(:xqsr3_Integer_original_method)
+
+			def self.invoke_Integer(arg, base)
+
+				Kernel.xqsr3_Integer_original_method(arg, base)
+			end
+		else
+
+			def self.invoke_Integer(arg, base)
+
+				Kernel.Integer(arg, base)
+			end
+		end
+
+		def self.to_integer_ arg, base, options, &block
+
+			case	options
+			when	::Hash
+				;
+			else
+
+				raise TypeError, "options must be of type #{::Hash}, #{options.class} given"
+			end
+
+			if block_given?
+
+				begin
+
+					return self.invoke_Integer arg, base
+				rescue ArgumentError, TypeError => x
+
+					return yield x
+				end
+			end
+
+			if options.has_key?(:default) || options[:nil]
+
+				unless arg.nil?
+
+					begin
+
+						return self.invoke_Integer arg, base
+					rescue ArgumentError
+					end
+				end
+
+				return options[:default] if options.has_key? :default
+
+				return nil
+			else
+
+				self.invoke_Integer arg, base
+			end
+		end
+	end # module IntegerParser_Helper_
+	public
+
+	# Attempts to convert a variable to an integer, according to the given
+	# options and block
 	#
 	# === Signature
 	#
@@ -65,10 +126,11 @@ module Kernel
 	#   - +base+:: A value of 0, or between 2 and 36. Defaults to 0
 	#   - +options+:: An options hash, containing any of the following
 	#     options
-	#   - +block+:: An optional caller-supplied block that will be invoked
-	#     with the +ArgumentError+ exception, allowing the caller to take
-	#     additional action. If the block returns then its return value will
-	#     be returned to the caller
+	#   - +block+:: An optional caller-supplied 2-parameter block -
+	#     taking +arg+ and +base+ - that will be invoked with the
+	#     +ArgumentError+ exception, allowing the caller to take additional
+	#     action. If the block returns then its return value will be
+	#     returned to the caller
 	#
 	# * *Options*:
 	#   - +:default+:: A default value to be used when +arg+ is +nil+ or
@@ -76,13 +138,21 @@ module Kernel
 	#   - +:nil+:: Returns +nil+ if +arg+ is +nil+ or cannot be
 	#     converted by (the original) +Kernel#Integer+. Ignored if
 	#     +:default+ is specified
-	def Integer(arg, base = 0, **options, &block)
+	def self.to_integer arg, base = 0, **options, &block
 
-		::Xqsr3::Conversion::IntegerParser.to_integer arg, base = 0, **options, &block
+		IntegerParser_Helper_.to_integer_ arg, base, options, &block
 	end
 
-	private :xqsr3_Integer_original_method
-end # module Kernel
+	# Instance form of ::Xqsr3::Conversion::IntegerParser.to_integer
+	def to_integer base = 0, **options, &block
+
+		IntegerParser_Helper_.to_integer_ self, base, options, &block
+	end
+
+end # module IntegerParser
+
+end # module Conversion
+end # module Xqsr3
 
 # ############################## end of file ############################# #
 
