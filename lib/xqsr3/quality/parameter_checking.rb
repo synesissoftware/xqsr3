@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      5th April 2018
+# Updated:      17th July 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -160,8 +160,8 @@ module ParameterChecking
 	#
 	# @param +h+:: (::Hash) The options hash from which the named element is
 	#         to be tested. May not be +nil+
-	# @param +name+:: (::String, ::Symbol) The options key name. May not be
-	#         +nil+
+	# @param +name+:: (::String, ::Symbol, [ ::String, ::Symbol ]) The
+	#         options key name, or an array of names. May not be +nil+
 	# @param +options+:: (::Hash) options that moderate the behaviour in the
 	#         same way as for +check_parameter()+ except that the
 	#         +:treat_as_option+ option (with the value +true+) is merged in
@@ -169,7 +169,7 @@ module ParameterChecking
 	#
 	def check_option h, name, options = {}, &block
 
-		Util_.check_parameter h[name], name, options.merge({ treat_as_option: true }), &block
+		Util_.check_option h, name, options, &block
 	end
 
 	public
@@ -219,6 +219,37 @@ module ParameterChecking
 	end
 
 	private
+	def Util_.check_option h, names, options = {}, &block
+
+		warn "#{self}::#{__method__}: given parameter h - value '#{h.inspect}' - must be a #{::Hash} but is a #{h.class}" unless ::Hash === h
+
+		case names
+		when ::Array
+
+			allow_nil	=	options[:allow_nil] || options[:nil]
+
+			# find the first item whose name is in the hash ...
+
+			found_name	=	names.find { |name| h.has_key?(name) }
+
+			if found_name.nil? && allow_nil
+
+				return nil
+			end
+
+			# ... or use the first (just to get a name for reporting)
+
+			found_name	||=	names[0]
+
+			Util_.check_parameter h[found_name], found_name, options.merge({ treat_as_option: true }), &block
+		else
+
+			name	=	names
+
+			Util_.check_parameter h[name], name, options.merge({ treat_as_option: true }), &block
+		end
+	end
+
 	def Util_.check_parameter value, name, options, &block
 
 		if $DEBUG
@@ -263,8 +294,10 @@ module ParameterChecking
 
 			case name
 			when ::String
-				name = ':' + name if ':' != name[0]
+
+				;
 			when ::Symbol
+
 				name = ':' + name.to_s
 			else
 			end

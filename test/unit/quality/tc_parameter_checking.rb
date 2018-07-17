@@ -391,7 +391,7 @@ end
 			assert(false, 'should not get here')
 		rescue ArgumentError => ax
 
-			assert_equal "option ':thingy' may not be nil", ax.message
+			assert_equal "option 'thingy' may not be nil", ax.message
 		rescue => x
 
 			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
@@ -451,7 +451,7 @@ end
 			assert(false, 'should not get here')
 		rescue ArgumentError => ax
 
-			assert_equal "option ':thingy' may not be nil", ax.message
+			assert_equal "option 'thingy' may not be nil", ax.message
 		rescue => x
 
 			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
@@ -468,6 +468,73 @@ end
 
 			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
 		end
+	end
+
+	# test multiple option names
+
+	def check_method_multiple_option_names h, o, options = {}, &block
+
+		check_option h, o, options.merge({ }), &block
+	end
+
+	def test_multiple_option_names
+
+		# normal cases
+
+		thing	=	check_method_multiple_option_names({ thing: 123 }, :thing)
+		assert_equal 123, thing
+
+
+		thing	=	check_method_multiple_option_names({ thing: 123 }, :thingy, allow_nil: true)
+		assert_nil thing
+
+
+		begin
+			check_method_multiple_option_names({ thing: 123 }, :thingy)
+
+			assert(false, 'should not get here')
+		rescue ArgumentError => ax
+
+			assert_equal "option ':thingy' may not be nil", ax.message
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+
+
+		# multiple-name cases
+
+
+		thing	=	check_method_multiple_option_names({ thing: 123 }, [ :thingy, :thing ])
+		assert_equal 123, thing
+
+
+		thing	=	check_method_multiple_option_names({ thing: 123 }, [ :thingy, :Thingy ], allow_nil: true)
+		assert_nil thing
+
+
+		begin
+			check_method_multiple_option_names({ thing: 123 }, [ :thingy, :Thingy ])
+
+			assert(false, 'should not get here')
+		rescue ArgumentError => ax
+
+			assert_equal "option ':thingy' may not be nil", ax.message
+		rescue => x
+
+			assert(false, "wrong exception type #{x.class}) (with message '#{x.message}'")
+		end
+
+		assert_raise_with_message(::ArgumentError, "option ':thingy' may not be nil") { check_option({ thing: 123 }, [ :thingy, :Thingy ]) }
+		assert_raise_with_message(::ArgumentError, "option ':Thingy' may not be nil") { check_option({ thing: 123 }, [ :Thingy, :thingy ]) }
+
+		# multiple-name cases where several present
+
+		assert_equal 123, check_method_multiple_option_names({ thing: 123, thingy: 45 }, [ :thing, :thingy ])
+		assert_equal 45, check_method_multiple_option_names({ thing: 123, thingy: 45 }, [ :thingy, :thing ])
+
+		assert_equal 123, check_method_multiple_option_names({ thing: 123, thingy: 45 }, [ :Thingy, :thing, :thingy ])
+		assert_equal 45, check_method_multiple_option_names({ thing: 123, thingy: 45 }, [ :Thingy, :thingy, :thing ])
 	end
 
 	# test strip_str_whitespace
