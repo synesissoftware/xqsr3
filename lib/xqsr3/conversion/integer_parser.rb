@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      21st November 2017
-# Updated:      17th July 2018
+# Updated:      1st August 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -61,15 +61,49 @@ module IntegerParser
 
 		if Kernel.respond_to?(:xqsr3_Integer_original_method)
 
-			def self.invoke_Integer(arg, base)
+			def self.invoke_Integer_1(arg)
+
+				Kernel.xqsr3_Integer_original_method(arg)
+			end
+
+			def self.invoke_Integer_2(arg, base)
 
 				Kernel.xqsr3_Integer_original_method(arg, base)
 			end
 		else
 
-			def self.invoke_Integer(arg, base)
+			def self.invoke_Integer_1(arg)
+
+				Kernel.Integer(arg)
+			end
+
+			def self.invoke_Integer_2(arg, base)
 
 				Kernel.Integer(arg, base)
+			end
+		end
+
+		def self.invoke_Integer(arg, base)
+
+			case arg
+			when ::String
+
+				self.invoke_Integer_2 arg, base
+			else
+
+				if $DEBUG
+
+					case base
+					when nil, 0
+
+						;
+					else
+
+						warn "WARNING: #{self}::#{__method__}: " + 'base specified for non string value'
+					end
+				end
+
+				self.invoke_Integer_1 arg
 			end
 		end
 
@@ -101,7 +135,7 @@ module IntegerParser
 					begin
 
 						return self.invoke_Integer arg, base
-					rescue ArgumentError
+					rescue ArgumentError, TypeError
 					end
 				end
 

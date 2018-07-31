@@ -4,6 +4,8 @@ $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
 require 'xqsr3/extensions/kernel/integer'
 
+require 'xqsr3/extensions/test/unit'
+
 require 'test/unit'
 
 class Test_X_Kernel_Integer < Test::Unit::TestCase
