@@ -4,6 +4,7 @@ $:.unshift File.join(File.dirname(__FILE__), '../../../..', 'lib')
 
 require 'xqsr3/quality/parameter_checking'
 
+require 'xqsr3/extensions/test/unit'
 require 'test/unit'
 
 class Test_parameter_checks_as_separate_module < Test::Unit::TestCase
