@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      30th July 2017
-# Updated:      28th February 2018
+# Updated:      7th August 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -50,6 +50,8 @@
 
 =begin
 =end
+
+require 'xqsr3/xml/utilities/navigation'
 
 require 'xqsr3/quality/parameter_checking'
 
@@ -160,6 +162,8 @@ module Compare
 
 	module Internal_Compare_
 
+		include ::Xqsr3::XML::Utilities::Navigation
+
 		extend ::Xqsr3::Quality::ParameterChecking
 
 		DEFAULT_OPTIONS = {
@@ -170,6 +174,8 @@ module Compare
 			ignore_attributes: false,
 			ignore_attribute_order: true,
 			ignore_child_node_order: true,
+			ignore_content: false,
+			ignore_content_case: false,
 			ignore_xml_declarations: true,
 			normalise_whitespace: true,
 #			normalize_whitespace: true,
@@ -181,6 +187,8 @@ module Compare
 			:element_order,
 			:ignore_attribute_order,
 			:ignore_child_node_order,
+			:ignore_content,
+			:ignore_content_case,
 		]
 
 		WHITESPACE_OPTIONS_SYMBOLS = [
@@ -384,12 +392,48 @@ module Compare
 			# ##########################
 			# content
 
-			normalise_ws	=	options[:normalise_whitespace]
+			unless options[:ignore_content]
 
-			lhs_content	=	normalise_ws ? lhs.content.gsub(/\s+/, ' ').strip : lhs.content
-			rhs_content	=	normalise_ws ? rhs.content.gsub(/\s+/, ' ').strip : rhs.content
+				lhs_texts		=	self.get_descendants(lhs).select { |el| el.text? }.map { |el| el.content }
+				rhs_texts		=	self.get_descendants(rhs).select { |el| el.text? }.map { |el| el.content }
 
-			return Result.different :different_node_contents, lhs_node: lhs, rhs_node: rhs if lhs_content != rhs_content
+				content_same	=	lhs_texts == rhs_texts
+
+				unless content_same
+
+					if options[:normalise_whitespace]
+
+						lhs_texts		=	lhs_texts.reject { |s| s.strip.empty? }
+						rhs_texts		=	rhs_texts.reject { |s| s.strip.empty? }
+
+						content_same	=	lhs_texts == rhs_texts
+					end
+				end
+
+				unless content_same
+
+					if options[:ignore_content_case]
+
+						lhs_texts		=	lhs_texts.reject { |s| s.downcase }
+						rhs_texts		=	rhs_texts.reject { |s| s.downcase }
+
+						content_same	=	lhs_texts == rhs_texts
+					end
+				end
+
+				unless content_same
+
+					if options[:ignore_child_node_order]
+
+						lhs_texts		=	lhs_texts.sort
+						rhs_texts		=	rhs_texts.sort
+
+						content_same	=	lhs_texts == rhs_texts
+					end
+				end
+
+				return Result.different :different_node_contents, lhs_node: lhs, rhs_node: rhs unless content_same
+			end
 
 
 			# ##########################
