@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      30th July 2017
-# Updated:      7th August 2018
+# Updated:      16th August 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -91,6 +91,8 @@ module Compare
 
 		def initialize status, reason, **options
 
+			@call_stack	=	caller(2)
+
 			check_parameter status, 'status', types: [ ::FalseClass, ::TrueClass ]
 			check_parameter reason, 'reason', type: ::Symbol, allow_nil: true
 
@@ -116,6 +118,7 @@ module Compare
 			return self.new false, reason, **options
 		end
 
+		attr_reader :call_stack
 		attr_reader	:status
 		attr_reader	:reason
 
