@@ -119,8 +119,8 @@ module Compare
 		end
 
 		attr_reader :call_stack
-		attr_reader	:status
-		attr_reader	:reason
+		attr_reader :status
+		attr_reader :reason
 
 		def different?
 
