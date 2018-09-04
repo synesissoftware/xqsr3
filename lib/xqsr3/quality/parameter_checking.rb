@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      29th July 2018
+# Updated:      5th September 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -339,6 +339,7 @@ module ParameterChecking
 				types	<<	options[:type] if types.empty?
 			end
 			types		=	[value.class] if types.empty?
+			types		=	types.map { |type| :boolean == type ? [ ::TrueClass, ::FalseClass ] : type }.flatten if types.include?(:boolean)
 
 			warn "#{self}::check_parameter: options[:types] of type #{types.class} - should be #{::Array}" unless types.is_a?(Array)
 			warn "#{self}::check_parameter: options[:types] - '#{types}' - should contain only classes or arrays of classes" if types.is_a?(::Array) && !types.all? { |c| ::Class === c || (::Array === c && c.all? { |c2| ::Class === c2 }) }

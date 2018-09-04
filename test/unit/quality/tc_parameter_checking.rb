@@ -103,6 +103,7 @@ class Test_parameter_checks_as_included_module < Test::Unit::TestCase
 	def test_2
 
 		assert_equal true, check_method_2(true, [ ::TrueClass ])
+		assert_equal true, check_method_2(true, [ :boolean ])
 		assert_equal true, check_method_2(true, [ ::TrueClass, ::String, ::Symbol ])
 		assert_raise TypeError do
 			check_method_2(true, [ ::String, ::Symbol, ::FalseClass ])
