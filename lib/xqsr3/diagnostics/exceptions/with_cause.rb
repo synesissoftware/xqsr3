@@ -5,7 +5,7 @@
 # Purpose:      Definition of the WithCause inclusion module
 #
 # Created:      16th December 2017
-# Updated:      14th March 2018
+# Updated:      5th September 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -65,6 +65,8 @@ module Exceptions
 #
 #
 module WithCause
+
+	INSPECT_HIDDEN_FIELDS = [ 'has_implicit_message', 'uses_cause_message' ]
 
 	# Defines an initializer for an exception class that allows a cause (aka
 	# an inner exception) to be specified, either as the first or last

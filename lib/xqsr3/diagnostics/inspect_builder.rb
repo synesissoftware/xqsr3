@@ -54,6 +54,11 @@ module Diagnostics
 
 module InspectBuilder
 
+	module InspectBuilder_Utilities
+
+		NORMALISE_FUNCTION	=	lambda { |ar| ar.map { |v| v.to_s }.map { |v| '@' == v[0] ? v : "@#{v}" } }
+	end # module InspectBuilder_Utilities
+
 	#
 	# === Signature
 	#
@@ -90,7 +95,7 @@ module InspectBuilder
 
 		if options[:show_fields]
 
-			normalise	=	lambda { |ar| ar.map { |v| v.to_s }.map { |v| '@' == v[0] ? v : "@#{v}" } }
+			normalise	=	InspectBuilder_Utilities::NORMALISE_FUNCTION
 
 			hide_fields	=	normalise.call(options[:hidden_fields] || [])
 			show_fields	=	normalise.call(options[:shown_fields] || [])
@@ -101,6 +106,24 @@ module InspectBuilder
 
 				ivars	=	ivars & show_fields
 			else
+
+				o.class.ancestors.each do |ancestor|
+
+					ihf_constant = :INSPECT_HIDDEN_FIELDS
+
+					if ancestor.const_defined? ihf_constant
+
+						ihfs	=	ancestor.const_get ihf_constant
+
+						if ::Array === ihfs && ihfs.all? { |c| ::String === c }
+
+							hide_fields += normalise.call(ihfs)
+						else
+
+							warn "class/module #{ancestor}'s #{ihf_constant} should be an array of strings"
+						end
+					end
+				end
 
 				ivars	=	ivars - hide_fields
 			end
