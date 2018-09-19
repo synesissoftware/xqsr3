@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      5th September 2018
+# Updated:      20th September 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -81,17 +81,17 @@ module ParameterChecking
 			RECOGNISED_OPTION_NAMES = %w{
 
 				allow_nil
+				message
 				nil
-				types
-				type
-				values
-				responds_to
+				nothrow
 				reject_empty
 				require_empty
-				nothrow
-				message
+				responds_to
 				strip_str_whitespace
 				treat_as_option
+				type
+				types
+				values
 			}.map { |v| v.to_sym }
 
 		end # module Constants
