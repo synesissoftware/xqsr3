@@ -569,5 +569,28 @@ end
 
 		assert_nil(check_parameter(nil, 'the_param', nil: true))
 	end
+
+
+	# test_ignore_case
+
+	def test_ignore_case
+
+		assert_not_nil check_parameter('TheString', 'the_param', values: [ 'TheString', 'the-string' ])
+
+		assert_raise_with_message(::ArgumentError, /parameter.*the_param.*not found.*values/) { check_parameter('THESTRING', 'the_param', values: [ 'TheString', 'the-string' ]) }
+
+		assert_not_nil check_parameter('TheString', 'the_param', values: [ 'THESTRING', 'the-string' ], ignore_case: true)
+	end
+
+	def test_ignore_case_in_array
+
+		assert_not_nil check_parameter([ 'abc', 'def' ], 'the_param', values: [ [ 'ABC', 'DEF' ], [ 'abc', 'def' ] ])
+
+		assert_raise_with_message(::ArgumentError, /parameter.*the_param.*not found.*values/) { check_parameter([ 'Abc', 'Def' ], 'the_param', values: [ [ 'ABC', 'DEF' ], [ 'abc', 'def' ] ]) }
+
+		assert_not_nil check_parameter([ 'Abc', 'Def' ], 'the_param', values: [ [ 'ABC', 'DEF' ], [ 'abc', 'def' ] ], ignore_case: true)
+
+		assert_raise_with_message(::ArgumentError, /parameter.*the_param.*not found.*values/) { check_parameter([ 'Def', 'Abc' ], 'the_param', values: [ [ 'ABC', 'DEF' ], [ 'abc', 'def' ] ], ignore_case: true) }
+	end
 end
 
