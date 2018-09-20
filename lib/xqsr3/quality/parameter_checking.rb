@@ -477,6 +477,8 @@ module ParameterChecking
 
 			found	=	false
 
+			io		=	options[:ignore_order] && ::Array === value
+
 			do_case	=	options[:ignore_case] ? lambda do |v|
 
 				case v
@@ -492,6 +494,7 @@ module ParameterChecking
 			end : lambda { |v| nil }
 
 			value_ic	=	do_case.call(value)
+			value_io	=	nil
 			value_uc	=	nil
 
 			values.each do |v|
@@ -521,6 +524,7 @@ module ParameterChecking
 						when :array_of_strings
 
 							value_uc	=	value.map { |s| s.upcase }
+							value_uc	=	value_uc.sort if io
 						end
 					end
 
@@ -539,6 +543,7 @@ module ParameterChecking
 						when :array_of_strings
 
 							v_uc	=	v.map { |s| s.upcase }
+							v_uc	=	v_uc.sort if io
 
 							if value_uc == v_uc
 
@@ -546,7 +551,23 @@ module ParameterChecking
 								break
 							end
 						end
+					end
+				elsif io
 
+					unless value_io
+
+						value_io	=	value.sort
+					end
+
+					if ::Array === v
+
+						v_io		=	v.sort
+
+						if value_io == v_io
+
+							found = true
+							break
+						end
 					end
 				end
 			end
