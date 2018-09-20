@@ -450,6 +450,7 @@ module ParameterChecking
 					unless options[:nothrow]
 
 						unless message
+
 							s_name		=	name.is_a?(String) ? "'#{name}' " : ''
 
 							message		=	"#{param_s} #{s_name}must be empty"
@@ -493,6 +494,7 @@ module ParameterChecking
 				unless options[:nothrow]
 
 					unless message
+
 						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
 
 						message		=	"#{param_s} #{s_name}value '#{value}' not found equal/within any of required values or ranges"
