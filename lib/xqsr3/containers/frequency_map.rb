@@ -215,6 +215,18 @@ class FrequencyMap
 		end
 	end
 
+	# Enumerates each entry pair - element + frequency - in key order
+	#
+	# Note: this method is more expensive than +each+ because an array of
+	# keys must be created and sorted from which enumeration is directed
+	def each_by_key
+
+		@counts.keys.sort.each do |key|
+
+			yield key, @counts[key]
+		end
+	end
+
 	# Enumerates each entry pair - element + frequency - in descending
 	# order of frequency
 	#

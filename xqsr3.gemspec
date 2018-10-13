@@ -4,6 +4,8 @@ $:.unshift File.join(File.dirname(__FILE__), 'lib')
 
 require 'xqsr3/version'
 
+require 'date'
+
 Gem::Specification.new do |gs|
 
 	gs.name			=	'xqsr3'
