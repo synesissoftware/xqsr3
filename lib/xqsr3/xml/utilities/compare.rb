@@ -134,7 +134,7 @@ module Compare
 
 		def details
 
-			r	=	reason.to_s.gsub /_/, ' '
+			r	=	reason.to_s.gsub(/_/, ' ')
 
 			qualifying	=	''
 

@@ -359,6 +359,11 @@ end
 
 			self.class.check_method_type_class :sym, ::String
 		end
+
+
+		# arrays of strings
+
+		assert_kind_of ::Array, check_method_type([ 'abc' ], [ ::String ])
 	end
 
 

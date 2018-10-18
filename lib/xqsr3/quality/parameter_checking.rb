@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      20th September 2018
+# Updated:      18th October 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -353,18 +353,20 @@ module ParameterChecking
 
 			unless types.any? do |t|
 
-					case t
-					when ::Class
+				case t
+				when ::Class
 
-						# the (presumed) scalar argument is of type t?
-						value.is_a?(t)
-					when ::Array
+					# the (presumed) scalar argument is of type t?
+					value.is_a?(t)
+				when ::Array
 
-						# the (presumed) vector argument's elements are the
-						# possible types
-						value.all? { |v| t.any? { |t2| v.is_a?(t2) }} if ::Array === value
-					end
+					# the (presumed) vector argument's elements are the
+					# possible types
+					value.all? { |v| t.any? { |t2| v.is_a?(t2) }} if ::Array === value
+				else
+
 				end
+			end then
 
 				failed_check	=	true
 
