@@ -35,7 +35,9 @@ Install using `gem install xqsr3` or add it to your `Gemfile`.
 * IO
 * Quality
 * String Utilities
-* XML Utilities
+* ~~XML Utilities~~ **NOTE**: The **XML** components formerly in **xqsr3** in
+   versions **0.29**-**0.30** are now contained in the separate project
+   [**xqsr3-xml**](https://github.com/synesissoftware.com/xqsr3-xml/).
 
 and extensions to the following standard library components:
 
@@ -62,11 +64,12 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 **xqsr3** is a runtime dependency in:
 
 * the **[libCLImate.Ruby](https://github.com/synesissoftware/libCLImate.Ruby)** library;
+* the [**xqsr3-xml**](https://github.com/synesissoftware.com/xqsr3-xml/) library.
 
 and a development dependency in:
 
 * the **[CLASP.Ruby](https://github.com/synesissoftware/CLASP.Ruby)** library;
-* the **[Pantheios.Ruby](https://github.com/synesissoftware/Pantheios.Ruby)** library;
+* the **[Pantheios.Ruby](https://github.com/synesissoftware/Pantheios.Ruby)** library.
 
 ### License
 
