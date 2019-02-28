@@ -11,6 +11,8 @@
 /.yardoc/
 /_yardoc/
 
+old-gems/
+
 /InstalledFiles/
 
 /build/
