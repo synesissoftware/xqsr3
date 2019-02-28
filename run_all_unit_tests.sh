@@ -63,7 +63,6 @@ do
 		--debug)
 
 			DebugFlag=--debug
-
 			;;
 
 		--help)
@@ -88,7 +87,6 @@ do
 		--separate)
 
 			Separate=true
-
 			;;
 
 		*)
