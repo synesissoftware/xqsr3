@@ -306,6 +306,27 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal [:ghi, 2], r[2]
 	end
 
+	def test_each_by_key
+
+		fm = FrequencyMap.new
+
+		fm << :def
+		fm << :abc << :abc << :abc << :abc
+		fm << :ghi << :ghi
+
+		r = []
+
+		fm.each_by_key do |k, v|
+
+			r << [k, v]
+		end
+
+		assert_equal 3, r.size
+		assert_equal [:abc, 4], r[0]
+		assert_equal [:def, 1], r[1]
+		assert_equal [:ghi, 2], r[2]
+	end
+
 	def test_each_by_frequency
 
 		fm = FrequencyMap.new

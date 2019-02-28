@@ -1,18 +1,18 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/conversion/bool_parser.rb
+# File:         lib/xqsr3/string_utilities/truncate.rb
 #
-# Purpose:      Definition of the ::Xqsr3::Conversion::BoolParser
+# Purpose:      Definition of the ::Xqsr3::StringUtilities::Truncate
 #               module
 #
-# Created:      3rd June 2017
-# Updated:      28th July 2017
+# Created:      12th April 2018
+# Updated:      12th April 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2018, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -46,72 +46,74 @@
 
 
 # ##########################################################
-# ::Xqsr3::Conversion::BoolParser
+# ::Xqsr3::StringUtilities::Truncate
 
 =begin
 =end
 
 module Xqsr3
-module Conversion
+module StringUtilities
 
-module BoolParser
+# To-symbol conversion facilities
+#
+module Truncate
 
 	private
-	def self.matches_to_ s, expr
+	module Truncate_Helper_ #:nodoc:
 
-		case expr
-		when ::Regexp
-			return expr =~ s
-		else
-			return s == expr
+		def self.string_truncate_with_options_ s, width, options
+
+			case	s
+			when	::String
+				;
+			else
+
+				if s.respond_to? :to_str
+
+					s = s.to_str
+				else
+
+					raise TypeError, "string argument must be of type #{::String} or a type that will respond to to_str"
+				end
+			end
+
+			case	options
+			when	::Hash
+				;
+			else
+
+				raise TypeError, "options must be of type #{::Hash}, #{options.class} given"
+			end
+
+			len	=	s.size
+
+			return s if len <= width
+
+			omission	=	options[:omission] || '...'
+
+			if width < omission.size
+
+				return omission[0...width]
+			else
+
+				return s[0...(width - omission.size)] + omission
+			end
 		end
 	end
-
 	public
 
-	DEFAULT_TRUE_VALUES		=	[ /true/i, '1' ]
-	DEFAULT_FALSE_VALUES	=	[ /false/i, '0' ]
+	def self.string_truncate s, width, options = {}
 
-	# Attempts to parse the given String to a Boolean value, based on the
-	# given +options+
-	#
-	# === Signature
-	#
-	# * *Parameters*:
-	#   - +options+:: An options hash, containing any of the following options
-	#
-	# * *Options*:
-	#   - +:false_values+:: [::Array] An array of strings or regular
-	#     expressions against which to match for false value. Defaults to
-	#     +DEFAULT_FALSE_VALUES+
-	#   - +:true_values+:: [::Array] An array of strings or regular
-	#     expressions against which to match for true value. Defaults to
-	#     +DEFAULT_TRUE_VALUES+
-	#   - +:default_value+:: An object to be returned if matching fails.
-	#     Defaults to +nil+
-	#   - +:false_value+:: An object to be returned if matching succeeds to
-	#     match against +:false_values+.
-	#   - +:true_value+:: An object to be returned if matching succeeds to
-	#     match against +:true_values+.
-	def self.to_bool s, **options
-
-		true_values		=	options[:true_values] || DEFAULT_TRUE_VALUES
-		true_values		=	[ true_values ] unless true_values.is_a? ::Array
-		false_values	=	options[:false_values] || DEFAULT_FALSE_VALUES
-		false_values	=	[ false_values ] unless false_values.is_a? ::Array
-		default_value	=	options[:default] || nil
-		true_value		=	options[:true] || true
-		false_value		=	options[:false] || false
-
-		return true_value if true_values.any? { |v| self.matches_to_ s, v }
-		return false_value if false_values.any? { |v| self.matches_to_ s, v }
-
-		return default_value
+		Truncate_Helper_.string_truncate_with_options_ s, width, options
 	end
 
-end # module BoolParser
+	def truncate width, options = {}
 
-end # module Conversion
+		Truncate_Helper_.string_truncate_with_options_ self, width, options
+	end
+end # module Truncate
+
+end # module StringUtilities
 end # module Xqsr3
 
 # ############################## end of file ############################# #

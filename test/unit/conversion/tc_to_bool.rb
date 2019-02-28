@@ -7,9 +7,9 @@ require 'xqsr3/conversion/bool_parser'
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
 
-include ::Xqsr3::Conversion
-
 class Test_Xqsr3_ConversionMultiMap < Test::Unit::TestCase
+
+	include ::Xqsr3::Conversion
 
 	def test_parse_normal
 

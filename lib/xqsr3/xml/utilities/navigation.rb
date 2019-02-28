@@ -1,25 +1,26 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/extensions/kernel/integer.rb
+# File:         lib/xqsr3/xml/_utilities/navigation.rb
 #
-# Purpose:      Adds a Integer 'overload' to the Kernel module
+# Purpose:      Definition of the ::Xqsr3::XML::Utilities::Navigation
+#               module
 #
-# Created:      21st November 2017
-# Updated:      18th May 2018
+# Created:      7th August 2018
+# Updated:      7th August 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017-2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2018, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
 # met:
 #
-# * Redistributions of source code must retain the above copyright
-#   notice, this list of conditions and the following disclaimer.
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
 #
 # * Redistributions in binary form must reproduce the above copyright
 #   notice, this list of conditions and the following disclaimer in the
@@ -44,45 +45,63 @@
 # ######################################################################## #
 
 
-require 'xqsr3/conversion/integer_parser'
-
 # ##########################################################
-# ::Kernel
+# ::Xqsr3::XML::Utilities::Navigation
 
 =begin
 =end
 
-module Kernel
+require 'xqsr3/quality/parameter_checking'
 
-	alias xqsr3_Integer_original_method Integer
+require 'nokogiri'
 
-	# A monkey-patch extension of +Kernel#Integer+ with +options+
-	#
-	# === Signature
-	#
-	# * *Parameters*:
-	#   - +arg+:: The argument to be converted (to +Fixnum+ or +Bignum+)
-	#   - +base+:: A value of 0, or between 2 and 36. Defaults to 0
-	#   - +options+:: An options hash, containing any of the following
-	#     options
-	#   - +block+:: An optional caller-supplied block that will be invoked
-	#     with the +ArgumentError+ exception, allowing the caller to take
-	#     additional action. If the block returns then its return value will
-	#     be returned to the caller
-	#
-	# * *Options*:
-	#   - +:default+:: A default value to be used when +arg+ is +nil+ or
-	#     cannot be converted by (the original) +Kernel#Integer+
-	#   - +:nil+:: Returns +nil+ if +arg+ is +nil+ or cannot be
-	#     converted by (the original) +Kernel#Integer+. Ignored if
-	#     +:default+ is specified
-	def Integer(arg, base = 0, **options, &block)
+module Xqsr3
+module XML
+module Utilities
 
-		::Xqsr3::Conversion::IntegerParser.to_integer arg, base = 0, **options, &block
+module Navigation
+
+	module Internal_Compare_
+
+		extend ::Xqsr3::Quality::ParameterChecking
+
+		def self.get_descendants node
+
+			descendants	=	[]
+
+			node.children.each do |child|
+
+				descendants	<<	child
+
+				descendants	+=	self.get_descendants child
+			end
+
+			descendants
+		end
+	end # module Internal_Compare_
+
+	def self.included receiver
+
+		def receiver.get_descendants node
+
+			Internal_Compare_.get_descendants node
+		end
 	end
 
-	private :xqsr3_Integer_original_method
-end # module Kernel
+	def self.get_descendants node
+
+		Internal_Compare_.get_descendants node
+	end
+
+	def get_descendants
+
+		Internal_Compare_.get_descendants self
+	end
+end # module Navigation
+
+end # module Utilities
+end # module XML
+end # module Xqsr3
 
 # ############################## end of file ############################# #
 

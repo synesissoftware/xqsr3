@@ -6,13 +6,13 @@
 #               module
 #
 # Created:      3rd June 2017
-# Updated:      28th July 2017
+# Updated:      14th March 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2017-2018, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -44,6 +44,8 @@
 #
 # ######################################################################## #
 
+
+require 'xqsr3/quality/parameter_checking'
 
 # ##########################################################
 # ::Xqsr3::HashUtilities::DeepTransform
