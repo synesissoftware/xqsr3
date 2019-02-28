@@ -1,25 +1,26 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/version.rb
+# File:         lib/xqsr3/xml/_utilities/navigation.rb
 #
-# Purpose:      Version for Xqsr3 library
+# Purpose:      Definition of the ::Xqsr3::XML::Utilities::Navigation
+#               module
 #
-# Created:      3rd April 2016
-# Updated:      19th October 2018
+# Created:      7th August 2018
+# Updated:      7th August 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2016-2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2018, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
 # met:
 #
-# * Redistributions of source code must retain the above copyright
-#   notice, this list of conditions and the following disclaimer.
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
 #
 # * Redistributions in binary form must reproduce the above copyright
 #   notice, this list of conditions and the following disclaimer in the
@@ -44,24 +45,62 @@
 # ######################################################################## #
 
 
+# ##########################################################
+# ::Xqsr3::XML::Utilities::Navigation
+
 =begin
 =end
 
+require 'xqsr3/quality/parameter_checking'
+
+require 'nokogiri'
+
 module Xqsr3
+module XML
+module Utilities
 
-	# Current version of the Xqsr3 library
-	VERSION				=	'0.30.2'
+module Navigation
 
-	private
-	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
-	public
-	# Major version of the Xqsr3 library
-	VERSION_MAJOR		=	VERSION_PARTS_[0] # :nodoc:
-	# Minor version of the Xqsr3 library
-	VERSION_MINOR		=	VERSION_PARTS_[1] # :nodoc:
-	# Revision version of the Xqsr3 library
-	VERSION_REVISION	=	VERSION_PARTS_[2] # :nodoc:
+	module Internal_Compare_
 
+		extend ::Xqsr3::Quality::ParameterChecking
+
+		def self.get_descendants node
+
+			descendants	=	[]
+
+			node.children.each do |child|
+
+				descendants	<<	child
+
+				descendants	+=	self.get_descendants child
+			end
+
+			descendants
+		end
+	end # module Internal_Compare_
+
+	def self.included receiver
+
+		def receiver.get_descendants node
+
+			Internal_Compare_.get_descendants node
+		end
+	end
+
+	def self.get_descendants node
+
+		Internal_Compare_.get_descendants node
+	end
+
+	def get_descendants
+
+		Internal_Compare_.get_descendants self
+	end
+end # module Navigation
+
+end # module Utilities
+end # module XML
 end # module Xqsr3
 
 # ############################## end of file ############################# #

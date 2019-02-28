@@ -5,13 +5,13 @@
 # Purpose:      FrequencyMap container
 #
 # Created:      28th January 2005
-# Updated:      30th July 2017
+# Updated:      13th October 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2005-2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2005-2018, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -215,6 +215,18 @@ class FrequencyMap
 		end
 	end
 
+	# Enumerates each entry pair - element + frequency - in key order
+	#
+	# Note: this method is more expensive than +each+ because an array of
+	# keys must be created and sorted from which enumeration is directed
+	def each_by_key
+
+		@counts.keys.sort.each do |key|
+
+			yield key, @counts[key]
+		end
+	end
+
 	# Enumerates each entry pair - element + frequency - in descending
 	# order of frequency
 	#
@@ -225,13 +237,9 @@ class FrequencyMap
 		tm = {}
 		@counts.each do |element, frequency|
 
-			if not tm.has_key? frequency
+			tm[frequency]	=	[]	unless tm.has_key?(frequency)
 
-				tm[frequency] = [element]
-			else
-
-				tm[frequency].push element
-			end
+			tm[frequency].push element
 		end
 
 		keys = tm.keys.sort.reverse

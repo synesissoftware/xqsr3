@@ -4,6 +4,7 @@ $:.unshift File.join(File.dirname(__FILE__), '../../../..', 'lib')
 
 require 'xqsr3/quality/parameter_checking'
 
+require 'xqsr3/extensions/test/unit'
 require 'test/unit'
 
 class Test_parameter_checks_as_separate_module < Test::Unit::TestCase
@@ -102,6 +103,7 @@ class Test_parameter_checks_as_included_module < Test::Unit::TestCase
 	def test_2
 
 		assert_equal true, check_method_2(true, [ ::TrueClass ])
+		assert_equal true, check_method_2(true, [ :boolean ])
 		assert_equal true, check_method_2(true, [ ::TrueClass, ::String, ::Symbol ])
 		assert_raise TypeError do
 			check_method_2(true, [ ::String, ::Symbol, ::FalseClass ])
@@ -357,6 +359,11 @@ end
 
 			self.class.check_method_type_class :sym, ::String
 		end
+
+
+		# arrays of strings
+
+		assert_kind_of ::Array, check_method_type([ 'abc' ], [ ::String ])
 	end
 
 
@@ -566,6 +573,42 @@ end
 		assert_nil(check_parameter(nil, 'the_param', allow_nil: true))
 
 		assert_nil(check_parameter(nil, 'the_param', nil: true))
+	end
+
+
+	# test_ignore_case
+
+	def test_ignore_case
+
+		assert_not_nil check_parameter('TheString', 'the_param', values: [ 'TheString', 'the-string' ])
+
+		assert_raise_with_message(::ArgumentError, /parameter.*the_param.*not found.*values/) { check_parameter('THESTRING', 'the_param', values: [ 'TheString', 'the-string' ]) }
+
+		assert_not_nil check_parameter('TheString', 'the_param', values: [ 'THESTRING', 'the-string' ], ignore_case: true)
+	end
+
+	def test_ignore_case_in_array
+
+		assert_not_nil check_parameter([ 'abc', 'def' ], 'the_param', values: [ [ 'ABC', 'DEF' ], [ 'abc', 'def' ] ])
+
+		assert_raise_with_message(::ArgumentError, /parameter.*the_param.*not found.*values/) { check_parameter([ 'Abc', 'Def' ], 'the_param', values: [ [ 'ABC', 'DEF' ], [ 'abc', 'def' ] ]) }
+
+		assert_not_nil check_parameter([ 'Abc', 'Def' ], 'the_param', values: [ [ 'ABC', 'DEF' ], [ 'abc', 'def' ] ], ignore_case: true)
+
+		assert_raise_with_message(::ArgumentError, /parameter.*the_param.*not found.*values/) { check_parameter([ 'Def', 'Abc' ], 'the_param', values: [ [ 'ABC', 'DEF' ], [ 'abc', 'def' ] ], ignore_case: true) }
+
+	end
+
+	def test_ignore_case_and_order_in_array
+
+		assert_not_nil check_parameter([ 'Def', 'Abc', 'Ghi' ], 'the_param', values: [ [ 'GHI', 'ABC', 'DEF' ], [ 'ghi', 'abc', 'def' ] ], ignore_case: true, ignore_order: true)
+	end
+
+	def test_ignore_order_in_array
+
+		assert_raise(::ArgumentError) { check_parameter([ 'abc', 'def', 'ghi' ], 'the_param', values: [ [ 'ghi', 'def', 'abc' ], [ 'ghi', 'abc', 'def' ] ]) }
+
+		assert_not_nil check_parameter([ 'abc', 'def', 'ghi' ], 'the_param', values: [ [ 'ghi', 'def', 'abc' ], [ 'ghi', 'abc', 'def' ] ], ignore_order: true)
 	end
 end
 

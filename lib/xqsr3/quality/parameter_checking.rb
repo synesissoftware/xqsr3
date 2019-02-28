@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      29th July 2018
+# Updated:      18th October 2018
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -81,17 +81,18 @@ module ParameterChecking
 			RECOGNISED_OPTION_NAMES = %w{
 
 				allow_nil
+				ignore_case
+				message
 				nil
-				types
-				type
-				values
-				responds_to
+				nothrow
 				reject_empty
 				require_empty
-				nothrow
-				message
+				responds_to
 				strip_str_whitespace
 				treat_as_option
+				type
+				types
+				values
 			}.map { |v| v.to_sym }
 
 		end # module Constants
@@ -114,6 +115,9 @@ module ParameterChecking
 	# @option +:allow_nil+:: (boolean) The +value+ must not be +nil+ unless
 	#          this option is true
 	# @option +:nil+:: an alias for +:allow_nil+
+	# @option +:ignore_case+:: (boolean) When +:values+ is specified,
+	#  comparisons of strings, or arrays of strings, will be carried out in
+	#  a case-insensitive manner
 	# @option +:types+:: (::Array) An array of types one of which +value+
 	#          must be (or must be derived from). One of these types may be
 	#          an array of types, in which case +value+ may be an array that
@@ -182,6 +186,9 @@ module ParameterChecking
 	# @option +:allow_nil+:: (boolean) The +value+ must not be +nil+ unless
 	#          this option is true
 	# @option +:nil+:: an alias for +:allow_nil+
+	# @option +:ignore_case+:: (boolean) When +:values+ is specified,
+	#  comparisons of strings, or arrays of strings, will be carried out in
+	#  a case-insensitive manner
 	# @option +:types+:: (::Array) An array of types one of which +value+ must
 	#          be (or must be derived from). One of these types may be an
 	#          array of types, in which case +value+ may be an array that
@@ -339,24 +346,27 @@ module ParameterChecking
 				types	<<	options[:type] if types.empty?
 			end
 			types		=	[value.class] if types.empty?
+			types		=	types.map { |type| :boolean == type ? [ ::TrueClass, ::FalseClass ] : type }.flatten if types.include?(:boolean)
 
 			warn "#{self}::check_parameter: options[:types] of type #{types.class} - should be #{::Array}" unless types.is_a?(Array)
 			warn "#{self}::check_parameter: options[:types] - '#{types}' - should contain only classes or arrays of classes" if types.is_a?(::Array) && !types.all? { |c| ::Class === c || (::Array === c && c.all? { |c2| ::Class === c2 }) }
 
 			unless types.any? do |t|
 
-					case t
-					when ::Class
+				case t
+				when ::Class
 
-						# the (presumed) scalar argument is of type t?
-						value.is_a?(t)
-					when ::Array
+					# the (presumed) scalar argument is of type t?
+					value.is_a?(t)
+				when ::Array
 
-						# the (presumed) vector argument's elements are the
-						# possible types
-						value.all? { |v| t.any? { |t2| v.is_a?(t2) }} if ::Array === value
-					end
+					# the (presumed) vector argument's elements are the
+					# possible types
+					value.all? { |v| t.any? { |t2| v.is_a?(t2) }} if ::Array === value
+				else
+
 				end
+			end then
 
 				failed_check	=	true
 
@@ -449,6 +459,7 @@ module ParameterChecking
 					unless options[:nothrow]
 
 						unless message
+
 							s_name		=	name.is_a?(String) ? "'#{name}' " : ''
 
 							message		=	"#{param_s} #{s_name}must be empty"
@@ -462,13 +473,31 @@ module ParameterChecking
 
 		# check value(s)
 
-		unless value.nil?
-
-			values	=	options[:values] || [ value ]
+		unless value.nil? || !(values = options[:values])
 
 			warn "#{self}::check_parameter: options[:values] of type #{values.class} - should be #{::Array}" unless values.is_a?(Array)
 
 			found	=	false
+
+			io		=	options[:ignore_order] && ::Array === value
+
+			do_case	=	options[:ignore_case] ? lambda do |v|
+
+				case v
+				when ::String
+
+					return :string
+				when ::Array
+
+					return :array_of_strings if v.all? { |s| ::String === s }
+				end
+
+				nil
+			end : lambda { |v| nil }
+
+			value_ic	=	do_case.call(value)
+			value_io	=	nil
+			value_uc	=	nil
 
 			values.each do |v|
 
@@ -483,6 +512,66 @@ module ParameterChecking
 					found = true
 					break
 				end
+
+				# ignore-case comparing
+
+				if value_ic
+
+					unless value_uc
+
+						case value_ic
+						when :string
+
+							value_uc	=	value.upcase
+						when :array_of_strings
+
+							value_uc	=	value.map { |s| s.upcase }
+							value_uc	=	value_uc.sort if io
+						end
+					end
+
+					v_ic	=	do_case.call(v)
+
+					if v_ic == value_ic
+
+						case v_ic
+						when :string
+
+							if value_uc == v.upcase
+
+								found = true
+								break
+							end
+						when :array_of_strings
+
+							v_uc	=	v.map { |s| s.upcase }
+							v_uc	=	v_uc.sort if io
+
+							if value_uc == v_uc
+
+								found = true
+								break
+							end
+						end
+					end
+				elsif io
+
+					unless value_io
+
+						value_io	=	value.sort
+					end
+
+					if ::Array === v
+
+						v_io		=	v.sort
+
+						if value_io == v_io
+
+							found = true
+							break
+						end
+					end
+				end
 			end
 
 			unless found
@@ -492,6 +581,7 @@ module ParameterChecking
 				unless options[:nothrow]
 
 					unless message
+
 						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
 
 						message		=	"#{param_s} #{s_name}value '#{value}' not found equal/within any of required values or ranges"
