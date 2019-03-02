@@ -28,6 +28,11 @@ class Test_assert_raise_with_message < Test::Unit::TestCase
 		assert_raise_with_message([ ::ArgumentError, ::SystemExit ], nil) { raise ::ArgumentError, 'the-message' }
 		assert_raise_with_message([ ::SystemExit, ::ArgumentError ], nil) { raise ::ArgumentError, 'the-message' }
 	end
+
+	def test_class_and_regex_message
+
+		assert_raise_with_message(::RuntimeError, /the.*message/) { raise 'the-longer-message' }
+	end
 end
 
 
