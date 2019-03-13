@@ -69,6 +69,7 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 and a development dependency in:
 
 * the **[CLASP.Ruby](https://github.com/synesissoftware/CLASP.Ruby)** library;
+* the **[cmpfs.Ruby](https://github.com/synesissoftware/cmpfs.Ruby)** library;
 * the **[Pantheios.Ruby](https://github.com/synesissoftware/Pantheios.Ruby)** library.
 
 ### License

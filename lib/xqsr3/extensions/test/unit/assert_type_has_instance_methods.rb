@@ -51,14 +51,14 @@ module Assertions
 
 			ims = type.instance_methods
 
-			message_spec.each do |sym, msg|
+			message_spec.each do |sym, message|
 
 				unless ims.include? sym
 
-					msg ||= failure_message
-					msg	||=	"type #{type} does not contain the instance method #{sym}"
+					message ||= failure_message
+					message	||=	"type #{type} does not contain the instance method #{sym}"
 
-					return assert false, msg
+					return assert false, message
 				end
 			end
 
