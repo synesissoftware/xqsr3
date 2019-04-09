@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      25th January 2018
-# Updated:      25th January 2018
+# Updated:      10th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -71,7 +71,9 @@ module NilIfWhitespace
 	# Returns +nil+ if the given string is empty or contains only whitespace,
 	# otherwise returning the given string
 	#
-	# === *Parameters*
+	# === Signature
+	#
+	# * *Parameters*
 	#
 	# * *Required parameters*:
 	#   - +s+:: [String] The string to be evaluated

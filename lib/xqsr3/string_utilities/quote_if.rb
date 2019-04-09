@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      3rd June 2017
-# Updated:      7th June 2017
+# Updated:      10th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -90,7 +90,9 @@ module QuoteIf
 
 	# Converts a string to a quoted form if necessary
 	#
-	# === *Parameters*
+	# === Signature
+	#
+	# * *Parameters*
 	#
 	# * *Required parameters*:
 	#   - +s+:: [String] The string to be evaluated

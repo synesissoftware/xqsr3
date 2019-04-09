@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      7th December 2017
-# Updated:      7th December 2017
+# Updated:      10th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -62,7 +62,9 @@ module JoinWithOr
 
 	# Joins an array with grammatical appropriateness (with an 'or')
 	#
-	# === *Parameters*
+	# === Signature
+	#
+	# * *Parameters*
 	#
 	# * *Required parameters*:
 	#   - +ar+:: [Array] The array whose contents are to be joined

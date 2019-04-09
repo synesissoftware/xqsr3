@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      13th April 2016
-# Updated:      10th June 2016
+# Updated:      10th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -112,7 +112,9 @@ module EndsWith
 	# Reports on whether a string +s+ ends with a given prefix or set of
 	# prefixes (+args+)
 	#
-	# === *Parameters*
+	# === Signature
+	#
+	# * *Parameters*
 	#
 	# * *Required parameters*:
 	#   - +s+:: [String] The string to be evaluated
