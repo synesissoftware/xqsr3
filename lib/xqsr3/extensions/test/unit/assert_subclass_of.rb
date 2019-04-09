@@ -10,7 +10,7 @@ module Assertions
 
 			failure_message ||= "#{tested_class} is not a subclass of #{parent_class}"
 
-			assert (tested_class < parent_class), failure_message
+			assert(tested_class < parent_class, failure_message)
 		end
 	end
 
