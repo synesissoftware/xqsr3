@@ -6,13 +6,13 @@
 #               module
 #
 # Created:      13th April 2016
-# Updated:      10th April 2019
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -114,7 +114,7 @@ module EndsWith
 	#
 	# === Signature
 	#
-	# * *Parameters*
+	# * *Parameters:*
 	#
 	# * *Required parameters*:
 	#   - +s+:: [String] The string to be evaluated

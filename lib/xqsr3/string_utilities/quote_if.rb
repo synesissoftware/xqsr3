@@ -6,13 +6,13 @@
 #               module
 #
 # Created:      3rd June 2017
-# Updated:      10th April 2019
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -92,7 +92,7 @@ module QuoteIf
 	#
 	# === Signature
 	#
-	# * *Parameters*
+	# * *Parameters:*
 	#
 	# * *Required parameters*:
 	#   - +s+:: [String] The string to be evaluated
@@ -101,7 +101,7 @@ module QuoteIf
 	#   - +options+:: [Hash] Options that control the behaviour of the
 	#       method
 	#
-	# * *Options*:
+	# * *Options:*
 	#
 	#   - +:quotes+:: [String, Array] A string that is used as the opening
 	#       and closing quotes, or an array whose first two elements are

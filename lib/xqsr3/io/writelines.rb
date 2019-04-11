@@ -5,13 +5,13 @@
 # Purpose:      Adds a writelines() method to the IO module
 #
 # Created:      13th April 2007
-# Updated:      2nd August 2017
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2007-2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -125,12 +125,12 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 	#
 	# === Signature
 	#
-	# * *Parameters*:
+	# * *Parameters:*
 	#   - +target+:: The target of the write, which may be a string containing the path or a stream instance that supports write
 	#   - +contents+:: The contents to be write, which may be a +Hash+, or an +Array+, or a +String+ containing delimited fields
 	#   - +options+:: An options hash, containing any of the following options
 	#
-	# * *Options*:
+	# * *Options:*
 	#   - +:column_separator+:: {optional} The column separator, to be applied between each field in the case where +contents+ is a +Hash+.
 	#   - +:eol_lookahead_limit+:: {optional} The number of content elements (line/pair) to inspect to determine whether element has a terminating end-of-line sequence. Defaults to 20. If 0, and +:line_separator+ is not specified, then will default to <tt>"\n"</tt>. If +nil+, then every line will be inspected.
 	#   - +:line_separator+:: {optional} The line separator, to be applied to the end of line created from each entry. When not specified, it will be deduced by inspecting +contents+ (according to +eol_lookahead_limit+).

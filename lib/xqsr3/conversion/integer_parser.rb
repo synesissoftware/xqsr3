@@ -6,13 +6,13 @@
 #               module
 #
 # Created:      21st November 2017
-# Updated:      1st August 2018
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017-2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -155,7 +155,7 @@ module IntegerParser
 	#
 	# === Signature
 	#
-	# * *Parameters*:
+	# * *Parameters:*
 	#   - +arg+:: The argument to be converted (to +Fixnum+ or +Bignum+)
 	#   - +base+:: A value of 0, or between 2 and 36. Defaults to 0
 	#   - +options+:: An options hash, containing any of the following
@@ -166,7 +166,7 @@ module IntegerParser
 	#     take additional action. If the block returns then its return value
 	#     will be returned to the caller
 	#
-	# * *Options*:
+	# * *Options:*
 	#   - +:default+:: A default value to be used when +arg+ is +nil+ or
 	#     cannot be converted by (the original) +Kernel#Integer+
 	#   - +:nil+:: Returns +nil+ if +arg+ is +nil+ or cannot be

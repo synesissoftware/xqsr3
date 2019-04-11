@@ -11,7 +11,7 @@ module Assertions
 		#
 		# === Signature
 		#
-		# * *Parameters*
+		# * *Parameters:*
 		#   - +type+:: [::Class] The type
 		#   - +message_spec+:: [::Symbol, ::Array, ::Hash] A specification
 		#     of message(s) received by the instances of +type+. If a

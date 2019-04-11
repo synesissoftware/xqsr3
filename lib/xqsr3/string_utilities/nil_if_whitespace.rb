@@ -6,13 +6,13 @@
 #               module
 #
 # Created:      25th January 2018
-# Updated:      10th April 2019
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2018-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -73,7 +73,7 @@ module NilIfWhitespace
 	#
 	# === Signature
 	#
-	# * *Parameters*
+	# * *Parameters:*
 	#
 	# * *Required parameters*:
 	#   - +s+:: [String] The string to be evaluated

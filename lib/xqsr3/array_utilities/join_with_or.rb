@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      7th December 2017
-# Updated:      10th April 2019
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -64,7 +64,7 @@ module JoinWithOr
 	#
 	# === Signature
 	#
-	# * *Parameters*
+	# * *Parameters:*
 	#
 	# * *Required parameters*:
 	#   - +ar+:: [Array] The array whose contents are to be joined
@@ -73,7 +73,7 @@ module JoinWithOr
 	#   - +options+:: [Hash] Options that control the behaviour of the
 	#       method
 	#
-	# * *Options*:
+	# * *Options:*
 	#
 	#   - +:or+:: [String] A string that is used instead of 'or'
 	#   - +:oxford_comma+:: [boolean] Determines whether an Oxford comma

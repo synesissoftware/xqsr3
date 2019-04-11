@@ -6,13 +6,13 @@
 #               module
 #
 # Created:      3rd June 2017
-# Updated:      28th July 2017
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -77,10 +77,10 @@ module BoolParser
 	#
 	# === Signature
 	#
-	# * *Parameters*:
+	# * *Parameters:*
 	#   - +options+:: An options hash, containing any of the following options
 	#
-	# * *Options*:
+	# * *Options:*
 	#   - +:false_values+:: [::Array] An array of strings or regular
 	#     expressions against which to match for false value. Defaults to
 	#     +DEFAULT_FALSE_VALUES+
