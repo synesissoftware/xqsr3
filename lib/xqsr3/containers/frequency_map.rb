@@ -52,10 +52,29 @@ require 'xqsr3/diagnostics/inspect_builder'
 module Xqsr3
 module Containers
 
+# Hash-like class that counts, as the map's values, the frequencies of
+# elements, as the map's keys
 class FrequencyMap
 
 	include Enumerable
+	include ::Xqsr3::Diagnostics::InspectBuilder
 
+	# Class that provides a Hash[]-like syntax as follows:
+	#
+	#    fm = FrequencyMap::ByElement[ 'abc', 'def', 'abc', :x, 'x', :y ]
+	#
+	#    fm.empty? # => false
+	#    fm.size   # => 5
+	#    fm.count  # => 6
+	#    fm['abc'] # => 2
+	#    fm['def'] # => 1
+	#    fm['ghi'] # => 0
+	#    fm['x']   # => 1
+	#    fm['y']   # => 0
+	#    fm['z']   # => 0
+	#    fm[:x]    # => 1
+	#    fm[:y]    # => 1
+	#    fm[:z]    # => 0
 	ByElement = Class.new do
 
 		def self.[] *args
@@ -70,6 +89,7 @@ class FrequencyMap
 		private_class_method :new
 	end
 
+	# Creates an instance from the given arguments
 	def self.[] *args
 
 		return self.new if 0 == args.length
@@ -133,26 +153,38 @@ class FrequencyMap
 		end
 	end
 
+	# Initialises an instance
 	def initialize
 
-		@counts	=   {}
+		@elements	=   {}
 		@count	=	0
 	end
 
+	# Pushes an element into the map, assigning it an initial count of 1
+	#
+	# * *Parameters:*
+	#   - +key+:: The element to insert
 	def << key
 
 		push key, 1
 	end
 
+	# Compares the instance for equality against +rhs+
+	#
+	# * *Parameters:*
+	#   - +rhs+ (+nil+, +::Hash+, +FrequencyMap+) The instance to compare against
+	#
+	# * *Exceptions:*
+	#   - +::TypeError+ if +rhs+ is not of the required type(s)
 	def == rhs
 
 		case	rhs
 		when	::NilClass
 			return false
 		when	::Hash
-			return rhs.size == @counts.size && rhs == @counts
+			return rhs.size == @elements.size && rhs == @elements
 		when	self.class
-			return rhs.count == self.count && rhs == @counts
+			return rhs.count == self.count && rhs == @elements
 		else
 			raise TypeError, "can compare #{self.class} only to instances of #{self.class} and #{::Hash}, but #{rhs.class} given"
 		end
@@ -160,11 +192,23 @@ class FrequencyMap
 		false
 	end
 
+	# Obtains the count for a given key, or +nil+ if the key does not exist
+	#
+	# * *Parameters:*
+	#   - +key+ The key to lookup
 	def [] key
 
-		@counts[key] || 0
+		@elements[key] || 0
 	end
 
+	# Assigns a key and a count
+	#
+	# * *Parameters:*
+	#   - +key+ The key to lookup
+	#   - +count+ (::Integer) The count to lookup
+	#
+	# * *Exceptions:*
+	#   - +::TypeError+ if +count+ is not an +::Integer+
 	def []= key, count
 
 		raise TypeError, "'count' parameter must be of type #{::Integer}, but was of type #{count.class}" unless Integer === count
@@ -172,14 +216,17 @@ class FrequencyMap
 		store key, count
 	end
 
+	# Searches the instance comparing each element with +key+, returning the
+	# count if found, or +nil+ if not
 	def assoc key
 
-		@counts.assoc key
+		@elements.assoc key
 	end
 
+	# Removes all elements from the instance
 	def clear
 
-		@counts.clear
+		@elements.clear
 		@count = 0
 	end
 
@@ -189,18 +236,24 @@ class FrequencyMap
 		@count
 	end
 
+	# Obtains the default value of the instance, which will always be +nil+
 	def default
 
-		@counts.default
+		@elements.default
 	end
 
+	# Deletes the element with the given +key+ and its counts
+	#
+	# * *Parameters:*
+	#   - +key+ The key to delete
 	def delete key
 
-		key_count = @counts.delete key
+		key_count = @elements.delete key
 
 		@count -= key_count if key_count
 	end
 
+	# Duplicates the instance
 	def dup
 
 		fm = self.class.new
@@ -208,11 +261,14 @@ class FrequencyMap
 		fm.merge! self
 	end
 
+	# Calls _block_ once for each element in the instance, passing the element
+	# and its frequency as parameters. If no block is provided, an enumerator
+	# is returned
 	def each
 
-		return @counts.each unless block_given?
+		return @elements.each unless block_given?
 
-		@counts.each do |k, v|
+		@elements.each do |k, v|
 
 			yield k, v
 		end
@@ -224,9 +280,9 @@ class FrequencyMap
 	# keys must be created and sorted from which enumeration is directed
 	def each_by_key
 
-		@counts.keys.sort.each do |key|
+		@elements.keys.sort.each do |key|
 
-			yield key, @counts[key]
+			yield key, @elements[key]
 		end
 	end
 
@@ -238,7 +294,7 @@ class FrequencyMap
 	def each_by_frequency
 
 		tm = {}
-		@counts.each do |element, frequency|
+		@elements.each do |element, frequency|
 
 			tm[frequency]	=	[]	unless tm.has_key?(frequency)
 
@@ -256,6 +312,8 @@ class FrequencyMap
 		end
 	end
 
+	# Calls _block_ once for each element in the instance, passing the
+	# element. If no block is provided, an enumerator is returned
 	def each_key
 
 		keys.each do |element|
@@ -266,19 +324,24 @@ class FrequencyMap
 
 	alias each_pair each
 
+	# Calls _block_ once for each element in the instance, passing the
+	# count. If no block is provided, an enumerator is returned
 	def each_value
 
 		keys.each do |element|
 
-			yield @counts[element]
+			yield @elements[element]
 		end
 	end
 
+	# Returns +true+ if instance contains no elements; +false+ otherwise
 	def empty?
 
 		0 == size
 	end
 
+	# Returns +true+ if +rhs+ is an instance of +FrequencyMap+ and contains
+	# the same elements and their counts; +false+ otherwise
 	def eql? rhs
 
 		case	rhs
@@ -289,6 +352,11 @@ class FrequencyMap
 		end
 	end
 
+	# Returns the count from the instance for the given element +key+. If
+	# +key+ cannot be found, there are several options: with no other
+	# arguments, it will raise a +::KeyError+ exception; if +default+ is
+	# given, then that will be returned; if the optional code block is
+	# specified, then that will be run and its result returned
 	def fetch key, default = nil, &block
 
 		case	default
@@ -298,7 +366,7 @@ class FrequencyMap
 			raise TypeError, "default parameter ('#{default}') must be of type #{::Integer}, but was of type #{default.class}"
 		end
 
-		unless @counts.has_key? key
+		unless @elements.has_key? key
 
 			return default unless default.nil?
 
@@ -317,19 +385,24 @@ class FrequencyMap
 			raise KeyError, "given key '#{key}' (#{key.class}) does not exist"
 		end
 
-		@counts[key]
+		@elements[key]
 	end
 
+	# Returns the equivalent flattened form of the instance
 	def flatten
 
-		@counts.flatten
+		@elements.flatten
 	end
 
+	# Returns +true+ if an element with the given +key+ is in the map; +false+
+	# otherwise
 	def has_key? key
 
-		@counts.has_key? key
+		@elements.has_key? key
 	end
 
+	# Returns +true+ if an element with a count of the given +value+ is in the
+	# map; +false+ otherwise
 	def has_value? value
 
 		case	value
@@ -339,16 +412,18 @@ class FrequencyMap
 			raise TypeError, "parameter ('#{value}') must be of type #{::Integer}, but was of type #{value.class}"
 		end
 
-		@counts.has_value? value
+		@elements.has_value? value
 	end
 
+	# A hash-code for this instance
 	def hash
 
-		@counts.hash
+		@elements.hash
 	end
 
 	alias include? has_key?
 
+	# A diagnostics string form of the instance
 	def inspect
 
 		make_inspect show_fields: true
@@ -356,30 +431,44 @@ class FrequencyMap
 
 #	def keep_if
 #
-#		@counts.keep_if
+#		@elements.keep_if
 #	end
 
+	# Returns the element that has the given count, or +nil+ if none found
+	#
+	# * *Parameters:*
+	#   - +count+ (::Integer) The count to lookup
+	#
+	# * *Exceptions:*
+	#   - +::TypeError+ if +count+ is not of the required type(s)
 	def key count
 
 		raise TypeError, "'count' parameter must be of type #{::Integer}, but was of type #{count.class}" unless Integer === count
 
-		@counts.key count
+		@elements.key count
 	end
 
 	alias key? has_key?
 
+	# An array of the elements only
 	def keys
 
-		@counts.keys
+		@elements.keys
 	end
 
+	# The number of elements in the map
 	def length
 
-		@counts.length
+		@elements.length
 	end
 
 	alias member? has_key?
 
+	# Returns a new instance containing a merging of the current instance and
+	# the +fm+ instance
+	#
+	# NOTE: where any element is found in both merging instances the count
+	# will be a combination of the two counts
 	def merge fm
 
 		raise TypeError, "parameter must be an instance of type #{self.class}" unless fm.instance_of? self.class
@@ -392,16 +481,20 @@ class FrequencyMap
 		fm_new
 	end
 
+	# Merges the contents of +fm+ into the current instance
+	#
+	# NOTE: where any element is found in both merging instances the count
+	# will be a combination of the two counts
 	def merge! fm
 
 		fm.each do |k, v|
 
-			if not @counts.has_key? k
+			if not @elements.has_key? k
 
-				@counts[k]	=	v
+				@elements[k]	=	v
 			else
 
-				@counts[k]	+=	v
+				@elements[k]	+=	v
 			end
 			@count += v
 		end
@@ -409,21 +502,34 @@ class FrequencyMap
 		self
 	end
 
+	# Pushes the +element+ and +count+. If the +element+ already exists,
+	# +count+ will be added to the existing count; otherwise it will be
+	# +count+
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#   - +key+ The element key
+	#   - +count+ (Integer) The count by which to adjust
+	#
+	# === Exceptions
+	#  - +::RangeError+ raised if the value of +count+ results in a negative count for the given element
+	#  - +::TypeError+ if +count+ is not an +::Integer+
 	def push key, count = 1
 
 		raise TypeError, "'count' parameter must be of type #{::Integer}, but was of type #{count.class}" unless Integer === count
 
-		initial_count	=	@counts[key] || 0
+		initial_count	=	@elements[key] || 0
 		resulting_count	=	initial_count + count
 
 		raise RangeError, "count for element '#{key}' cannot be made negative" if resulting_count < 0
 
 		if 0 == resulting_count
 
-			@counts.delete key
+			@elements.delete key
 		else
 
-			@counts[key] = resulting_count
+			@elements[key] = resulting_count
 		end
 		@count += count
 
@@ -432,7 +538,7 @@ class FrequencyMap
 
 	def shift
 
-		r = @counts.shift
+		r = @elements.shift
 
 		@count -= r[1] if ::Array === r
 
@@ -441,39 +547,52 @@ class FrequencyMap
 
 	alias size length
 
+	# Causes an element with the given +key+ and +count+ to be stored. If an
+	# element with the given +key+ already exists, its count will be adjusted,
+	# as will the total count
+	#
+	# === Return
+	#  +true+ if the element was inserted; +false+ if the element was
+	#  overwritten
 	def store key, count
 
 		raise TypeError, "'count' parameter must be of type #{::Integer}, but was of type #{count.class}" unless Integer === count
 
-		old_count = @counts[key] || 0
+		old_count = @elements[key] || 0
 
-		@counts.store key, count
+		@elements.store key, count
 
 		@count += count - old_count
 
 		old_count == 0
 	end
 
+	# Converts instance to an array of +[key,value]+ pairs
 	def to_a
 
-		@counts.to_a
+		@elements.to_a
 	end
 
+	# Obtains reference to internal hash instance (which must *not* be modified)
 	def to_h
 
-		@counts.to_h
+		@elements.to_h
 	end
 
+	# Obtains equivalent hash to instance
 	def to_hash
 
-		@counts.to_hash
+		@elements.to_hash
 	end
 
-	alias to_s inspect
+	def to_s
+
+		@elements.to_s
+	end
 
 	def values
 
-		@counts.values
+		@elements.values
 	end
 end # class FrequencyMap
 
