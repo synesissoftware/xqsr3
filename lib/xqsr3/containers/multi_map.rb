@@ -5,13 +5,13 @@
 # Purpose:      multimap container
 #
 # Created:      21st March 2007
-# Updated:      30th July 2017
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2007-2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -201,6 +201,8 @@ class MultiMap < ::Hash
 	end
 
 	def each_key
+
+		return @inner.each_key unless block_given?
 
 		@inner.each_key { |key| yield key }
 	end

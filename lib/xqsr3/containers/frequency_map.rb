@@ -316,6 +316,8 @@ class FrequencyMap
 	# element. If no block is provided, an enumerator is returned
 	def each_key
 
+		return @elements.each_key unless block_given?
+
 		keys.each do |element|
 
 			yield element
@@ -327,6 +329,8 @@ class FrequencyMap
 	# Calls _block_ once for each element in the instance, passing the
 	# count. If no block is provided, an enumerator is returned
 	def each_value
+
+		return @elements.each_value unless block_given?
 
 		keys.each do |element|
 

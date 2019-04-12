@@ -5,13 +5,13 @@
 # Purpose:	    Adds a unique() method to the Enumerable module
 #
 # Created:	    5th March 2007
-# Updated:	    4th April 2016
+# Updated:	    12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2007-2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -55,6 +55,9 @@ module Enumerable
 	# Removes all duplicate elements in a sequence subject to an optional
 	# two-parameter block in order to return an array containing unique
 	# elements
+	#
+	#  [ 1, 2, 3 ].unique # => [ 1, 2, 3 ]
+	#  [ 1, 2, 1, 3 ].unique # => [ 1, 2, 3 ]
 	def unique(&block)
 
 		if not block
@@ -62,38 +65,25 @@ module Enumerable
 			return unique { |a, b| a == b }
 		else
 
-			if block.arity != 2
-
-				raise ArgumentError, "block requires two parameters"
-			end
+			raise ArgumentError, "block requires two parameters" unless block.arity == 2
 
 			ar	=	self.to_a
 
 			return ar if ar.length < 2
 
-			ar	=	ar.clone
+			r	=	[]
+			h	=	{}
 
-			i	=	0
+			ar.each do |v|
 
-			while i < ar.length do
+				unless h.has_key?(v)
 
-				j = i + 1
-
-				while j < ar.length do
-
-					if yield ar[i], ar[j]
-
-						ar.delete_at(j)
-					else
-
-						j = j + 1
-					end
+					r << v
+					h[v] = nil
 				end
-
-				i = i + 1
 			end
 
-			return ar
+			return r
 		end
 	end
 end # module Enumerable

@@ -43,5 +43,29 @@ class Test_Enumerable_unique_test < Test::Unit::TestCase
 
 		assert_equal [ 1, 2, 3, 4], dest
 	end
+
+	def test_unique_very_large_sorted
+
+		max = 100000
+
+		src = (0...max).to_a * 2
+		exp = (0...max).to_a
+
+		dest = src.unique
+
+		assert_equal exp, dest
+	end
+
+	def test_unique_very_large_unsorted
+
+		max = 100000
+
+		src = ((0...max).to_a * 2).sort
+		exp = (0...max).to_a
+
+		dest = src.unique
+
+		assert_equal exp, dest
+	end
 end
 
