@@ -59,7 +59,7 @@ module HashUtilities
 module DeepTransform
 
 	private
-	def self.do_deep_transform_on_hashlike_ h, &block
+	def self.do_deep_transform_on_hashlike_ h, &block # :nodoc:
 
 		::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :map ]
 
@@ -92,7 +92,7 @@ module DeepTransform
 		h
 	end
 
-	def do_deep_transform_on_self_ &block
+	def do_deep_transform_on_self_ &block # :nodoc:
 
 		::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :[]=, :delete, :keys ]
 

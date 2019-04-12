@@ -54,12 +54,14 @@
 module Xqsr3
 module StringUtilities
 
+# +include+-able module that provides ::string_nil_if_whitespace and
+# #nil_if_whitespace methods
 module NilIfWhitespace
 
 	private
-	module NilIfWhitespace_Helper_ #:nodoc:
+	module NilIfWhitespace_Helper_ # :nodoc:
 
-		def self.string_nil_if_whitespace_array_ s
+		def self.string_nil_if_whitespace_array_ s # :nodoc:
 
 			return nil if s.strip.empty?
 
@@ -76,12 +78,14 @@ module NilIfWhitespace
 	# * *Parameters:*
 	#
 	# * *Required parameters*:
-	#   - +s+:: [String] The string to be evaluated
+	#   - +s+ (String) The string to be evaluated
 	def self.string_nil_if_whitespace s
 
 		NilIfWhitespace_Helper_.string_nil_if_whitespace_array_ s
 	end
 
+	# Returns +nil+ if the instance is empty or contains only whitespace,
+	# otherwise returning self
 	def nil_if_whitespace
 
 		NilIfWhitespace_Helper_.string_nil_if_whitespace_array_ self

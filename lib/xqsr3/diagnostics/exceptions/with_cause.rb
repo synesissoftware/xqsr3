@@ -5,13 +5,13 @@
 # Purpose:      Definition of the WithCause inclusion module
 #
 # Created:      16th December 2017
-# Updated:      5th September 2018
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017-2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -66,6 +66,7 @@ module Exceptions
 #
 module WithCause
 
+	# Array of hidden fields
 	INSPECT_HIDDEN_FIELDS = [ 'has_implicit_message', 'uses_cause_message' ]
 
 	# Defines an initializer for an exception class that allows a cause (aka
@@ -75,13 +76,11 @@ module WithCause
 	# === Signature
 	#
 	# * *Parameters:*
-	#  - 
-	#  - +option+:: 
+	#  - +args+ 0+ arguments passed through to the +include+-ing class' initialiser
+	#  - +options+ Options hash
 	#
 	# * *Options:*
-	#  - +:cause+ - The exception to be used as a cause, and ensures that
-	#    that is not inferred from the arguments. May be +nil+ to ensure
-	#    that no cause is inferred
+	#  - +:cause+ - The exception to be used as a cause, and ensures that that is not inferred from the arguments. May be +nil+ to ensure that no cause is inferred
 	def initialize(*args, **options)
 
 		@uses_cause_message = false
@@ -143,6 +142,15 @@ module WithCause
 	# present
 	attr_reader :options
 
+	# Message obtained by concatenation of all chained exceptions' messages
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#    - +options+ Options hash
+	#
+	# * *Options:*
+	#    - +:separator+ (String) A string used to separate each chained exception message. Defaults to ": "
 	def chained_message **options
 
 		return message unless cause

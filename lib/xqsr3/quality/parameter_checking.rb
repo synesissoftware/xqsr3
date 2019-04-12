@@ -5,13 +5,13 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      18th October 2018
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2015-2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2015-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -76,7 +76,7 @@ module ParameterChecking
 			end
 		end
 
-		module Constants
+		module Constants # :nodoc:
 
 			RECOGNISED_OPTION_NAMES = %w{
 
@@ -99,7 +99,7 @@ module ParameterChecking
 	end # module Util_
 	public
 
-	def self.included base
+	def self.included base # :nodoc:
 
 		base.extend self
 	end
@@ -107,42 +107,27 @@ module ParameterChecking
 	private
 	# Check a given parameter (value=+value+, name=+name+) for type and value
 	#
-	# @param +value+:: the parameter whose value and type is to be checked
-	# @param +name+:: (::String, ::Symbol) the name of the parameter to be
-	#         checked
-	# @param +options+:: (::Hash) options that moderate the behaviour
+	# === Signature
 	#
-	# @option +:allow_nil+:: (boolean) The +value+ must not be +nil+ unless
-	#          this option is true
-	# @option +:nil+:: an alias for +:allow_nil+
-	# @option +:ignore_case+:: (boolean) When +:values+ is specified,
-	#  comparisons of strings, or arrays of strings, will be carried out in
-	#  a case-insensitive manner
-	# @option +:types+:: (::Array) An array of types one of which +value+
-	#          must be (or must be derived from). One of these types may be
-	#          an array of types, in which case +value+ may be an array that
-	#          must consist wholly of those types
-	# @option +:type+:: (::Class) A single type parameter, used only if
-	#          +:types+ is not specified
-	# @option +:values+:: (::Array) an array of values one of which +value+
-	#          must be
-	# @option +:responds_to+:: (::Array) An array of symbols specifying all
-	#          messages to which the parameter will respond
-	# @option +:reject_empty+:: (boolean) requires value to respond to
-	#          +empty?+ message and to do so with false, unless +nil+
-	# @option +:require_empty+:: (boolean) requires value to respond to
-	#          +empty?+ message and to do so with true, unless +nil+
-	# @option +:nothrow+:: (boolean) causes failure to be indicated by a
-	#          +nil+ return rather than a thrown exception
-	# @option +:message+:: (::String) specifies a message to be used in any
-	#          thrown exception, which suppresses internal message
-	#          preparation
-	# @option +:strip_str_whitespace+:: (boolean) If +value+ is a string (as
-	#          determined by responding to +to_str+ message), then it will
-	#          be stripped - leading and trailing whitespace removed -
-	#          before any processing
-	# @option +:treat_as_option+:: (boolean) If true, the value will be
-	#          treated as an option when reporting check failure
+	# * *Parameters:*
+	#   - +value+ the parameter whose value and type is to be checked
+	#   - +name+ (::String, ::Symbol) the name of the parameter to be checked
+	#   - +options+ (::Hash) options that moderate the behaviour
+	#
+	# * *Options:*
+	#   - +:allow_nil+ (boolean) The +value+ must not be +nil+ unless this option is true
+	#   - +:nil+ an alias for +:allow_nil+
+	#   - +:ignore_case+ (boolean) When +:values+ is specified, comparisons of strings, or arrays of strings, will be carried out in a case-insensitive manner
+	#   - +:types+ (::Array) An array of types one of which +value+ must be (or must be derived from). One of these types may be an array of types, in which case +value+ may be an array that must consist wholly of those types
+	#   - +:type+ (::Class) A single type parameter, used only if +:types+ is not specified
+	#   - +:values+ (::Array) an array of values one of which +value+ must be
+	#   - +:responds_to+ (::Array) An array of symbols specifying all messages to which the parameter will respond
+	#   - +:reject_empty+ (boolean) requires value to respond to +empty?+ message and to do so with false, unless +nil+
+	#   - +:require_empty+ (boolean) requires value to respond to +empty?+ message and to do so with true, unless +nil+
+	#   - +:nothrow+ (boolean) causes failure to be indicated by a +nil+ return rather than a thrown exception
+	#   - +:message+ (::String) specifies a message to be used in any thrown exception, which suppresses internal message preparation
+	#   - +:strip_str_whitespace+ (boolean) If +value+ is a string (as determined by responding to +to_str+ message), then it will be stripped - leading and trailing whitespace removed - before any processing
+	#   - +:treat_as_option+ (boolean) If true, the value will be treated as an option when reporting check failure
 	#
 	# This method is private, because it should only be used within methods
 	def check_parameter value, name, options = {}, &block
@@ -162,15 +147,14 @@ module ParameterChecking
 	# Specific form of the +check_parameter()+ that is used to check
 	# options, taking instead the hash and the key
 	#
-	# @param +h+:: (::Hash) The options hash from which the named element is
-	#         to be tested. May not be +nil+
-	# @param +name+:: (::String, ::Symbol, [ ::String, ::Symbol ]) The
-	#         options key name, or an array of names. May not be +nil+
-	# @param +options+:: (::Hash) options that moderate the behaviour in the
-	#         same way as for +check_parameter()+ except that the
-	#         +:treat_as_option+ option (with the value +true+) is merged in
-	#         before calling +check_parameter()+
+	# === Signature
 	#
+	# * *Parameters:*
+	#   - +h+ (::Hash) The options hash from which the named element is to be tested. May not be +nil+
+	#   - +name+ (::String, ::Symbol, [ ::String, ::Symbol ]) The options key name, or an array of names. May not be +nil+
+	#   - +options+ (::Hash) options that moderate the behaviour in the same way as for +check_parameter()+ except that the +:treat_as_option+ option (with the value +true+) is merged in before calling +check_parameter()+
+	#
+	# * *Options:*
 	def check_option h, name, options = {}, &block
 
 		Util_.check_option h, name, options, &block
@@ -179,37 +163,26 @@ module ParameterChecking
 	public
 	# Check a given parameter (value=+value+, name=+name+) for type and value
 	#
-	# @param +value+:: the parameter whose value and type is to be checked
-	# @param +name+:: the name of the parameter to be checked
-	# @param +options+:: options
+	# === Signature
 	#
-	# @option +:allow_nil+:: (boolean) The +value+ must not be +nil+ unless
-	#          this option is true
-	# @option +:nil+:: an alias for +:allow_nil+
-	# @option +:ignore_case+:: (boolean) When +:values+ is specified,
-	#  comparisons of strings, or arrays of strings, will be carried out in
-	#  a case-insensitive manner
-	# @option +:types+:: (::Array) An array of types one of which +value+ must
-	#          be (or must be derived from). One of these types may be an
-	#          array of types, in which case +value+ may be an array that
-	#          must consist wholly of those types
-	# @option +:type+:: (::Class) A single type parameter, used only if
-	#          +:types+ is not specified
-	# @option +:values+:: (::Array) an array of values one of which +value+
-	#          must be
-	# @option +:responds_to+:: (::Array) An array of symbols specifying all
-	#          messages to which the parameter will respond
-	# @option +:reject_empty+:: (boolean) requires value to respond to +empty?+
-	#          message and to do so with false, unless +nil+
-	# @option +:require_empty+:: (boolean) requires value to respond to
-	#          +empty?+ message and to do so with true, unless +nil+
-	# @option +:nothrow+:: (boolean) causes failure to be indicated by a +nil+
-	#          return rather than a thrown exception
-	# @option +:message+:: (boolean) specifies a message to be used in any
-	#          thrown exception, which suppresses internal message
-	#          preparation
-	# @option +:treat_as_option+:: (boolean) If true, the value will be
-	#          treated as an option when reporting check failure
+	# * *Parameters:*
+	#   - +value+ the parameter whose value and type is to be checked
+	#   - +name+ the name of the parameter to be checked
+	#   - +options+ options
+	#
+	# * *Options:*
+	#   - +:allow_nil+ (boolean) The +value+ must not be +nil+ unless this option is true
+	#   - +:nil+ an alias for +:allow_nil+
+	#   - +:ignore_case+ (boolean) When +:values+ is specified, comparisons of strings, or arrays of strings, will be carried out in a case-insensitive manner
+	#   - +:types+ (::Array) An array of types one of which +value+ must be (or must be derived from). One of these types may be an array of types, in which case +value+ may be an array that must consist wholly of those types
+	#   - +:type+ (::Class) A single type parameter, used only if +:types+ is not specified
+	#   - +:values+ (::Array) an array of values one of which +value+ must be
+	#   - +:responds_to+ (::Array) An array of symbols specifying all messages to which the parameter will respond
+	#   - +:reject_empty+ (boolean) requires value to respond to +empty?+ message and to do so with false, unless +nil+
+	#   - +:require_empty+ (boolean) requires value to respond to +empty?+ message and to do so with true, unless +nil+
+	#   - +:nothrow+ (boolean) causes failure to be indicated by a +nil+ return rather than a thrown exception
+	#   - +:message+ (boolean) specifies a message to be used in any thrown exception, which suppresses internal message preparation
+	#   - +:treat_as_option+ (boolean) If true, the value will be treated as an option when reporting check failure
 	#
 	def self.check_parameter value, name, options = {}, &block
 

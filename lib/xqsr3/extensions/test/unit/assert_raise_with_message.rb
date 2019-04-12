@@ -7,10 +7,10 @@ module X_assert_raise_with_message_ # :nodoc:
 
 	if TestUnitVersion_.is_at_least? [ 3, 0, 8 ]
 
-		AssertionFailedError_	=	Test::Unit::AssertionFailedError
+		AssertionFailedError_	=	Test::Unit::AssertionFailedError # :nodoc:
 	else
 
-		class AssertionFailedError_	< ArgumentError; end
+		class AssertionFailedError_	< ArgumentError; end # :nodoc:
 	end
 
 end # module X_assert_raise_with_message_
@@ -24,6 +24,9 @@ module Assertions
 
 	undef :assert_raise_with_message if respond_to? :assert_raise_with_message
 
+	# Asserts that the attached block raises an exception of one of the
+	# exceptions defined by +type_spec+ and/or has a message matching
+	# +message_spec+
 	def assert_raise_with_message(type_spec, message_spec, failure_message = nil, &block)
 
 		unless block_given?

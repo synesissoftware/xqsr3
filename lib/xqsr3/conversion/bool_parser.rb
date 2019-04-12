@@ -54,6 +54,7 @@
 module Xqsr3
 module Conversion
 
+# +include-able module that provides Boolean parsing
 module BoolParser
 
 	private
@@ -69,30 +70,26 @@ module BoolParser
 
 	public
 
+	# Recognised truey values
 	DEFAULT_TRUE_VALUES		=	[ /true/i, '1' ]
+	# Recognised falsey values
 	DEFAULT_FALSE_VALUES	=	[ /false/i, '0' ]
 
-	# Attempts to parse the given String to a Boolean value, based on the
+	# Attempts to parse the given string +s+ to a Boolean value, based on the
 	# given +options+
 	#
 	# === Signature
 	#
 	# * *Parameters:*
-	#   - +options+:: An options hash, containing any of the following options
+	#   - +s+ The string to be parsed
+	#   - +options+ An options hash, containing any of the following options
 	#
 	# * *Options:*
-	#   - +:false_values+:: [::Array] An array of strings or regular
-	#     expressions against which to match for false value. Defaults to
-	#     +DEFAULT_FALSE_VALUES+
-	#   - +:true_values+:: [::Array] An array of strings or regular
-	#     expressions against which to match for true value. Defaults to
-	#     +DEFAULT_TRUE_VALUES+
-	#   - +:default_value+:: An object to be returned if matching fails.
-	#     Defaults to +nil+
-	#   - +:false_value+:: An object to be returned if matching succeeds to
-	#     match against +:false_values+.
-	#   - +:true_value+:: An object to be returned if matching succeeds to
-	#     match against +:true_values+.
+	#   - +:false_values+ (::Array) An array of strings or regular expressions against which to match for false value. Defaults to +DEFAULT_FALSE_VALUES+
+	#   - +:true_values+ (::Array) An array of strings or regular expressions against which to match for true value. Defaults to +DEFAULT_TRUE_VALUES+
+	#   - +:default_value+ An object to be returned if matching fails.  Defaults to +nil+
+	#   - +:false_value+ An object to be returned if matching succeeds to match against +:false_values+. Defaults to +false+
+	#   - +:true_value+ An object to be returned if matching succeeds to match against +:true_values+. Defaults to +true+
 	def self.to_bool s, **options
 
 		true_values		=	options[:true_values] || DEFAULT_TRUE_VALUES

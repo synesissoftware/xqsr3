@@ -54,12 +54,14 @@
 module Xqsr3
 module StringUtilities
 
+# +include+-able module that provides ::string_ends_with? and #ends_with?
+# methods
 module EndsWith
 
 	private
-	module EndsWith_Helper_ #:nodoc:
+	module EndsWith_Helper_ # :nodoc:
 
-		def self.string_ends_with_helper_ s, prefix
+		def self.string_ends_with_helper_ s, prefix # :nodoc:
 
 			if prefix.nil? || prefix.empty?
 
@@ -78,7 +80,7 @@ module EndsWith
 			nil
 		end
 
-		def self.string_ends_with_array_ s, args
+		def self.string_ends_with_array_ s, args # :nodoc:
 
 			return '' if args.empty?
 
@@ -115,14 +117,20 @@ module EndsWith
 	# === Signature
 	#
 	# * *Parameters:*
-	#
-	# * *Required parameters*:
-	#   - +s+:: [String] The string to be evaluated
+	#   - +s+ (String) The string to be evaluated
+	#   - +args+ 0+ arguments against which +s+ will be evaluated
 	def self.string_ends_with? s, *args
 
 		EndsWith_Helper_.string_ends_with_array_ s, args
 	end
 
+	# Reports on whether the instance ends with a given prefix or set of
+	# prefixes (+args+)
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#   - +args+ 0+ arguments against which the instance will be evaluated
 	def ends_with? *args
 
 		EndsWith_Helper_.string_ends_with_array_ self, args

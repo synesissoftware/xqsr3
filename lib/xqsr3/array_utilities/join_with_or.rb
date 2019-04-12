@@ -56,6 +56,7 @@ require 'xqsr3/quality/parameter_checking'
 module Xqsr3
 module ArrayUtilities
 
+# +include+-able module that provides sequence-joining functionality
 module JoinWithOr
 
 	extend self
@@ -65,22 +66,14 @@ module JoinWithOr
 	# === Signature
 	#
 	# * *Parameters:*
-	#
-	# * *Required parameters*:
-	#   - +ar+:: [Array] The array whose contents are to be joined
-	#
-	# * *Options parameters*:
-	#   - +options+:: [Hash] Options that control the behaviour of the
-	#       method
+	#   - +ar+ (Array) The array whose contents are to be joined
+	#   - +options+ (Hash) Options that control the behaviour of the method
 	#
 	# * *Options:*
-	#
-	#   - +:or+:: [String] A string that is used instead of 'or'
-	#   - +:oxford_comma+:: [boolean] Determines whether an Oxford comma
-	#       will be used. Default is +true+
-	#   - +:quote_char+ [String] The quote character. Default is empty
-	#       string
-	#   - +:separator+ [String] The separator character. Default is +','+
+	#   - +:or+ (String) A string that is used instead of 'or'
+	#   - +:oxford_comma+ (boolean) Determines whether an Oxford comma will be used. Default is +true+
+	#   - +:quote_char+ (String) The quote character. Default is empty string ''
+	#   - +:separator+ (String) The separator character. Default is ','
 	def join_with_or ar, **options
 
 		::Xqsr3::Quality::ParameterChecking.check_parameter ar, 'ar', type: ::Array, allow_nil: true

@@ -5,13 +5,13 @@
 # Purpose:      ::Xqsr3::Diagnostics::InspectBuilder module
 #
 # Created:      4th September 2018
-# Updated:      5th September 2018
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2018-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -59,25 +59,21 @@ module InspectBuilder
 		NORMALISE_FUNCTION	=	lambda { |ar| ar.map { |v| v.to_s }.map { |v| '@' == v[0] ? v : "@#{v}" } }
 	end # module InspectBuilder_Utilities
 
+	# Generates an inspect string for the +include+-ing class
 	#
 	# === Signature
 	#
 	# * *Parameters:*
-	#  @param +o+:: The target of the +inspect+ message for which a message
-	#   will be built
+	#   - +o+ The target of the +inspect+ message for which a message will be built
 	#
 	# * *Options:*
-	#  @option +:no_class+:: (boolean) Elides the class qualification
-	#  @option +:no_object_id+:: (boolean) Elides the object id
-	#  @option +:show_fields+:: (boolean) Shows (all) object fields
-	#  @option +:hidden_fields+:: ([ String ]) Names of fields to be omitted
-	#   (when +:show_fields+ is specified). Overridden by +:shown_fields+
-	#  @option +:shown_fields+:: ([ String ]) Names of fields to be shown
-	#   (when +:show_fields+ is specified). Overrides +:hidden_fields+
-	#  @option +:truncate_width+:: (Integer) Specifies a maximum width for
-	#   the values of fields
-	#  @option +:deep_inspect+:: (boolean) Causes fields' values to be
-	#   obtained via their own +inspect+ methods
+	#   - +:no_class+ (boolean) Elides the class qualification
+	#   - +:no_object_id+ (boolean) Elides the object id
+	#   - +:show_fields+ (boolean) Shows (all) object fields
+	#   - +:hidden_fields+ ([ String ]) Names of fields to be omitted (when +:show_fields+ is specified). Overridden by +:shown_fields+
+	#   - +:shown_fields+ ([ String ]) Names of fields to be shown (when +:show_fields+ is specified). Overrides +:hidden_fields+
+	#   - +:truncate_width+ (Integer) Specifies a maximum width for the values of fields
+	#   - +:deep_inspect+ (boolean) Causes fields' values to be obtained via their own +inspect+ methods
 	def self.make_inspect o, **options
 
 		r	=	''

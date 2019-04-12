@@ -6,13 +6,13 @@
 #               module
 #
 # Created:      13th April 2016
-# Updated:      10th June 2016
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -54,12 +54,14 @@
 module Xqsr3
 module StringUtilities
 
+# +include+-able module that provides ::string_starts_with? and #starts_with?
+# methods
 module StartsWith
 
 	private
-	module StartsWith_Helper_ #:nodoc:
+	module StartsWith_Helper_ # :nodoc:
 
-		def self.string_starts_with_helper_ s, prefix
+		def self.string_starts_with_helper_ s, prefix # :nodoc:
 
 			if prefix.nil? || prefix.empty?
 
@@ -78,7 +80,7 @@ module StartsWith
 			nil
 		end
 
-		def self.string_starts_with_array_ s, args
+		def self.string_starts_with_array_ s, args # :nodoc:
 
 			return '' if args.empty?
 
@@ -109,11 +111,26 @@ module StartsWith
 	end
 	public
 
+	# Reports on whether a string +s+ starts with a given prefix or set of
+	# prefixes (+args+)
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#   - +s+ (String) The string to be evaluated
+	#   - +args+ 0+ arguments against which +s+ will be evaluated
 	def self.string_starts_with? s, *args
 
 		StartsWith_Helper_.string_starts_with_array_ s, args
 	end
 
+	# Reports on whether the instance starts with a given prefix or set of
+	# prefixes (+args+)
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#   - +args+ 0+ arguments against which the instance will be evaluated
 	def starts_with? *args
 
 		StartsWith_Helper_.string_starts_with_array_ self, args

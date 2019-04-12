@@ -12,18 +12,9 @@ module Assertions
 		# === Signature
 		#
 		# * *Parameters:*
-		#   - +type+:: [::Class] The type
-		#   - +message_spec+:: [::Symbol, ::Array, ::Hash] A specification
-		#     of message(s) received by the instances of +type+. If a
-		#     ::Symbol, then instances must respond to this single message.
-		#     If an ::Array (all elements of which must be ::Symbol), then
-		#     instances must respond to _all_ messages. If a ::Hash, then
-		#     instances must respond to _all_ messages represented by the
-		#     keys; the values are available for specifying a custom failure
-		#     message (or value is +nil+ for stock message)
-		#  - +failure_message+:: [::String] If specified, is used when
-		#     instances of +type+ do not respond to a message and no custom
-		#     failure message is provided for it
+		#   - +type+ (::Class) The type
+		#   - +message_spec+ (::Symbol, ::Array, ::Hash) A specification of message(s) received by the instances of +type+. If a ::Symbol, then instances must respond to this single message.  If an ::Array (all elements of which must be ::Symbol), then instances must respond to _all_ messages. If a ::Hash, then instances must respond to _all_ messages represented by the keys; the values are available for specifying a custom failure message (or value is +nil+ for stock message)
+		#  - +failure_message+ (::String) If specified, is used when instances of +type+ do not respond to a message and no custom failure message is provided for it
 		def assert_type_has_instance_methods(type, message_spec, failure_message = nil)
 
 			warn "type parameter - '#{type} (#{type.class})' - should be a Class" unless type.is_a?(::Class)

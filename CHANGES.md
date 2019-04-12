@@ -1,5 +1,9 @@
 # **xqsr3** Changes
 
+## 0.32.3 - 12th April 2019
+
+* ~ comprehensive fixes to documentation
+
 ## 0.32.2 - 12th April 2019
 
 * ~ substantially improved performance of Enumerable#unique()

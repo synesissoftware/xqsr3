@@ -100,8 +100,8 @@ module ExceptionUtilities
 	#
 	# === Parameters
 	#
-	# * +args+:: 0 or more arguments
-	# * +options+:: An options hash
+	# * +args+ 0 or more arguments
+	# * +options+ An options hash
 	#
 	# === Parameter Interpretation
 	#

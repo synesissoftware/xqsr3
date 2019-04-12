@@ -5,13 +5,13 @@
 # Purpose:      Adds a collect_with_index() method to the Enumerable module
 #
 # Created:      24th October 2010
-# Updated:      4th April 2016
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2010-2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2010-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -52,8 +52,9 @@
 
 module Enumerable
 
-	## Two-parameter #collect, where the second parameter is a #base-based
-	# index, which increments by 1 for each enumerated element.
+	# Two-parameter variant of +Enumerable+#+collect+, where the second
+	# parameter is a +base+-based index, which increments by 1 for each
+	# enumerated element.
 	def collect_with_index(base = 0)
 
 		a = []

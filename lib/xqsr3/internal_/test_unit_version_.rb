@@ -8,8 +8,8 @@ begin
 	require 'test/unit/version'
 
 	module Xqsr3
-	module Internal_
-	module TestUnitVersion_
+	module Internal_ # :nodoc:
+	module TestUnitVersion_ # :nodoc:
 
 		TEST_UNIT_VERSION_	=	Test::Unit::VERSION # :nodoc:
 	end # module TestUnitVersion_
@@ -18,8 +18,8 @@ begin
 rescue LoadError
 
 	module Xqsr3
-	module Internal_
-	module TestUnitVersion_
+	module Internal_ # :nodoc:
+	module TestUnitVersion_ # :nodoc:
 
 		TEST_UNIT_VERSION_	=	:not_found # :nodoc:
 	end # module TestUnitVersion_

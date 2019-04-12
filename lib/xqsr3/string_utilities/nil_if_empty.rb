@@ -54,12 +54,14 @@
 module Xqsr3
 module StringUtilities
 
+# +include+-able module that provides ::string_nil_if_empty and
+# #nil_if_empty methods
 module NilIfEmpty
 
 	private
-	module NilIfEmpty_Helper_ #:nodoc:
+	module NilIfEmpty_Helper_ # :nodoc:
 
-		def self.string_nil_if_empty_array_ s
+		def self.string_nil_if_empty_array_ s # :nodoc:
 
 			return s if s && !s.empty?
 
@@ -76,12 +78,13 @@ module NilIfEmpty
 	# * *Parameters:*
 	#
 	# * *Required parameters*:
-	#   - +s+:: [String] The string to be evaluated
+	#   - +s+ (String) The string to be evaluated
 	def self.string_nil_if_empty s
 
 		NilIfEmpty_Helper_.string_nil_if_empty_array_ s
 	end
 
+	# Returns +nil+ if the instance is empty, otherwise returning self
 	def nil_if_empty
 
 		NilIfEmpty_Helper_.string_nil_if_empty_array_ self

@@ -53,10 +53,12 @@
 module Xqsr3
 module Containers
 
+# Hash-like class that stores as mapped values in arrays
 class MultiMap < ::Hash
 
 	include Enumerable
 
+	# Creates an instance from the given arguments
 	def self.[] *args
 
 		return self.new if 0 == args.length
@@ -128,11 +130,14 @@ class MultiMap < ::Hash
 		end
 	end
 
+	# Initialises an instance
 	def initialize
 
 		@inner	=	Hash.new
 	end
 
+	# Obtains the values, if any, for the given key; returns +nil+ if no
+	# values are stored
 	def [] key
 
 		return @inner[key]
@@ -147,6 +152,13 @@ class MultiMap < ::Hash
 		store key, *values
 	end
 
+	# Compares the instance for equality against +rhs+
+	#
+	# * *Parameters:*
+	#   - +rhs+ (+nil+, +::Hash+, +MultiMap+) The instance to compare against
+	#
+	# * *Exceptions:*
+	#   - +::TypeError+ if +rhs+ is not of the required type(s)
 	def == rhs
 
 		case	rhs
@@ -163,21 +175,29 @@ class MultiMap < ::Hash
 		false
 	end
 
+	# Searches the instance comparing each element with +key+, returning the
+	# mapped values array if found, or +nil+ if not
 	def assoc key
 
 		@inner.assoc key
 	end
 
+	# Removes all elements from the instance
 	def clear
 
 		@inner.clear
 	end
 
+	# The total number of instances recorded
 	def count
 
 		@inner.each_value.map { |ar| ar.size}.inject(0, :+)
 	end
 
+	# Deletes all values mapped with the given +key+
+	#
+	# * *Parameters:*
+	#   - +key+ The key to delete
 	def delete key
 
 		@inner.delete key
@@ -200,6 +220,8 @@ class MultiMap < ::Hash
 		end
 	end
 
+	# Calls _block_ once for each element in the instance, passing the
+	# key. If no block is provided, an enumerator is returned
 	def each_key
 
 		return @inner.each_key unless block_given?
@@ -236,11 +258,14 @@ class MultiMap < ::Hash
 		end
 	end
 
+	# Returns +true+ if instance contains no elements; +false+ otherwise
 	def empty?
 
 		@inner.empty?
 	end
 
+	# Returns +true+ if +rhs+ is an instance of +MultiMap+ and contains
+	# the same elements and their counts; +false+ otherwise
 	def eql? rhs
 
 		case	rhs
@@ -295,6 +320,7 @@ class MultiMap < ::Hash
 		@inner.fetch key
 	end
 
+	# Returns the equivalent flattened form of the instance
 	def flatten
 
 		r = []
@@ -316,6 +342,8 @@ class MultiMap < ::Hash
 		r
 	end
 
+	# Returns +true+ if an element with the given +key+ is in the map; +false+
+	# otherwise
 	def has_key? key
 
 		@inner.has_key? key

@@ -6,13 +6,13 @@
 #               module
 #
 # Created:      14th April 2016
-# Updated:      10th June 2016
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2016, Matthew Wilson and Synesis Software
+# Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -59,15 +59,15 @@ module StringUtilities
 module ToSymbol
 
 	private
-	module ToSymbol_Helper_ #:nodoc:
+	module ToSymbol_Helper_ # :nodoc:
 
-		module Constants #:nodoc:
+		module Constants # :nodoc:
 
 			SymbolCharacters0	=	'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 			SymbolCharactersN	=	'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789'
 		end
 
-		def self.string_to_symbol_with_options_ s, options
+		def self.string_to_symbol_with_options_ s, options # :nodoc:
 
 			case	s
 			when	::String
@@ -127,11 +127,29 @@ module ToSymbol
 	end
 	public
 
+	# Converts the given string +s+ to a symbol according to the given
+	# +options+
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#   - +s+ (String) The string to convert
+	#   - +options+ (Hash) Options hash
+	#
+	# * *Options:*
+	#   - +:reject_hyphens+ (boolean)
+	#   - +:reject_spaces+ (boolean)
+	#   - +:reject_tabs+ (boolean)
+	#   - +:reject_whitespace+ (boolean)
+	#   - +:transform_characters+ (boolean)
 	def self.string_to_symbol s, options = {}
 
 		ToSymbol_Helper_.string_to_symbol_with_options_ s, options
 	end
 
+	# Converts the instance to a symbol, according to the given +options+
+	#
+	# See Xqsr3::StringUtilities::ToSymbol::string_to_symbol for options
 	def to_symbol options = {}
 
 		ToSymbol_Helper_.string_to_symbol_with_options_ self, options

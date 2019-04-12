@@ -163,7 +163,7 @@ class FrequencyMap
 	# Pushes an element into the map, assigning it an initial count of 1
 	#
 	# * *Parameters:*
-	#   - +key+:: The element to insert
+	#   - +key+ The element to insert
 	def << key
 
 		push key, 1

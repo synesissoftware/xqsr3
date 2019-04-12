@@ -6,13 +6,13 @@
 #               ::Xqsr3::CommandLineUtilities::MapOptionString module
 #
 # Created:      15th April 2016
-# Updated:      2nd August 2017
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2016-2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -56,20 +56,19 @@ require 'xqsr3/string_utilities/to_symbol'
 module Xqsr3
 module CommandLineUtilities
 
-# Facilities for mapping strings to options
+# +include+-able module providing facilities for mapping strings to options
 #
 # === Components of interest
-# * ::Xqsr3::CommandLineUtilities::MapOptionString.map_option_string
+# * ::Xqsr3::CommandLineUtilities::MapOptionString.map_option_string_from_string
+# * ::Xqsr3::CommandLineUtilities::MapOptionString#map_option_string
 module MapOptionString
 
-	# :nodoc:
-	def self.included includer
+	def self.included includer # :nodoc:
 
 		raise TypeError, "module #{self} cannot be included into #{includer} because it does not respond to to_str" unless includer.method_defined? :to_str
 	end
 
 	private
-	# :nodoc:
 	module MapOptionString_Helper_ # :nodoc:
 
 		def self.map_option_string_with_options_ s, option_strings, options
@@ -117,6 +116,13 @@ module MapOptionString
 
 	# Attempts to translate the value of a given string according
 	# to a collection of options strings
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#   - +s+ (::String) The string to be mapped
+	#   - +option_strings+ ([::String]) An array of strings against which the mapping will be performed
+	#   - +options+ (Hash) Options that control the behaviour of the method
 	def self.map_option_string_from_string s, option_strings, options = {}
 
 		MapOptionString_Helper_.map_option_string_with_options_ s, option_strings, options
@@ -124,6 +130,11 @@ module MapOptionString
 
 	# Attempts to translate the (string) value of the receiver according
 	# to a collection of options strings
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#   - +option_strings+ ([::String]) An array of strings against which the mapping will be performed
 	def map_option_string option_strings, options = {}
 
 		s = self.kind_of?(::String) ? self : self.to_str
@@ -136,4 +147,5 @@ end # module CommandLineUtilities
 end # module Xqsr3
 
 # ############################## end of file ############################# #
+
 

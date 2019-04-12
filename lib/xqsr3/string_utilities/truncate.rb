@@ -6,13 +6,13 @@
 #               module
 #
 # Created:      12th April 2018
-# Updated:      12th April 2018
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2018-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -59,9 +59,9 @@ module StringUtilities
 module Truncate
 
 	private
-	module Truncate_Helper_ #:nodoc:
+	module Truncate_Helper_ # :nodoc:
 
-		def self.string_truncate_with_options_ s, width, options
+		def self.string_truncate_with_options_ s, width, options # :nodoc:
 
 			case	s
 			when	::String
@@ -102,11 +102,26 @@ module Truncate
 	end
 	public
 
+	# Truncates the given string +s+ to the given +width+ according to the
+	# given +options+
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#   - +s+ (String) The string to convert
+	#   - +width+ (Integer) The truncation width
+	#   - +options+ (Hash) Options hash
+	#
+	# * *Options:*
+	#   - +:omission+ (String) Omission string. Defaults to "..."
 	def self.string_truncate s, width, options = {}
 
 		Truncate_Helper_.string_truncate_with_options_ s, width, options
 	end
 
+	# Truncates the instance, according to the given +width+ and +options+
+	#
+	# See Xqsr3::StringUtilities::ToSymbol::string_truncate for options
 	def truncate width, options = {}
 
 		Truncate_Helper_.string_truncate_with_options_ self, width, options

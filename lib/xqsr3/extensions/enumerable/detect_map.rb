@@ -5,13 +5,13 @@
 # Purpose:      ::Enumerable#detect_map extension
 #
 # Created:      3rd December 2017
-# Updated:      9th December 2017
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -49,15 +49,15 @@
 
 module Enumerable
 
-	# The +Enumerable#detect+ method provides a way to detect the presence
+	# The +Enumerable+#+detect+ method provides a way to detect the presence
 	# of a particular value in a collection. The only constraint is that you
 	# get back the object unchanged.
 	#
-	# The +Enumerable#map+ method provides a way to transform the contents of
+	# The +Enumerable+#+map+ method provides a way to transform the contents of
 	# a collection. The only constraint is that you get back another
 	# collection.
 	#
-	# This extension method, +Enumerable#detect_map+ combines the features
+	# This extension method, +Enumerable+#+detect_map+ combines the features
 	# of both, in that it detects the presence of a particular value in a
 	# collection and transform the detected value.
 	#
@@ -65,7 +65,7 @@ module Enumerable
 	#
 	#  { :ab => 'cd', :ef => 'gh' }.detect_map { |k, v| v.upcase if k == :ef } # => 'GH'
 	#
-	# @note The block is required (for technical reasons), and must have
+	# *Note:* The block is required (for technical reasons), and must have
 	# arity 1 for sequences or 2 for associations
 	def detect_map &block
 
@@ -89,7 +89,6 @@ module Enumerable
 
 		nil
 	end
-
 end # module Enumerable
 
 # ############################## end of file ############################# #
