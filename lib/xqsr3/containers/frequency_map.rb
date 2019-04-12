@@ -5,13 +5,13 @@
 # Purpose:      FrequencyMap container
 #
 # Created:      28th January 2005
-# Updated:      13th October 2018
+# Updated:      12th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2005-2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -44,8 +44,7 @@
 # ######################################################################## #
 
 
-# ##########################################################
-# ::Xqsr3::Containers::FrequencyMap
+require 'xqsr3/diagnostics/inspect_builder'
 
 =begin
 =end
@@ -163,10 +162,12 @@ class FrequencyMap
 
 	def [] key
 
-		@counts[key]
+		@counts[key] || 0
 	end
 
 	def []= key, count
+
+		raise TypeError, "'count' parameter must be of type #{::Integer}, but was of type #{count.class}" unless Integer === count
 
 		store key, count
 	end
@@ -208,6 +209,8 @@ class FrequencyMap
 	end
 
 	def each
+
+		return @counts.each unless block_given?
 
 		@counts.each do |k, v|
 
@@ -348,7 +351,7 @@ class FrequencyMap
 
 	def inspect
 
-		@counts.inspect
+		make_inspect show_fields: true
 	end
 
 #	def keep_if
@@ -356,16 +359,11 @@ class FrequencyMap
 #		@counts.keep_if
 #	end
 
-	def key value
+	def key count
 
-		case	value
-		when	::NilClass, ::Integer
-			;
-		else
-			raise TypeError, "parameter ('#{value}') must be of type #{::Integer}, but was of type #{value.class}"
-		end
+		raise TypeError, "'count' parameter must be of type #{::Integer}, but was of type #{count.class}" unless Integer === count
 
-		@counts.key value
+		@counts.key count
 	end
 
 	alias key? has_key?
@@ -411,16 +409,21 @@ class FrequencyMap
 		self
 	end
 
-	def push element, count = 1
+	def push key, count = 1
 
-		raise TypeError, "count ('#{count}') must in an instance of #{::Integer}, but #{count.class} provided" unless count.kind_of? ::Integer
+		raise TypeError, "'count' parameter must be of type #{::Integer}, but was of type #{count.class}" unless Integer === count
 
-		if not @counts.has_key? element
+		initial_count	=	@counts[key] || 0
+		resulting_count	=	initial_count + count
 
-			@counts[element]	=	count
+		raise RangeError, "count for element '#{key}' cannot be made negative" if resulting_count < 0
+
+		if 0 == resulting_count
+
+			@counts.delete key
 		else
 
-			@counts[element]	+=	count
+			@counts[key] = resulting_count
 		end
 		@count += count
 
@@ -438,20 +441,17 @@ class FrequencyMap
 
 	alias size length
 
-	def store key, value
+	def store key, count
 
-		case	value
-		when	::NilClass, ::Integer
-			;
-		else
-			raise TypeError, "value ('#{value}') must be of type #{::Integer}, but was of type #{value.class}"
-		end
+		raise TypeError, "'count' parameter must be of type #{::Integer}, but was of type #{count.class}" unless Integer === count
 
-		key_count = @counts[key] || 0
+		old_count = @counts[key] || 0
 
-		@counts.store key, value
+		@counts.store key, count
 
-		@count += value - key_count
+		@count += count - old_count
+
+		old_count == 0
 	end
 
 	def to_a

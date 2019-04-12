@@ -18,6 +18,10 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal 0, fm1.count
 		assert fm1.empty?
 		assert_equal 0, fm1.size
+
+		assert_nil fm1.default
+
+		assert_match /^#<Xqsr3::Containers::FrequencyMap:0x\d+:\s*@count\(\w+\)=0; @counts\(Hash\)={}\s*>$/, fm1.inspect
 	end
 
 	def test_class_operator_subscript_2
@@ -27,6 +31,8 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal 3, fm2.count
 		assert_not fm2.empty?
 		assert_equal 2, fm2.size
+
+		assert_match /^#<Xqsr3::Containers::FrequencyMap:0x\d+:\s*@count\(\w+\)=3; @counts\(Hash\)={.*abc.*def.*}\s*>$/, fm2.inspect
 	end
 
 	def test_class_operator_subscript_3
@@ -102,6 +108,52 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal 2, fm['jkl']
 	end
 
+	def test_class_operator_subscript_9
+
+		fm = FrequencyMap::ByElement[ 'abc', 'def', 'abc', :x, 'x', :y ]
+
+		assert_false fm.empty? # => false
+		assert_equal 5, fm.size   # => 5
+		assert_equal 6, fm.count  # => 6
+		assert_equal 2, fm['abc'] # => 2
+		assert_equal 1, fm['def'] # => 1
+		assert_equal 0, fm['ghi'] # => 0
+		assert_equal 1, fm['x']   # => 1
+		assert_equal 0, fm['y']   # => 0
+		assert_equal 0, fm['z']   # => 0
+		assert_equal 1, fm[:x]    # => 1
+		assert_equal 1, fm[:y]    # => 1
+		assert_equal 0, fm[:z]    # => 0
+
+		fm.push 'abc'
+
+		assert_false fm.empty?
+		assert_equal 5, fm.size
+		assert_equal 7, fm.count
+		assert_equal 3, fm['abc']
+
+		fm.push 'abc', 2
+
+		assert_false fm.empty?
+		assert_equal 5, fm.size
+		assert_equal 9, fm.count
+		assert_equal 5, fm['abc']
+
+		fm.push 'abc', -4
+
+		assert_false fm.empty?
+		assert_equal 5, fm.size
+		assert_equal 5, fm.count
+		assert_equal 1, fm['abc']
+
+		fm.push 'abc', -1
+
+		assert_false fm.empty?
+		assert_equal 4, fm.size
+		assert_equal 4, fm.count
+		assert_equal 0, fm['abc']
+	end
+
 	def test_instance_operator_equals
 
 		fm1 = FrequencyMap.new
@@ -150,13 +202,13 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 
 		fm = FrequencyMap.new
 
-		assert_nil fm[:abc]
-		assert_nil fm[:def]
+		assert_equal 0, fm[:abc]
+		assert_equal 0, fm[:def]
 
 		fm << :abc
 
 		assert_equal 1, fm[:abc]
-		assert_nil fm[:def]
+		assert_equal 0, fm[:def]
 
 		fm << :def << :def << :def
 
@@ -200,7 +252,7 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 
 		fm = FrequencyMap.new
 
-		assert_nil fm['abc']
+		assert_equal 0, fm['abc']
 		assert_equal 0, fm.count
 		assert fm.empty?
 		assert_equal 0, fm.size
@@ -214,7 +266,7 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 
 		fm.clear
 
-		assert_nil fm['abc']
+		assert_equal 0, fm['abc']
 		assert_equal 0, fm.count
 		assert fm.empty?
 		assert_equal 0, fm.size
@@ -756,4 +808,5 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal [1, 2, 1], fm.values
 	end
 end
+
 

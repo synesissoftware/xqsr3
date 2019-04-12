@@ -20,7 +20,29 @@ It may be pronounced (lamely) as "excusers".
 
 ## Installation
 
-Install using `gem install xqsr3` or add it to your `Gemfile`.
+Install via **gem** as in:
+
+```
+	gem install libclimate-ruby
+```
+
+or add it to your `Gemfile`.
+
+Use is via specific APIs or groups. For example, in order to use the
+``FrequencyMap`` class you would ``require`` the source file, as in:
+
+```Ruby
+require 'xqsr3/containers/frequency_map'
+```
+
+Alternatively, to use all **test/unit** extensions you would ``require`` all
+relatived via the file:
+
+```Ruby
+require 'xqsr3/extensions/test/unit'
+```
+
+which brings in nine extensions.
 
 ## Components
 
@@ -49,6 +71,10 @@ and extensions to the following standard library components:
 * String extensions
 * test/unit extensions
 
+## Examples
+
+Examples are provided in the ```examples``` directory, along with a markdown description for each. A detailed list TOC of them is provided in [EXAMPLES.md](./EXAMPLES.md).
+
 ## Project Information
 
 ### Where to get help
@@ -61,17 +87,20 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 
 ### Related projects
 
-**xqsr3** is a runtime dependency in:
+**xqsr3** is a runtime dependency of:
 
 * the **[libCLImate.Ruby](https://github.com/synesissoftware/libCLImate.Ruby)** library;
 * the [**xqsr3-xml**](https://github.com/synesissoftware.com/xqsr3-xml/) library.
 
-and a development dependency in:
+and a development dependency of:
 
 * the **[CLASP.Ruby](https://github.com/synesissoftware/CLASP.Ruby)** library;
 * the **[cmpfs.Ruby](https://github.com/synesissoftware/cmpfs.Ruby)** library;
+* the **[libpath.Ruby](https://github.com/synesissoftware/libpath.Ruby)** library;
 * the **[Pantheios.Ruby](https://github.com/synesissoftware/Pantheios.Ruby)** library.
+* the **[Quench.Ruby](https://github.com/synesissoftware/Quench.Ruby)** library.
 
 ### License
 
 **xqsr3** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.
+
