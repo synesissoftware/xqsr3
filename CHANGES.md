@@ -1,5 +1,10 @@
 # **xqsr3** Changes
 
+## 0.33.0 - 15th April 2019
+
+* MultiMap : + added #has_values? method; + added #multi_merge and #multi_merge! methods; + added #strict_merge and #strict_merge! methods; + adding in missing (TypeError) parameter checks
+* ~ completing all outstanding missing documentation
+
 ## 0.32.3 - 12th April 2019
 
 * ~ comprehensive fixes to documentation

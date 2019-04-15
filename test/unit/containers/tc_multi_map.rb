@@ -481,7 +481,7 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
 		assert_not mm.has_key? :abc
 
-		mm.push :abc
+		mm.push :abc, *[ :v1, :v2 ]
 
 		assert mm.has_key? :abc
 
@@ -494,15 +494,37 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
 		mm = MultiMap.new
 
-		assert_not mm.has_value? []
+		assert_not mm.has_value? :abc
 
-		mm.push :abc
+		mm.push :abc, *[ :v1, :v2 ]
 
-		assert mm.has_value? []
+		assert mm.has_value? :v1
+		assert mm.has_value? :v2
+		assert_not mm.has_value? :v3
 
 		mm.delete :abc
 
-		assert_not mm.has_value? []
+		assert_not mm.has_value? :abc
+	end
+
+	def test_has_values?
+
+		mm = MultiMap.new
+
+		assert_not mm.has_values? []
+
+		mm.push :abc
+
+		assert mm.has_values? []
+
+		mm.push :abc, * [ :v1, :v2 ]
+
+		assert_not mm.has_values? []
+		assert mm.has_values? [ :v1, :v2 ]
+
+		mm.delete :abc
+
+		assert_not mm.has_values? []
 	end
 
 	def test_key
@@ -512,13 +534,43 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 		assert_nil mm.key []
 		assert_nil mm.key :not_defined
 
-		mm.push :abc
+		mm.push :abc, :v1
 
-		assert_equal :abc, mm.key([])
+		assert_equal :abc, mm.key(:v1)
+		assert_nil mm.key(:v2)
 
-		mm.push :abc, 1
+		mm.push :abc, :v2
 
-		assert_equal :abc, mm.key([ 1 ])
+		assert_equal :abc, mm.key(:v1)
+		assert_equal :abc, mm.key(:v2)
+		assert_equal :abc, mm.key(:v1, :v2)
+		assert_nil mm.key(:v2, :v1)
+		assert_nil mm.key([:v1, :v2])
+
+		mm.delete :abc
+
+		mm.push :def, :v2, :v1
+
+		assert_equal :def, mm.key(:v2, :v1)
+		assert_nil mm.key(:v1, :v2)
+		assert_equal :def, mm.key(:v1)
+		assert_equal :def, mm.key(:v2)
+
+		mm.delete :def
+
+		mm.push :ghi, [ :v2, :v1 ]
+
+		assert_equal :ghi, mm.key([:v2, :v1])
+		assert_nil mm.key([:v1, :v2])
+		assert_nil mm.key(:v1)
+		assert_nil mm.key(:v2)
+
+		mm.push :ghi, :v1
+
+		assert_equal :ghi, mm.key([:v2, :v1])
+		assert_nil mm.key([:v1, :v2])
+		assert_equal :ghi, mm.key(:v1)
+		assert_nil mm.key(:v2)
 	end
 
 	def test_length_and_size
@@ -549,7 +601,7 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 		test_length_and_size
 	end
 
-	def test_merge
+	def test_multi_merge
 
 		mm1 = MultiMap.new
 
@@ -562,12 +614,18 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 		mm2.push :abc, 4, 5
 		mm2.push :def, 'a'
 
-		mm3 = mm1.merge mm2
+		mm3 = mm1.multi_merge mm2
 
-		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :abc, 5, :def, 'a' ], mm3.flatten
+		h = Hash.new
+
+		h.store :ghi, 'x'
+
+		mm4 = mm3.multi_merge h
+
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :abc, 5, :def, 'a', :ghi, 'x' ], mm4.flatten
 	end
 
-	def test_merge!
+	def test_multi_merge!
 
 		mm1 = MultiMap.new
 
@@ -580,9 +638,63 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 		mm2.push :abc, 4, 5
 		mm2.push :def, 'a'
 
-		mm1.merge! mm2
+		mm1.multi_merge! mm2
 
-		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :abc, 5, :def, 'a' ], mm1.flatten
+		h = Hash.new
+
+		h.store :ghi, 'x'
+
+		mm1.multi_merge! h
+
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :abc, 5, :def, 'a', :ghi, 'x' ], mm1.flatten
+	end
+
+	def test_strict_merge
+
+		mm1 = MultiMap.new
+
+		mm1.push :abc, 1, 2, 3
+
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3 ], mm1.flatten
+
+		mm2 = MultiMap.new
+
+		mm2.push :abc, 4, 5
+		mm2.push :def, 'a'
+
+		mm3 = mm1.strict_merge mm2
+
+		h = Hash.new
+
+		h.store :ghi, 'x'
+
+		mm4 = mm3.strict_merge h
+
+		assert_equal [ :abc, 4, :abc, 5, :def, 'a', :ghi, 'x' ], mm4.flatten
+	end
+
+	def test_strict_merge!
+
+		mm1 = MultiMap.new
+
+		mm1.push :abc, 1, 2, 3
+
+		assert_equal [ :abc, 1, :abc, 2, :abc, 3 ], mm1.flatten
+
+		mm2 = MultiMap.new
+
+		mm2.push :abc, 4, 5
+		mm2.push :def, 'a'
+
+		mm1.strict_merge! mm2
+
+		h = Hash.new
+
+		h.store :ghi, 'x'
+
+		mm1.strict_merge! h
+
+		assert_equal [ :abc, 4, :abc, 5, :def, 'a', :ghi, 'x' ], mm1.flatten
 	end
 
 	def test_push
@@ -698,6 +810,25 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 		assert_equal ({ abc: [ 1, 2, 3, 4, 5 ], def: [] }), mm.to_h
 	end
 
+	def test_values_unflattened
+
+		mm = MultiMap.new
+
+		assert_equal [], mm.values_unflattened
+
+		mm.store :abc
+
+		assert_equal [ [] ], mm.values_unflattened
+
+		mm.store :abc, 1, 2, '3', nil, false
+
+		assert_equal [ [ 1, 2, '3', nil, false ] ], mm.values_unflattened
+
+		mm.store :def, true
+
+		assert_equal [ [ 1, 2, '3', nil, false ], [ true ] ], mm.values_unflattened
+	end
+
 	def test_values
 
 		mm = MultiMap.new
@@ -706,11 +837,38 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
 		mm.store :abc
 
-		assert_equal [ [] ], mm.values
+		assert_equal [], mm.values
 
 		mm.store :abc, 1, 2, '3', nil, false
 
-		assert_equal [ [ 1, 2, '3', nil, false ] ], mm.values
+		assert_equal [ 1, 2, '3', nil, false ], mm.values
+
+		mm.store :def, true
+
+		assert_equal [ 1, 2, '3', nil, false, true ], mm.values
+	end
+
+	def test_to_s
+
+		mm = MultiMap[]
+
+		assert_equal "{}", mm.to_s
+
+		mm.store :abc
+
+		assert_equal "{:abc=>[]}", mm.to_s
+
+		mm.store :abc, 1
+
+		assert_equal "{:abc=>[1]}", mm.to_s
+
+		mm.store :abc, 1, 23
+
+		assert_equal "{:abc=>[1, 23]}", mm.to_s
+
+		mm.store :def, *(0...10).to_a
+
+		assert_equal "{:abc=>[1, 23], :def=>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}", mm.to_s
 	end
 end
 

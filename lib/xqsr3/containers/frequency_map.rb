@@ -5,7 +5,7 @@
 # Purpose:      FrequencyMap container
 #
 # Created:      28th January 2005
-# Updated:      12th April 2019
+# Updated:      15th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -77,6 +77,7 @@ class FrequencyMap
 	#    fm[:z]    # => 0
 	ByElement = Class.new do
 
+		# Create an instance of Xqsr3::FrequencyMap from an array
 		def self.[] *args
 
 			fm = FrequencyMap.new
@@ -180,12 +181,16 @@ class FrequencyMap
 
 		case	rhs
 		when	::NilClass
+
 			return false
 		when	::Hash
+
 			return rhs.size == @elements.size && rhs == @elements
 		when	self.class
+
 			return rhs.count == self.count && rhs == @elements
 		else
+
 			raise TypeError, "can compare #{self.class} only to instances of #{self.class} and #{::Hash}, but #{rhs.class} given"
 		end
 
@@ -407,6 +412,12 @@ class FrequencyMap
 
 	# Returns +true+ if an element with a count of the given +value+ is in the
 	# map; +false+ otherwise
+	#
+	# * *Parameters:*
+	#   - +value+ (Integer) The value of the count for which to search
+	#
+	# * *Exceptions:*
+	#   - +::TypeError+ if +value+ is not an Integer
 	def has_value? value
 
 		case	value
@@ -437,6 +448,8 @@ class FrequencyMap
 #
 #		@elements.keep_if
 #	end
+=begin
+=end
 
 	# Returns the element that has the given count, or +nil+ if none found
 	#
@@ -540,6 +553,8 @@ class FrequencyMap
 		self
 	end
 
+	# Removes a key-value pair from the instance and return as a two-item
+	# array
 	def shift
 
 		r = @elements.shift
@@ -589,11 +604,13 @@ class FrequencyMap
 		@elements.to_hash
 	end
 
+	# A string-form of the instance
 	def to_s
 
 		@elements.to_s
 	end
 
+	# An array of all frequencies (without element keys) in the instance
 	def values
 
 		@elements.values

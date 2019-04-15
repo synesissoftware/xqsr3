@@ -54,8 +54,10 @@ module Diagnostics
 
 module InspectBuilder
 
-	module InspectBuilder_Utilities
+	# @!visibility private
+	module InspectBuilder_Utilities # :nodoc: all
 
+		# @!visibility private
 		NORMALISE_FUNCTION	=	lambda { |ar| ar.map { |v| v.to_s }.map { |v| '@' == v[0] ? v : "@#{v}" } }
 	end # module InspectBuilder_Utilities
 
@@ -157,6 +159,8 @@ module InspectBuilder
 	end
 
 	# Creates an inspect string from self
+	#
+	# see InspectBuilder::make_inspect
 	def make_inspect **options
 
 		::Xqsr3::Diagnostics::InspectBuilder.make_inspect self, **options

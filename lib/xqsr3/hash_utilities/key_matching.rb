@@ -6,13 +6,13 @@
 #               module
 #
 # Created:      15th November 2017
-# Updated:      15th November 2017
+# Updated:      15th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -56,10 +56,12 @@ require 'xqsr3/quality/parameter_checking'
 module Xqsr3
 module HashUtilities
 
+# +include+-able module that provides ::has_match?, #has_match?, ::match,
+# and #match methods
 module KeyMatching
 
 	private
-	def self.do_match_ h, re, **options
+	def self.do_match_ h, re, **options # :nodoc:
 
 		::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :[], :has_key?, :each ]
 
@@ -97,7 +99,7 @@ module KeyMatching
 		nil
 	end
 
-	def self.do_has_match_ h, re, **options
+	def self.do_has_match_ h, re, **options # :nodoc:
 
 		::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :[], :has_key?, :each ]
 

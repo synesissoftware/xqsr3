@@ -5,7 +5,7 @@
 # Purpose:      multimap container
 #
 # Created:      21st March 2007
-# Updated:      12th April 2019
+# Updated:      15th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -73,16 +73,16 @@ class MultiMap < ::Hash
 				return self.new
 			when	::Hash
 
-				fm = self.new
+				mm = self.new
 
 				arg.each do |k, v|
 
 					raise ArgumentError, "mapped elements in hashes must be arrays, #{v.class} given" unless v.kind_of? ::Array
 
-					fm.store k, *v
+					mm.store k, *v
 				end
 
-				return fm
+				return mm
 			when	::Array
 
 				# accepted forms:
@@ -133,6 +133,8 @@ class MultiMap < ::Hash
 	# Initialises an instance
 	def initialize
 
+		@merge_is_multi = true
+
 		@inner	=	Hash.new
 	end
 
@@ -143,6 +145,16 @@ class MultiMap < ::Hash
 		return @inner[key]
 	end
 
+	# Adds/assigns a new key+values pair. Equivalent to
+	#
+	#   store(key, *values)
+	#
+	# * *Parameters:*
+	#   - +key+ The element key
+	#   - +values+ (Array) The values to be associated with the key
+	#
+	# * *Exceptions:*
+	#   - +::TypeError+ if +values+ is not an array
 	def []= key, values
 
 		values = [] if values.nil?
@@ -203,9 +215,17 @@ class MultiMap < ::Hash
 		@inner.delete key
 	end
 
+	# Calls _block_ once for each key-value pair, passing the key and each
+	# of its values in turn. If the values for a given key are empty and
+	# +defaults+ is not empty, the block is invoked for that key (with
+	# +defaults[0]+) once
+	#
+	# * *Exceptions:*
+	#   - +ArgumentError+ if more than 1 +defaults+ is provided, or no block is given
 	def each *defaults
 
 		raise ArgumentError, "may only supply 0 or 1 defaults" if defaults.size > 1
+		raise ArgumentError, 'block is required' unless block_given?
 
 		@inner.each do |key, values|
 
@@ -220,8 +240,8 @@ class MultiMap < ::Hash
 		end
 	end
 
-	# Calls _block_ once for each element in the instance, passing the
-	# key. If no block is provided, an enumerator is returned
+	# Calls _block_ once for each key in the instance, passing the key. If no
+	# block is provided, an enumerator is returned
 	def each_key
 
 		return @inner.each_key unless block_given?
@@ -229,17 +249,30 @@ class MultiMap < ::Hash
 		@inner.each_key { |key| yield key }
 	end
 
+	# Calls _block_ once for each key-values pair, passing the key and its
+	# values array. If no block is provided, an enumerator is returned
 	def each_unflattened
+
+		return @inner.each unless block_given?
 
 		@inner.each { |key, value| yield key, value }
 	end
 
+	# Calls _block_ once for each key-values pair, passing the key and its
+	# values array and a key index. If no block is provided, an enumerator
+	# is returned
 	def each_unflattened_with_index
+
+		return @inner.each_with_index unless block_given?
 
 		@inner.each_with_index { |kv, index| yield kv, index }
 	end
 
+	# Calls _block_ once for each value in the instance, passing the value.
+	# If no block is provided, an enumerator is returned
 	def each_value
+
+		return @inner.each_value unless block_given?
 
 		@inner.each do |key, values|
 
@@ -247,7 +280,14 @@ class MultiMap < ::Hash
 		end
 	end
 
+	# Calls _block_ once for each key-values, passing the key and each of its
+	# values and a value index
+	#
+	# * *Exceptions:*
+	#   - +ArgumentError+ if no block is given
 	def each_with_index
+
+		raise ArgumentError, 'block is required' unless block_given?
 
 		index = 0
 		self.each do |key, value|
@@ -276,18 +316,26 @@ class MultiMap < ::Hash
 		end
 	end
 
-	def fetch key, default = nil, &block
+	# Returns the values associated with the given key
+	#
+	# * *Parameters:*
+	#   - +key+ The key
+	#   - +default+ The default value
+	def fetch key, default = (default_parameter_defaulted_ = true; nil), &block
 
-		case	default
-		when	::NilClass, ::Array
-			;
-		else
-			raise TypeError, "default parameter ('#{default}') must be of type #{::Array}, but was of type #{default.class}"
+		unless default_parameter_defaulted_
+
+			case	default
+			when	::NilClass, ::Array
+				;
+			else
+				raise TypeError, "default parameter ('#{default}') must be of type #{::Array}, but was of type #{default.class}"
+			end
 		end
 
 		unless @inner.has_key? key
 
-			return default unless default.nil?
+			return default unless default_parameter_defaulted_
 
 			if block_given?
 
@@ -349,31 +397,127 @@ class MultiMap < ::Hash
 		@inner.has_key? key
 	end
 
+	# Returns +true+ if any key has the given +value+; +false+ otherwise
+	#
+	# * *Parameters:*
+	#   - +value+ The value for which to search
 	def has_value? value
 
-		@inner.has_value? value
+		@inner.each do |k, vals|
+
+			return true if vals.include? value
+		end
+
+		false
 	end
 
-	def key value
+	# Returns +true+ if any key has the given +values+; +false+ otherwise
+	#
+	# * *Parameters:*
+	#   - +values+ (Array) The values for which to search
+	#
+	# * *Exceptions:*
+	#   - +::TypeError+ if +value+ is not an Array
+	def has_values? values
 
-		@inner.key value
+		raise TypeError, "'values' parameter must be of type #{::Array}" unless Array === values
+
+		@inner.has_value? values
 	end
 
-	def merge fm
+	# Returns the key for the given value(s)
+	#
+	# * *Parameters:*
+	#   - +values+ (Array) The value(s) for which to search
+	#
+	# If a single value is specified, the entries in the instance are
+	# searched first for an exact match to all (1) value(s); if that fails,
+	# then the first key with a values containing the given value is
+	# returned
+	def key *values
 
-		raise TypeError, "parameter must be an instance of type #{self.class}" unless fm.instance_of? self.class
+		case values.size
+		when 0
 
-		fm_new = self.class.new
+			return nil
+		when 1
 
-		fm_new.merge! self
-		fm_new.merge! fm
+			i = nil
 
-		fm_new
+			@inner.each do |k, vals|
+
+				return k if vals == values
+
+				if i.nil?
+
+					i = k if vals.include? values[0]
+				end
+			end
+
+			return i
+		else
+
+			@inner.each do |key, vals|
+
+				return key if vals == values
+			end
+
+			return nil
+		end
 	end
 
-	def merge! fm
+	# The number of elements in the map
+	def length
 
-		fm.each do |k, v|
+		@inner.size
+	end
+
+	# Returns a new instance containing a merging of the current instance and
+	# the +other+ instance
+	#
+	# NOTE: where any key is found in both merging instances the values
+	# resulting will be a concatenation of the sets of values
+	#
+	# * *Parameters:*
+	#   - +other+ (MultiMap, Hash) The instance from which to merge
+	#
+	# * *Exceptions:*
+	#   - +TypeError+ Raised if +other+ is not a MultiMap or a Hash
+	def multi_merge other
+
+		mm = self.class.new
+
+		mm.merge! self
+		mm.merge! other
+
+		mm
+	end
+
+	# Merges the contents of +other+ into the current instance
+	#
+	# NOTE: where any key is found in both merging instances the values
+	# resulting will be a concatenation of the sets of values
+	#
+	# * *Parameters:*
+	#   - +other+ (MultiMap, Hash) The instance from which to merge
+	#
+	# * *Exceptions:*
+	#   - +TypeError+ Raised if +other+ is not a MultiMap or a Hash
+	def multi_merge! other
+
+		case other
+		when self.class
+
+			;
+		when ::Hash
+
+			;
+		else
+
+			raise TypeError, "parameter must be an instance of #{self.class} or #{Hash}"
+		end
+
+		other.each do |k, v|
 
 			self.push k, v
 		end
@@ -381,6 +525,96 @@ class MultiMap < ::Hash
 		self
 	end
 
+	# Returns a new instance containing a merging of the current instance and
+	# the +other+ instance
+	#
+	# NOTE: where any key is found in both merging instances the values from
+	# +other+ will be used
+	#
+	# * *Parameters:*
+	#   - +other+ (MultiMap, Hash) The instance from which to merge
+	#
+	# * *Exceptions:*
+	#   - +TypeError+ Raised if +other+ is not a MultiMap or a Hash
+	def strict_merge other
+
+		mm = self.class.new
+
+		mm.strict_merge! self
+		mm.strict_merge! other
+
+		mm
+	end
+
+	# Merges the contents of +other+ into the current instance
+	#
+	# NOTE: where any key is found in both merging instances the values from
+	# +other+ will be used
+	#
+	# * *Parameters:*
+	#   - +other+ (MultiMap, Hash) The instance from which to merge
+	#
+	# * *Exceptions:*
+	#   - +TypeError+ Raised if +other+ is not a MultiMap or a Hash
+	def strict_merge! other
+
+		case other
+		when self.class
+
+			other.each_unflattened do |k, vals|
+
+				self.store k, *vals
+			end
+		when ::Hash
+
+			other.each do |k, v|
+
+				self.store k, v
+			end
+		else
+
+			raise TypeError, "parameter must be an instance of #{self.class} or #{Hash}"
+		end
+
+		self
+	end
+
+	# See #merge
+	def merge other
+
+		if @merge_is_multi
+
+			multi_merge other
+		else
+
+			strict_merge other
+		end
+	end
+
+	# See #merge!
+	def merge! other
+
+		if @merge_is_multi
+
+			multi_merge! other
+		else
+
+			strict_merge! other
+		end
+	end
+
+	# Pushes the given +key+ and +values+. If the +key+ is already in the
+	# map then the +values+ will be concatenated with those already present
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#   - +key+ The element key
+	#   - +values+ (*Array) The value(s) to be pushed
+	#
+	# === Exceptions
+	#  - +::RangeError+ raised if the value of +count+ results in a negative count for the given element
+	#  - +::TypeError+ if +count+ is not an +::Integer+
 	def push key, *values
 
 		@inner[key] = [] unless @inner.has_key? key
@@ -388,32 +622,59 @@ class MultiMap < ::Hash
 		@inner[key].push(*values)
 	end
 
+	# Removes a key-value pair from the instance and return as a two-item
+	# array
 	def shift
 
 		@inner.shift
 	end
 
-	def size
+	alias size length
 
-		@inner.size
-	end
-
+	# Causes an element with the given +key+ and +values+ to be stored. If an
+	# element with the given +key+ already exists, its values will b
+	# replaced
 	def store key, *values
 
 		@inner[key] = values
 	end
 
+	# Converts instance to an array of +[key,value]+ pairs
 	def to_a
 
 		self.flatten
 	end
 
+	# Obtains reference to internal hash instance (which must *not* be modified)
 	def to_h
 
-		@inner.dup
+		@inner.to_h
 	end
 
+	# Obtains equivalent hash to instance
+	def to_hash
+
+		@elements.to_hash
+	end
+
+	# A string-form of the instance
+	def to_s
+
+		@inner.to_s
+	end
+
+	# An array of all values in the instance
 	def values
+
+		r	=	[]
+
+		@inner.values.each  { |vals| r += vals }
+
+		r
+	end
+
+	# An array of all sets of values in the instance
+	def values_unflattened
 
 		@inner.values
 	end

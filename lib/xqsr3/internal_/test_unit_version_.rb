@@ -3,29 +3,45 @@
 # Test::Unit module
 
 require 'test/unit'
+
 begin
 
 	require 'test/unit/version'
 
+	# :stopdoc:
+	# @!visibility private
 	module Xqsr3
+	# @!visibility private
 	module Internal_ # :nodoc:
+	# @!visibility private
 	module TestUnitVersion_ # :nodoc:
 
+		# @!visibility private
 		TEST_UNIT_VERSION_	=	Test::Unit::VERSION # :nodoc:
 	end # module TestUnitVersion_
 	end # module Internal_
 	end # module Xqsr3
+
+	# :startdoc:
 rescue LoadError
 
+	# @!visibility private
 	module Xqsr3
+	# @!visibility private
 	module Internal_ # :nodoc:
+	# @!visibility private
 	module TestUnitVersion_ # :nodoc:
 
+		# @!visibility private
 		TEST_UNIT_VERSION_	=	:not_found # :nodoc:
 	end # module TestUnitVersion_
 	end # module Internal_
 	end # module Xqsr3
+
+	# :startdoc:
 end
+
+# :stopdoc:
 
 module Xqsr3
 module Internal_ # :nodoc:
@@ -47,6 +63,7 @@ module TestUnitVersion_ # :nodoc:
 		TEST_UNIT_VERSION_PATCH_	=	TEST_UNIT_VERSION_PARTS_[2] # :nodoc:
 	end
 
+	# @!visibility private
 	def self.less_ a1, a2 # :nodoc:
 
 		n_common	=	a1.size < a2.size ? a1.size : a2.size
@@ -79,6 +96,7 @@ module TestUnitVersion_ # :nodoc:
 		end
 	end
 
+	# @!visibility private
 	def self.is_major_at_least? j # :nodoc:
 
 		return unless TEST_UNIT_VERSION_MAJOR_
@@ -86,6 +104,7 @@ module TestUnitVersion_ # :nodoc:
 		return j >= TEST_UNIT_VERSION_MAJOR_
 	end
 
+	# @!visibility private
 	def self.is_minor_at_least? n # :nodoc:
 
 		return unless TEST_UNIT_VERSION_MINOR_
@@ -93,6 +112,7 @@ module TestUnitVersion_ # :nodoc:
 		return n >= TEST_UNIT_VERSION_MINOR_
 	end
 
+	# @!visibility private
 	def self.is_at_least? v # :nodoc:
 
 		v	=	v.split(/\./).collect { |n| n.to_i } if String === v
@@ -100,6 +120,7 @@ module TestUnitVersion_ # :nodoc:
 		return !less_(TEST_UNIT_VERSION_PARTS_, v)
 	end
 
+	# @!visibility private
 	def self.is_less? v # :nodoc:
 
 		v	=	v.split(/\./).collect { |n| n.to_i } if String === v
@@ -110,5 +131,7 @@ module TestUnitVersion_ # :nodoc:
 end # module TestUnitVersion_
 end # module Internal_
 end # module Xqsr3
+
+# :startdoc:
 
 
