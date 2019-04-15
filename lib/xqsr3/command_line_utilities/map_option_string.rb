@@ -6,7 +6,7 @@
 #               ::Xqsr3::CommandLineUtilities::MapOptionString module
 #
 # Created:      15th April 2016
-# Updated:      12th April 2019
+# Updated:      15th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -69,7 +69,8 @@ module MapOptionString
 	end
 
 	private
-	module MapOptionString_Helper_ # :nodoc:
+	# @!visibility private
+	module MapOptionString_Helper_ # :nodoc: all
 
 		def self.map_option_string_with_options_ s, option_strings, options
 

@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      12th April 2018
-# Updated:      12th April 2019
+# Updated:      15th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -59,7 +59,8 @@ module StringUtilities
 module Truncate
 
 	private
-	module Truncate_Helper_ # :nodoc:
+	# @!visibility private
+	module Truncate_Helper_ # :nodoc: all
 
 		def self.string_truncate_with_options_ s, width, options # :nodoc:
 

@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      13th April 2016
-# Updated:      12th April 2019
+# Updated:      15th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -59,7 +59,8 @@ module StringUtilities
 module StartsWith
 
 	private
-	module StartsWith_Helper_ # :nodoc:
+	# @!visibility private
+	module StartsWith_Helper_ # :nodoc: all
 
 		def self.string_starts_with_helper_ s, prefix # :nodoc:
 
