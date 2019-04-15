@@ -5,7 +5,7 @@
 # Purpose:      Adds a writelines() method to the IO module
 #
 # Created:      13th April 2007
-# Updated:      12th April 2019
+# Updated:      16th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -56,7 +56,8 @@ module Xqsr3
 module IO
 
 	private
-	module WriteLine_Constants_ #:nodoc:
+	# @!visibility private
+	module WriteLine_Constants_ #:nodoc: all
 
 		NUMBER_OF_LINES_TO_EXAMINE	=	20
 
@@ -64,7 +65,9 @@ module IO
 
 	private
 
-	def self.write_to_target_ target, contents, line_separator, column_separator
+	# @!visibility private
+	def self.write_to_target_ target, contents, line_separator, column_separator # :nodoc:
+
 $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}', contents(#{contents.class})='#{contents}', line_separator(#{line_separator.class})='#{line_separator}', column_separator=(#{column_separator.class})='#{column_separator}')" if $DEBUG
 		if contents.instance_of? ::Hash
 
@@ -87,7 +90,9 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 	# embedded eol, in which case the empty string is returned to force no
 	# (additional) separator will be used. Otherwise, it returns "\n" to
 	# ensure that that is used.
-	def self.deduce_line_separator_ contents, eol_lookahead_limit
+	#
+	# @!visibility private
+	def self.deduce_line_separator_ contents, eol_lookahead_limit # :nodoc:
 
 		if contents.instance_of? ::Hash
 
@@ -192,4 +197,5 @@ end # module IO
 end # module Xqsr3
 
 # ############################## end of file ############################# #
+
 
