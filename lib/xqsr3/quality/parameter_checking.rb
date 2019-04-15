@@ -5,7 +5,7 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      12th April 2019
+# Updated:      15th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -59,7 +59,8 @@ module Quality
 module ParameterChecking
 
 	private
-	module Util_ # :nodoc:
+	# @!visibility private
+	module Util_ # :nodoc: all
 
 		def self.join_with_or a
 
