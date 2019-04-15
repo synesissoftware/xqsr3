@@ -25,6 +25,7 @@ begin
 	# :startdoc:
 rescue LoadError
 
+	# :stopdoc:
 	# @!visibility private
 	module Xqsr3
 	# @!visibility private
@@ -133,5 +134,7 @@ end # module Internal_
 end # module Xqsr3
 
 # :startdoc:
+
+# ############################## end of file ############################# #
 
 

@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      25th January 2018
-# Updated:      12th April 2019
+# Updated:      15th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -59,7 +59,8 @@ module StringUtilities
 module NilIfWhitespace
 
 	private
-	module NilIfWhitespace_Helper_ # :nodoc:
+	# @!visibility private
+	module NilIfWhitespace_Helper_ # :nodoc: all
 
 		def self.string_nil_if_whitespace_array_ s # :nodoc:
 

@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      3rd June 2017
-# Updated:      12th April 2019
+# Updated:      15th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -58,7 +58,8 @@ module StringUtilities
 module QuoteIf
 
 	private
-	module QuoteIf_Helper_ # :nodoc:
+	# @!visibility private
+	module QuoteIf_Helper_ # :nodoc: all
 
 		def self.string_quote_if_array_ s, options # :nodoc:
 

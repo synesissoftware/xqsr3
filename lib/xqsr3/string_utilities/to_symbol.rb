@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      14th April 2016
-# Updated:      12th April 2019
+# Updated:      15th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -59,7 +59,8 @@ module StringUtilities
 module ToSymbol
 
 	private
-	module ToSymbol_Helper_ # :nodoc:
+	# @!visibility private
+	module ToSymbol_Helper_ # :nodoc: all
 
 		module Constants # :nodoc:
 

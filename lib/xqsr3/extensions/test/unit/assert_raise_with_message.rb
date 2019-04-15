@@ -1,9 +1,13 @@
 
 require 'xqsr3/internal_/test_unit_version_'
 
+# :stopdoc:
+
 module Xqsr3
-module Internal_ # :nodoc:
-module X_assert_raise_with_message_ # :nodoc:
+# @!visibility private
+module Internal_ # :nodoc: all
+# @!visibility private
+module X_assert_raise_with_message_ # :nodoc: all
 
 	if TestUnitVersion_.is_at_least? [ 3, 0, 8 ]
 
@@ -17,6 +21,8 @@ end # module X_assert_raise_with_message_
 end # module Internal_
 end # module Xqsr3
 
+# :startdoc:
+
 module Test
 module Unit
 
@@ -27,6 +33,16 @@ module Assertions
 	# Asserts that the attached block raises an exception of one of the
 	# exceptions defined by +type_spec+ and/or has a message matching
 	# +message_spec+
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#   - +type_spec+ (String, Regexp, [String], [Regexp], nil) Specification of type expectation(s)
+	#   - +message_spec+ (String, Regexp, [String], [Regexp], nil) Specification of message expectation(s)
+	#   - +failure_message+ (String, nil) Optional message to be used if the matching fails
+	#
+	# * *Block*
+	# A required block containing code that is expected to raise an exception
 	def assert_raise_with_message(type_spec, message_spec, failure_message = nil, &block)
 
 		unless block_given?
@@ -96,5 +112,7 @@ module Assertions
 end # class Assertions
 end # module Unit
 end # module Test
+
+# ############################## end of file ############################# #
 
 

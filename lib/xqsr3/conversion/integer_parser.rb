@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      21st November 2017
-# Updated:      12th April 2019
+# Updated:      15th April 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -58,7 +58,8 @@ module Conversion
 module IntegerParser
 
 	private
-	module IntegerParser_Helper_ # :nodoc:
+	# @!visibility private
+	module IntegerParser_Helper_ # :nodoc: all
 
 		if Kernel.respond_to?(:xqsr3_Integer_original_method)
 
