@@ -1,5 +1,9 @@
 # **xqsr3** Changes
 
+## 0.34.0 - 4th July 2019
+
+* + added `Hash#slice` for Ruby versions < 2.5, available via xqsr3/extensions/hash (or xqsr3/extensions/hash/slice)
+
 ## 0.33.0.1 - 15th April 2019
 
 * ~ further hiding of internal code from rdoc and yard
