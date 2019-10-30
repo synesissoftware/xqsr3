@@ -5,7 +5,7 @@
 # Purpose:      Adds a writelines() method to the IO module
 #
 # Created:      13th April 2007
-# Updated:      16th April 2019
+# Updated:      31st October 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -60,26 +60,54 @@ module IO
 	module WriteLine_Constants_ #:nodoc: all
 
 		NUMBER_OF_LINES_TO_EXAMINE	=	20
-
 	end # module WriteLine_Constants_
 
 	private
 
 	# @!visibility private
-	def self.write_to_target_ target, contents, line_separator, column_separator # :nodoc:
+	def self.write_to_target_ target, contents, line_separator, column_separator, no_last_eol # :nodoc:
 
-$stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}', contents(#{contents.class})='#{contents}', line_separator(#{line_separator.class})='#{line_separator}', column_separator=(#{column_separator.class})='#{column_separator}')" if $DEBUG
-		if contents.instance_of? ::Hash
+$stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}', contents(#{contents.class})='#{contents}', line_separator(#{line_separator.class})='#{line_separator}', column_separator(#{column_separator.class})='#{column_separator}', no_last_eol(#{no_last_eol.class})=#{no_last_eol})" if $DEBUG
 
-			contents.each do |k, v|
+		if no_last_eol
 
-				target << "#{k}#{column_separator}#{v}#{line_separator}"
+			first = true
+
+			if contents.instance_of? ::Hash
+
+				contents.each do |k, v|
+
+					target << line_separator unless first
+
+					target << "#{k}#{column_separator}#{v}"
+
+					first = false
+				end
+			else
+
+				contents.each do |element|
+
+					target << line_separator unless first
+
+					target << "#{element}"
+
+					first = false
+				end
 			end
 		else
 
-			contents.each do |element|
+			if contents.instance_of? ::Hash
 
-				target << "#{element}#{line_separator}"
+				contents.each do |k, v|
+
+					target << "#{k}#{column_separator}#{v}#{line_separator}"
+				end
+			else
+
+				contents.each do |element|
+
+					target << "#{element}#{line_separator}"
+				end
 			end
 		end
 
@@ -139,6 +167,7 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 	#   - +:column_separator+ {optional} The column separator, to be applied between each field in the case where +contents+ is a +Hash+.
 	#   - +:eol_lookahead_limit+ {optional} The number of content elements (line/pair) to inspect to determine whether element has a terminating end-of-line sequence. Defaults to 20. If 0, and +:line_separator+ is not specified, then will default to <tt>"\n"</tt>. If +nil+, then every line will be inspected.
 	#   - +:line_separator+ {optional} The line separator, to be applied to the end of line created from each entry. When not specified, it will be deduced by inspecting +contents+ (according to +eol_lookahead_limit+).
+	#   - +:no_last_eol+ {optional} If present and _truey_, causes suppression of the addition of the +:line_separator+ on the last line.
 	#
 	# === Return
 	#
@@ -170,6 +199,7 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 		options				||=	{}
 		eol_lookahead_limit	=	options[:eol_lookahead_limit] || WriteLine_Constants_::NUMBER_OF_LINES_TO_EXAMINE
 		column_separator	=	options[:column_separator] || ''
+		no_last_eol			=	options[:no_last_eol] || false
 		line_separator		=	nil
 		line_separator		||=	options[:line_separator]
 		line_separator		||=	self.deduce_line_separator_(contents, eol_lookahead_limit) unless !eol_lookahead_limit.kind_of?(::Integer) || 0 == eol_lookahead_limit
@@ -186,11 +216,11 @@ $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}'
 
 			File.open(target, "w") do |io|
 
-				self.write_to_target_ io, contents, line_separator, column_separator
+				self.write_to_target_ io, contents, line_separator, column_separator, no_last_eol
 			end
 		else
 
-			self.write_to_target_ target, contents, line_separator, column_separator
+			self.write_to_target_ target, contents, line_separator, column_separator, no_last_eol
 		end
 	end # writelines
 end # module IO

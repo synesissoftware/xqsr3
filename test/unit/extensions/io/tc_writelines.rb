@@ -22,6 +22,18 @@ class Test_IO_writelines < Test::Unit::TestCase
 		assert_equal "abc\n", s.string
 	end
 
+	def test_single_string_nolasteol
+
+		input = 'abc'
+
+		s = StringIO.new '', 'a'
+
+		r = ::IO.writelines s, input, no_last_eol: true
+
+		assert_equal 1, r
+		assert_equal "abc", s.string
+	end
+
 	def test_single_string_in_array
 
 		input = [ 'abc' ]
@@ -44,6 +56,18 @@ class Test_IO_writelines < Test::Unit::TestCase
 
 		assert_equal 1, r
 		assert_equal "abc\n", s.string
+	end
+
+	def test_single_string_in_hash_nolasteol
+
+		input = { 'abc' => '' }
+
+		s = StringIO.new '', 'a'
+
+		r = ::IO.writelines s, input, no_last_eol: true
+
+		assert_equal 1, r
+		assert_equal "abc", s.string
 	end
 
 	def test_two_strings_in_array
@@ -80,6 +104,18 @@ class Test_IO_writelines < Test::Unit::TestCase
 
 		assert_equal 2, r
 		assert_equal "abc\ndef\n", s.string
+	end
+
+	def test_two_strings_in_hash_nolasteol
+
+		input = { 'ab' => 'c', 'de' => 'f' }
+
+		s = StringIO.new '', 'a'
+
+		r = ::IO.writelines s, input, no_last_eol: true
+
+		assert_equal 2, r
+		assert_equal "abc\ndef", s.string
 	end
 
 	def test_ten_strings_in_array
