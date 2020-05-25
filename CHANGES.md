@@ -6,7 +6,7 @@
 
 ## 0.35.0 - 31st October 2019
 
-* `::Xqsr3::IO.writelines()` / `::IO.writelines()` now recognises ':no_last_eol' option, which, if truey, suppresses the EOL on the last line/element in the written collection
+* `::Xqsr3::IO.writelines()` / `::IO.writelines()` now recognises `:no_last_eol` option, which, if truey, suppresses the EOL on the last line/element in the written collection
 
 ## 0.34.0 - 4th July 2019
 
