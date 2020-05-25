@@ -1,5 +1,19 @@
 # **xqsr3** Changes
 
+## 0.36.0 - 26th May 2020
+
+* added a number of files to simplify `require` statements:
+  - **lib/xqsr3/all_extensions.rb**
+  - **lib/xqsr3/array_utilities.rb**
+  - **lib/xqsr3/command_line_utilities.rb**
+  - **lib/xqsr3/containers.rb**
+  - **lib/xqsr3/conversion.rb**
+  - **lib/xqsr3/diagnostics.rb**
+  - **lib/xqsr3/extensions.rb**
+  - **lib/xqsr3/extensions/array.rb**
+  - **lib/xqsr3/hash_utilities.rb**
+  - **lib/xqsr3/string_utilities.rb**
+
 ## 25th May 2020
 
 * CHANGES.md : improved markup
