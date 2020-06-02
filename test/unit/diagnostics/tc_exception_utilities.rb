@@ -25,7 +25,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 
 			msg		||=	self.message
 			options	||= {}
-			r = self.class.new msg, self.options.merge(options)
+			r = self.class.new msg, **self.options.merge(options)
 			r
 		end
 	end
