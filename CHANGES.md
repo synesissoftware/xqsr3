@@ -1,5 +1,9 @@
 # **xqsr3** Changes
 
+## 0.36.1 - 2nd June 2020
+
+* Ruby 2.7 compatibility - avoiding deprecation warning when Hash used in keyword arguments context
+
 ## 0.36.0 - 26th May 2020
 
 * added a number of files to simplify `require` statements:
