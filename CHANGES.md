@@ -1,5 +1,9 @@
 # **xqsr3** Changes
 
+## 0.36.1.1 - 20th September 2020
+
+* fixes to unit-tests of `tc_raise_with_options` to ensure works on Windows
+
 ## 0.36.1 - 2nd June 2020
 
 * Ruby 2.7 compatibility - avoiding deprecation warning when Hash used in keyword arguments context

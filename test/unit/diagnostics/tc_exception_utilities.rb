@@ -10,6 +10,9 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 
 	include ::Xqsr3::Diagnostics
 
+	OS_IS_WINDOWS	=	(RUBY_PLATFORM =~ /(mswin|mingw|bccwin|wince)/i) ? true : false
+	LINE_NUM_RE		=	OS_IS_WINDOWS ? /.+:(\d+):/ : /^[^:]+:(\d+)/
+
 	class ArgumentErrorWithOptions < ArgumentError
 		def initialize(message = nil, **options)
 			super(message)
@@ -192,7 +195,8 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			assert_kind_of(ArgumentError, x)
 			assert_equal "abc", x.message
 
-			assert $@[0] =~ /^[^:]+:(\d+)/
+
+			assert $@[0] =~ LINE_NUM_RE
 			assert_equal line_number.to_s, $1.to_s
 		end
 
@@ -213,7 +217,7 @@ class Test_ExceptionUtilities_raise_with_options < Test::Unit::TestCase
 			assert_equal "abc", x.message
 			assert_equal ({ :blah => :blech, :id => 23 }), x.options
 
-			assert $@[0] =~ /^[^:]+:(\d+)/
+			assert $@[0] =~ LINE_NUM_RE
 			assert_equal line_number.to_s, $1.to_s
 		end
 	end

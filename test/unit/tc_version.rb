@@ -30,7 +30,7 @@ class Test_version < Test::Unit::TestCase
 
 	def test_VERSION_has_consistent_format
 
-		assert_equal Xqsr3::VERSION, "#{Xqsr3::VERSION_MAJOR}.#{Xqsr3::VERSION_MINOR}.#{Xqsr3::VERSION_REVISION}"
+		assert_equal Xqsr3::VERSION.split('.')[0..2].join('.'), "#{Xqsr3::VERSION_MAJOR}.#{Xqsr3::VERSION_MINOR}.#{Xqsr3::VERSION_REVISION}"
 	end
 end
 
