@@ -5,13 +5,13 @@
 # Purpose:      Version for Xqsr3 library
 #
 # Created:      3rd April 2016
-# Updated:      20th April 2021
+# Updated:      25th June 2022
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2019-2021, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2022, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -51,7 +51,7 @@
 module Xqsr3
 
 	# Current version of the Xqsr3 library
-	VERSION				=	'0.37.0'
+	VERSION				=	'0.37.1'
 
 	private
 	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
