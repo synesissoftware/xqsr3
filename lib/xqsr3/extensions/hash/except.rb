@@ -1,5 +1,5 @@
 
-unless Hash.instance_methods.include? :except
+unless Hash.instance_methods.include? :except!
 
 	class Hash
 
@@ -14,6 +14,12 @@ unless Hash.instance_methods.include? :except
 
 			self
 		end
+    end
+end
+
+unless Hash.instance_methods.include? :except
+
+	class Hash
 
 		# Obtains a copy of the instance wherein any key-value pairs
 		# matching the keys specified in +keys_to_delete+ are removed
