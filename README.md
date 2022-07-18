@@ -23,7 +23,7 @@ It may be pronounced (lamely) as "excusers".
 Install via **gem** as in:
 
 ```
-	gem install libclimate-ruby
+gem install libclimate-ruby
 ```
 
 or add it to your `Gemfile`.

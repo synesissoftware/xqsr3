@@ -35,5 +35,10 @@ class Test_Xqsr3_CommandLineUtilities_map_option_string < Test::Unit::TestCase
 			assert_nil MapOptionString.map_option_string_from_string(shortcut, option_strings)
 		end
 	end
+
+	def test_nil
+
+		assert_nil nil.map_option_string []
+	end
 end
 

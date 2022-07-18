@@ -6,12 +6,13 @@
 #               ::Xqsr3::CommandLineUtilities::MapOptionString module
 #
 # Created:      15th April 2016
-# Updated:      15th April 2019
+# Updated:      19th July 2022
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
+# Copyright (c) 2019-2022, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
