@@ -7,13 +7,39 @@ require 'xqsr3/quality/parameter_checking'
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
 
+
+class Test_check_option_multiple_option_names < Test::Unit::TestCase
+
+	include ::Xqsr3::Quality::ParameterChecking
+
+	def check_method_stringise_stringize **options
+
+		check_option options, [ :stringise, :stringize ], nil: true
+	end
+
+	def test_1
+
+		assert_nil check_method_stringise_stringize()
+
+		assert_nil check_method_stringise_stringize(abc: :abc)
+
+		assert_equal :stringize, check_method_stringise_stringize(stringize: :stringize)
+		assert_equal :stringise, check_method_stringise_stringize(stringise: :stringise)
+		assert_equal :stringise, check_method_stringise_stringize(stringize: :stringize, stringise: :stringise)
+		assert_equal :stringise, check_method_stringise_stringize(stringise: :stringise, stringize: :stringize)
+	end
+end
+
 class Test_parameter_checks_as_separate_module < Test::Unit::TestCase
 
 	PC = ::Xqsr3::Quality::ParameterChecking
 
 	# test 1
 
-	def check_method_1 a
+	def check_method_1 a, **options
+
+		PC.check_option options, :o1, nil: true
+		PC.check_option options, :o2, nil: false
 
 		PC.check_param a, 'a'
 	end
@@ -25,10 +51,10 @@ class Test_parameter_checks_as_separate_module < Test::Unit::TestCase
 			check_method_1(nil)
 		end
 
-		assert_equal true, check_method_1(true)
-		assert_equal '', check_method_1('')
-		assert_equal [], check_method_1([])
-		assert_equal Hash.new, check_method_1(Hash.new)
+		assert_equal true, check_method_1(true, o1: true, o2: false)
+		assert_equal '', check_method_1('', o1: true, o2: false)
+		assert_equal [], check_method_1([], o1: true, o2: false)
+		assert_equal Hash.new, check_method_1(Hash.new, o1: true, o2: false)
 	end
 
 
@@ -328,6 +354,11 @@ end
 
 			check_responds_to Hash.new, [ :this_is_not_a_Hash_method ]
 		end
+
+		# check can pass single types
+		assert check_responds_to Hash.new, :[]
+		assert check_responds_to Hash.new, :map
+		assert check_responds_to Hash.new, :to_s
 	end
 
 

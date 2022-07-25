@@ -5,13 +5,14 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      15th April 2019
+# Updated:      22nd July 2022
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2015-2019, Matthew Wilson and Synesis Software
+# Copyright (c) 2019-2022, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -199,6 +200,22 @@ module ParameterChecking
 		Util_.check_parameter value, name, options, &block
 	end
 
+	# Specific form of the +check_parameter()+ that is used to check
+	# options, taking instead the hash and the key
+	#
+	# === Signature
+	#
+	# * *Parameters:*
+	#   - +h+ (::Hash) The options hash from which the named element is to be tested. May not be +nil+
+	#   - +name+ (::String, ::Symbol, [ ::String, ::Symbol ]) The options key name, or an array of names. May not be +nil+
+	#   - +options+ (::Hash) options that moderate the behaviour in the same way as for +check_parameter()+ except that the +:treat_as_option+ option (with the value +true+) is merged in before calling +check_parameter()+
+	#
+	# * *Options:*
+	def self.check_option h, name, options = {}, &block
+
+		Util_.check_option h, name, options, &block
+	end
+
 	private
 	def Util_.check_option h, names, options = {}, &block
 
@@ -381,6 +398,7 @@ module ParameterChecking
 			# messages
 
 			messages	=	options[:responds_to] || []
+			messages	=	[ messages ] unless messages.respond_to? :each
 
 			warn "#{self}::check_parameter: options[:responds_to] of type #{messages.class} - should be #{::Array}" unless messages.is_a?(Array)
 			warn "#{self}::check_parameter: options[:responds_to] should contain only symbols or strings" if messages.is_a?(::Array) && !messages.all? { |m| ::Symbol === m || ::String === m }
