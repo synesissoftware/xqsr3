@@ -335,7 +335,7 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_eql fm1, fm3
 	end
 
-	def test_each
+	def test_each_WITH_BLOCK
 
 		fm = FrequencyMap.new
 
@@ -358,7 +358,25 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal [:ghi, 2], r[2]
 	end
 
-	def test_each_by_key
+	def test_each_WITHOUT_BLOCK
+
+		fm = FrequencyMap.new
+
+		fm << :def
+		fm << :abc << :abc << :abc << :abc
+		fm << :ghi << :ghi
+
+		r = fm.each.to_a
+
+		r.sort! { |a, b| a[0] <=> b[0] }
+
+		assert_equal 3, r.size
+		assert_equal [:abc, 4], r[0]
+		assert_equal [:def, 1], r[1]
+		assert_equal [:ghi, 2], r[2]
+	end
+
+	def test_each_by_key_WITH_BLOCK
 
 		fm = FrequencyMap.new
 
@@ -379,7 +397,23 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal [:ghi, 2], r[2]
 	end
 
-	def test_each_by_frequency
+	def test_each_by_key_WITHOUT_BLOCK
+
+		fm = FrequencyMap.new
+
+		fm << :def
+		fm << :abc << :abc << :abc << :abc
+		fm << :ghi << :ghi
+
+		r = fm.each_by_key.to_a
+
+		assert_equal 3, r.size
+		assert_equal [:abc, 4], r[0]
+		assert_equal [:def, 1], r[1]
+		assert_equal [:ghi, 2], r[2]
+	end
+
+	def test_each_by_frequency_WITH_BLOCK
 
 		fm = FrequencyMap.new
 
@@ -400,7 +434,23 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal [:def, 1], r[2]
 	end
 
-	def each_value
+	def test_each_by_frequency_WITHOUT_BLOCK
+
+		fm = FrequencyMap.new
+
+		fm << :def
+		fm << :abc << :abc << :abc << :abc
+		fm << :ghi << :ghi
+
+		r = fm.each_by_frequency.to_a
+
+		assert_equal 3, r.size
+		assert_equal [:abc, 4], r[0]
+		assert_equal [:ghi, 2], r[1]
+		assert_equal [:def, 1], r[2]
+	end
+
+	def test_each_value_WITH_BLOCK
 
 		fm = FrequencyMap.new
 
@@ -412,7 +462,7 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 
 		fm.each_value do |v|
 
-			r << [v]
+			r << v
 		end
 
 		r.sort!
@@ -421,7 +471,7 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal [1, 2, 4], r
 	end
 
-	def each_with_index
+	def test_each_value_WITHOUT_BLOCK
 
 		fm = FrequencyMap.new
 
@@ -429,19 +479,37 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		fm << :abc << :abc << :abc << :abc
 		fm << :ghi << :ghi
 
-		fm.each_with_index do |k, v, index|
+		r = fm.each_value.to_a
 
-			case	index
-			when	0
-				assert_equal :abc, k
-				assert_equal 2, v
-			when	1
-				assert_equal :def, k
-				assert_equal 1, v
-			else
-				assert false, "should never get here"
-			end
+		r.sort!
+
+		assert_equal 3, r.size
+		assert_equal [1, 2, 4], r
+	end
+
+	def test_each_with_index_WITH_BLOCK
+
+		fm = FrequencyMap.new
+
+		fm << :def
+		fm << :abc << :abc << :abc << :abc
+		fm << :ghi << :ghi
+
+		indexes = []
+		kvs = {}
+
+		fm.each_with_index do |kv, index|
+
+			k = kv[0]
+			v = kv[1]
+
+			indexes << index
+
+			kvs[k] = v
 		end
+
+		assert_equal [ 0, 1, 2 ], indexes
+		assert_equal Hash[ :abc, 4, :def, 1, :ghi, 2 ], kvs
 	end
 
 	def test_empty

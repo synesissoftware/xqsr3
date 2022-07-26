@@ -285,9 +285,13 @@ class FrequencyMap
 	# keys must be created and sorted from which enumeration is directed
 	def each_by_key
 
-		@elements.keys.sort.each do |key|
+		sorted_elements = @elements.sort { |a, b| a[0] <=> b[0] }
 
-			yield key, @elements[key]
+		return sorted_elements.each unless block_given?
+
+		sorted_elements.each do |k, v|
+
+			yield k, v
 		end
 	end
 
@@ -298,22 +302,13 @@ class FrequencyMap
 	# and map all entries into it in order to achieve the ordering
 	def each_by_frequency
 
-		tm = {}
-		@elements.each do |element, frequency|
+		ar = @elements.to_a.sort { |a, b| b[1] <=> a[1] }
 
-			tm[frequency]	=	[]	unless tm.has_key?(frequency)
+		return ar.each unless block_given?
 
-			tm[frequency].push element
-		end
+		ar.each do |k, v|
 
-		keys = tm.keys.sort.reverse
-		keys.each do |frequency|
-
-			elements = tm[frequency].sort
-			elements.each do |element|
-
-				yield element, frequency
-			end
+			yield k, v
 		end
 	end
 
