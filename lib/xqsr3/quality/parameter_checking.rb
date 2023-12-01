@@ -5,13 +5,13 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      22nd July 2022
+# Updated:      4th November 2023
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2019-2022, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -54,8 +54,9 @@
 module Xqsr3
 module Quality
 
-# Inclusion module that creates class and instance methods +check_parameter+
-# that may be used to check parameter values and types
+# Inclusion module that creates class and instance methods +check_option()+
+# and +check_parameter()+ that may be used to check option/parameter values
+# and types.
 #
 module ParameterChecking
 
