@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#! /usr/bin/env ruby
 
 $:.unshift File.join(File.dirname(__FILE__), '../../lib')
 
@@ -27,5 +27,4 @@ class Test_assert_raise_with_message < Test::Unit::TestCase
 		assert_raise_with_message(TestException, /abc$/) { raise TestException, 'abcd' }
 	end
 end
-
 

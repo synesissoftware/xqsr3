@@ -1,18 +1,4 @@
-#!/usr/bin/env ruby
-
-#############################################################################
-# File:         test/performance/frequency_map.rb
-#
-# Purpose:      COMPLETE_ME
-#
-# Created:      13th October 2018
-# Updated:      13th October 2018
-#
-# Author:       Matthew Wilson
-#
-# Copyright:    <<TBD>>
-#
-#############################################################################
+#! /usr/bin/env ruby
 
 $:.unshift File.join(File.dirname($0), *(['..'] * 2), 'lib')
 

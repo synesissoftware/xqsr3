@@ -7,9 +7,9 @@
 # Created:	    5th March 2007
 # Updated:	    12th April 2019
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
 # Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
@@ -25,7 +25,7 @@
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
 #
-# * Neither the names of the copyright holder nor the names of its
+# * Neither the names of the copyright holders nor the names of its
 #   contributors may be used to endorse or promote products derived from
 #   this software without specific prior written permission.
 #

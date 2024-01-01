@@ -1,15 +1,15 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/version.rb
+# File:     lib/xqsr3/version.rb
 #
-# Purpose:      Version for Xqsr3 library
+# Purpose:  Version for Xqsr3 library
 #
-# Created:      3rd April 2016
-# Updated:      4th November 2023
+# Created:  3rd April 2016
+# Updated:  11th December 2023
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
 # Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
@@ -26,7 +26,7 @@
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
 #
-# * Neither the names of the copyright holder nor the names of its
+# * Neither the names of the copyright holders nor the names of its
 #   contributors may be used to endorse or promote products derived from
 #   this software without specific prior written permission.
 #
@@ -66,5 +66,4 @@ module Xqsr3
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-
 

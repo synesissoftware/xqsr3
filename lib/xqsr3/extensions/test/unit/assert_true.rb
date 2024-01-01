@@ -6,7 +6,7 @@ module Assertions
 
 	unless respond_to? :assert_true
 
-		# Assert that +expression+ is +true+
+		# Assert that +expression+ is +true+ (and not merely _truey_)
 		def assert_true(expression, failure_message = '')
 
 			assert ::TrueClass === (expression), failure_message
@@ -16,5 +16,4 @@ module Assertions
 end # class Assertions
 end # module Unit
 end # module Test
-
 

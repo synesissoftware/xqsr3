@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#! /usr/bin/env ruby
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../lib')
 
@@ -410,7 +410,33 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 		assert_not mm.empty?
 	end
 
-	def test_eql?
+	def test_op_equal
+		# `==` evaluates logical equality (except for `Object`)
+
+		mm1 = MultiMap.new
+		mm2 = MultiMap.new
+
+		assert mm1 == mm1
+		assert mm2 == mm2
+		assert mm1 == mm2
+
+		mm1.push :abc
+		mm1.push :def
+
+		assert mm1 == mm1
+		assert mm2 == mm2
+		assert_not mm1 == mm2
+
+		mm2.push :def
+		mm2.push :abc
+
+		assert mm1 == mm1
+		assert mm2 == mm2
+		assert mm1 == mm2
+	end
+
+	def test_eql
+		# `eql?` evaluates equality based on #hash
 
 		mm1 = MultiMap.new
 		mm2 = MultiMap.new
@@ -432,6 +458,31 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 		assert mm1.eql? mm1
 		assert mm2.eql? mm2
 		assert mm1.eql? mm2
+	end
+
+	def test_equal
+		# `eql?` evaluates identity
+
+		mm1 = MultiMap.new
+		mm2 = MultiMap.new
+
+		assert mm1.equal? mm1
+		assert mm2.equal? mm2
+		assert_not mm1.equal? mm2
+
+		mm1.push :abc
+		mm1.push :def
+
+		assert mm1.equal? mm1
+		assert mm2.equal? mm2
+		assert_not mm1.equal? mm2
+
+		mm2.push :def
+		mm2.push :abc
+
+		assert mm1.equal? mm1
+		assert mm2.equal? mm2
+		assert_not mm1.equal? mm2
 	end
 
 	def test_fetch
@@ -475,7 +526,7 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 		assert_equal [ :abc, 1, :abc, 2, :abc, 3, :abc, 4, :abc, 5, :def, [] ], mm.flatten
 	end
 
-	def test_has_key?
+	def test_has_key
 
 		mm = MultiMap.new
 
@@ -490,7 +541,7 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 		assert_not mm.has_key? :abc
 	end
 
-	def test_has_value?
+	def test_has_value
 
 		mm = MultiMap.new
 
@@ -507,7 +558,7 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 		assert_not mm.has_value? :abc
 	end
 
-	def test_has_values?
+	def test_has_values
 
 		mm = MultiMap.new
 

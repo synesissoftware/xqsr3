@@ -6,4 +6,3 @@ class String
 	include ::Xqsr3::StringUtilities::QuoteIf
 end # class String
 
-

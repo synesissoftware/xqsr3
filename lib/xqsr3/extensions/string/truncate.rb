@@ -6,4 +6,3 @@ class String
 	include ::Xqsr3::StringUtilities::Truncate
 end # class String
 
-

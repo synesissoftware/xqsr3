@@ -14,4 +14,3 @@ class NilClass
 	end
 end
 
-

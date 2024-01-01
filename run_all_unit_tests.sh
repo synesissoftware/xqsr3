@@ -1,16 +1,17 @@
-#!/bin/bash
+#! /bin/bash
 
 # ######################################################################## #
-# File:         test_unit.sh
+# File:     run_all_unit_tests.sh
 #
-# Purpose:      Executes the unit-tests regardless of calling directory
+# Purpose:  Executes the unit-tests of a Ruby project regardless of
+#           calling directory
 #
-# Created:      9th June 2011
-# Updated:      1st March 2019
+# Created:  9th June 2011
+# Updated:  10th December 2023
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
-# Copyright (c) Matthew Wilson, 2011-2019
+# Copyright (c) Matthew Wilson, 2011-2023
 # All rights reserved
 #
 # Redistribution and use in source and binary forms, with or without
@@ -49,11 +50,12 @@ Source="${BASH_SOURCE[0]}"
 
 while [ -h "$Source" ]; do
 
-  Dir="$(cd -P "$(dirname "$Source")" && pwd)"
-  Source="$(readlink "$Source")"
-  [[ $Source != /* ]] && Source="$Dir/$Source"
+	Dir="$(cd -P "$(dirname "$Source")" && pwd)"
+	Source="$(readlink "$Source")"
+	[[ $Source != /* ]] && Source="$Dir/$Source"
 done
 Dir="$(cd -P "$( dirname "$Source" )" && pwd)"
+
 
 # colours
 
@@ -111,7 +113,7 @@ if [ ! -z "$RunRbEnvAllVersions" ]; then
 	exclusions=()
 	if [ -e "$Dir/.ruby-version-exclusions" ]; then
 
-		exclusion_lines=`cat $Dir/.ruby-version-exclusions`
+		exclusion_lines=`cat "$Dir/.ruby-version-exclusions"`
 		for line in $exclusion_lines; do
 
 			exclusions+=($line)
@@ -226,12 +228,11 @@ done
 
 if [ -z "$Separate" ]; then
 
-	ruby $DebugFlag $Dir/test/unit/ts_all.rb
+	ruby $DebugFlag "$Dir/test/unit/ts_all.rb"
 else
 
-	find $Dir -name 'tc_*.rb' -exec ruby $DebugFlag {} \;
+	find "$Dir" -name 'tc_*.rb' -exec ruby $DebugFlag {} \;
 fi
 
 # ############################## end of file ############################# #
-
 

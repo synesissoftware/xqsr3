@@ -8,7 +8,7 @@ Simple example illustrating use of ``FrequencyMap`` class.
 
 ```ruby
 
-#!/usr/bin/env ruby
+#! /usr/bin/env ruby
 
 # examples/count_word_frequencies.rb
 

@@ -532,7 +532,34 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal 0, fm.count
 	end
 
-	def test_eql?
+	def test_op_equal
+		# `==` evaluates logical equality (except for `Object`)
+
+		fm1 = FrequencyMap.new
+		fm2 = FrequencyMap.new
+
+		assert fm1 == fm1
+		assert fm2 == fm2
+		assert fm1 == fm2
+
+		fm1 << :abc << :def
+
+		assert fm1 == fm1
+		assert fm2 == fm2
+		assert_not fm1 == fm2
+
+		fm2 << :def << :abc
+
+		assert fm1 == fm1
+		assert fm2 == fm2
+		assert fm1 == fm2
+
+		assert_equal 2, fm1.size
+		assert_equal 2, fm1.count
+	end
+
+	def test_eql
+		# `eql?` evaluates equality based on #hash
 
 		fm1 = FrequencyMap.new
 		fm2 = FrequencyMap.new
@@ -552,6 +579,32 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert fm1.eql? fm1
 		assert fm2.eql? fm2
 		assert fm1.eql? fm2
+
+		assert_equal 2, fm1.size
+		assert_equal 2, fm1.count
+	end
+
+	def test_equal
+		# `eql?` evaluates identity
+
+		fm1 = FrequencyMap.new
+		fm2 = FrequencyMap.new
+
+		assert fm1.equal? fm1
+		assert fm2.equal? fm2
+		assert_not fm1.equal? fm2
+
+		fm1 << :abc << :def
+
+		assert fm1.equal? fm1
+		assert fm2.equal? fm2
+		assert_not fm1.equal? fm2
+
+		fm2 << :def << :abc
+
+		assert fm1.equal? fm1
+		assert fm2.equal? fm2
+		assert_not fm1.equal? fm2
 
 		assert_equal 2, fm1.size
 		assert_equal 2, fm1.count
@@ -596,7 +649,7 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert_equal [:def, 2, :abc, 1], fm.flatten
 	end
 
-	def test_has_key?
+	def test_has_key
 
 		fm = FrequencyMap.new
 
@@ -617,7 +670,7 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 		assert fm.has_key? 'abc'
 	end
 
-	def test_has_value?
+	def test_has_value
 
 		fm = FrequencyMap.new
 

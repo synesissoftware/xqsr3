@@ -1,18 +1,18 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/hash_utilities/deep_transform.rb
+# File:     lib/xqsr3/hash_utilities/deep_transform.rb
 #
-# Purpose:      Definition of the ::Xqsr3::HashUtilities::DeepTransform
-#               module
+# Purpose:  Definition of the Xqsr3::HashUtilities::DeepTransform module
 #
-# Created:      3rd June 2017
-# Updated:      14th March 2018
+# Created:  3rd June 2017
+# Updated:  11th December 2023
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
-# Copyright (c) 2017-2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,7 +26,7 @@
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
 #
-# * Neither the names of the copyright holder nor the names of its
+# * Neither the names of the copyright holders nor the names of its
 #   contributors may be used to endorse or promote products derived from
 #   this software without specific prior written permission.
 #
@@ -66,7 +66,7 @@ module DeepTransform
 		case block.arity
 		when 1
 
-			h = 
+			h =
 			Hash[h.map do |k, v|
 
 				k = k.deep_transform(&block) if ::Hash === k
@@ -76,7 +76,7 @@ module DeepTransform
 			end]
 		when 2
 
-			h = 
+			h =
 			Hash[h.map do |k, v|
 
 				k = k.deep_transform(&block) if ::Hash === k

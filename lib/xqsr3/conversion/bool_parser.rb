@@ -1,17 +1,17 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/conversion/bool_parser.rb
+# File:     lib/xqsr3/conversion/bool_parser.rb
 #
-# Purpose:      Definition of the ::Xqsr3::Conversion::BoolParser
-#               module
+# Purpose:  Definition of the Xqsr3::Conversion::BoolParser module
 #
-# Created:      3rd June 2017
-# Updated:      12th April 2019
+# Created:  3rd June 2017
+# Updated:  11th December 2023
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
+# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -26,7 +26,7 @@
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
 #
-# * Neither the names of the copyright holder nor the names of its
+# * Neither the names of the copyright holders nor the names of its
 #   contributors may be used to endorse or promote products derived from
 #   this software without specific prior written permission.
 #
@@ -112,5 +112,4 @@ end # module Conversion
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-
 

@@ -196,5 +196,3 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 	end
 end
 
-# ############################## end of file ############################# #
-

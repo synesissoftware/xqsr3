@@ -211,5 +211,3 @@ class Test_Xqsr3_ArrayUtilities_join_with_or_by_include < Test::Unit::TestCase
 	end
 end
 
-
-
