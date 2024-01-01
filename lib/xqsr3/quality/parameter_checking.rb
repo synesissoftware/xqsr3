@@ -5,13 +5,13 @@
 # Purpose:      Definition of the ParameterChecking module
 #
 # Created:      12th February 2015
-# Updated:      4th November 2023
+# Updated:      1st January 2023
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -463,6 +463,94 @@ module ParameterChecking
 			end
 		end
 
+		# run block
+
+		if value and block
+
+			warn "#{self}::check_parameter: block arity must be 1 or 2" unless (1..2).include? block.arity
+
+			r	=	nil
+
+			begin
+
+				if 1 == block.arity
+
+					r = block.call(value)
+				else
+
+					r = block.call(value, options)
+				end
+
+			rescue StandardError => x
+
+				xmsg	=	x.message || ''
+
+				if xmsg.empty?
+
+					xmsg	||=	message
+
+					if xmsg.empty?
+
+						s_name	=	name.is_a?(String) ? "'#{name}' " : ''
+						xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
+					end
+
+					raise $!, xmsg, $!.backtrace
+				end
+
+				raise
+			end
+
+			if r.is_a?(::Exception)
+
+				# An exception returned from the block, so raise it, with
+				# its message or a custom message
+
+				x		=	r
+				xmsg	=	x.message || ''
+
+				if xmsg.empty?
+
+					xmsg	||=	message
+
+					if xmsg.empty?
+
+						s_name	=	name.is_a?(String) ? "'#{name}' " : ''
+						xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
+					end
+
+					raise x, xmsg
+				end
+
+				raise x
+
+			elsif !r
+
+				failed_check	=	true
+
+				unless options[:nothrow]
+
+					s_name	=	name.is_a?(String) ? "'#{name}' " : ''
+					xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
+
+					if value.is_a?(::Numeric)
+
+						raise RangeError, xmsg
+					else
+
+						raise ArgumentError, xmsg
+					end
+				end
+
+			elsif r.is_a?(::TrueClass)
+
+				;
+			else
+
+				value	=	r
+			end
+		end
+
 		# check value(s)
 
 		unless value.nil? || !(values = options[:values])
@@ -588,94 +676,6 @@ module ParameterChecking
 						raise ArgumentError, message
 					end
 				end
-			end
-		end
-
-		# run block
-
-		if value and block
-
-			warn "#{self}::check_parameter: block arity must be 1 or 2" unless (1..2).include? block.arity
-
-			r	=	nil
-
-			begin
-
-				if 1 == block.arity
-
-					r = block.call(value)
-				else
-
-					r = block.call(value, options)
-				end
-
-			rescue StandardError => x
-
-				xmsg	=	x.message || ''
-
-				if xmsg.empty?
-
-					xmsg	||=	message
-
-					if xmsg.empty?
-
-						s_name	=	name.is_a?(String) ? "'#{name}' " : ''
-						xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
-					end
-
-					raise $!, xmsg, $!.backtrace
-				end
-
-				raise
-			end
-
-			if r.is_a?(::Exception)
-
-				# An exception returned from the block, so raise it, with
-				# its message or a custom message
-
-				x		=	r
-				xmsg	=	x.message || ''
-
-				if xmsg.empty?
-
-					xmsg	||=	message
-
-					if xmsg.empty?
-
-						s_name	=	name.is_a?(String) ? "'#{name}' " : ''
-						xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
-					end
-
-					raise x, xmsg
-				end
-
-				raise x
-
-			elsif !r
-
-				failed_check	=	true
-
-				unless options[:nothrow]
-
-					s_name	=	name.is_a?(String) ? "'#{name}' " : ''
-					xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
-
-					if value.is_a?(::Numeric)
-
-						raise RangeError, xmsg
-					else
-
-						raise ArgumentError, xmsg
-					end
-				end
-
-			elsif r.is_a?(::TrueClass)
-
-				;
-			else
-
-				value	=	r
 			end
 		end
 
