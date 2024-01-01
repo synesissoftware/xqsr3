@@ -479,13 +479,14 @@ module ParameterChecking
 				case v
 				when ::String
 
-					return :string
+					:string
 				when ::Array
 
-					return :array_of_strings if v.all? { |s| ::String === s }
-				end
+					:array_of_strings if v.all? { |s| ::String === s }
+				else
 
-				nil
+					nil
+				end
 			end : lambda { |v| nil }
 
 			value_ic	=	do_case.call(value)
