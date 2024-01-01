@@ -283,7 +283,6 @@ module ParameterChecking
 		options			||=	{}
 		message			=	options[:message]
 		treat_as_option	=	options[:treat_as_option]
-		return_value	=	value
 		param_s			=	treat_as_option	? 'option' : 'parameter'
 		allow_nil		=	options[:allow_nil] || options[:nil]
 
@@ -676,11 +675,11 @@ module ParameterChecking
 				;
 			else
 
-				return_value	=	r
+				value	=	r
 			end
 		end
 
-		failed_check ? nil : return_value
+		failed_check ? nil : value
 	end
 
 end # module ParameterChecking
