@@ -2,16 +2,16 @@
 # ######################################################################## #
 # File:     lib/xqsr3/array_utilities/join_with_or.rb
 #
-# Purpose:  Definition of the Xqsr3::ArrayUtilities::JoinWithOr module
+# Purpose:  Definition of the ::Xqsr3::ArrayUtilities::JoinWithOr module
 #
 # Created:  7th December 2017
-# Updated:  11th December 2023
+# Updated:  29th March 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -59,50 +59,50 @@ module ArrayUtilities
 # +include+-able module that provides sequence-joining functionality
 module JoinWithOr
 
-	extend self
+  extend self
 
-	# Joins an array with grammatical appropriateness (with an 'or')
-	#
-	# === Signature
-	#
-	# * *Parameters:*
-	#   - +ar+ (Array) The array whose contents are to be joined
-	#   - +options+ (Hash) Options that control the behaviour of the method
-	#
-	# * *Options:*
-	#   - +:or+ (String) A string that is used instead of 'or'
-	#   - +:oxford_comma+ (boolean) Determines whether an Oxford comma will be used. Default is +true+
-	#   - +:quote_char+ (String) The quote character. Default is empty string ''
-	#   - +:separator+ (String) The separator character. Default is ','
-	def join_with_or ar, **options
+  # Joins an array with grammatical appropriateness (with an 'or')
+  #
+  # === Signature
+  #
+  # * *Parameters:*
+  #   - +ar+ (Array) The array whose contents are to be joined
+  #   - +options+ (Hash) Options that control the behaviour of the method
+  #
+  # * *Options:*
+  #   - +:or+ (String) A string that is used instead of 'or'
+  #   - +:oxford_comma+ (boolean) Determines whether an Oxford comma will be used. Default is +true+
+  #   - +:quote_char+ (String) The quote character. Default is empty string ''
+  #   - +:separator+ (String) The separator character. Default is ','
+  def join_with_or ar, **options
 
-		::Xqsr3::Quality::ParameterChecking.check_parameter ar, 'ar', type: ::Array, allow_nil: true
-		::Xqsr3::Quality::ParameterChecking.check_parameter options, 'options', type: ::Hash, allow_nil: false
+    ::Xqsr3::Quality::ParameterChecking.check_parameter ar, 'ar', type: ::Array, allow_nil: true
+    ::Xqsr3::Quality::ParameterChecking.check_parameter options, 'options', type: ::Hash, allow_nil: false
 
-		::Xqsr3::Quality::ParameterChecking.check_parameter options[:or], ':or', type: ::String, option: true, allow_nil: true
-		::Xqsr3::Quality::ParameterChecking.check_parameter options[:oxford_comma], ':oxford_comma', types: [ ::FalseClass, ::TrueClass ], option: true, allow_nil: true
-		::Xqsr3::Quality::ParameterChecking.check_parameter options[:quote_char], ':quote_char', type: ::String, option: true, allow_nil: true
-		::Xqsr3::Quality::ParameterChecking.check_parameter options[:separator], ':separator', type: ::String, option: true, allow_nil: true
+    ::Xqsr3::Quality::ParameterChecking.check_parameter options[:or], ':or', type: ::String, option: true, allow_nil: true
+    ::Xqsr3::Quality::ParameterChecking.check_parameter options[:oxford_comma], ':oxford_comma', types: [ ::FalseClass, ::TrueClass ], option: true, allow_nil: true
+    ::Xqsr3::Quality::ParameterChecking.check_parameter options[:quote_char], ':quote_char', type: ::String, option: true, allow_nil: true
+    ::Xqsr3::Quality::ParameterChecking.check_parameter options[:separator], ':separator', type: ::String, option: true, allow_nil: true
 
-		return '' if ar.nil?
-		return '' if ar.empty?
+    return '' if ar.nil?
+    return '' if ar.empty?
 
-		separator	=	options[:separator] || ','
-		or_word		=	options[:or] || 'or'
-		ox_comma	=	(options.has_key?(:oxford_comma) && !options[:oxford_comma]) ? '' : separator
-		quote_char	=	options[:quote_char]
+    separator   = options[:separator] || ','
+    or_word     = options[:or] || 'or'
+    ox_comma    = (options.has_key?(:oxford_comma) && !options[:oxford_comma]) ? '' : separator
+    quote_char  = options[:quote_char]
 
-		ar			=	ar.map { |v| "#{quote_char}#{v}#{quote_char}" } if quote_char
+    ar = ar.map { |v| "#{quote_char}#{v}#{quote_char}" } if quote_char
 
-		case ar.size
-		when 1
-			ar[0]
-		when 2
-			"#{ar[0]} #{or_word} #{ar[1]}"
-		else
-			"#{ar[0...-1].join(separator + ' ')}#{ox_comma} #{or_word} #{ar[-1]}"
-		end
-	end
+    case ar.size
+    when 1
+      ar[0]
+    when 2
+      "#{ar[0]} #{or_word} #{ar[1]}"
+    else
+      "#{ar[0...-1].join(separator + ' ')}#{ox_comma} #{or_word} #{ar[-1]}"
+    end
+  end
 
 end # module JoinWithOr
 

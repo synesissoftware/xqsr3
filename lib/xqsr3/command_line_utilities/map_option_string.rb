@@ -2,17 +2,17 @@
 # ######################################################################## #
 # File:     lib/xqsr3/command_line_utilities/map_option_string.rb
 #
-# Purpose:  Definition of the Xqsr3::CommandLineUtilities::MapOptionString
+# Purpose:  Definition of the ::Xqsr3::CommandLineUtilities::MapOptionString
 #           module
 #
 # Created:  15th April 2016
-# Updated:  11th December 2023
+# Updated:  29th March 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -64,85 +64,85 @@ module CommandLineUtilities
 # * ::Xqsr3::CommandLineUtilities::MapOptionString#map_option_string
 module MapOptionString
 
-	def self.included includer # :nodoc:
+  def self.included includer # :nodoc:
 
-		raise TypeError, "module #{self} cannot be included into #{includer} because it does not respond to to_str" unless includer.method_defined? :to_str
-	end
+    raise TypeError, "module #{self} cannot be included into #{includer} because it does not respond to to_str" unless includer.method_defined? :to_str
+  end
 
-	private
-	# @!visibility private
-	module MapOptionString_Helper_ # :nodoc: all
+  private
+  # @!visibility private
+  module MapOptionString_Helper_ # :nodoc: all
 
-		def self.map_option_string_with_options_ s, option_strings, options
+    def self.map_option_string_with_options_ s, option_strings, options
 
-			h = {}
+      h = {}
 
-			option_strings.each do |os|
+      option_strings.each do |os|
 
-				t	=	os.dup
-				v	=	os.dup
+        t = os.dup
+        v = os.dup
 
-				if t =~ /\[.+?\]/
+        if t =~ /\[.+?\]/
 
-					k = ''
-					v = ''
+          k = ''
+          v = ''
 
-					while t =~ /\[(.+?)\]/
+          while t =~ /\[(.+?)\]/
 
-						k	+=	$1
-						v	+=	"#$`#$1"
-						t	=	$'
-					end
+            k += $1
+            v += "#$`#$1"
+            t = $'
+          end
 
-					v	+=	t
-				else
+          v += t
+        else
 
-					k = v
-				end
+          k = v
+        end
 
-				h[k] = v
-				h[v] = v
-			end
+        h[k] = v
+        h[v] = v
+      end
 
-			r = h[s]
+      r = h[s]
 
-			if r
+      if r
 
-				r = ::Xqsr3::StringUtilities::ToSymbol.string_to_symbol r
-			end
+        r = ::Xqsr3::StringUtilities::ToSymbol.string_to_symbol r
+      end
 
-			r
-		end
-	end
-	public
+      r
+    end
+  end
+  public
 
-	# Attempts to translate the value of a given string according
-	# to a collection of options strings
-	#
-	# === Signature
-	#
-	# * *Parameters:*
-	#   - +s+ (::String) The string to be mapped
-	#   - +option_strings+ ([::String]) An array of strings against which the mapping will be performed
-	#   - +options+ (Hash) Options that control the behaviour of the method
-	def self.map_option_string_from_string s, option_strings, options = {}
+  # Attempts to translate the value of a given string according
+  # to a collection of options strings
+  #
+  # === Signature
+  #
+  # * *Parameters:*
+  #   - +s+ (::String) The string to be mapped
+  #   - +option_strings+ ([::String]) An array of strings against which the mapping will be performed
+  #   - +options+ (Hash) Options that control the behaviour of the method
+  def self.map_option_string_from_string s, option_strings, options = {}
 
-		MapOptionString_Helper_.map_option_string_with_options_ s, option_strings, options
-	end
+    MapOptionString_Helper_.map_option_string_with_options_ s, option_strings, options
+  end
 
-	# Attempts to translate the (string) value of the receiver according
-	# to a collection of options strings
-	#
-	# === Signature
-	#
-	# * *Parameters:*
-	#   - +option_strings+ ([::String]) An array of strings against which the mapping will be performed
-	def map_option_string option_strings, options = {}
+  # Attempts to translate the (string) value of the receiver according
+  # to a collection of options strings
+  #
+  # === Signature
+  #
+  # * *Parameters:*
+  #   - +option_strings+ ([::String]) An array of strings against which the mapping will be performed
+  def map_option_string option_strings, options = {}
 
-		s = self.kind_of?(::String) ? self : self.to_str
+    s = self.kind_of?(::String) ? self : self.to_str
 
-		MapOptionString_Helper_.map_option_string_with_options_ s, option_strings, options
-	end
+    MapOptionString_Helper_.map_option_string_with_options_ s, option_strings, options
+  end
 end # module MapOptionString
 
 end # module CommandLineUtilities

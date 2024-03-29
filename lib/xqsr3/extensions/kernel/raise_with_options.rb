@@ -5,13 +5,13 @@
 # Purpose:  Adds a raise_with_options() method to the Kernel module
 #
 # Created:  12th February 2015
-# Updated:  11th December 2023
+# Updated:  29th March 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2015-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -55,14 +55,14 @@ require 'xqsr3/diagnostics/exception_utilities'
 
 module Kernel
 
-	# Extends +Kernel+ module with the ::Xqsr3::Diagnostics::ExceptionUtilities::raise_with_options
-	# method
-	def raise_with_options *args, **options
+  # Extends +Kernel+ module with the ::Xqsr3::Diagnostics::ExceptionUtilities::raise_with_options
+  # method
+  def raise_with_options *args, **options
 
-		options	||=	{}
+    options ||= {}
 
-		::Xqsr3::Diagnostics::ExceptionUtilities.raise_with_options(*args, **(options.merge({ :called_indirectly_06d353cb_5a6c_47ca_8dbe_ff76359c7e96 => 1})))
-	end
+    ::Xqsr3::Diagnostics::ExceptionUtilities.raise_with_options(*args, **(options.merge({ :called_indirectly_06d353cb_5a6c_47ca_8dbe_ff76359c7e96 => 1})))
+  end
 end # module Kernel
 
 # ############################## end of file ############################# #

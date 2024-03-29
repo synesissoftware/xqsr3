@@ -1,16 +1,17 @@
 
 # ######################################################################## #
-# File: 	    lib/xqsr3/extensions/enumerable/unique.rb
+# File:     lib/xqsr3/extensions/enumerable/unique.rb
 #
-# Purpose:	    Adds a unique() method to the Enumerable module
+# Purpose:  Adds a unique() method to the Enumerable module
 #
-# Created:	    5th March 2007
-# Updated:	    12th April 2019
+# Created:  5th March 2007
+# Updated:  29th March 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -52,40 +53,40 @@
 
 module Enumerable
 
-	# Removes all duplicate elements in a sequence subject to an optional
-	# two-parameter block in order to return an array containing unique
-	# elements
-	#
-	#  [ 1, 2, 3 ].unique # => [ 1, 2, 3 ]
-	#  [ 1, 2, 1, 3 ].unique # => [ 1, 2, 3 ]
-	def unique(&block)
+  # Removes all duplicate elements in a sequence subject to an optional
+  # two-parameter block in order to return an array containing unique
+  # elements
+  #
+  #  [ 1, 2, 3 ].unique # => [ 1, 2, 3 ]
+  #  [ 1, 2, 1, 3 ].unique # => [ 1, 2, 3 ]
+  def unique(&block)
 
-		if not block
+    if not block
 
-			return unique { |a, b| a == b }
-		else
+      return unique { |a, b| a == b }
+    else
 
-			raise ArgumentError, "block requires two parameters" unless block.arity == 2
+      raise ArgumentError, "block requires two parameters" unless block.arity == 2
 
-			ar	=	self.to_a
+      ar = self.to_a
 
-			return ar if ar.length < 2
+      return ar if ar.length < 2
 
-			r	=	[]
-			h	=	{}
+      r = []
+      h = {}
 
-			ar.each do |v|
+      ar.each do |v|
 
-				unless h.has_key?(v)
+        unless h.has_key?(v)
 
-					r << v
-					h[v] = nil
-				end
-			end
+          r << v
+          h[v] = nil
+        end
+      end
 
-			return r
-		end
-	end
+      return r
+    end
+  end
 end # module Enumerable
 
 # ############################## end of file ############################# #

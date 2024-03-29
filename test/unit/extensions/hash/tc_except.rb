@@ -11,57 +11,57 @@ require 'stringio'
 
 class Test_Hash_except < Test::Unit::TestCase
 
-	def test_no_pairs_empty_keys
+  def test_no_pairs_empty_keys
 
-		h = {}
+    h = {}
 
-		assert_equal h, h.except([])
+    assert_equal h, h.except([])
 
-		i = {}
+    i = {}
 
-		i.except! *[]
+    i.except! *[]
 
-		assert_equal h, i
-	end
+    assert_equal h, i
+  end
 
-	def test_no_pairs_some_keys
+  def test_no_pairs_some_keys
 
-		h = {}
+    h = {}
 
-		assert_equal h, h.except('a', :b)
+    assert_equal h, h.except('a', :b)
 
-		i = {}
+    i = {}
 
-		i.except! 'a', :b
+    i.except! 'a', :b
 
-		assert_equal h, i
-	end
+    assert_equal h, i
+  end
 
-	def test_no_pairs_some_non_matching_keys
+  def test_no_pairs_some_non_matching_keys
 
-		h = { a: 'a', 'b' => :b }
+    h = { a: 'a', 'b' => :b }
 
-		assert_equal h, h.except('a', :b)
+    assert_equal h, h.except('a', :b)
 
-		i = h.dup
+    i = h.dup
 
-		i.except! 'a', :b
+    i.except! 'a', :b
 
-		assert_equal h, i
-	end
+    assert_equal h, i
+  end
 
-	def test_no_pairs_some_matching_keys
+  def test_no_pairs_some_matching_keys
 
-		h = { a: 'a', 'b' => :b }
+    h = { a: 'a', 'b' => :b }
 
-		assert_equal ({ 'b' => :b }), h.except(:a, :b, :c)
+    assert_equal ({ 'b' => :b }), h.except(:a, :b, :c)
 
-		i = h.dup
+    i = h.dup
 
-		i.except! :a, :b, :c
+    i.except! :a, :b, :c
 
-		assert_equal ({ 'b' => :b }), i
-	end
+    assert_equal ({ 'b' => :b }), i
+  end
 end
 
 

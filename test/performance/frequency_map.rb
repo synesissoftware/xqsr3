@@ -10,25 +10,25 @@ include ::Xqsr3::Containers
 
 Benchmark.bm do |bm|
 
-	fm = FrequencyMap.new
+  fm = FrequencyMap.new
 
-	(0...100000000).each do |n|
+  (0...100000000).each do |n|
 
-		fm << (n % 4793)
-	end
+    fm << (n % 4793)
+  end
 
-	bm.report('each       ') do
+  bm.report('each       ') do
 
-		fm.each do |k, freq|
+    fm.each do |k, freq|
 
-		end
-	end
+    end
+  end
 
-	bm.report('each (by f)') do
+  bm.report('each (by f)') do
 
-		fm.each_by_frequency do |k, freq|
+    fm.each_by_frequency do |k, freq|
 
-		end
-	end
+    end
+  end
 end
 

@@ -4,16 +4,16 @@ module Unit
 
 module Assertions
 
-	unless respond_to? :assert_subclass_of
+  unless respond_to? :assert_subclass_of
 
-		# Assert that +tested_class+ is a sub-class of +parent_class+
-		def assert_subclass_of(parent_class, tested_class, failure_message = nil)
+    # Assert that +tested_class+ is a sub-class of +parent_class+
+    def assert_subclass_of(parent_class, tested_class, failure_message = nil)
 
-			failure_message ||= "#{tested_class} is not a subclass of #{parent_class}"
+      failure_message ||= "#{tested_class} is not a subclass of #{parent_class}"
 
-			assert(tested_class < parent_class, failure_message)
-		end
-	end
+      assert(tested_class < parent_class, failure_message)
+    end
+  end
 
 end # class Assertions
 end # module Unit

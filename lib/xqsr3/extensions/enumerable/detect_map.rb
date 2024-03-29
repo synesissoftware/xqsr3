@@ -5,13 +5,13 @@
 # Purpose:  ::Enumerable#detect_map extension
 #
 # Created:  3rd December 2017
-# Updated:  11th December 2023
+# Updated:  29th March 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -50,46 +50,46 @@
 
 module Enumerable
 
-	# The +Enumerable+#+detect+ method provides a way to detect the presence
-	# of a particular value in a collection. The only constraint is that you
-	# get back the object unchanged.
-	#
-	# The +Enumerable+#+map+ method provides a way to transform the contents of
-	# a collection. The only constraint is that you get back another
-	# collection.
-	#
-	# This extension method, +Enumerable+#+detect_map+ combines the features
-	# of both, in that it detects the presence of a particular value in a
-	# collection and transform the detected value.
-	#
-	#  [ 1, 2, 3 ].detect_map { |v| -2 * v if v > 2 } # => -6
-	#
-	#  { :ab => 'cd', :ef => 'gh' }.detect_map { |k, v| v.upcase if k == :ef } # => 'GH'
-	#
-	# *Note:* The block is required (for technical reasons), and must have
-	# arity 1 for sequences or 2 for associations
-	def detect_map &block
+  # The +Enumerable+#+detect+ method provides a way to detect the presence
+  # of a particular value in a collection. The only constraint is that you
+  # get back the object unchanged.
+  #
+  # The +Enumerable+#+map+ method provides a way to transform the contents of
+  # a collection. The only constraint is that you get back another
+  # collection.
+  #
+  # This extension method, +Enumerable+#+detect_map+ combines the features
+  # of both, in that it detects the presence of a particular value in a
+  # collection and transform the detected value.
+  #
+  #  [ 1, 2, 3 ].detect_map { |v| -2 * v if v > 2 } # => -6
+  #
+  #  { :ab => 'cd', :ef => 'gh' }.detect_map { |k, v| v.upcase if k == :ef } # => 'GH'
+  #
+  # *Note:* The block is required (for technical reasons), and must have
+  # arity 1 for sequences or 2 for associations
+  def detect_map &block
 
-		case block.arity
-		when 1
+    case block.arity
+    when 1
 
-			self.each do |v|
+      self.each do |v|
 
-				r = yield(v) and return r
-			end
-		when 2
+        r = yield(v) and return r
+      end
+    when 2
 
-			self.each do |k, v|
+      self.each do |k, v|
 
-				r = yield(k, v) and return r
-			end
-		else
+        r = yield(k, v) and return r
+      end
+    else
 
-			raise ArgumentError, "detect_map requires block with arity of 1 (for sequences) or 2 (for associations); block with arity #{block.arity} given to instance of #{self.class}"
-		end
+      raise ArgumentError, "detect_map requires block with arity of 1 (for sequences) or 2 (for associations); block with arity #{block.arity} given to instance of #{self.class}"
+    end
 
-		nil
-	end
+    nil
+  end
 end # module Enumerable
 
 # ############################## end of file ############################# #

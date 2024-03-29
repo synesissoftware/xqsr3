@@ -11,923 +11,923 @@ include ::Xqsr3::Containers
 
 class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 
-	def test_class_operator_subscript_1
+  def test_class_operator_subscript_1
 
-		fm1 = FrequencyMap[]
+    fm1 = FrequencyMap[]
 
-		assert_equal 0, fm1.count
-		assert fm1.empty?
-		assert_equal 0, fm1.size
+    assert_equal 0, fm1.count
+    assert fm1.empty?
+    assert_equal 0, fm1.size
 
-		assert_nil fm1.default
+    assert_nil fm1.default
 
-		assert_match /^#<Xqsr3::Containers::FrequencyMap:0x\d+:\s*@count\(\w+\)=0; @elements\(Hash\)={}\s*>$/, fm1.inspect
-	end
+    assert_match /^#<Xqsr3::Containers::FrequencyMap:0x\d+:\s*@count\(\w+\)=0; @elements\(Hash\)={}\s*>$/, fm1.inspect
+  end
 
-	def test_class_operator_subscript_2
+  def test_class_operator_subscript_2
 
-		fm2 = FrequencyMap[ abc: 1, def: 2 ]
+    fm2 = FrequencyMap[ abc: 1, def: 2 ]
 
-		assert_equal 3, fm2.count
-		assert_not fm2.empty?
-		assert_equal 2, fm2.size
+    assert_equal 3, fm2.count
+    assert_not fm2.empty?
+    assert_equal 2, fm2.size
 
-		assert_match /^#<Xqsr3::Containers::FrequencyMap:0x\d+:\s*@count\(\w+\)=3; @elements\(Hash\)={.*abc.*def.*}\s*>$/, fm2.inspect
-	end
+    assert_match /^#<Xqsr3::Containers::FrequencyMap:0x\d+:\s*@count\(\w+\)=3; @elements\(Hash\)={.*abc.*def.*}\s*>$/, fm2.inspect
+  end
 
-	def test_class_operator_subscript_3
+  def test_class_operator_subscript_3
 
-		fm3 = FrequencyMap[ [ [ :abc, 1 ], [ :def, 2 ] ] ]
+    fm3 = FrequencyMap[ [ [ :abc, 1 ], [ :def, 2 ] ] ]
 
-		assert_equal 3, fm3.count
-		assert_not fm3.empty?
-		assert_equal 2, fm3.size
+    assert_equal 3, fm3.count
+    assert_not fm3.empty?
+    assert_equal 2, fm3.size
 
-		assert_raise(::TypeError) { FrequencyMap[ [ [ :abc, 1 ], [ :def, '2' ] ] ] }
-		assert_raise(::ArgumentError) { FrequencyMap[ [ [ :abc, 1 ], [ :def ] ] ] }
-	end
+    assert_raise(::TypeError) { FrequencyMap[ [ [ :abc, 1 ], [ :def, '2' ] ] ] }
+    assert_raise(::ArgumentError) { FrequencyMap[ [ [ :abc, 1 ], [ :def ] ] ] }
+  end
 
-	def test_class_operator_subscript_4
+  def test_class_operator_subscript_4
 
-		fm3 = FrequencyMap[ [ :abc, 1, :def, 2 ] ]
+    fm3 = FrequencyMap[ [ :abc, 1, :def, 2 ] ]
 
-		assert_equal 3, fm3.count
-		assert_not fm3.empty?
-		assert_equal 2, fm3.size
+    assert_equal 3, fm3.count
+    assert_not fm3.empty?
+    assert_equal 2, fm3.size
 
-		fm4 = FrequencyMap[ [] ]
+    fm4 = FrequencyMap[ [] ]
 
-		assert_equal 0, fm4.count
-		assert fm4.empty?
-		assert_equal 0, fm4.size
+    assert_equal 0, fm4.count
+    assert fm4.empty?
+    assert_equal 0, fm4.size
 
-		assert_raise(::ArgumentError) { FrequencyMap[ [ :abc, 1, :def, '2' ] ] }
-		assert_raise(::ArgumentError) { FrequencyMap[ [ :abc, 1, :def ] ] }
-	end
+    assert_raise(::ArgumentError) { FrequencyMap[ [ :abc, 1, :def, '2' ] ] }
+    assert_raise(::ArgumentError) { FrequencyMap[ [ :abc, 1, :def ] ] }
+  end
 
-	def test_class_operator_subscript_5
+  def test_class_operator_subscript_5
 
-		assert_raise(::ArgumentError) { FrequencyMap[ [ :abc ] ] }
-	end
+    assert_raise(::ArgumentError) { FrequencyMap[ [ :abc ] ] }
+  end
 
-	def test_class_operator_subscript_6
+  def test_class_operator_subscript_6
 
-		assert_raise(::TypeError) { FrequencyMap[ :abc ] }
-	end
+    assert_raise(::TypeError) { FrequencyMap[ :abc ] }
+  end
 
-	def test_class_operator_subscript_7
+  def test_class_operator_subscript_7
 
-		fm3 = FrequencyMap[ :abc, 1, :def, 2 ]
+    fm3 = FrequencyMap[ :abc, 1, :def, 2 ]
 
-		assert_equal 3, fm3.count
-		assert_not fm3.empty?
-		assert_equal 2, fm3.size
+    assert_equal 3, fm3.count
+    assert_not fm3.empty?
+    assert_equal 2, fm3.size
 
-		fm4 = FrequencyMap[]
+    fm4 = FrequencyMap[]
 
-		assert_equal 0, fm4.count
-		assert fm4.empty?
-		assert_equal 0, fm4.size
+    assert_equal 0, fm4.count
+    assert fm4.empty?
+    assert_equal 0, fm4.size
 
-		assert_raise(::ArgumentError) { FrequencyMap[ :abc, 1, :def, '2' ] }
-		assert_raise(::ArgumentError) { FrequencyMap[ :abc, 1, :def ] }
-	end
+    assert_raise(::ArgumentError) { FrequencyMap[ :abc, 1, :def, '2' ] }
+    assert_raise(::ArgumentError) { FrequencyMap[ :abc, 1, :def ] }
+  end
 
-	def test_class_operator_subscript_8
+  def test_class_operator_subscript_8
 
-		fm = FrequencyMap::ByElement[ :abc, :def, :abc, 1, :ghi, 'jkl', :abc, 1, 'jkl' ]
+    fm = FrequencyMap::ByElement[ :abc, :def, :abc, 1, :ghi, 'jkl', :abc, 1, 'jkl' ]
 
-		assert_equal 9, fm.count
-		assert_not fm.empty?
-		assert_equal 5, fm.size
+    assert_equal 9, fm.count
+    assert_not fm.empty?
+    assert_equal 5, fm.size
 
-		assert_equal 3, fm[:abc]
-		assert_equal 1, fm[:def]
-		assert_equal 2, fm[1]
-		assert_equal 1, fm[:ghi]
-		assert_equal 2, fm['jkl']
-	end
+    assert_equal 3, fm[:abc]
+    assert_equal 1, fm[:def]
+    assert_equal 2, fm[1]
+    assert_equal 1, fm[:ghi]
+    assert_equal 2, fm['jkl']
+  end
 
-	def test_class_operator_subscript_9
+  def test_class_operator_subscript_9
 
-		fm = FrequencyMap::ByElement[ 'abc', 'def', 'abc', :x, 'x', :y ]
+    fm = FrequencyMap::ByElement[ 'abc', 'def', 'abc', :x, 'x', :y ]
 
-		assert_false fm.empty? # => false
-		assert_equal 5, fm.size   # => 5
-		assert_equal 6, fm.count  # => 6
-		assert_equal 2, fm['abc'] # => 2
-		assert_equal 1, fm['def'] # => 1
-		assert_equal 0, fm['ghi'] # => 0
-		assert_equal 1, fm['x']   # => 1
-		assert_equal 0, fm['y']   # => 0
-		assert_equal 0, fm['z']   # => 0
-		assert_equal 1, fm[:x]    # => 1
-		assert_equal 1, fm[:y]    # => 1
-		assert_equal 0, fm[:z]    # => 0
+    assert_false fm.empty? # => false
+    assert_equal 5, fm.size   # => 5
+    assert_equal 6, fm.count  # => 6
+    assert_equal 2, fm['abc'] # => 2
+    assert_equal 1, fm['def'] # => 1
+    assert_equal 0, fm['ghi'] # => 0
+    assert_equal 1, fm['x']   # => 1
+    assert_equal 0, fm['y']   # => 0
+    assert_equal 0, fm['z']   # => 0
+    assert_equal 1, fm[:x]    # => 1
+    assert_equal 1, fm[:y]    # => 1
+    assert_equal 0, fm[:z]    # => 0
 
-		fm.push 'abc'
+    fm.push 'abc'
 
-		assert_false fm.empty?
-		assert_equal 5, fm.size
-		assert_equal 7, fm.count
-		assert_equal 3, fm['abc']
+    assert_false fm.empty?
+    assert_equal 5, fm.size
+    assert_equal 7, fm.count
+    assert_equal 3, fm['abc']
 
-		fm.push 'abc', 2
+    fm.push 'abc', 2
 
-		assert_false fm.empty?
-		assert_equal 5, fm.size
-		assert_equal 9, fm.count
-		assert_equal 5, fm['abc']
+    assert_false fm.empty?
+    assert_equal 5, fm.size
+    assert_equal 9, fm.count
+    assert_equal 5, fm['abc']
 
-		fm.push 'abc', -4
+    fm.push 'abc', -4
 
-		assert_false fm.empty?
-		assert_equal 5, fm.size
-		assert_equal 5, fm.count
-		assert_equal 1, fm['abc']
+    assert_false fm.empty?
+    assert_equal 5, fm.size
+    assert_equal 5, fm.count
+    assert_equal 1, fm['abc']
 
-		fm.push 'abc', -1
+    fm.push 'abc', -1
 
-		assert_false fm.empty?
-		assert_equal 4, fm.size
-		assert_equal 4, fm.count
-		assert_equal 0, fm['abc']
-	end
+    assert_false fm.empty?
+    assert_equal 4, fm.size
+    assert_equal 4, fm.count
+    assert_equal 0, fm['abc']
+  end
 
-	def test_instance_operator_equals
+  def test_instance_operator_equals
 
-		fm1 = FrequencyMap.new
-		fm2 = FrequencyMap.new
+    fm1 = FrequencyMap.new
+    fm2 = FrequencyMap.new
 
-		assert fm1 == fm1
-		assert fm2 == fm2
-		assert fm1 == fm2
+    assert fm1 == fm1
+    assert fm2 == fm2
+    assert fm1 == fm2
 
-		fm1 << :abc << :def
+    fm1 << :abc << :def
 
-		assert fm1 == fm1
-		assert fm2 == fm2
-		assert_not fm1 == fm2
+    assert fm1 == fm1
+    assert fm2 == fm2
+    assert_not fm1 == fm2
 
-		fm2 << :def << :abc
+    fm2 << :def << :abc
 
-		assert fm1 == fm1
-		assert fm2 == fm2
-		assert fm1 == fm2
+    assert fm1 == fm1
+    assert fm2 == fm2
+    assert fm1 == fm2
 
-		# can compare against Hash
+    # can compare against Hash
 
-		fm1 = FrequencyMap.new
-		fm2 = Hash.new
+    fm1 = FrequencyMap.new
+    fm2 = Hash.new
 
-		assert fm1 == fm1
-		assert fm2 == fm2
-		assert fm1 == fm2
+    assert fm1 == fm1
+    assert fm2 == fm2
+    assert fm1 == fm2
 
-		fm1 << :abc << :def
+    fm1 << :abc << :def
 
-		assert_not fm1 == fm2
-		assert fm1 == fm1
-		assert fm2 == fm2
+    assert_not fm1 == fm2
+    assert fm1 == fm1
+    assert fm2 == fm2
 
-		fm2[:abc] = 1
-		fm2[:def] = 1
+    fm2[:abc] = 1
+    fm2[:def] = 1
 
-		assert fm1 == fm1
-		assert fm2 == fm2
-		assert fm1 == fm2
-	end
+    assert fm1 == fm1
+    assert fm2 == fm2
+    assert fm1 == fm2
+  end
 
-	def test_instance_operator_subscript
+  def test_instance_operator_subscript
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_equal 0, fm[:abc]
-		assert_equal 0, fm[:def]
+    assert_equal 0, fm[:abc]
+    assert_equal 0, fm[:def]
 
-		fm << :abc
+    fm << :abc
 
-		assert_equal 1, fm[:abc]
-		assert_equal 0, fm[:def]
+    assert_equal 1, fm[:abc]
+    assert_equal 0, fm[:def]
 
-		fm << :def << :def << :def
+    fm << :def << :def << :def
 
-		assert_equal 1, fm[:abc]
-		assert_equal 3, fm[:def]
-	end
+    assert_equal 1, fm[:abc]
+    assert_equal 3, fm[:def]
+  end
 
-	def test_instance_operator_subscript_assign
+  def test_instance_operator_subscript_assign
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		fm[:abc] = 1
+    fm[:abc] = 1
 
-		assert_equal 1, fm[:abc]
+    assert_equal 1, fm[:abc]
 
-		fm[:def] = 3
+    fm[:def] = 3
 
-		assert_equal 3, fm[:def]
+    assert_equal 3, fm[:def]
 
-		fm[:abc] = 2
+    fm[:abc] = 2
 
-		assert_equal 2, fm[:abc]
-	end
+    assert_equal 2, fm[:abc]
+  end
 
-	def test_assoc
+  def test_assoc
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_nil fm.assoc :abc
+    assert_nil fm.assoc :abc
 
-		fm << :abc
+    fm << :abc
 
-		assert_equal [:abc, 1], fm.assoc(:abc)
+    assert_equal [:abc, 1], fm.assoc(:abc)
 
-		fm << :abc
+    fm << :abc
 
-		assert_equal [:abc, 2], fm.assoc(:abc)
-	end
+    assert_equal [:abc, 2], fm.assoc(:abc)
+  end
 
-	def test_clear
+  def test_clear
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_equal 0, fm['abc']
-		assert_equal 0, fm.count
-		assert fm.empty?
-		assert_equal 0, fm.size
+    assert_equal 0, fm['abc']
+    assert_equal 0, fm.count
+    assert fm.empty?
+    assert_equal 0, fm.size
 
-		fm << 'abc'
+    fm << 'abc'
 
-		assert_not_nil fm['abc']
-		assert_equal 1, fm.count
-		assert_not fm.empty?
-		assert_equal 1, fm.size
+    assert_not_nil fm['abc']
+    assert_equal 1, fm.count
+    assert_not fm.empty?
+    assert_equal 1, fm.size
 
-		fm.clear
+    fm.clear
 
-		assert_equal 0, fm['abc']
-		assert_equal 0, fm.count
-		assert fm.empty?
-		assert_equal 0, fm.size
-	end
+    assert_equal 0, fm['abc']
+    assert_equal 0, fm.count
+    assert fm.empty?
+    assert_equal 0, fm.size
+  end
 
-	def test_count_and_delete
+  def test_count_and_delete
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_equal 0, fm.count
+    assert_equal 0, fm.count
 
-		fm << :abc
+    fm << :abc
 
-		assert_equal 1, fm.count
+    assert_equal 1, fm.count
 
-		fm << :abc
+    fm << :abc
 
-		assert_equal 2, fm.count
+    assert_equal 2, fm.count
 
-		fm << :def
+    fm << :def
 
-		assert_equal 3, fm.count
+    assert_equal 3, fm.count
 
-		fm.delete :ghi
+    fm.delete :ghi
 
-		assert_equal 3, fm.count
+    assert_equal 3, fm.count
 
-		fm.delete :abc
+    fm.delete :abc
 
-		assert_equal 1, fm.count
-	end
+    assert_equal 1, fm.count
+  end
 
-	def test_count
+  def test_count
 
-		test_count_and_delete
-	end
+    test_count_and_delete
+  end
 
-	def test_default
+  def test_default
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_nil fm.default
-	end
+    assert_nil fm.default
+  end
 
-	def test_delete
+  def test_delete
 
-		test_count_and_delete
-	end
+    test_count_and_delete
+  end
 
-	def test_dup
+  def test_dup
 
-		fm1 = FrequencyMap.new
-		fm2 = fm1.dup
+    fm1 = FrequencyMap.new
+    fm2 = fm1.dup
 
-		assert_equal fm1, fm2
-		assert_eql fm1, fm2
+    assert_equal fm1, fm2
+    assert_eql fm1, fm2
 
-		fm1 << :abc
+    fm1 << :abc
 
-		assert_not_equal fm1, fm2
-		assert_not_eql fm1, fm2
+    assert_not_equal fm1, fm2
+    assert_not_eql fm1, fm2
 
-		fm3 = fm1.dup
+    fm3 = fm1.dup
 
-		assert_equal fm1, fm3
-		assert_eql fm1, fm3
-	end
+    assert_equal fm1, fm3
+    assert_eql fm1, fm3
+  end
 
-	def test_each_WITH_BLOCK
+  def test_each_WITH_BLOCK
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		fm << :def
-		fm << :abc << :abc << :abc << :abc
-		fm << :ghi << :ghi
+    fm << :def
+    fm << :abc << :abc << :abc << :abc
+    fm << :ghi << :ghi
 
-		r = []
+    r = []
 
-		fm.each do |k, v|
+    fm.each do |k, v|
 
-			r << [k, v]
-		end
+      r << [k, v]
+    end
 
-		r.sort! { |a, b| a[0] <=> b[0] }
+    r.sort! { |a, b| a[0] <=> b[0] }
 
-		assert_equal 3, r.size
-		assert_equal [:abc, 4], r[0]
-		assert_equal [:def, 1], r[1]
-		assert_equal [:ghi, 2], r[2]
-	end
+    assert_equal 3, r.size
+    assert_equal [:abc, 4], r[0]
+    assert_equal [:def, 1], r[1]
+    assert_equal [:ghi, 2], r[2]
+  end
 
-	def test_each_WITHOUT_BLOCK
+  def test_each_WITHOUT_BLOCK
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		fm << :def
-		fm << :abc << :abc << :abc << :abc
-		fm << :ghi << :ghi
+    fm << :def
+    fm << :abc << :abc << :abc << :abc
+    fm << :ghi << :ghi
 
-		r = fm.each.to_a
+    r = fm.each.to_a
 
-		r.sort! { |a, b| a[0] <=> b[0] }
+    r.sort! { |a, b| a[0] <=> b[0] }
 
-		assert_equal 3, r.size
-		assert_equal [:abc, 4], r[0]
-		assert_equal [:def, 1], r[1]
-		assert_equal [:ghi, 2], r[2]
-	end
+    assert_equal 3, r.size
+    assert_equal [:abc, 4], r[0]
+    assert_equal [:def, 1], r[1]
+    assert_equal [:ghi, 2], r[2]
+  end
 
-	def test_each_by_key_WITH_BLOCK
+  def test_each_by_key_WITH_BLOCK
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		fm << :def
-		fm << :abc << :abc << :abc << :abc
-		fm << :ghi << :ghi
+    fm << :def
+    fm << :abc << :abc << :abc << :abc
+    fm << :ghi << :ghi
 
-		r = []
+    r = []
 
-		fm.each_by_key do |k, v|
+    fm.each_by_key do |k, v|
 
-			r << [k, v]
-		end
+      r << [k, v]
+    end
 
-		assert_equal 3, r.size
-		assert_equal [:abc, 4], r[0]
-		assert_equal [:def, 1], r[1]
-		assert_equal [:ghi, 2], r[2]
-	end
+    assert_equal 3, r.size
+    assert_equal [:abc, 4], r[0]
+    assert_equal [:def, 1], r[1]
+    assert_equal [:ghi, 2], r[2]
+  end
 
-	def test_each_by_key_WITHOUT_BLOCK
+  def test_each_by_key_WITHOUT_BLOCK
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		fm << :def
-		fm << :abc << :abc << :abc << :abc
-		fm << :ghi << :ghi
+    fm << :def
+    fm << :abc << :abc << :abc << :abc
+    fm << :ghi << :ghi
 
-		r = fm.each_by_key.to_a
+    r = fm.each_by_key.to_a
 
-		assert_equal 3, r.size
-		assert_equal [:abc, 4], r[0]
-		assert_equal [:def, 1], r[1]
-		assert_equal [:ghi, 2], r[2]
-	end
+    assert_equal 3, r.size
+    assert_equal [:abc, 4], r[0]
+    assert_equal [:def, 1], r[1]
+    assert_equal [:ghi, 2], r[2]
+  end
 
-	def test_each_by_frequency_WITH_BLOCK
+  def test_each_by_frequency_WITH_BLOCK
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		fm << :def
-		fm << :abc << :abc << :abc << :abc
-		fm << :ghi << :ghi
+    fm << :def
+    fm << :abc << :abc << :abc << :abc
+    fm << :ghi << :ghi
 
-		r = []
+    r = []
 
-		fm.each_by_frequency do |k, v|
+    fm.each_by_frequency do |k, v|
 
-			r << [k, v]
-		end
+      r << [k, v]
+    end
 
-		assert_equal 3, r.size
-		assert_equal [:abc, 4], r[0]
-		assert_equal [:ghi, 2], r[1]
-		assert_equal [:def, 1], r[2]
-	end
+    assert_equal 3, r.size
+    assert_equal [:abc, 4], r[0]
+    assert_equal [:ghi, 2], r[1]
+    assert_equal [:def, 1], r[2]
+  end
 
-	def test_each_by_frequency_WITHOUT_BLOCK
+  def test_each_by_frequency_WITHOUT_BLOCK
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		fm << :def
-		fm << :abc << :abc << :abc << :abc
-		fm << :ghi << :ghi
+    fm << :def
+    fm << :abc << :abc << :abc << :abc
+    fm << :ghi << :ghi
 
-		r = fm.each_by_frequency.to_a
+    r = fm.each_by_frequency.to_a
 
-		assert_equal 3, r.size
-		assert_equal [:abc, 4], r[0]
-		assert_equal [:ghi, 2], r[1]
-		assert_equal [:def, 1], r[2]
-	end
+    assert_equal 3, r.size
+    assert_equal [:abc, 4], r[0]
+    assert_equal [:ghi, 2], r[1]
+    assert_equal [:def, 1], r[2]
+  end
 
-	def test_each_value_WITH_BLOCK
+  def test_each_value_WITH_BLOCK
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		fm << :def
-		fm << :abc << :abc << :abc << :abc
-		fm << :ghi << :ghi
+    fm << :def
+    fm << :abc << :abc << :abc << :abc
+    fm << :ghi << :ghi
 
-		r = []
+    r = []
 
-		fm.each_value do |v|
+    fm.each_value do |v|
 
-			r << v
-		end
+      r << v
+    end
 
-		r.sort!
+    r.sort!
 
-		assert_equal 3, r.size
-		assert_equal [1, 2, 4], r
-	end
+    assert_equal 3, r.size
+    assert_equal [1, 2, 4], r
+  end
 
-	def test_each_value_WITHOUT_BLOCK
+  def test_each_value_WITHOUT_BLOCK
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		fm << :def
-		fm << :abc << :abc << :abc << :abc
-		fm << :ghi << :ghi
+    fm << :def
+    fm << :abc << :abc << :abc << :abc
+    fm << :ghi << :ghi
 
-		r = fm.each_value.to_a
+    r = fm.each_value.to_a
 
-		r.sort!
+    r.sort!
 
-		assert_equal 3, r.size
-		assert_equal [1, 2, 4], r
-	end
+    assert_equal 3, r.size
+    assert_equal [1, 2, 4], r
+  end
 
-	def test_each_with_index_WITH_BLOCK
+  def test_each_with_index_WITH_BLOCK
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		fm << :def
-		fm << :abc << :abc << :abc << :abc
-		fm << :ghi << :ghi
+    fm << :def
+    fm << :abc << :abc << :abc << :abc
+    fm << :ghi << :ghi
 
-		indexes = []
-		kvs = {}
+    indexes = []
+    kvs = {}
 
-		fm.each_with_index do |kv, index|
+    fm.each_with_index do |kv, index|
 
-			k = kv[0]
-			v = kv[1]
+      k = kv[0]
+      v = kv[1]
 
-			indexes << index
+      indexes << index
 
-			kvs[k] = v
-		end
+      kvs[k] = v
+    end
 
-		assert_equal [ 0, 1, 2 ], indexes
-		assert_equal Hash[ :abc, 4, :def, 1, :ghi, 2 ], kvs
-	end
+    assert_equal [ 0, 1, 2 ], indexes
+    assert_equal Hash[ :abc, 4, :def, 1, :ghi, 2 ], kvs
+  end
 
-	def test_empty
+  def test_empty
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert fm.empty?
+    assert fm.empty?
 
-		fm << :def
+    fm << :def
 
-		assert_not fm.empty?
-		assert_equal 1, fm.size
-		assert_equal 1, fm.count
+    assert_not fm.empty?
+    assert_equal 1, fm.size
+    assert_equal 1, fm.count
 
-		fm.clear
+    fm.clear
 
-		assert fm.empty?
+    assert fm.empty?
 
-		assert_equal 0, fm.size
-		assert_equal 0, fm.count
-	end
+    assert_equal 0, fm.size
+    assert_equal 0, fm.count
+  end
 
-	def test_op_equal
-		# `==` evaluates logical equality (except for `Object`)
+  def test_op_equal
+    # `==` evaluates logical equality (except for `Object`)
 
-		fm1 = FrequencyMap.new
-		fm2 = FrequencyMap.new
+    fm1 = FrequencyMap.new
+    fm2 = FrequencyMap.new
 
-		assert fm1 == fm1
-		assert fm2 == fm2
-		assert fm1 == fm2
+    assert fm1 == fm1
+    assert fm2 == fm2
+    assert fm1 == fm2
 
-		fm1 << :abc << :def
+    fm1 << :abc << :def
 
-		assert fm1 == fm1
-		assert fm2 == fm2
-		assert_not fm1 == fm2
+    assert fm1 == fm1
+    assert fm2 == fm2
+    assert_not fm1 == fm2
 
-		fm2 << :def << :abc
+    fm2 << :def << :abc
 
-		assert fm1 == fm1
-		assert fm2 == fm2
-		assert fm1 == fm2
+    assert fm1 == fm1
+    assert fm2 == fm2
+    assert fm1 == fm2
 
-		assert_equal 2, fm1.size
-		assert_equal 2, fm1.count
-	end
+    assert_equal 2, fm1.size
+    assert_equal 2, fm1.count
+  end
 
-	def test_eql
-		# `eql?` evaluates equality based on #hash
+  def test_eql?
+    # `eql?` evaluates equality based on #hash
 
-		fm1 = FrequencyMap.new
-		fm2 = FrequencyMap.new
+    fm1 = FrequencyMap.new
+    fm2 = FrequencyMap.new
 
-		assert fm1.eql? fm1
-		assert fm2.eql? fm2
-		assert fm1.eql? fm2
+    assert fm1.eql? fm1
+    assert fm2.eql? fm2
+    assert fm1.eql? fm2
 
-		fm1 << :abc << :def
+    fm1 << :abc << :def
 
-		assert fm1.eql? fm1
-		assert fm2.eql? fm2
-		assert_not fm1.eql? fm2
+    assert fm1.eql? fm1
+    assert fm2.eql? fm2
+    assert_not fm1.eql? fm2
 
-		fm2 << :def << :abc
+    fm2 << :def << :abc
 
-		assert fm1.eql? fm1
-		assert fm2.eql? fm2
-		assert fm1.eql? fm2
+    assert fm1.eql? fm1
+    assert fm2.eql? fm2
+    assert fm1.eql? fm2
 
-		assert_equal 2, fm1.size
-		assert_equal 2, fm1.count
-	end
+    assert_equal 2, fm1.size
+    assert_equal 2, fm1.count
+  end
 
-	def test_equal
-		# `eql?` evaluates identity
+  def test_equal
+    # `eql?` evaluates identity
 
-		fm1 = FrequencyMap.new
-		fm2 = FrequencyMap.new
+    fm1 = FrequencyMap.new
+    fm2 = FrequencyMap.new
 
-		assert fm1.equal? fm1
-		assert fm2.equal? fm2
-		assert_not fm1.equal? fm2
+    assert fm1.equal? fm1
+    assert fm2.equal? fm2
+    assert_not fm1.equal? fm2
 
-		fm1 << :abc << :def
+    fm1 << :abc << :def
 
-		assert fm1.equal? fm1
-		assert fm2.equal? fm2
-		assert_not fm1.equal? fm2
+    assert fm1.equal? fm1
+    assert fm2.equal? fm2
+    assert_not fm1.equal? fm2
 
-		fm2 << :def << :abc
+    fm2 << :def << :abc
 
-		assert fm1.equal? fm1
-		assert fm2.equal? fm2
-		assert_not fm1.equal? fm2
+    assert fm1.equal? fm1
+    assert fm2.equal? fm2
+    assert_not fm1.equal? fm2
 
-		assert_equal 2, fm1.size
-		assert_equal 2, fm1.count
-	end
+    assert_equal 2, fm1.size
+    assert_equal 2, fm1.count
+  end
 
-	def test_fetch
+  def test_fetch
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_raise(::KeyError) { fm.fetch(:does_not_exist) }
-		assert_equal 2, fm.fetch(:does_not_exist, 2)
-		assert_raise(::TypeError) { fm.fetch(:does_not_exist, :wrong_type) }
-		assert_equal 33, fm.fetch(:does_not_exist) { |k| 33 }
-		assert_equal 34, fm.fetch(:does_not_exist) { 34 }
+    assert_raise(::KeyError) { fm.fetch(:does_not_exist) }
+    assert_equal 2, fm.fetch(:does_not_exist, 2)
+    assert_raise(::TypeError) { fm.fetch(:does_not_exist, :wrong_type) }
+    assert_equal 33, fm.fetch(:does_not_exist) { |k| 33 }
+    assert_equal 34, fm.fetch(:does_not_exist) { 34 }
 
-		fm << :abc << :abc << :abc
+    fm << :abc << :abc << :abc
 
-		assert_equal 3, fm.fetch(:abc)
-		assert_equal 3, fm.fetch(:abc, 1)
-		assert_equal 3, (fm.fetch(:abc) { |k| 33 })
+    assert_equal 3, fm.fetch(:abc)
+    assert_equal 3, fm.fetch(:abc, 1)
+    assert_equal 3, (fm.fetch(:abc) { |k| 33 })
 
-		assert_equal 1, fm.size
-		assert_equal 3, fm.count
-	end
+    assert_equal 1, fm.size
+    assert_equal 3, fm.count
+  end
 
-	def test_flatten
+  def test_flatten
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_equal [], fm.flatten
+    assert_equal [], fm.flatten
 
-		fm << :def
+    fm << :def
 
-		assert_equal [:def, 1], fm.flatten
+    assert_equal [:def, 1], fm.flatten
 
-		fm << :def
+    fm << :def
 
-		assert_equal [:def, 2], fm.flatten
+    assert_equal [:def, 2], fm.flatten
 
-		fm << :abc
+    fm << :abc
 
-		assert_equal [:def, 2, :abc, 1], fm.flatten
-	end
+    assert_equal [:def, 2, :abc, 1], fm.flatten
+  end
 
-	def test_has_key
+  def test_has_key?
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_not fm.has_key? nil
-		assert_not fm.has_key? :abc
-		assert_not fm.has_key? 'abc'
+    assert_not fm.has_key? nil
+    assert_not fm.has_key? :abc
+    assert_not fm.has_key? 'abc'
 
-		fm << :abc
+    fm << :abc
 
-		assert_not fm.has_key? nil
-		assert fm.has_key? :abc
-		assert_not fm.has_key? 'abc'
+    assert_not fm.has_key? nil
+    assert fm.has_key? :abc
+    assert_not fm.has_key? 'abc'
 
-		fm << 'abc'
+    fm << 'abc'
 
-		assert_not fm.has_key? nil
-		assert fm.has_key? :abc
-		assert fm.has_key? 'abc'
-	end
+    assert_not fm.has_key? nil
+    assert fm.has_key? :abc
+    assert fm.has_key? 'abc'
+  end
 
-	def test_has_value
+  def test_has_value?
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_not fm.has_value? 1
-		assert_not fm.has_value? 2
-		assert_raise(::TypeError) { fm.has_value? 1.1 }
+    assert_not fm.has_value? 1
+    assert_not fm.has_value? 2
+    assert_raise(::TypeError) { fm.has_value? 1.1 }
 
-		fm << :abc
+    fm << :abc
 
-		assert fm.has_value? 1
-		assert_not fm.has_value? 2
+    assert fm.has_value? 1
+    assert_not fm.has_value? 2
 
-		fm << :abc
+    fm << :abc
 
-		assert_not fm.has_value? 1
-		assert fm.has_value? 2
-	end
+    assert_not fm.has_value? 1
+    assert fm.has_value? 2
+  end
 
-	def test_key
+  def test_key
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_nil fm.key 1
-		assert_nil fm.key 2
-		assert_raise(::TypeError) { fm.key 1.1 }
+    assert_nil fm.key 1
+    assert_nil fm.key 2
+    assert_raise(::TypeError) { fm.key 1.1 }
 
-		fm << :abc
+    fm << :abc
 
-		assert_equal :abc, fm.key(1)
-		assert_not_equal :abc, fm.key(2)
+    assert_equal :abc, fm.key(1)
+    assert_not_equal :abc, fm.key(2)
 
-		fm << :abc
+    fm << :abc
 
-		assert_not_equal :abc, fm.key(1)
-		assert_equal :abc, fm.key(2)
-	end
+    assert_not_equal :abc, fm.key(1)
+    assert_equal :abc, fm.key(2)
+  end
 
-	def test_length_and_size
+  def test_length_and_size
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_equal 0, fm.length
-		assert_equal 0, fm.size
+    assert_equal 0, fm.length
+    assert_equal 0, fm.size
 
-		fm << :abc
+    fm << :abc
 
-		assert_equal 1, fm.length
-		assert_equal 1, fm.size
+    assert_equal 1, fm.length
+    assert_equal 1, fm.size
 
-		fm << :abc
+    fm << :abc
 
-		assert_equal 1, fm.length
-		assert_equal 1, fm.size
+    assert_equal 1, fm.length
+    assert_equal 1, fm.size
 
-		fm << :def
+    fm << :def
 
-		assert_equal 2, fm.length
-		assert_equal 2, fm.size
+    assert_equal 2, fm.length
+    assert_equal 2, fm.size
 
-		fm.delete :abc
+    fm.delete :abc
 
-		assert_equal 1, fm.length
-		assert_equal 1, fm.size
-	end
+    assert_equal 1, fm.length
+    assert_equal 1, fm.size
+  end
 
-	def test_length
+  def test_length
 
-		test_length_and_size
-	end
+    test_length_and_size
+  end
 
-	def test_merge
+  def test_merge
 
-		fm1 = FrequencyMap.new
-		fm2 = FrequencyMap.new
+    fm1 = FrequencyMap.new
+    fm2 = FrequencyMap.new
 
-		fm1 << :abc << :def << :ghi << :ghi
-		fm2 << :abc <<         :ghi         << :jkl << :jkl
+    fm1 << :abc << :def << :ghi << :ghi
+    fm2 << :abc <<         :ghi         << :jkl << :jkl
 
-		fm3 = fm1.merge fm2
+    fm3 = fm1.merge fm2
 
-		assert_equal 8, fm3.count
-		assert_equal 4, fm3.size
+    assert_equal 8, fm3.count
+    assert_equal 4, fm3.size
 
-		assert_equal 2, fm3[:abc]
-		assert_equal 1, fm3[:def]
-		assert_equal 3, fm3[:ghi]
-		assert_equal 2, fm3[:jkl]
-	end
+    assert_equal 2, fm3[:abc]
+    assert_equal 1, fm3[:def]
+    assert_equal 3, fm3[:ghi]
+    assert_equal 2, fm3[:jkl]
+  end
 
-	def test_merge!
+  def test_merge!
 
-		fm1 = FrequencyMap.new
-		fm2 = FrequencyMap.new
+    fm1 = FrequencyMap.new
+    fm2 = FrequencyMap.new
 
-		fm1 << :abc << :def << :ghi << :ghi
-		fm2 << :abc <<         :ghi         << :jkl << :jkl
+    fm1 << :abc << :def << :ghi << :ghi
+    fm2 << :abc <<         :ghi         << :jkl << :jkl
 
-		fm1.merge! fm2
+    fm1.merge! fm2
 
-		assert_equal 8, fm1.count
-		assert_equal 4, fm1.size
+    assert_equal 8, fm1.count
+    assert_equal 4, fm1.size
 
-		assert_equal 2, fm1[:abc]
-		assert_equal 1, fm1[:def]
-		assert_equal 3, fm1[:ghi]
-		assert_equal 2, fm1[:jkl]
-	end
+    assert_equal 2, fm1[:abc]
+    assert_equal 1, fm1[:def]
+    assert_equal 3, fm1[:ghi]
+    assert_equal 2, fm1[:jkl]
+  end
 
-	def test_push
+  def test_push
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert fm.empty?
+    assert fm.empty?
 
-		fm.push :abc
-		fm.push :def, 2
-		fm.push :ghi, 1
-		fm.push :ghi, 0
-		fm.push :ghi, 1
+    fm.push :abc
+    fm.push :def, 2
+    fm.push :ghi, 1
+    fm.push :ghi, 0
+    fm.push :ghi, 1
 
-		assert_equal 5, fm.count
-		assert_not fm.empty?
-		assert_equal 3, fm.size
+    assert_equal 5, fm.count
+    assert_not fm.empty?
+    assert_equal 3, fm.size
 
-		assert_equal 1, fm[:abc]
-		assert_equal 2, fm[:def]
-		assert_equal 2, fm[:ghi]
-	end
+    assert_equal 1, fm[:abc]
+    assert_equal 2, fm[:def]
+    assert_equal 2, fm[:ghi]
+  end
 
-	def test_shift
+  def test_shift
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_nil fm.shift
+    assert_nil fm.shift
 
 
-		fm << :abc
+    fm << :abc
 
-		assert_equal 1, fm.count
-		assert_not fm.empty?
-		assert_equal 1, fm.size
+    assert_equal 1, fm.count
+    assert_not fm.empty?
+    assert_equal 1, fm.size
 
-		r = fm.shift
+    r = fm.shift
 
-		assert_equal 0, fm.count
-		assert fm.empty?
-		assert_equal 0, fm.size
+    assert_equal 0, fm.count
+    assert fm.empty?
+    assert_equal 0, fm.size
 
-		assert_equal [:abc, 1], r
+    assert_equal [:abc, 1], r
 
 
-		fm << :def << :def
+    fm << :def << :def
 
-		assert_equal 2, fm.count
-		assert_not fm.empty?
-		assert_equal 1, fm.size
+    assert_equal 2, fm.count
+    assert_not fm.empty?
+    assert_equal 1, fm.size
 
-		r = fm.shift
+    r = fm.shift
 
-		assert_equal 0, fm.count
-		assert fm.empty?
-		assert_equal 0, fm.size
+    assert_equal 0, fm.count
+    assert fm.empty?
+    assert_equal 0, fm.size
 
-		assert_equal [:def, 2], r
+    assert_equal [:def, 2], r
 
 
-		fm << :abc << :def << :def
+    fm << :abc << :def << :def
 
-		assert_equal 3, fm.count
-		assert_not fm.empty?
-		assert_equal 2, fm.size
+    assert_equal 3, fm.count
+    assert_not fm.empty?
+    assert_equal 2, fm.size
 
-		r = fm.shift
+    r = fm.shift
 
-		assert_equal 2, fm.count
-		assert_not fm.empty?
-		assert_equal 1, fm.size
+    assert_equal 2, fm.count
+    assert_not fm.empty?
+    assert_equal 1, fm.size
 
-		assert_equal [:abc, 1], r
+    assert_equal [:abc, 1], r
 
-		r = fm.shift
+    r = fm.shift
 
-		assert_equal 0, fm.count
-		assert fm.empty?
-		assert_equal 0, fm.size
+    assert_equal 0, fm.count
+    assert fm.empty?
+    assert_equal 0, fm.size
 
-		assert_equal [:def, 2], r
-	end
+    assert_equal [:def, 2], r
+  end
 
-	def test_size
+  def test_size
 
-		test_length_and_size
-	end
+    test_length_and_size
+  end
 
-	def test_store
+  def test_store
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_equal 0, fm.count
-		assert fm.empty?
-		assert_equal 0, fm.size
+    assert_equal 0, fm.count
+    assert fm.empty?
+    assert_equal 0, fm.size
 
-		fm.store :abc, 1
+    fm.store :abc, 1
 
-		assert_equal 1, fm.count
-		assert_not fm.empty?
-		assert_equal 1, fm.size
+    assert_equal 1, fm.count
+    assert_not fm.empty?
+    assert_equal 1, fm.size
 
-		fm.store :def, 2
+    fm.store :def, 2
 
-		assert_equal 3, fm.count
-		assert_not fm.empty?
-		assert_equal 2, fm.size
+    assert_equal 3, fm.count
+    assert_not fm.empty?
+    assert_equal 2, fm.size
 
-		assert_raise(::TypeError) { fm.store :ghi, :blah }
-	end
+    assert_raise(::TypeError) { fm.store :ghi, :blah }
+  end
 
-	def test_to_a
+  def test_to_a
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_equal [], fm.to_a
+    assert_equal [], fm.to_a
 
-		fm << :abc << :abc
+    fm << :abc << :abc
 
-		assert_equal [[:abc, 2]], fm.to_a
+    assert_equal [[:abc, 2]], fm.to_a
 
-		fm << :def << :def << :def
+    fm << :def << :def << :def
 
-		assert_equal [[:abc, 2], [:def, 3]], fm.to_a
-	end
+    assert_equal [[:abc, 2], [:def, 3]], fm.to_a
+  end
 
-	def test_to_h
+  def test_to_h
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_equal Hash.new, fm.to_h
+    assert_equal Hash.new, fm.to_h
 
-		fm << :abc << :abc
+    fm << :abc << :abc
 
-		assert_equal ({:abc => 2}), fm.to_h
+    assert_equal ({:abc => 2}), fm.to_h
 
-		fm << :def << :def << :def
+    fm << :def << :def << :def
 
-		assert_equal ({:abc => 2, :def => 3}), fm.to_h
-	end
+    assert_equal ({:abc => 2, :def => 3}), fm.to_h
+  end
 
-	def test_values
+  def test_values
 
-		fm = FrequencyMap.new
+    fm = FrequencyMap.new
 
-		assert_equal [], fm.values
+    assert_equal [], fm.values
 
-		fm << :abc << :def << :def << :ghi
+    fm << :abc << :def << :def << :ghi
 
-		assert_equal [1, 2, 1], fm.values
-	end
+    assert_equal [1, 2, 1], fm.values
+  end
 end
 
 

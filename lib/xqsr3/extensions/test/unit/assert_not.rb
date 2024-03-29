@@ -4,14 +4,14 @@ module Unit
 
 module Assertions
 
-	unless respond_to? :assert_not
+  unless respond_to? :assert_not
 
-		# Assert that +expression+ is _falsey_
-		def assert_not(expression, failure_message = '')
+    # Assert that +expression+ is _falsey_
+    def assert_not(expression, failure_message = '')
 
-			assert !(expression), failure_message
-		end
-	end
+      assert !(expression), failure_message
+    end
+  end
 
 end # class Assertions
 end # module Unit

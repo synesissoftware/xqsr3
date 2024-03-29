@@ -5,13 +5,13 @@
 # Purpose:  Adds a writelines() method to the IO class
 #
 # Created:  13th April 2007
-# Updated:  11th December 2023
+# Updated:  29th March 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -55,43 +55,43 @@ require 'xqsr3/io/writelines'
 
 class IO
 
-	# Extends +IO+ class with the +::Xqsr3::IO::write_lines+ method
-	#
-	#
-	#def self.writelines(path, contents, lineSep = nil, columnSep = nil)
-	def self.writelines(path, contents, *args)
+  # Extends +IO+ class with the +::Xqsr3::IO::write_lines+ method
+  #
+  #
+  #def self.writelines(path, contents, lineSep = nil, columnSep = nil)
+  def self.writelines(path, contents, *args)
 
-		options = {}
+    options = {}
 
-		case args.size
-		when 0
+    case args.size
+    when 0
 
-			;
-		when 1
+      ;
+    when 1
 
-			arg3 = args[0]
+      arg3 = args[0]
 
-			if arg3.respond_to?(:to_hash)
+      if arg3.respond_to?(:to_hash)
 
-				options.merge! arg3.to_hash
-			else
+        options.merge! arg3.to_hash
+      else
 
-				options[:line_separator] = arg3
-			end
-		when 2
+        options[:line_separator] = arg3
+      end
+    when 2
 
-			arg3 = args[0]
-			arg4 = args[1]
+      arg3 = args[0]
+      arg4 = args[1]
 
-			options[:line_separator] = arg2
-			options[:column_separator] = arg2
-		else
+      options[:line_separator] = arg2
+      options[:column_separator] = arg2
+    else
 
-			raise ArgumentError, "wrong number of arguments (given #{2 + args.size}, expected 2..4)"
-		end
+      raise ArgumentError, "wrong number of arguments (given #{2 + args.size}, expected 2..4)"
+    end
 
-		::Xqsr3::IO.writelines path, contents, **options
-	end
+    ::Xqsr3::IO.writelines path, contents, **options
+  end
 end # class IO
 
 # ############################## end of file ############################# #
