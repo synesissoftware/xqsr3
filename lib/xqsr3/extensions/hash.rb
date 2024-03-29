@@ -6,6 +6,6 @@ require 'xqsr3/extensions/hash/match'
 
 unless (RUBY_VERSION.split('.').map { |v| v.to_i } <=> [ 2, 5, 0 ]) > 0
 
-	require 'xqsr3/extensions/hash/slice'
+  require 'xqsr3/extensions/hash/slice'
 end
 

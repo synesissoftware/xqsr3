@@ -1,17 +1,17 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/string_utilities/nil_if_empty.rb
+# File:     lib/xqsr3/string_utilities/nil_if_empty.rb
 #
-# Purpose:      Definition of the ::Xqsr3::StringUtilities::NilIfEmpty
-#               module
+# Purpose:  Definition of the ::Xqsr3::StringUtilities::NilIfEmpty module
 #
-# Created:      25th January 2018
-# Updated:      15th April 2019
+# Created:  25th January 2018
+# Updated:  29th March 2024
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2018-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -58,43 +58,42 @@ module StringUtilities
 # #nil_if_empty methods
 module NilIfEmpty
 
-	private
-	# @!visibility private
-	module NilIfEmpty_Helper_ # :nodoc: all
+  private
+  # @!visibility private
+  module NilIfEmpty_Helper_ # :nodoc: all
 
-		def self.string_nil_if_empty_array_ s # :nodoc:
+    def self.string_nil_if_empty_array_ s # :nodoc:
 
-			return s if s && !s.empty?
+      return s if s && !s.empty?
 
-			nil
-		end
-	end
-	public
+      nil
+    end
+  end
+  public
 
-	# Returns +nil+ if the given string is empty, otherwise returning the
-	# given string
-	#
-	# === Signature
-	#
-	# * *Parameters:*
-	#
-	# * *Required parameters*:
-	#   - +s+ (String) The string to be evaluated
-	def self.string_nil_if_empty s
+  # Returns +nil+ if the given string is empty, otherwise returning the
+  # given string
+  #
+  # === Signature
+  #
+  # * *Parameters:*
+  #
+  # * *Required parameters*:
+  #   - +s+ (String) The string to be evaluated
+  def self.string_nil_if_empty s
 
-		NilIfEmpty_Helper_.string_nil_if_empty_array_ s
-	end
+    NilIfEmpty_Helper_.string_nil_if_empty_array_ s
+  end
 
-	# Returns +nil+ if the instance is empty, otherwise returning self
-	def nil_if_empty
+  # Returns +nil+ if the instance is empty, otherwise returning self
+  def nil_if_empty
 
-		NilIfEmpty_Helper_.string_nil_if_empty_array_ self
-	end
+    NilIfEmpty_Helper_.string_nil_if_empty_array_ self
+  end
 end # module NilIfEmpty
 
 end # module StringUtilities
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-
 

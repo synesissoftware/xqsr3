@@ -1,18 +1,18 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/hash_utilities/deep_transform.rb
+# File:     lib/xqsr3/hash_utilities/deep_transform.rb
 #
-# Purpose:      Definition of the ::Xqsr3::HashUtilities::DeepTransform
-#               module
+# Purpose:  Definition of the ::Xqsr3::HashUtilities::DeepTransform module
 #
-# Created:      3rd June 2017
-# Updated:      14th March 2018
+# Created:  3rd June 2017
+# Updated:  29th March 2024
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
-# Copyright (c) 2017-2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -58,94 +58,94 @@ module HashUtilities
 
 module DeepTransform
 
-	private
-	def self.do_deep_transform_on_hashlike_ h, &block # :nodoc:
+  private
+  def self.do_deep_transform_on_hashlike_ h, &block # :nodoc:
 
-		::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :map ]
+    ::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :map ]
 
-		case block.arity
-		when 1
+    case block.arity
+    when 1
 
-			h = 
-			Hash[h.map do |k, v|
+      h =
+      Hash[h.map do |k, v|
 
-				k = k.deep_transform(&block) if ::Hash === k
-				v = v.deep_transform(&block) if ::Hash === v
+        k = k.deep_transform(&block) if ::Hash === k
+        v = v.deep_transform(&block) if ::Hash === v
 
-				[yield(k), v]
-			end]
-		when 2
+        [yield(k), v]
+      end]
+    when 2
 
-			h = 
-			Hash[h.map do |k, v|
+      h =
+      Hash[h.map do |k, v|
 
-				k = k.deep_transform(&block) if ::Hash === k
-				v = v.deep_transform(&block) if ::Hash === v
+        k = k.deep_transform(&block) if ::Hash === k
+        v = v.deep_transform(&block) if ::Hash === v
 
-				yield(k, v)
-			end]
-		else
+        yield(k, v)
+      end]
+    else
 
-			raise ArgumentError, "block arity must be 1 or 2"
-		end
+      raise ArgumentError, "block arity must be 1 or 2"
+    end
 
-		h
-	end
+    h
+  end
 
-	def do_deep_transform_on_self_ &block # :nodoc:
+  def do_deep_transform_on_self_ &block # :nodoc:
 
-		::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :[]=, :delete, :keys ]
+    ::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :[]=, :delete, :keys ]
 
-		case block.arity
-		when 1
+    case block.arity
+    when 1
 
-			self.keys.each do |k|
+      self.keys.each do |k|
 
-				v	=	self.delete k
+        v = self.delete k
 
-				k	=	k.deep_transform(&block) if ::Hash === k
-				v	=	v.deep_transform(&block) if ::Hash === v
+        k = k.deep_transform(&block) if ::Hash === k
+        v = v.deep_transform(&block) if ::Hash === v
 
-				self[yield(k)] = v
-			end
-		when 2
+        self[yield(k)] = v
+      end
+    when 2
 
-			self.keys.each do |k|
+      self.keys.each do |k|
 
-				v	=	self.delete k
+        v = self.delete k
 
-				k	=	k.deep_transform(&block) if ::Hash === k
-				v	=	v.deep_transform(&block) if ::Hash === v
+        k = k.deep_transform(&block) if ::Hash === k
+        v = v.deep_transform(&block) if ::Hash === v
 
-				k, v	=	yield(k, v)
-			end
-		else
+        k, v = yield(k, v)
+      end
+    else
 
-			raise ArgumentError, "block arity must be 1 or 2"
-		end
-	end
-	public
+      raise ArgumentError, "block arity must be 1 or 2"
+    end
+  end
+  public
 
-	# Executes the given mandatory 1- or 2-parameter block on the receiving
-	# instance, which must be a Hash or a type that responds to the +map+
-	# message, returning a copy of the instance in which keys (1-parameter
-	# block) or keys and values (2-parameter block) are transformed.
-	def deep_transform &block
+  # Executes the given mandatory 1- or 2-parameter block on the receiving
+  # instance, which must be a Hash or a type that responds to the +map+
+  # message, returning a copy of the instance in which keys (1-parameter
+  # block) or keys and values (2-parameter block) are transformed.
+  def deep_transform &block
 
-		DeepTransform.do_deep_transform_on_hashlike_(self, &block)
-	end
+    DeepTransform.do_deep_transform_on_hashlike_(self, &block)
+  end
 
-	# Executes the given mandatory 1- or 2-parameter block on the receiving
-	# instance, whihc must be a Hash or a type that responds to +[]+,
-	# +delete+, and +keys+ messages, changing the keys (1-parameter block)
-	# or keys and values (2-parameter block).
-	#
-	# @note This method is not strongly exception-safe - failure during
-	#  transformation can result in a partially transformed instance
-	def deep_transform! &block
+  # Executes the given mandatory 1- or 2-parameter block on the receiving
+  # instance, whihc must be a Hash or a type that responds to +[]+,
+  # +delete+, and +keys+ messages, changing the keys (1-parameter block)
+  # or keys and values (2-parameter block).
+  #
+  # @note This method is not strongly exception-safe - failure during
+  #  transformation can result in a partially transformed instance
+  def deep_transform! &block
 
-		do_deep_transform_on_self_(&block)
-	end
+    do_deep_transform_on_self_(&block)
+  end
 
 end # module DeepTransform
 

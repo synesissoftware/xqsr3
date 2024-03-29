@@ -1,16 +1,17 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/extensions/enumerable/collect_with_index.rb
+# File:     lib/xqsr3/extensions/enumerable/collect_with_index.rb
 #
-# Purpose:      Adds a collect_with_index() method to the Enumerable module
+# Purpose:  Adds a collect_with_index() method to the Enumerable module
 #
-# Created:      24th October 2010
-# Updated:      12th April 2019
+# Created:  24th October 2010
+# Updated:  29th March 2024
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2010-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -52,20 +53,20 @@
 
 module Enumerable
 
-	# Two-parameter variant of +Enumerable+#+collect+, where the second
-	# parameter is a +base+-based index, which increments by 1 for each
-	# enumerated element.
-	def collect_with_index(base = 0)
+  # Two-parameter variant of +Enumerable+#+collect+, where the second
+  # parameter is a +base+-based index, which increments by 1 for each
+  # enumerated element.
+  def collect_with_index(base = 0)
 
-		a = []
+    a = []
 
-		self.each_with_index do |element, index|
+    self.each_with_index do |element, index|
 
-			a.push yield(element, base + index)
-		end
+      a.push yield(element, base + index)
+    end
 
-		a
-	end
+    a
+  end
 end # module Enumerable
 
 # ############################## end of file ############################# #

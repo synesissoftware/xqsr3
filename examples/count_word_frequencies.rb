@@ -23,9 +23,9 @@ words.each { |word| fm << word }
 
 fm.each_by_frequency do |word, frequency|
 
-	next if 1 == frequency
+  next if 1 == frequency
 
-	$stdout.puts "\t#{word}\t#{frequency}"
+  $stdout.puts "\t#{word}\t#{frequency}"
 end
 puts
 
@@ -36,9 +36,9 @@ fm = FrequencyMap::ByElement[*words]
 
 fm.each_by_frequency do |word, frequency|
 
-	next if 1 == frequency
+  next if 1 == frequency
 
-	$stdout.puts "\t#{word}\t#{frequency}"
+  $stdout.puts "\t#{word}\t#{frequency}"
 end
 puts
 

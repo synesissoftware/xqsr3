@@ -1,17 +1,18 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/string_utilities/nil_if_whitespace.rb
+# File:     lib/xqsr3/string_utilities/nil_if_whitespace.rb
 #
-# Purpose:      Definition of the ::Xqsr3::StringUtilities::NilIfWhitespace
-#               module
+# Purpose:  Definition of the ::Xqsr3::StringUtilities::NilIfWhitespace
+#           module
 #
-# Created:      25th January 2018
-# Updated:      15th April 2019
+# Created:  25th January 2018
+# Updated:  29th March 2024
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2018-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -58,44 +59,43 @@ module StringUtilities
 # #nil_if_whitespace methods
 module NilIfWhitespace
 
-	private
-	# @!visibility private
-	module NilIfWhitespace_Helper_ # :nodoc: all
+  private
+  # @!visibility private
+  module NilIfWhitespace_Helper_ # :nodoc: all
 
-		def self.string_nil_if_whitespace_array_ s # :nodoc:
+    def self.string_nil_if_whitespace_array_ s # :nodoc:
 
-			return nil if s.strip.empty?
+      return nil if s.strip.empty?
 
-			s
-		end
-	end
-	public
+      s
+    end
+  end
+  public
 
-	# Returns +nil+ if the given string is empty or contains only whitespace,
-	# otherwise returning the given string
-	#
-	# === Signature
-	#
-	# * *Parameters:*
-	#
-	# * *Required parameters*:
-	#   - +s+ (String) The string to be evaluated
-	def self.string_nil_if_whitespace s
+  # Returns +nil+ if the given string is empty or contains only whitespace,
+  # otherwise returning the given string
+  #
+  # === Signature
+  #
+  # * *Parameters:*
+  #
+  # * *Required parameters*:
+  #   - +s+ (String) The string to be evaluated
+  def self.string_nil_if_whitespace s
 
-		NilIfWhitespace_Helper_.string_nil_if_whitespace_array_ s
-	end
+    NilIfWhitespace_Helper_.string_nil_if_whitespace_array_ s
+  end
 
-	# Returns +nil+ if the instance is empty or contains only whitespace,
-	# otherwise returning self
-	def nil_if_whitespace
+  # Returns +nil+ if the instance is empty or contains only whitespace,
+  # otherwise returning self
+  def nil_if_whitespace
 
-		NilIfWhitespace_Helper_.string_nil_if_whitespace_array_ self
-	end
+    NilIfWhitespace_Helper_.string_nil_if_whitespace_array_ self
+  end
 end # module NilIfWhitespace
 
 end # module StringUtilities
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-
 

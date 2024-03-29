@@ -1,16 +1,17 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/io/writelines.rb
+# File:     lib/xqsr3/io/writelines.rb
 #
-# Purpose:      Adds a writelines() method to the IO module
+# Purpose:  Adds a writelines() method to the IO module
 #
-# Created:      13th April 2007
-# Updated:      31st October 2019
+# Created:  13th April 2007
+# Updated:  29th March 2024
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -55,177 +56,176 @@ require 'xqsr3/quality/parameter_checking'
 module Xqsr3
 module IO
 
-	private
-	# @!visibility private
-	module WriteLine_Constants_ #:nodoc: all
+  private
+  # @!visibility private
+  module WriteLine_Constants_ #:nodoc: all
 
-		NUMBER_OF_LINES_TO_EXAMINE	=	20
-	end # module WriteLine_Constants_
+    NUMBER_OF_LINES_TO_EXAMINE = 20
+  end # module WriteLine_Constants_
 
-	private
+  private
 
-	# @!visibility private
-	def self.write_to_target_ target, contents, line_separator, column_separator, no_last_eol # :nodoc:
+  # @!visibility private
+  def self.write_to_target_ target, contents, line_separator, column_separator, no_last_eol # :nodoc:
 
 $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}', contents(#{contents.class})='#{contents}', line_separator(#{line_separator.class})='#{line_separator}', column_separator(#{column_separator.class})='#{column_separator}', no_last_eol(#{no_last_eol.class})=#{no_last_eol})" if $DEBUG
 
-		if no_last_eol
+    if no_last_eol
 
-			first = true
+      first = true
 
-			if contents.instance_of? ::Hash
+      if contents.instance_of? ::Hash
 
-				contents.each do |k, v|
+        contents.each do |k, v|
 
-					target << line_separator unless first
+          target << line_separator unless first
 
-					target << "#{k}#{column_separator}#{v}"
+          target << "#{k}#{column_separator}#{v}"
 
-					first = false
-				end
-			else
+          first = false
+        end
+      else
 
-				contents.each do |element|
+        contents.each do |element|
 
-					target << line_separator unless first
+          target << line_separator unless first
 
-					target << "#{element}"
+          target << "#{element}"
 
-					first = false
-				end
-			end
-		else
+          first = false
+        end
+      end
+    else
 
-			if contents.instance_of? ::Hash
+      if contents.instance_of? ::Hash
 
-				contents.each do |k, v|
+        contents.each do |k, v|
 
-					target << "#{k}#{column_separator}#{v}#{line_separator}"
-				end
-			else
+          target << "#{k}#{column_separator}#{v}#{line_separator}"
+        end
+      else
 
-				contents.each do |element|
+        contents.each do |element|
 
-					target << "#{element}#{line_separator}"
-				end
-			end
-		end
+          target << "#{element}#{line_separator}"
+        end
+      end
+    end
 
-		contents.size
-	end
+    contents.size
+  end
 
-	# This function checks to see if any part of the entries contains an
-	# embedded eol, in which case the empty string is returned to force no
-	# (additional) separator will be used. Otherwise, it returns "\n" to
-	# ensure that that is used.
-	#
-	# @!visibility private
-	def self.deduce_line_separator_ contents, eol_lookahead_limit # :nodoc:
+  # This function checks to see if any part of the entries contains an
+  # embedded eol, in which case the empty string is returned to force no
+  # (additional) separator will be used. Otherwise, it returns "\n" to
+  # ensure that that is used.
+  #
+  # @!visibility private
+  def self.deduce_line_separator_ contents, eol_lookahead_limit # :nodoc:
 
-		if contents.instance_of? ::Hash
+    if contents.instance_of? ::Hash
 
-			contents.each_with_index do |k, v, index|
+      contents.each_with_index do |k, v, index|
 
-				if eol_lookahead_limit && eol_lookahead_limit == index
+        if eol_lookahead_limit && eol_lookahead_limit == index
 
-					break
-				else
+          break
+        else
 
-					return '' if v.to_s.include? "\n"
-					return '' if k.to_s.include? "\n"
-				end
-			end
-		else
+          return '' if v.to_s.include? "\n"
+          return '' if k.to_s.include? "\n"
+        end
+      end
+    else
 
-			contents.each_with_index do |element, index|
+      contents.each_with_index do |element, index|
 
-				if eol_lookahead_limit && eol_lookahead_limit == index
+        if eol_lookahead_limit && eol_lookahead_limit == index
 
-					break
-				else
+          break
+        else
 
-					return '' if element.to_s.include? "\n"
-				end
-			end
-		end
+          return '' if element.to_s.include? "\n"
+        end
+      end
+    end
 
-		"\n"
-	end
+    "\n"
+  end
 
-	public
+  public
 
-	# Writes the contents to the target, subject to the options
-	#
-	# === Signature
-	#
-	# * *Parameters:*
-	#   - +target+ The target of the write, which may be a string containing the path or a stream instance that supports write
-	#   - +contents+ The contents to be write, which may be a +Hash+, or an +Array+, or a +String+ containing delimited fields
-	#   - +options+ An options hash, containing any of the following options
-	#
-	# * *Options:*
-	#   - +:column_separator+ {optional} The column separator, to be applied between each field in the case where +contents+ is a +Hash+.
-	#   - +:eol_lookahead_limit+ {optional} The number of content elements (line/pair) to inspect to determine whether element has a terminating end-of-line sequence. Defaults to 20. If 0, and +:line_separator+ is not specified, then will default to <tt>"\n"</tt>. If +nil+, then every line will be inspected.
-	#   - +:line_separator+ {optional} The line separator, to be applied to the end of line created from each entry. When not specified, it will be deduced by inspecting +contents+ (according to +eol_lookahead_limit+).
-	#   - +:no_last_eol+ {optional} If present and _truey_, causes suppression of the addition of the +:line_separator+ on the last line.
-	#
-	# === Return
-	#
-	# The number of entries in +contents+
-	def self.writelines target, contents, options = {}
+  # Writes the contents to the target, subject to the options
+  #
+  # === Signature
+  #
+  # * *Parameters:*
+  #   - +target+ The target of the write, which may be a string containing the path or a stream instance that supports write
+  #   - +contents+ The contents to be write, which may be a +Hash+, or an +Array+, or a +String+ containing delimited fields
+  #   - +options+ An options hash, containing any of the following options
+  #
+  # * *Options:*
+  #   - +:column_separator+ {optional} The column separator, to be applied between each field in the case where +contents+ is a +Hash+.
+  #   - +:eol_lookahead_limit+ {optional} The number of content elements (line/pair) to inspect to determine whether element has a terminating end-of-line sequence. Defaults to 20. If 0, and +:line_separator+ is not specified, then will default to <tt>"\n"</tt>. If +nil+, then every line will be inspected.
+  #   - +:line_separator+ {optional} The line separator, to be applied to the end of line created from each entry. When not specified, it will be deduced by inspecting +contents+ (according to +eol_lookahead_limit+).
+  #   - +:no_last_eol+ {optional} If present and _truey_, causes suppression of the addition of the +:line_separator+ on the last line.
+  #
+  # === Return
+  #
+  # The number of entries in +contents+
+  def self.writelines target, contents, options = {}
 
-		# validate parameters
+    # validate parameters
 
-		::Xqsr3::Quality::ParameterChecking.check_parameter(target, 'target', allow_nil: false) do |v|
+    ::Xqsr3::Quality::ParameterChecking.check_parameter(target, 'target', allow_nil: false) do |v|
 
-			raise TypeError, "#{self}#writeline() 'target' parameter must be a #{::String} or respond to <<" unless ::String === v || v.respond_to?(:<<)
-			true
-		end
-		::Xqsr3::Quality::ParameterChecking.check_parameter(contents, 'contents', allow_nil: false, types: [ ::String, ::Hash, ::Array ])
+      raise TypeError, "#{self}#writeline() 'target' parameter must be a #{::String} or respond to <<" unless ::String === v || v.respond_to?(:<<)
+      true
+    end
+    ::Xqsr3::Quality::ParameterChecking.check_parameter(contents, 'contents', allow_nil: false, types: [ ::String, ::Hash, ::Array ])
 
-		# process parameters
+    # process parameters
 
-		if contents.instance_of? String
+    if contents.instance_of? String
 
-			if contents.include? "\n"
+      if contents.include? "\n"
 
-				contents = contents.split(/\r?\n/, -1)
-			else
+        contents = contents.split(/\r?\n/, -1)
+      else
 
-				contents = [ contents ]
-			end
-		end
+        contents = [ contents ]
+      end
+    end
 
-		options				||=	{}
-		eol_lookahead_limit	=	options[:eol_lookahead_limit] || WriteLine_Constants_::NUMBER_OF_LINES_TO_EXAMINE
-		column_separator	=	options[:column_separator] || ''
-		no_last_eol			=	options[:no_last_eol] || false
-		line_separator		=	nil
-		line_separator		||=	options[:line_separator]
-		line_separator		||=	self.deduce_line_separator_(contents, eol_lookahead_limit) unless !eol_lookahead_limit.kind_of?(::Integer) || 0 == eol_lookahead_limit
-		line_separator		||=	"\n"
+    options             ||= {}
+    eol_lookahead_limit =   options[:eol_lookahead_limit] || WriteLine_Constants_::NUMBER_OF_LINES_TO_EXAMINE
+    column_separator    =   options[:column_separator] || ''
+    no_last_eol         =   options[:no_last_eol] || false
+    line_separator      =   nil
+    line_separator      ||= options[:line_separator]
+    line_separator      ||= self.deduce_line_separator_(contents, eol_lookahead_limit) unless !eol_lookahead_limit.kind_of?(::Integer) || 0 == eol_lookahead_limit
+    line_separator      ||= "\n"
 
-		if not contents.kind_of? ::Enumerable and not contents.instance_of? ::Hash
+    if not contents.kind_of? ::Enumerable and not contents.instance_of? ::Hash
 
-			raise ArgumentError, "writelines() must be passed a #{::String}, or a #{::Hash}, or an #{::Enumerable} (or derived)"
-		end
+      raise ArgumentError, "writelines() must be passed a #{::String}, or a #{::Hash}, or an #{::Enumerable} (or derived)"
+    end
 
-		# do the writing
+    # do the writing
 
-		if ::String === target
+    if ::String === target
 
-			File.open(target, "w") do |io|
+      File.open(target, "w") do |io|
 
-				self.write_to_target_ io, contents, line_separator, column_separator, no_last_eol
-			end
-		else
+        self.write_to_target_ io, contents, line_separator, column_separator, no_last_eol
+      end
+    else
 
-			self.write_to_target_ target, contents, line_separator, column_separator, no_last_eol
-		end
-	end # writelines
+      self.write_to_target_ target, contents, line_separator, column_separator, no_last_eol
+    end
+  end # writelines
 end # module IO
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-
 

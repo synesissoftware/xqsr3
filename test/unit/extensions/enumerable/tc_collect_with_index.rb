@@ -8,29 +8,29 @@ require 'test/unit'
 
 class Test_Enumerable_collect_with_index < Test::Unit::TestCase
 
-	def test_simple
+  def test_simple
 
-		ar = [ 1, -2, 3, -4, 5, -6 ]
+    ar = [ 1, -2, 3, -4, 5, -6 ]
 
-		r = ar.collect_with_index do |v, index0|
+    r = ar.collect_with_index do |v, index0|
 
-			index0 * v.abs
-		end
+      index0 * v.abs
+    end
 
-		assert_equal [ 0, 2, 6, 12, 20, 30 ], r
-	end
+    assert_equal [ 0, 2, 6, 12, 20, 30 ], r
+  end
 
-	def test_simple_with_offset
+  def test_simple_with_offset
 
-		ar = [ 1, -2, 3, -4, 5, -6 ]
+    ar = [ 1, -2, 3, -4, 5, -6 ]
 
-		r = ar.collect_with_index(1) do |v, index0|
+    r = ar.collect_with_index(1) do |v, index0|
 
-			index0 * v.abs
-		end
+      index0 * v.abs
+    end
 
-		assert_equal [ 1, 4, 9, 16, 25, 36 ], r
-	end
+    assert_equal [ 1, 4, 9, 16, 25, 36 ], r
+  end
 end
 
 

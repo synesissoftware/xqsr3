@@ -1,17 +1,17 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/hash_utilities/key_matching.rb
+# File:     lib/xqsr3/hash_utilities/key_matching.rb
 #
-# Purpose:      Definition of the ::Xqsr3::HashUtilities::KeyMatching
-#               module
+# Purpose:  Definition of the ::Xqsr3::HashUtilities::KeyMatching module
 #
-# Created:      15th November 2017
-# Updated:      15th April 2019
+# Created:  15th November 2017
+# Updated:  29th March 2024
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -60,113 +60,113 @@ module HashUtilities
 # and #match methods
 module KeyMatching
 
-	private
-	def self.do_match_ h, re, **options # :nodoc:
+  private
+  def self.do_match_ h, re, **options # :nodoc:
 
-		::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :[], :has_key?, :each ]
+    ::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :[], :has_key?, :each ]
 
-		return h[re] if h.has_key? re
+    return h[re] if h.has_key? re
 
-		case re
-		when ::Regexp
+    case re
+    when ::Regexp
 
-			h.each do |k, v|
+      h.each do |k, v|
 
-				case k
-				when ::Regexp
+        case k
+        when ::Regexp
 
-					next
-				else
+          next
+        else
 
-					return v if k.to_s =~ re
-				end
-			end
-		else
+          return v if k.to_s =~ re
+        end
+      end
+    else
 
-			h.each do |k, v|
+      h.each do |k, v|
 
-				case k
-				when ::Regexp
+        case k
+        when ::Regexp
 
-					return v if re.to_s =~ k
-				else
+          return v if re.to_s =~ k
+        else
 
-					next
-				end
-			end
-		end
+          next
+        end
+      end
+    end
 
-		nil
-	end
+    nil
+  end
 
-	def self.do_has_match_ h, re, **options # :nodoc:
+  def self.do_has_match_ h, re, **options # :nodoc:
 
-		::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :[], :has_key?, :each ]
+    ::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :[], :has_key?, :each ]
 
-		return true if h.has_key? re
+    return true if h.has_key? re
 
-		case re
-		when ::Regexp
+    case re
+    when ::Regexp
 
-			h.each do |k, v|
+      h.each do |k, v|
 
-				case k
-				when ::Regexp
+        case k
+        when ::Regexp
 
-					next
-				else
+          next
+        else
 
-					return true if k.to_s =~ re
-				end
-			end
-		else
+          return true if k.to_s =~ re
+        end
+      end
+    else
 
-			h.each do |k, v|
+      h.each do |k, v|
 
-				case k
-				when ::Regexp
+        case k
+        when ::Regexp
 
-					return true if re.to_s =~ k
-				else
+          return true if re.to_s =~ k
+        else
 
-					next
-				end
-			end
-		end
+          next
+        end
+      end
+    end
 
-		false
-	end
-	public
+    false
+  end
+  public
 
-	# Retrieves the value object corresponding to the first key object that
-	# matches the given +re+, in the hash +h+, according to the given
-	# options.
-	def self.match h, re, **options
+  # Retrieves the value object corresponding to the first key object that
+  # matches the given +re+, in the hash +h+, according to the given
+  # options.
+  def self.match h, re, **options
 
-		Xqsr3::HashUtilities::KeyMatching.do_match_ h, re, **options
-	end
+    Xqsr3::HashUtilities::KeyMatching.do_match_ h, re, **options
+  end
 
-	# Returns true if the hash +h+ contains a key object that matches the
-	# given +re+, according to the given options
-	def self.has_match? h, re, **options
+  # Returns true if the hash +h+ contains a key object that matches the
+  # given +re+, according to the given options
+  def self.has_match? h, re, **options
 
-		Xqsr3::HashUtilities::KeyMatching.do_has_match_ h, re, **options
-	end
+    Xqsr3::HashUtilities::KeyMatching.do_has_match_ h, re, **options
+  end
 
-	# Retrieves the value object corresponding to the first key object that
-	# matches the given +re+, in the hash +h+, according to the given
-	# options.
-	def match h, re, **options
+  # Retrieves the value object corresponding to the first key object that
+  # matches the given +re+, in the hash +h+, according to the given
+  # options.
+  def match h, re, **options
 
-		Xqsr3::HashUtilities::KeyMatching.do_match_ h, re, **options
-	end
+    Xqsr3::HashUtilities::KeyMatching.do_match_ h, re, **options
+  end
 
-	# Returns true if the hash +h+ contains a key object that matches the
-	# given +re+, according to the given options
-	def has_match? h, re, **options
+  # Returns true if the hash +h+ contains a key object that matches the
+  # given +re+, according to the given options
+  def has_match? h, re, **options
 
-		Xqsr3::HashUtilities::KeyMatching.do_has_match_ h, re, **options
-	end
+    Xqsr3::HashUtilities::KeyMatching.do_has_match_ h, re, **options
+  end
 
 end # module KeyMatching
 

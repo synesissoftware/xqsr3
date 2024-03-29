@@ -11,59 +11,59 @@ require 'stringio'
 
 class Test_String_ends_with < Test::Unit::TestCase
 
-	def test_String_has_method
+  def test_String_has_method
 
-		assert ''.respond_to? :ends_with?
-	end
+    assert ''.respond_to? :ends_with?
+  end
 
-	def test_with_nil
+  def test_with_nil
 
-		assert ''.ends_with? nil
-	end
+    assert ''.ends_with? nil
+  end
 
-	def test_with_single_strings
+  def test_with_single_strings
 
-		assert ''.ends_with? ''
-		assert 'a'.ends_with? ''
-		assert 'a'.ends_with? 'a'
-		assert_not 'b'.ends_with? 'a'
-		assert_nil 'b'.ends_with? 'a'
-		assert 'ab'.ends_with? 'b'
-		assert 'abc'.ends_with? 'c'
-		assert 'abc'.ends_with? 'bc'
-		assert_not 'abc'.ends_with? 'ac'
-		assert_nil 'abc'.ends_with? 'ac'
+    assert ''.ends_with? ''
+    assert 'a'.ends_with? ''
+    assert 'a'.ends_with? 'a'
+    assert_not 'b'.ends_with? 'a'
+    assert_nil 'b'.ends_with? 'a'
+    assert 'ab'.ends_with? 'b'
+    assert 'abc'.ends_with? 'c'
+    assert 'abc'.ends_with? 'bc'
+    assert_not 'abc'.ends_with? 'ac'
+    assert_nil 'abc'.ends_with? 'ac'
 
-		assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? ''
-		assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? 'z'
-		assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? 'yz'
-		assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? 'xyz'
-		assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? 'wxyz'
-		assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? 'vwxyz'
-	end
+    assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? ''
+    assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? 'z'
+    assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? 'yz'
+    assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? 'xyz'
+    assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? 'wxyz'
+    assert 'abcdefghijklmnopqrstuvwxyz'.ends_with? 'vwxyz'
+  end
 
-	def test_multiple_strings
+  def test_multiple_strings
 
-		assert ''.ends_with? '', 'd'
-		assert_not ''.ends_with? 'c', 'd'
-		assert_nil ''.ends_with? 'c', 'd'
-		assert 'c'.ends_with? 'c', 'd'
-		assert 'd'.ends_with? 'c', 'd'
+    assert ''.ends_with? '', 'd'
+    assert_not ''.ends_with? 'c', 'd'
+    assert_nil ''.ends_with? 'c', 'd'
+    assert 'c'.ends_with? 'c', 'd'
+    assert 'd'.ends_with? 'c', 'd'
 
-		assert_equal 'd', 'abcd'.ends_with?('c', 'd')
-	end
+    assert_equal 'd', 'abcd'.ends_with?('c', 'd')
+  end
 
-	def test_with_array
+  def test_with_array
 
-		prefixes = %w{ a c def }
+    prefixes = %w{ a c def }
 
-		assert_not ''.ends_with?(*prefixes)
-		assert_nil ''.ends_with?(*prefixes), 'empty string does not yield nil with given non-empty prefix(es)'
-		assert 'abc'.ends_with?(*prefixes)
-		assert_not 'd'.ends_with?(*prefixes)
-		assert_nil 'd'.ends_with?(*prefixes)
-		assert 'abcdef'.ends_with?(*prefixes)
-	end
+    assert_not ''.ends_with?(*prefixes)
+    assert_nil ''.ends_with?(*prefixes), 'empty string does not yield nil with given non-empty prefix(es)'
+    assert 'abc'.ends_with?(*prefixes)
+    assert_not 'd'.ends_with?(*prefixes)
+    assert_nil 'd'.ends_with?(*prefixes)
+    assert 'abcdef'.ends_with?(*prefixes)
+  end
 end
 
 

@@ -8,29 +8,29 @@ require 'test/unit'
 
 class Test_version < Test::Unit::TestCase
 
-	def test_has_VERSION
+  def test_has_VERSION
 
-		assert defined? Xqsr3::VERSION
-	end
+    assert defined? Xqsr3::VERSION
+  end
 
-	def test_has_VERSION_MAJOR
+  def test_has_VERSION_MAJOR
 
-		assert defined? Xqsr3::VERSION_MAJOR
-	end
+    assert defined? Xqsr3::VERSION_MAJOR
+  end
 
-	def test_has_VERSION_MINOR
+  def test_has_VERSION_MINOR
 
-		assert defined? Xqsr3::VERSION_MINOR
-	end
+    assert defined? Xqsr3::VERSION_MINOR
+  end
 
-	def test_has_VERSION_REVISION
+  def test_has_VERSION_REVISION
 
-		assert defined? Xqsr3::VERSION_REVISION
-	end
+    assert defined? Xqsr3::VERSION_REVISION
+  end
 
-	def test_VERSION_has_consistent_format
+  def test_VERSION_has_consistent_format
 
-		assert_equal Xqsr3::VERSION.split('.')[0..2].join('.'), "#{Xqsr3::VERSION_MAJOR}.#{Xqsr3::VERSION_MINOR}.#{Xqsr3::VERSION_REVISION}"
-	end
+    assert_equal Xqsr3::VERSION.split('.')[0..2].join('.'), "#{Xqsr3::VERSION_MAJOR}.#{Xqsr3::VERSION_MINOR}.#{Xqsr3::VERSION_REVISION}"
+  end
 end
 

@@ -11,17 +11,17 @@ require 'stringio'
 
 class Test_String_nil_if_whitespace < Test::Unit::TestCase
 
-	def test_String_has_method
+  def test_String_has_method
 
-		assert ''.respond_to? :nil_if_whitespace
-	end
+    assert ''.respond_to? :nil_if_whitespace
+  end
 
-	def test_nil_if_whitespace
+  def test_nil_if_whitespace
 
-		assert_nil ''.nil_if_whitespace
-		assert_nil ' '.nil_if_whitespace
-		assert_equal 'a', 'a'.nil_if_whitespace
-	end
+    assert_nil ''.nil_if_whitespace
+    assert_nil ' '.nil_if_whitespace
+    assert_equal 'a', 'a'.nil_if_whitespace
+  end
 end
 
 
