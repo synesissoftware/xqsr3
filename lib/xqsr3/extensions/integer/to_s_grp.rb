@@ -1,18 +1,17 @@
 
 # ######################################################################## #
-# File:     lib/xqsr3/version.rb
+# File:     lib/xqsr3/extensions/integer/to_s_grp.rb
 #
-# Purpose:  Version for Xqsr3 library
+# Purpose:  Adds a to_s_grp() method to the Integer class
 #
-# Created:  3rd April 2016
-# Updated:  30th March 2024
+# Created:  29th March 2024
+# Updated:  29th March 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
-# Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
+# Copyright (c) 2024, Matthew Wilson and Synesis Information Systems
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,7 +25,7 @@
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
 #
-# * Neither the names of the copyright holders nor the names of its
+# * Neither the names of the copyright holder nor the names of its
 #   contributors may be used to endorse or promote products derived from
 #   this software without specific prior written permission.
 #
@@ -45,25 +44,75 @@
 # ######################################################################## #
 
 
+# ##########################################################
+# ::Integer
+
 =begin
 =end
 
-module Xqsr3
+class Integer
 
-  # Current version of the Xqsr3 library
-  VERSION           = '0.39.1'
+  # Extends +Integer+ type with the +#to_s_grp()+ method
+  def to_s_grp *args, **options
 
-  private
-  VERSION_PARTS_    = VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
-  public
-  # Major version of the Xqsr3 library
-  VERSION_MAJOR     = VERSION_PARTS_[0] # :nodoc:
-  # Minor version of the Xqsr3 library
-  VERSION_MINOR     = VERSION_PARTS_[1] # :nodoc:
-  # Revision version of the Xqsr3 library
-  VERSION_REVISION  = VERSION_PARTS_[2] # :nodoc:
+    separator = options[:separator] || ','
 
-end # module Xqsr3
+    numbers =
+    case args.size
+    when 0
+
+      []
+    when 1
+      case args[0]
+      when ::Array
+
+        args[0]
+      when ::Integer
+
+        [ args[0] ]
+      else
+
+        raise TypeError, "parameter 'args[0]' (#{args[0].class}) must be an instance of Integer, or an array containing instance(s) of Integer"
+      end
+    else
+
+      args
+    end
+
+
+    case numbers.size
+    when 0
+
+      return self.to_s
+    when 1
+
+      return self.to_s.chars.to_a.reverse.each_slice(numbers[0]).map(&:join).join(',').reverse
+    else
+
+      reversed_chars = self.to_s.chars.to_a#.reverse
+
+      r = []
+
+      last_n = nil
+
+      numbers.each do |n|
+
+        r << separator unless r.empty?
+        r << reversed_chars.pop(n).reverse
+
+        last_n = n
+      end
+
+      until reversed_chars.empty?
+
+        r << separator unless r.empty?
+        r << reversed_chars.pop(last_n).reverse
+      end
+
+      r.flatten.join('').reverse
+    end
+  end
+end # module Kernel
 
 # ############################## end of file ############################# #
 
