@@ -22,7 +22,7 @@ class Test_X_Object_inspect < Test::Unit::TestCase
 
     def inspect
 
-      make_inspect **@inspect_options
+      make_inspect(**@inspect_options)
     end
   end
 
@@ -35,66 +35,66 @@ class Test_X_Object_inspect < Test::Unit::TestCase
 
     ex = Example1.new
 
-    assert_match /\A#<Test_X_Object_inspect::Example1:0x\d+>\z/, ex.inspect
+    assert_match(/\A#<Test_X_Object_inspect::Example1:0x\d+>\z/, ex.inspect)
 
     ex2 = ExampleWithHiddenFields.new
 
-    assert_match /\A#<Test_X_Object_inspect::ExampleWithHiddenFields:0x\d+>\z/, ex2.inspect
+    assert_match(/\A#<Test_X_Object_inspect::ExampleWithHiddenFields:0x\d+>\z/, ex2.inspect)
   end
 
   def test_no_class
 
     ex = Example1.new(no_class: true)
 
-    assert_match /\A#<0x\d+>\z/, ex.inspect
+    assert_match(/\A#<0x\d+>\z/, ex.inspect)
 
     ex2 = ExampleWithHiddenFields.new(no_class: true)
 
-    assert_match /\A#<0x\d+>\z/, ex2.inspect
+    assert_match(/\A#<0x\d+>\z/, ex2.inspect)
   end
 
   def test_no_object_id
 
     ex = Example1.new(no_object_id: true)
 
-    assert_match /\A#<Test_X_Object_inspect::Example1>\z/, ex.inspect
+    assert_match(/\A#<Test_X_Object_inspect::Example1>\z/, ex.inspect)
 
     ex2 = ExampleWithHiddenFields.new(no_object_id: true)
 
-    assert_match /\A#<Test_X_Object_inspect::ExampleWithHiddenFields>\z/, ex2.inspect
+    assert_match(/\A#<Test_X_Object_inspect::ExampleWithHiddenFields>\z/, ex2.inspect)
   end
 
   def test_show_fields
 
     ex = Example1.new(show_fields: true)
 
-    assert_match /\A#<Test_X_Object_inspect::Example1:0x\d+:\s*@alphabet\(String\)='abcdefghijklmnopqrstuvwxyz';\s*@inspect_options.*;\s*@letters.*>\z/, ex.inspect
+    assert_match(/\A#<Test_X_Object_inspect::Example1:0x\d+:\s*@alphabet\(String\)='abcdefghijklmnopqrstuvwxyz';\s*@inspect_options.*;\s*@letters.*>\z/, ex.inspect)
 
     ex2 = ExampleWithHiddenFields.new(show_fields: true)
 
-    assert_match /\A#<Test_X_Object_inspect::ExampleWithHiddenFields:0x\d+:\s*@alphabet\(String\)='abcdefghijklmnopqrstuvwxyz';\s*@inspect_options\(.+\)=[^;]+>\z/, ex2.inspect
+    assert_match(/\A#<Test_X_Object_inspect::ExampleWithHiddenFields:0x\d+:\s*@alphabet\(String\)='abcdefghijklmnopqrstuvwxyz';\s*@inspect_options\(.+\)=[^;]+>\z/, ex2.inspect)
   end
 
   def test_show_fields_hidden
 
     ex = Example1.new(show_fields: true, hidden_fields: [ 'inspect_options' ])
 
-    assert_match /\A#<Test_X_Object_inspect::Example1:0x\d+:\s*@alphabet\(String\)='abcdefghijklmnopqrstuvwxyz';\s*@letters.*>\z/, ex.inspect
+    assert_match(/\A#<Test_X_Object_inspect::Example1:0x\d+:\s*@alphabet\(String\)='abcdefghijklmnopqrstuvwxyz';\s*@letters.*>\z/, ex.inspect)
 
     ex2 = ExampleWithHiddenFields.new(show_fields: true, hidden_fields: [ 'inspect_options' ])
 
-    assert_match /\A#<Test_X_Object_inspect::ExampleWithHiddenFields:0x\d+:\s*@alphabet\(String\)='abcdefghijklmnopqrstuvwxyz'>\z/, ex2.inspect
+    assert_match(/\A#<Test_X_Object_inspect::ExampleWithHiddenFields:0x\d+:\s*@alphabet\(String\)='abcdefghijklmnopqrstuvwxyz'>\z/, ex2.inspect)
   end
 
   def test_show_fields_truncated
 
     ex = Example1.new(show_fields: true, truncate_width: 10)
 
-    assert_match /\A#<Test_X_Object_inspect::Example1:0x\d+:\s*@alphabet\(String\)='abcdefg...';\s*@inspect_options.*;\s*@letters.*>\z/, ex.inspect
+    assert_match(/\A#<Test_X_Object_inspect::Example1:0x\d+:\s*@alphabet\(String\)='abcdefg...';\s*@inspect_options.*;\s*@letters.*>\z/, ex.inspect)
 
     ex2 = ExampleWithHiddenFields.new(show_fields: true, truncate_width: 10)
 
-    assert_match /\A#<Test_X_Object_inspect::ExampleWithHiddenFields:0x\d+:\s*@alphabet\(String\)='abcdefg...';\s*@inspect_options.*>\z/, ex2.inspect
+    assert_match(/\A#<Test_X_Object_inspect::ExampleWithHiddenFields:0x\d+:\s*@alphabet\(String\)='abcdefg...';\s*@inspect_options.*>\z/, ex2.inspect)
   end
 end
 

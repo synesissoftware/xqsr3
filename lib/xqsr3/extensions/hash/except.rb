@@ -14,7 +14,7 @@ unless Hash.instance_methods.include? :except!
 
       self
     end
-    end
+  end
 end
 
 unless Hash.instance_methods.include? :except

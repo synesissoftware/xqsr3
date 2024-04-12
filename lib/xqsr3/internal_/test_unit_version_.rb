@@ -6,13 +6,13 @@
 #           Test::Unit module
 #
 # Created:  March 2nd 2019
-# Updated:  11th December 2023
+# Updated:  11th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -66,7 +66,7 @@ begin
   end # module Xqsr3
 
   # :startdoc:
-  rescue LoadError
+rescue LoadError
 
   # :stopdoc:
   # @!visibility private
@@ -83,13 +83,13 @@ begin
   end # module Xqsr3
 
   # :startdoc:
-  end
+end
 
-  # :stopdoc:
+# :stopdoc:
 
-  module Xqsr3
-  module Internal_ # :nodoc:
-  module TestUnitVersion_ # :nodoc:
+module Xqsr3
+module Internal_ # :nodoc:
+module TestUnitVersion_ # :nodoc:
 
   if TEST_UNIT_VERSION_ == :not_found
 

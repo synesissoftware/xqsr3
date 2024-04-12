@@ -21,7 +21,7 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 
     assert_nil fm1.default
 
-    assert_match /^#<Xqsr3::Containers::FrequencyMap:0x\d+:\s*@count\(\w+\)=0; @elements\(Hash\)={}\s*>$/, fm1.inspect
+    assert_match (/^#<Xqsr3::Containers::FrequencyMap:0x\d+:\s*@count\(\w+\)=0; @elements\(Hash\)={}\s*>$/), fm1.inspect
   end
 
   def test_class_operator_subscript_2
@@ -32,7 +32,7 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
     assert_not fm2.empty?
     assert_equal 2, fm2.size
 
-    assert_match /^#<Xqsr3::Containers::FrequencyMap:0x\d+:\s*@count\(\w+\)=3; @elements\(Hash\)={.*abc.*def.*}\s*>$/, fm2.inspect
+    assert_match (/^#<Xqsr3::Containers::FrequencyMap:0x\d+:\s*@count\(\w+\)=3; @elements\(Hash\)={.*abc.*def.*}\s*>$/), fm2.inspect
   end
 
   def test_class_operator_subscript_3

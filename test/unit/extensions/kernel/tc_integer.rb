@@ -14,15 +14,15 @@ class Test_X_Kernel_Integer < Test::Unit::TestCase
 
   def test_Integer_with_valid_values
 
-    assert_equal 0, Integer(0)
-    assert_equal +1, Integer(1)
-    assert_equal +1, Integer(+1)
-    assert_equal -1, Integer(-1)
+    assert_equal(0, Integer(0))
+    assert_equal(+1, Integer(1))
+    assert_equal(+1, Integer(+1))
+    assert_equal(-1, Integer(-1))
 
-    assert_equal 0, Integer('0')
-    assert_equal +1, Integer('1')
-    assert_equal +1, Integer('+1')
-    assert_equal -1, Integer('-1')
+    assert_equal(0, Integer('0'))
+    assert_equal(+1, Integer('1'))
+    assert_equal(+1, Integer('+1'))
+    assert_equal(-1, Integer('-1'))
   end
 
   def test_Integer_with_invalid_values
