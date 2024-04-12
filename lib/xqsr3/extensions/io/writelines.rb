@@ -5,7 +5,7 @@
 # Purpose:  Adds a writelines() method to the IO class
 #
 # Created:  13th April 2007
-# Updated:  29th March 2024
+# Updated:  12th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -83,8 +83,8 @@ class IO
       arg3 = args[0]
       arg4 = args[1]
 
-      options[:line_separator] = arg2
-      options[:column_separator] = arg2
+      options[:line_separator] = arg3
+      options[:column_separator] = arg4
     else
 
       raise ArgumentError, "wrong number of arguments (given #{2 + args.size}, expected 2..4)"

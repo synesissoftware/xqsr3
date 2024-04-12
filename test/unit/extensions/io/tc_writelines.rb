@@ -118,6 +118,78 @@ class Test_IO_writelines < Test::Unit::TestCase
     assert_equal "abc\ndef", s.string
   end
 
+  def test_two_strings_in_hash_with_col_sep
+
+    input = { 'ab' => 'c', 'de' => 'f' }
+
+    s = StringIO.new '', 'a'
+
+    r = ::IO.writelines s, input, column_separator: "\t"
+
+    assert_equal 2, r
+    assert_equal "ab\tc\nde\tf\n", s.string
+  end
+
+  def test_two_strings_in_hash_with_line_sep
+
+    input = { 'ab' => 'c', 'de' => 'f' }
+
+    s = StringIO.new '', 'a'
+
+    r = ::IO.writelines s, input, line_separator: '+'
+
+    assert_equal 2, r
+    assert_equal "abc+def+", s.string
+  end
+
+  def test_two_strings_in_hash_with_line_sep_and_col_sep
+
+    input = { 'ab' => 'c', 'de' => 'f' }
+
+    s = StringIO.new '', 'a'
+
+    r = ::IO.writelines s, input, line_separator: '+', column_separator: "\t"
+
+    assert_equal 2, r
+    assert_equal "ab\tc+de\tf+", s.string
+  end
+
+  def test_two_strings_in_hash_with_line_sep_and_col_sep_and_nolasteol
+
+    input = { 'ab' => 'c', 'de' => 'f' }
+
+    s = StringIO.new '', 'a'
+
+    r = ::IO.writelines s, input, line_separator: '+', column_separator: "\t", no_last_eol: true
+
+    assert_equal 2, r
+    assert_equal "ab\tc+de\tf", s.string
+  end
+
+  def test_two_strings_in_hash_with_arguments_of_line_sep
+
+    input = { 'ab' => 'c', 'de' => 'f' }
+
+    s = StringIO.new '', 'a'
+
+    r = ::IO.writelines s, input, '+'
+
+    assert_equal 2, r
+    assert_equal "abc+def+", s.string
+  end
+
+  def test_two_strings_in_hash_with_arguments_of_line_sep_and_col_sep
+
+    input = { 'ab' => 'c', 'de' => 'f' }
+
+    s = StringIO.new '', 'a'
+
+    r = ::IO.writelines s, input, '+', '-'
+
+    assert_equal 2, r
+    assert_equal "ab-c+de-f+", s.string
+  end
+
   def test_ten_strings_in_array
 
     input = (0...10).map { |i| i.to_s }

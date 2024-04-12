@@ -83,6 +83,18 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
     assert_equal "abc\ndef\n", s.string
   end
 
+  def test_two_strings_in_hash_nolasteol
+
+    input = { 'ab' => 'c', 'de' => 'f' }
+
+    s = StringIO.new '', 'a'
+
+    r = ::Xqsr3::IO.writelines s, input, no_last_eol: true
+
+    assert_equal 2, r
+    assert_equal "abc\ndef", s.string
+  end
+
   def test_two_strings_in_hash_with_col_sep
 
     input = { 'ab' => 'c', 'de' => 'f' }
@@ -93,6 +105,54 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     assert_equal 2, r
     assert_equal "ab\tc\nde\tf\n", s.string
+  end
+
+  def test_two_strings_in_hash_with_line_sep
+
+    input = { 'ab' => 'c', 'de' => 'f' }
+
+    s = StringIO.new '', 'a'
+
+    r = ::Xqsr3::IO.writelines s, input, line_separator: '+'
+
+    assert_equal 2, r
+    assert_equal "abc+def+", s.string
+  end
+
+  def test_two_strings_in_hash_with_line_sep_and_col_sep
+
+    input = { 'ab' => 'c', 'de' => 'f' }
+
+    s = StringIO.new '', 'a'
+
+    r = ::Xqsr3::IO.writelines s, input, line_separator: '+', column_separator: "\t"
+
+    assert_equal 2, r
+    assert_equal "ab\tc+de\tf+", s.string
+  end
+
+  def test_two_strings_in_hash_with_line_sep_and_col_sep_and_nolasteol
+
+    input = { 'ab' => 'c', 'de' => 'f' }
+
+    s = StringIO.new '', 'a'
+
+    r = ::Xqsr3::IO.writelines s, input, line_separator: '+', column_separator: "\t", no_last_eol: true
+
+    assert_equal 2, r
+    assert_equal "ab\tc+de\tf", s.string
+  end
+
+  def test_two_entries_in_hash_with_line_sep_and_col_sep
+
+    input = { 'ab' => 'c', 'de' => 'f' }
+
+    s = StringIO.new '', 'a'
+
+    r = ::Xqsr3::IO.writelines s, input, line_separator: '+', column_separator: '-'
+
+    assert_equal 2, r
+    assert_equal "ab-c+de-f+", s.string
   end
 
   def test_ten_strings_in_array

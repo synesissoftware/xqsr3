@@ -5,7 +5,7 @@
 # Purpose:  Adds a writelines() method to the IO module
 #
 # Created:  13th April 2007
-# Updated:  29th March 2024
+# Updated:  12th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -68,7 +68,9 @@ module IO
   # @!visibility private
   def self.write_to_target_ target, contents, line_separator, column_separator, no_last_eol # :nodoc:
 
-$stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}', contents(#{contents.class})='#{contents}', line_separator(#{line_separator.class})='#{line_separator}', column_separator(#{column_separator.class})='#{column_separator}', no_last_eol(#{no_last_eol.class})=#{no_last_eol})" if $DEBUG
+=begin
+    $stderr.puts "#{self.class}.write_to_target_(target(#{target.class})='#{target}', contents(#{contents.class})='#{contents}', line_separator(#{line_separator.class})='#{line_separator}', column_separator(#{column_separator.class})='#{column_separator}', no_last_eol(#{no_last_eol.class})=#{no_last_eol})" if $DEBUG
+=end
 
     if no_last_eol
 
