@@ -1,6 +1,15 @@
 # **xqsr3** Changes
 
 
+## 0.39.2 - 12th April 2024
+
+* fixed conditional definition / overriding of `Test::Unit::Assertions` assertion methods
+* fix to `IO.writelines()` extension method
+* various warnings fixed
+* settings (fix)
+* updated **run_all_unit_tests.sh** (from https://github.com/synesissoftware/misc-dev-scripts)
+
+
 ## 0.39.1 - 30th March 2024
 
 * extends `Integer` class with the `#to_s_grp()` method
