@@ -2,11 +2,12 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/enumerable/detect_map'
 
 require 'xqsr3/extensions/test/unit'
-
 require 'test/unit'
+
 
 class Test_Enumerable_detect_map < Test::Unit::TestCase
 

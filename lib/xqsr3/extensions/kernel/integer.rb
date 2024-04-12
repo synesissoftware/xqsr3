@@ -5,7 +5,7 @@
 # Purpose:  Adds a Integer 'overload' to the Kernel module
 #
 # Created:  21st November 2017
-# Updated:  29th March 2024
+# Updated:  12th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -47,8 +47,6 @@
 
 require 'xqsr3/conversion/integer_parser'
 
-# ##########################################################
-# ::Kernel
 
 =begin
 =end
@@ -62,14 +60,14 @@ module Kernel
   # === Signature
   #
   # * *Parameters:*
-  #   - +arg+ The argument to be converted (to +Fixnum+ or +Bignum+)
-  #   - +base+ A value of 0, or between 2 and 36. Defaults to 0
-  #   - +options+ An options hash, containing any of the following options
-  #   - +block+ An optional caller-supplied block that will be invoked with the +ArgumentError+ exception, allowing the caller to take additional action. If the block returns then its return value will be returned to the caller
+  #   - +arg+ The argument to be converted (to +Fixnum+ or +Bignum+);
+  #   - +base+ A value of 0, or between 2 and 36. Defaults to 0;
+  #   - +options+ (+Hash+) Options that control the behaviour of the method;
+  #   - +block+ An optional caller-supplied block that will be invoked with the +ArgumentError+ exception, allowing the caller to take additional action. If the block returns then its return value will be returned to the caller;
   #
   # * *Options:*
-  #   - +:default+ A default value to be used when +arg+ is +nil+ or cannot be converted by (the original) +Kernel#Integer+
-  #   - +:nil+ Returns +nil+ if +arg+ is +nil+ or cannot be converted by (the original) +Kernel#Integer+. Ignored if +:default+ is specified
+  #   - +:default+ A default value to be used when +arg+ is +nil+ or cannot be converted by (the original) +Kernel#Integer+;
+  #   - +:nil+ Returns +nil+ if +arg+ is +nil+ or cannot be converted by (the original) +Kernel#Integer+. Ignored if +:default+ is specified;
   def Integer(arg, base = 0, **options, &block)
 
     ::Xqsr3::Conversion::IntegerParser.to_integer arg, base = 0, **options, &block

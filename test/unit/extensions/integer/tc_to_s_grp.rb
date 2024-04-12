@@ -2,9 +2,11 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/integer/to_s_grp'
 
 require 'test/unit'
+
 
 class Test_X_Integer_to_s_grp < Test::Unit::TestCase
 

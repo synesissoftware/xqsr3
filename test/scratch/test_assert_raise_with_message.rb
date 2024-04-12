@@ -2,9 +2,11 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../lib')
 
+
 require 'xqsr3/extensions/test/unit/assert_raise_with_message'
 
 require 'test/unit'
+
 
 class Test_assert_raise_with_message < Test::Unit::TestCase
 

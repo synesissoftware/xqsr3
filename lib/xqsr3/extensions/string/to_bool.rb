@@ -1,6 +1,7 @@
 
 require 'xqsr3/conversion/bool_parser'
 
+
 class String
 
   # Attempts to convert instance to a Boolean value, based on the given

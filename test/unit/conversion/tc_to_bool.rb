@@ -2,10 +2,12 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../lib')
 
+
 require 'xqsr3/conversion/bool_parser'
 
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
+
 
 class Test_Xqsr3_ConversionMultiMap < Test::Unit::TestCase
 

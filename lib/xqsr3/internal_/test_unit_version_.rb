@@ -6,7 +6,7 @@
 #           Test::Unit module
 #
 # Created:  March 2nd 2019
-# Updated:  11th April 2024
+# Updated:  12th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -47,9 +47,11 @@
 
 require 'test/unit'
 
+
 begin
 
   require 'test/unit/version'
+
 
   # :stopdoc:
   # @!visibility private

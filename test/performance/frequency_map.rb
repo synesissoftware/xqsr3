@@ -2,11 +2,14 @@
 
 $:.unshift File.join(File.dirname($0), *(['..'] * 2), 'lib')
 
+
 require 'xqsr3/containers/frequency_map'
 
 require 'benchmark'
 
+
 include ::Xqsr3::Containers
+
 
 Benchmark.bm do |bm|
 

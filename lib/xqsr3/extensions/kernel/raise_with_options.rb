@@ -5,7 +5,7 @@
 # Purpose:  Adds a raise_with_options() method to the Kernel module
 #
 # Created:  12th February 2015
-# Updated:  29th March 2024
+# Updated:  12th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -47,8 +47,6 @@
 
 require 'xqsr3/diagnostics/exception_utilities'
 
-# ##########################################################
-# ::Kernel
 
 =begin
 =end

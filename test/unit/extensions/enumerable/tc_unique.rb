@@ -2,9 +2,11 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/enumerable/unique'
 
 require 'test/unit'
+
 
 class Test_Enumerable_unique_test < Test::Unit::TestCase
 

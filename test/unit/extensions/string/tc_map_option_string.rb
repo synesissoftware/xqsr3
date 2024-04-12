@@ -2,10 +2,12 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/string/map_option_string'
 
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
+
 
 class Test_String_map_option_string < Test::Unit::TestCase
 

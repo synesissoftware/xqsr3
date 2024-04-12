@@ -45,10 +45,8 @@
 # ######################################################################## #
 
 
-# ##########################################################
-# ::Xqsr3::IO
-
 require 'xqsr3/quality/parameter_checking'
+
 
 =begin
 =end
@@ -162,15 +160,15 @@ module IO
   # === Signature
   #
   # * *Parameters:*
-  #   - +target+ The target of the write, which may be a string containing the path or a stream instance that supports write
-  #   - +contents+ The contents to be write, which may be a +Hash+, or an +Array+, or a +String+ containing delimited fields
-  #   - +options+ An options hash, containing any of the following options
+  #   - +target+ The target of the write, which may be a string containing the path or a stream instance that supports write;
+  #   - +contents+ The contents to be write, which may be a +Hash+, or an +Array+, or a +String+ containing delimited fields;
+  #   - +options+ (+Hash+) Options that control the behaviour of the method;
   #
   # * *Options:*
-  #   - +:column_separator+ {optional} The column separator, to be applied between each field in the case where +contents+ is a +Hash+.
-  #   - +:eol_lookahead_limit+ {optional} The number of content elements (line/pair) to inspect to determine whether element has a terminating end-of-line sequence. Defaults to 20. If 0, and +:line_separator+ is not specified, then will default to <tt>"\n"</tt>. If +nil+, then every line will be inspected.
-  #   - +:line_separator+ {optional} The line separator, to be applied to the end of line created from each entry. When not specified, it will be deduced by inspecting +contents+ (according to +eol_lookahead_limit+).
-  #   - +:no_last_eol+ {optional} If present and _truey_, causes suppression of the addition of the +:line_separator+ on the last line.
+  #   - +:column_separator+ {optional} The column separator, to be applied between each field in the case where +contents+ is a +Hash+;
+  #   - +:eol_lookahead_limit+ {optional} The number of content elements (line/pair) to inspect to determine whether element has a terminating end-of-line sequence. Defaults to 20. If 0, and +:line_separator+ is not specified, then will default to <tt>"\n"</tt>. If +nil+, then every line will be inspected;
+  #   - +:line_separator+ {optional} The line separator, to be applied to the end of line created from each entry. When not specified, it will be deduced by inspecting +contents+ (according to +eol_lookahead_limit+);
+  #   - +:no_last_eol+ {optional} If present and _truey_, causes suppression of the addition of the +:line_separator+ on the last line;
   #
   # === Return
   #

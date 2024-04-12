@@ -2,9 +2,11 @@
 
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
 
+
 require 'xqsr3/version'
 
 require 'date'
+
 
 Gem::Specification.new do |spec|
 
@@ -14,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.summary      = 'xqsr3'
   spec.description  = <<END_DESC
 eXtensions by fine Quantum for Standard Ruby and 3rd-party libraries is a
-lightweight, low-coupling library of assorted extensions to standard ruby and
+lightweight, low-coupling library of assorted extensions to standard Ruby and
 3rd-party libraries.
 END_DESC
   spec.authors      = [ 'Matt Wilson' ]
@@ -26,4 +28,7 @@ END_DESC
 
   spec.files = Dir[ 'Rakefile', '{bin,examples,lib,man,spec,test}/**/*', 'README*', 'LICENSE*' ] & `git ls-files -z`.split("\0")
 end
+
+
+# ############################## end of file ############################# #
 

@@ -2,10 +2,12 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/diagnostics/inspect_builder'
 
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
+
 
 class Test_X_Object_inspect < Test::Unit::TestCase
 

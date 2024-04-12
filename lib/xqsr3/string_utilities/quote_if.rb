@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::QuoteIf module
 #
 # Created:  3rd June 2017
-# Updated:  29th March 2024
+# Updated:  12th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -45,81 +45,72 @@
 # ######################################################################## #
 
 
-# ##########################################################
-# ::Xqsr3::StringUtilities::QuoteIf
-
 =begin
 =end
 
 module Xqsr3
 module StringUtilities
 
-# +include+-able module that provides ::quote_if and #quote_if methods
-module QuoteIf
+  # +include+-able module that provides ::quote_if and #quote_if methods
+  module QuoteIf
 
-  private
-  # @!visibility private
-  module QuoteIf_Helper_ # :nodoc: all
+    private
+    # @!visibility private
+    module QuoteIf_Helper_ # :nodoc: all
 
-    def self.string_quote_if_array_ s, options # :nodoc:
+      def self.string_quote_if_array_ s, options # :nodoc:
 
-      s = s.to_s unless String === s
+        s = s.to_s unless String === s
 
-      quotes = options[:quotes] || [ '"', '"' ]
-      quotes = [ quotes, quotes ] if String === quotes
+        quotes = options[:quotes] || [ '"', '"' ]
+        quotes = [ quotes, quotes ] if String === quotes
 
-      quotables = options[:quotables] || /\s/
+        quotables = options[:quotables] || /\s/
 
-      case quotables
-      when ::String
+        case quotables
+        when ::String
 
-        return s unless s.include? quotables
-      when ::Array
+          return s unless s.include? quotables
+        when ::Array
 
-        return s unless quotables.any? { |quotable| s.include? quotable }
-      when ::Regexp
+          return s unless quotables.any? { |quotable| s.include? quotable }
+        when ::Regexp
 
-        return s unless s =~ quotables
-      else
+          return s unless s =~ quotables
+        else
 
-        raise ArgumentError, "Invalid type (#{quotables.class}) specified for quotables parameter"
+          raise ArgumentError, "Invalid type (#{quotables.class}) specified for quotables parameter"
+        end
+
+        return quotes[0] + s + quotes[1]
       end
-
-      return quotes[0] + s + quotes[1]
     end
-  end
-  public
+    public
 
-  # Converts a string to a quoted form if necessary
-  #
-  # === Signature
-  #
-  # * *Parameters:*
-  #
-  # * *Required parameters*:
-  #   - +s+ (String) The string to be evaluated
-  #
-  # * *Options parameters*:
-  #   - +options+ (Hash) Options that control the behaviour of the method
-  #
-  # * *Options:*
-  #
-  #   - +:quotes+ (String, Array) A string that is used as the opening and closing quotes, or an array whose first two elements are used as the opening and closing quotes. Defaults to +'"'+
-  #   - +:quotables+ (String, Array, Regexp) A string representing the quotable character, or an array containing the quotable characters, or a regular expression that determines by match whether the string should be quoted. Defaults to the regular expression +/\s/+
-  def self.quote_if s, **options
+    # Converts a string to a quoted form if necessary
+    #
+    # === Signature
+    #
+    # * *Parameters:*
+    #   - +s+ (+String+) The string to be evaluated;
+    #   - +options+ (+Hash+) Options that control the behaviour of the method;
+    #
+    # * *Options:*
+    #   - +:quotes+ (+String+, +Array+) A string that is used as the opening and closing quotes, or an array whose first two elements are used as the opening and closing quotes. Defaults to +'"'+
+    #   - +:quotables+ (+String+, +Array+, +Regexp+) A string representing the quotable character, or an array containing the quotable characters, or a regular expression that determines by match whether the string should be quoted. Defaults to the regular expression +/\s/+
+    def self.quote_if s, **options
 
-    QuoteIf_Helper_.string_quote_if_array_ s, options
-  end
+      QuoteIf_Helper_.string_quote_if_array_ s, options
+    end
 
-  # Converts the instance to a quoted form if necessary
-  #
-  # See Xqsr3::StringUtilities::QuoteIf::quite_if() for options
-  def quote_if **options
+    # Converts the instance to a quoted form if necessary
+    #
+    # See Xqsr3::StringUtilities::QuoteIf::quite_if() for options
+    def quote_if **options
 
-    QuoteIf_Helper_.string_quote_if_array_ self, options
-  end
-end # module QuoteIf
-
+      QuoteIf_Helper_.string_quote_if_array_ self, options
+    end
+  end # module QuoteIf
 end # module StringUtilities
 end # module Xqsr3
 

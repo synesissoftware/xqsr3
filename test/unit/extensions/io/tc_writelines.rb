@@ -2,11 +2,13 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/io/writelines'
 
 require 'test/unit'
 
 require 'stringio'
+
 
 class Test_IO_writelines < Test::Unit::TestCase
 
@@ -189,6 +191,18 @@ class Test_IO_writelines < Test::Unit::TestCase
     assert_equal 2, r
     assert_equal "ab-c+de-f+", s.string
   end
+
+  # def test_two_strings_in_hash_with_arguments_of_col_sep
+
+  #   input = { 'ab' => 'c', 'de' => 'f' }
+
+  #   s = StringIO.new '', 'a'
+
+  #   r = ::IO.writelines s, input, "\t"
+
+  #   assert_equal 2, r
+  #   assert_equal "ab\tc\nde\tf\n", s.string
+  # end
 
   def test_ten_strings_in_array
 

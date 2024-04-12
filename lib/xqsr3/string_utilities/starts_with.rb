@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::StartsWith module
 #
 # Created:  13th April 2016
-# Updated:  29th March 2024
+# Updated:  12th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -45,99 +45,95 @@
 # ######################################################################## #
 
 
-# ##########################################################
-# ::Xqsr3::StringUtilities::StartsWith
-
 =begin
 =end
 
 module Xqsr3
 module StringUtilities
 
-# +include+-able module that provides ::string_starts_with? and #starts_with?
-# methods
-module StartsWith
+  # +include+-able module that provides ::string_starts_with? and #starts_with?
+  # methods
+  module StartsWith
 
-  private
-  # @!visibility private
-  module StartsWith_Helper_ # :nodoc: all
+    private
+    # @!visibility private
+    module StartsWith_Helper_ # :nodoc: all
 
-    def self.string_starts_with_helper_ s, prefix # :nodoc:
+      def self.string_starts_with_helper_ s, prefix # :nodoc:
 
-      if prefix.nil? || prefix.empty?
+        if prefix.nil? || prefix.empty?
 
-        return ''
-      elsif prefix.size < s.size
+          return ''
+        elsif prefix.size < s.size
 
-        return prefix if s[0 ... prefix.size] == prefix
-      elsif prefix.size == s.size
+          return prefix if s[0 ... prefix.size] == prefix
+        elsif prefix.size == s.size
 
-        return prefix if prefix == s
-      else
+          return prefix if prefix == s
+        else
+
+          nil
+        end
 
         nil
       end
 
-      nil
-    end
+      def self.string_starts_with_array_ s, args # :nodoc:
 
-    def self.string_starts_with_array_ s, args # :nodoc:
+        return '' if args.empty?
 
-      return '' if args.empty?
+        args.each do |prefix|
 
-      args.each do |prefix|
+          case prefix
+          when ::NilClass
 
-        case prefix
-        when ::NilClass
+            return ''
+          when ::String
 
-          return ''
-        when ::String
+            r = self.string_starts_with_helper_ s, prefix
 
-          r = self.string_starts_with_helper_ s, prefix
+            return r if r
+          else
 
-          return r if r
-        else
+            if prefix.respond_to? :to_str
 
-          if prefix.respond_to? :to_str
+              return self.string_starts_with_helper_ s.prefix.to_str
+            end
 
-            return self.string_starts_with_helper_ s.prefix.to_str
+            raise TypeError, "starts_with? can be passed instances of #{::String}, or nil, or types that respond to to_str"
           end
-
-          raise TypeError, "starts_with? can be passed instances of #{::String}, or nil, or types that respond to to_str"
         end
+
+        return nil
       end
-
-      return nil
     end
-  end
-  public
+    public
 
-  # Reports on whether a string +s+ starts with a given prefix or set of
-  # prefixes (+args+)
-  #
-  # === Signature
-  #
-  # * *Parameters:*
-  #   - +s+ (String) The string to be evaluated
-  #   - +args+ 0+ arguments against which +s+ will be evaluated
-  def self.string_starts_with? s, *args
+    # Reports on whether a string +s+ starts with a given prefix or set of
+    # prefixes (+args+)
+    #
+    # === Signature
+    #
+    # * *Parameters:*
+    #   - +s+ (+String+) The string to be evaluated;
+    #   - +args+ 0+ arguments against which +s+ will be evaluated;
+    def self.string_starts_with? s, *args
 
-    StartsWith_Helper_.string_starts_with_array_ s, args
-  end
+      StartsWith_Helper_.string_starts_with_array_ s, args
+    end
 
-  # Reports on whether the instance starts with a given prefix or set of
-  # prefixes (+args+)
-  #
-  # === Signature
-  #
-  # * *Parameters:*
-  #   - +args+ 0+ arguments against which the instance will be evaluated
-  def starts_with? *args
+    # Reports on whether the instance starts with a given prefix or set of
+    # prefixes (+args+)
+    #
+    # === Signature
+    #
+    # * *Parameters:*
+    #   - +args+ 0+ arguments against which the instance will be evaluated;
+    def starts_with? *args
 
-    StartsWith_Helper_.string_starts_with_array_ self, args
-  end
-end # module StartsWith
-
+      StartsWith_Helper_.string_starts_with_array_ self, args
+    end
+  end # module StartsWith
 end # module StringUtilities
 end # module Xqsr3
 

@@ -2,9 +2,11 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/diagnostics/exceptions/with_cause'
 
 require 'test/unit'
+
 
 class Test_WithCause < Test::Unit::TestCase
 

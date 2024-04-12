@@ -2,6 +2,7 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../..', 'lib')
 
+
 require 'xqsr3/quality/parameter_checking'
 
 require 'xqsr3/extensions/test/unit'

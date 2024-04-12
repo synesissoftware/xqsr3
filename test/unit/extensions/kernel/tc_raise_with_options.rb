@@ -2,9 +2,11 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/kernel/raise_with_options'
 
 require 'test/unit'
+
 
 class Test_X_Kernel_raise_with_options < Test::Unit::TestCase
 
