@@ -1,17 +1,18 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/extensions/kernel/raise_with_options.rb
+# File:     lib/xqsr3/extensions/kernel/raise_with_options.rb
 #
-# Purpose:      Adds a raise_with_options() method to the Kernel module
+# Purpose:  Adds a raise_with_options() method to the Kernel module
 #
-# Created:      12th February 2015
-# Updated:      22nd June 2017
+# Created:  12th February 2015
+# Updated:  29th March 2024
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
-# Copyright (c) 2015-2017, Matthew Wilson and Synesis Software
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2015-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -25,7 +26,7 @@
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
 #
-# * Neither the names of the copyright holder nor the names of its
+# * Neither the names of the copyright holders nor the names of its
 #   contributors may be used to endorse or promote products derived from
 #   this software without specific prior written permission.
 #
@@ -54,14 +55,14 @@ require 'xqsr3/diagnostics/exception_utilities'
 
 module Kernel
 
-	# Extends +Kernel+ module with the ::Xqsr3::Diagnostics::ExceptionUtilities::raise_with_options
-	# method
-	def raise_with_options *args, **options
+  # Extends +Kernel+ module with the ::Xqsr3::Diagnostics::ExceptionUtilities::raise_with_options
+  # method
+  def raise_with_options *args, **options
 
-		options	||=	{}
+    options ||= {}
 
-		::Xqsr3::Diagnostics::ExceptionUtilities.raise_with_options(*args, **(options.merge({ :called_indirectly_06d353cb_5a6c_47ca_8dbe_ff76359c7e96 => 1})))
-	end
+    ::Xqsr3::Diagnostics::ExceptionUtilities.raise_with_options(*args, **(options.merge({ :called_indirectly_06d353cb_5a6c_47ca_8dbe_ff76359c7e96 => 1})))
+  end
 end # module Kernel
 
 # ############################## end of file ############################# #

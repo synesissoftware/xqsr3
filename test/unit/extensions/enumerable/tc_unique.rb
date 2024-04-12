@@ -8,64 +8,64 @@ require 'test/unit'
 
 class Test_Enumerable_unique_test < Test::Unit::TestCase
 
-	def test_empty
+  def test_empty
 
-		src = []
+    src = []
 
-		dest = src.unique
+    dest = src.unique
 
-		assert dest.empty?
-	end
+    assert dest.empty?
+  end
 
-	def test_already_unique
+  def test_already_unique
 
-		src = [ 1, 2, 3, 4 ]
+    src = [ 1, 2, 3, 4 ]
 
-		dest = src.unique
+    dest = src.unique
 
-		assert_equal src, dest
-	end
+    assert_equal src, dest
+  end
 
-	def test_unique_contiguous
+  def test_unique_contiguous
 
-		src = [ 1, 2, 3, 3, 4 ]
+    src = [ 1, 2, 3, 3, 4 ]
 
-		dest = src.unique
+    dest = src.unique
 
-		assert_equal [ 1, 2, 3, 4], dest
-	end
+    assert_equal [ 1, 2, 3, 4], dest
+  end
 
-	def test_unique_noncontiguous
+  def test_unique_noncontiguous
 
-		src = [ 1, 2, 3, 4, 3 ]
+    src = [ 1, 2, 3, 4, 3 ]
 
-		dest = src.unique
+    dest = src.unique
 
-		assert_equal [ 1, 2, 3, 4], dest
-	end
+    assert_equal [ 1, 2, 3, 4], dest
+  end
 
-	def test_unique_very_large_sorted
+  def test_unique_very_large_sorted
 
-		max = 100000
+    max = 100000
 
-		src = (0...max).to_a * 2
-		exp = (0...max).to_a
+    src = (0...max).to_a * 2
+    exp = (0...max).to_a
 
-		dest = src.unique
+    dest = src.unique
 
-		assert_equal exp, dest
-	end
+    assert_equal exp, dest
+  end
 
-	def test_unique_very_large_unsorted
+  def test_unique_very_large_unsorted
 
-		max = 100000
+    max = 100000
 
-		src = ((0...max).to_a * 2).sort
-		exp = (0...max).to_a
+    src = ((0...max).to_a * 2).sort
+    exp = (0...max).to_a
 
-		dest = src.unique
+    dest = src.unique
 
-		assert_equal exp, dest
-	end
+    assert_equal exp, dest
+  end
 end
 

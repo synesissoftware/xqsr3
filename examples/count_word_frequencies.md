@@ -8,7 +8,7 @@ Simple example illustrating use of ``FrequencyMap`` class.
 
 ```ruby
 
-#!/usr/bin/env ruby
+#! /usr/bin/env ruby
 
 # examples/count_word_frequencies.rb
 
@@ -32,9 +32,9 @@ words.each { |word| fm << word }
 
 fm.each_by_frequency do |word, frequency|
 
-	next if 1 == frequency
+  next if 1 == frequency
 
-	$stdout.puts "\t#{word}\t#{frequency}"
+  $stdout.puts "\t#{word}\t#{frequency}"
 end
 puts
 
@@ -45,9 +45,9 @@ fm = FrequencyMap::ByElement[*words]
 
 fm.each_by_frequency do |word, frequency|
 
-	next if 1 == frequency
+  next if 1 == frequency
 
-	$stdout.puts "\t#{word}\t#{frequency}"
+  $stdout.puts "\t#{word}\t#{frequency}"
 end
 puts
 
@@ -67,16 +67,16 @@ When run, this produces the following output:
 Analyse DATA words via FrequencyMap
 
 1. Manually (showing items with 2+ occurrences):
-	in	3
-	dolor	2
-	dolore	2
-	ut	2
+  in  3
+  dolor 2
+  dolore  2
+  ut  2
 
 2. Via ByElement (showing items with 2+ occurrences):
-	in	3
-	dolor	2
-	dolore	2
-	ut	2
+  in  3
+  dolor 2
+  dolore  2
+  ut  2
 ```
 
 

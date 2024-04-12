@@ -1,18 +1,4 @@
-#!/usr/bin/env ruby
-
-#############################################################################
-# File:         test/performance/frequency_map.rb
-#
-# Purpose:      COMPLETE_ME
-#
-# Created:      13th October 2018
-# Updated:      13th October 2018
-#
-# Author:       Matthew Wilson
-#
-# Copyright:    <<TBD>>
-#
-#############################################################################
+#! /usr/bin/env ruby
 
 $:.unshift File.join(File.dirname($0), *(['..'] * 2), 'lib')
 
@@ -24,25 +10,25 @@ include ::Xqsr3::Containers
 
 Benchmark.bm do |bm|
 
-	fm = FrequencyMap.new
+  fm = FrequencyMap.new
 
-	(0...100000000).each do |n|
+  (0...100000000).each do |n|
 
-		fm << (n % 4793)
-	end
+    fm << (n % 4793)
+  end
 
-	bm.report('each       ') do
+  bm.report('each       ') do
 
-		fm.each do |k, freq|
+    fm.each do |k, freq|
 
-		end
-	end
+    end
+  end
 
-	bm.report('each (by f)') do
+  bm.report('each (by f)') do
 
-		fm.each_by_frequency do |k, freq|
+    fm.each_by_frequency do |k, freq|
 
-		end
-	end
+    end
+  end
 end
 

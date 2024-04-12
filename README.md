@@ -1,4 +1,5 @@
-# xqsr3
+# xqsr3 <!-- omit in toc -->
+
 e**X**tensions by fine **Q**uantum for **S**tandard **R**uby and **3**rd-party libraries
 
 [![Gem Version](https://badge.fury.io/rb/xqsr3.svg)](https://badge.fury.io/rb/xqsr3)
@@ -11,12 +12,17 @@ It has **no dependencies** on any other non-standard library.
 
 It may be pronounced (lamely) as "excusers".
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
-1. [Introduction](#introduction)
-2. [Installation](#installation)
-3. [Components](#components)
-4. [Project Information](#project-information)
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Components](#components)
+- [Examples](#examples)
+- [Project Information](#project-information)
+  - [Where to get help](#where-to-get-help)
+  - [Contribution guidelines](#contribution-guidelines)
+  - [Related projects](#related-projects)
+  - [License](#license)
 
 ## Installation
 
@@ -103,4 +109,7 @@ and a development dependency of:
 ### License
 
 **xqsr3** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.
+
+
+<!-- ########################### end of file ########################### -->
 

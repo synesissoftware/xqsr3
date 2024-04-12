@@ -8,17 +8,17 @@ require 'test/unit'
 
 class Test_assert_subclass_of < Test::Unit::TestCase
 
-	class Grandparent; end
-	class Parent < Grandparent; end
-	class Child < Parent; end
+  class Grandparent; end
+  class Parent < Grandparent; end
+  class Child < Parent; end
 
-	def test_1
+  def test_1
 
-		assert_subclass_of Object, Grandparent
-		assert_subclass_of Grandparent, Parent
-		assert_subclass_of Parent, Child
-		assert_subclass_of Grandparent, Child
-	end
+    assert_subclass_of Object, Grandparent
+    assert_subclass_of Grandparent, Parent
+    assert_subclass_of Parent, Child
+    assert_subclass_of Grandparent, Child
+  end
 end
 
 

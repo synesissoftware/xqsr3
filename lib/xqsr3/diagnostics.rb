@@ -1,11 +1,11 @@
 
 %w{
 
-	exception_utilities
-	inspect_builder
+  exception_utilities
+  inspect_builder
 }.each do |name|
 
-	require File.join(File.dirname(__FILE__), 'diagnostics', name)
+  require File.join(File.dirname(__FILE__), 'diagnostics', name)
 end
 
 

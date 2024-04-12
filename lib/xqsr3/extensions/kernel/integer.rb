@@ -1,16 +1,17 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/extensions/kernel/integer.rb
+# File:     lib/xqsr3/extensions/kernel/integer.rb
 #
-# Purpose:      Adds a Integer 'overload' to the Kernel module
+# Purpose:  Adds a Integer 'overload' to the Kernel module
 #
-# Created:      21st November 2017
-# Updated:      12th April 2019
+# Created:  21st November 2017
+# Updated:  29th March 2024
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -25,7 +26,7 @@
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
 #
-# * Neither the names of the copyright holder nor the names of its
+# * Neither the names of the copyright holders nor the names of its
 #   contributors may be used to endorse or promote products derived from
 #   this software without specific prior written permission.
 #
@@ -54,29 +55,28 @@ require 'xqsr3/conversion/integer_parser'
 
 module Kernel
 
-	alias xqsr3_Integer_original_method Integer
+  alias xqsr3_Integer_original_method Integer
 
-	# A monkey-patch extension of +Kernel#Integer+ with +options+
-	#
-	# === Signature
-	#
-	# * *Parameters:*
-	#   - +arg+ The argument to be converted (to +Fixnum+ or +Bignum+)
-	#   - +base+ A value of 0, or between 2 and 36. Defaults to 0
-	#   - +options+ An options hash, containing any of the following options
-	#   - +block+ An optional caller-supplied block that will be invoked with the +ArgumentError+ exception, allowing the caller to take additional action. If the block returns then its return value will be returned to the caller
-	#
-	# * *Options:*
-	#   - +:default+ A default value to be used when +arg+ is +nil+ or cannot be converted by (the original) +Kernel#Integer+
-	#   - +:nil+ Returns +nil+ if +arg+ is +nil+ or cannot be converted by (the original) +Kernel#Integer+. Ignored if +:default+ is specified
-	def Integer(arg, base = 0, **options, &block)
+  # A monkey-patch extension of +Kernel#Integer+ with +options+
+  #
+  # === Signature
+  #
+  # * *Parameters:*
+  #   - +arg+ The argument to be converted (to +Fixnum+ or +Bignum+)
+  #   - +base+ A value of 0, or between 2 and 36. Defaults to 0
+  #   - +options+ An options hash, containing any of the following options
+  #   - +block+ An optional caller-supplied block that will be invoked with the +ArgumentError+ exception, allowing the caller to take additional action. If the block returns then its return value will be returned to the caller
+  #
+  # * *Options:*
+  #   - +:default+ A default value to be used when +arg+ is +nil+ or cannot be converted by (the original) +Kernel#Integer+
+  #   - +:nil+ Returns +nil+ if +arg+ is +nil+ or cannot be converted by (the original) +Kernel#Integer+. Ignored if +:default+ is specified
+  def Integer(arg, base = 0, **options, &block)
 
-		::Xqsr3::Conversion::IntegerParser.to_integer arg, base = 0, **options, &block
-	end
+    ::Xqsr3::Conversion::IntegerParser.to_integer arg, base = 0, **options, &block
+  end
 
-	private :xqsr3_Integer_original_method
+  private :xqsr3_Integer_original_method
 end # module Kernel
 
 # ############################## end of file ############################# #
-
 

@@ -1,17 +1,17 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/version.rb
+# File:     lib/xqsr3/version.rb
 #
-# Purpose:      Version for Xqsr3 library
+# Purpose:  Version for Xqsr3 library
 #
-# Created:      3rd April 2016
-# Updated:      4th November 2023
+# Created:  3rd April 2016
+# Updated:  12th April 2024
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -26,7 +26,7 @@
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
 #
-# * Neither the names of the copyright holder nor the names of its
+# * Neither the names of the copyright holders nor the names of its
 #   contributors may be used to endorse or promote products derived from
 #   this software without specific prior written permission.
 #
@@ -50,21 +50,20 @@
 
 module Xqsr3
 
-	# Current version of the Xqsr3 library
-	VERSION				=	'0.38.1.1'
+  # Current version of the Xqsr3 library
+  VERSION           = '0.39.2'
 
-	private
-	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
-	public
-	# Major version of the Xqsr3 library
-	VERSION_MAJOR		=	VERSION_PARTS_[0] # :nodoc:
-	# Minor version of the Xqsr3 library
-	VERSION_MINOR		=	VERSION_PARTS_[1] # :nodoc:
-	# Revision version of the Xqsr3 library
-	VERSION_REVISION	=	VERSION_PARTS_[2] # :nodoc:
+  private
+  VERSION_PARTS_    = VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
+  public
+  # Major version of the Xqsr3 library
+  VERSION_MAJOR     = VERSION_PARTS_[0] # :nodoc:
+  # Minor version of the Xqsr3 library
+  VERSION_MINOR     = VERSION_PARTS_[1] # :nodoc:
+  # Revision version of the Xqsr3 library
+  VERSION_REVISION  = VERSION_PARTS_[2] # :nodoc:
 
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-
 

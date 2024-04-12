@@ -1,18 +1,17 @@
 
 # ######################################################################## #
-# File:     lib/xqsr3/extensions/enumerable/detect_map.rb
+# File:     lib/xqsr3/extensions/integer/to_s_grp.rb
 #
-# Purpose:  ::Enumerable#detect_map extension
+# Purpose:  Adds a to_s_grp() method to the Integer class
 #
-# Created:  3rd December 2017
+# Created:  29th March 2024
 # Updated:  29th March 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
-# Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
+# Copyright (c) 2024, Matthew Wilson and Synesis Information Systems
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,7 +25,7 @@
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
 #
-# * Neither the names of the copyright holders nor the names of its
+# * Neither the names of the copyright holder nor the names of its
 #   contributors may be used to endorse or promote products derived from
 #   this software without specific prior written permission.
 #
@@ -45,52 +44,75 @@
 # ######################################################################## #
 
 
+# ##########################################################
+# ::Integer
+
 =begin
 =end
 
-module Enumerable
+class Integer
 
-  # The +Enumerable+#+detect+ method provides a way to detect the presence
-  # of a particular value in a collection. The only constraint is that you
-  # get back the object unchanged.
-  #
-  # The +Enumerable+#+map+ method provides a way to transform the contents of
-  # a collection. The only constraint is that you get back another
-  # collection.
-  #
-  # This extension method, +Enumerable+#+detect_map+ combines the features
-  # of both, in that it detects the presence of a particular value in a
-  # collection and transform the detected value.
-  #
-  #  [ 1, 2, 3 ].detect_map { |v| -2 * v if v > 2 } # => -6
-  #
-  #  { :ab => 'cd', :ef => 'gh' }.detect_map { |k, v| v.upcase if k == :ef } # => 'GH'
-  #
-  # *Note:* The block is required (for technical reasons), and must have
-  # arity 1 for sequences or 2 for associations
-  def detect_map &block
+  # Extends +Integer+ type with the +#to_s_grp()+ method
+  def to_s_grp *args, **options
 
-    case block.arity
+    separator = options[:separator] || ','
+
+    numbers =
+    case args.size
+    when 0
+
+      []
     when 1
+      case args[0]
+      when ::Array
 
-      self.each do |v|
+        args[0]
+      when ::Integer
 
-        r = yield(v) and return r
-      end
-    when 2
+        [ args[0] ]
+      else
 
-      self.each do |k, v|
-
-        r = yield(k, v) and return r
+        raise TypeError, "parameter 'args[0]' (#{args[0].class}) must be an instance of Integer, or an array containing instance(s) of Integer"
       end
     else
 
-      raise ArgumentError, "detect_map requires block with arity of 1 (for sequences) or 2 (for associations); block with arity #{block.arity} given to instance of #{self.class}"
+      args
     end
 
-    nil
+
+    case numbers.size
+    when 0
+
+      return self.to_s
+    when 1
+
+      return self.to_s.chars.to_a.reverse.each_slice(numbers[0]).map(&:join).join(',').reverse
+    else
+
+      reversed_chars = self.to_s.chars.to_a#.reverse
+
+      r = []
+
+      last_n = nil
+
+      numbers.each do |n|
+
+        r << separator unless r.empty?
+        r << reversed_chars.pop(n).reverse
+
+        last_n = n
+      end
+
+      until reversed_chars.empty?
+
+        r << separator unless r.empty?
+        r << reversed_chars.pop(last_n).reverse
+      end
+
+      r.flatten.join('').reverse
+    end
   end
-end # module Enumerable
+end # module Kernel
 
 # ############################## end of file ############################# #
 

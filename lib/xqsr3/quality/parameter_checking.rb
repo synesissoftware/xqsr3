@@ -1,17 +1,17 @@
 
 # ######################################################################## #
-# File:         lib/xqsr3/quality/parameter_checking.rb
+# File:     lib/xqsr3/quality/parameter_checking.rb
 #
-# Purpose:      Definition of the ParameterChecking module
+# Purpose:  Definition of the ParameterChecking module
 #
-# Created:      12th February 2015
-# Updated:      4th November 2023
+# Created:  12th February 2015
+# Updated:  29th March 2024
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2023, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -26,7 +26,7 @@
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
 #
-# * Neither the names of the copyright holder nor the names of its
+# * Neither the names of the copyright holders nor the names of its
 #   contributors may be used to endorse or promote products derived from
 #   this software without specific prior written permission.
 #
@@ -60,627 +60,627 @@ module Quality
 #
 module ParameterChecking
 
-	private
-	# @!visibility private
-	module Util_ # :nodoc: all
-
-		def self.join_with_or a
-
-			case a.size
-			when 1
-
-				a[0]
-			when 2
-
-				"#{a[0]} or #{a[1]}"
-			else
-
-				"#{a[0...-1].join(', ')}, or #{a[-1]}"
-			end
-		end
-
-		module Constants # :nodoc:
-
-			RECOGNISED_OPTION_NAMES = %w{
-
-				allow_nil
-				ignore_case
-				message
-				nil
-				nothrow
-				reject_empty
-				require_empty
-				responds_to
-				strip_str_whitespace
-				treat_as_option
-				type
-				types
-				values
-			}.map { |v| v.to_sym }
-
-		end # module Constants
-	end # module Util_
-	public
-
-	def self.included base # :nodoc:
-
-		base.extend self
-	end
-
-	private
-	# Check a given parameter (value=+value+, name=+name+) for type and value
-	#
-	# === Signature
-	#
-	# * *Parameters:*
-	#   - +value+ the parameter whose value and type is to be checked
-	#   - +name+ (::String, ::Symbol) the name of the parameter to be checked
-	#   - +options+ (::Hash) options that moderate the behaviour
-	#
-	# * *Options:*
-	#   - +:allow_nil+ (boolean) The +value+ must not be +nil+ unless this option is true
-	#   - +:nil+ an alias for +:allow_nil+
-	#   - +:ignore_case+ (boolean) When +:values+ is specified, comparisons of strings, or arrays of strings, will be carried out in a case-insensitive manner
-	#   - +:types+ (::Array) An array of types one of which +value+ must be (or must be derived from). One of these types may be an array of types, in which case +value+ may be an array that must consist wholly of those types
-	#   - +:type+ (::Class) A single type parameter, used only if +:types+ is not specified
-	#   - +:values+ (::Array) an array of values one of which +value+ must be
-	#   - +:responds_to+ (::Array) An array of symbols specifying all messages to which the parameter will respond
-	#   - +:reject_empty+ (boolean) requires value to respond to +empty?+ message and to do so with false, unless +nil+
-	#   - +:require_empty+ (boolean) requires value to respond to +empty?+ message and to do so with true, unless +nil+
-	#   - +:nothrow+ (boolean) causes failure to be indicated by a +nil+ return rather than a thrown exception
-	#   - +:message+ (::String) specifies a message to be used in any thrown exception, which suppresses internal message preparation
-	#   - +:strip_str_whitespace+ (boolean) If +value+ is a string (as determined by responding to +to_str+ message), then it will be stripped - leading and trailing whitespace removed - before any processing
-	#   - +:treat_as_option+ (boolean) If true, the value will be treated as an option when reporting check failure
-	#
-	# This method is private, because it should only be used within methods
-	def check_parameter value, name, options = {}, &block
-
-		Util_.check_parameter value, name, options, &block
-	end
-
-	# @see check_parameter
-	#
-	# @note This is obsolete, and will be removed in a future version.
-	# Please use +check_parameter+ instead
-	def check_param value, name, options = {}, &block
-
-		Util_.check_parameter value, name, options, &block
-	end
-
-	# Specific form of the +check_parameter()+ that is used to check
-	# options, taking instead the hash and the key
-	#
-	# === Signature
-	#
-	# * *Parameters:*
-	#   - +h+ (::Hash) The options hash from which the named element is to be tested. May not be +nil+
-	#   - +name+ (::String, ::Symbol, [ ::String, ::Symbol ]) The options key name, or an array of names. May not be +nil+
-	#   - +options+ (::Hash) options that moderate the behaviour in the same way as for +check_parameter()+ except that the +:treat_as_option+ option (with the value +true+) is merged in before calling +check_parameter()+
-	#
-	# * *Options:*
-	def check_option h, name, options = {}, &block
-
-		Util_.check_option h, name, options, &block
-	end
+  private
+  # @!visibility private
+  module Util_ # :nodoc: all
+
+    def self.join_with_or a
+
+      case a.size
+      when 1
+
+        a[0]
+      when 2
+
+        "#{a[0]} or #{a[1]}"
+      else
+
+        "#{a[0...-1].join(', ')}, or #{a[-1]}"
+      end
+    end
+
+    module Constants # :nodoc:
+
+      RECOGNISED_OPTION_NAMES = %w{
+
+        allow_nil
+        ignore_case
+        message
+        nil
+        nothrow
+        reject_empty
+        require_empty
+        responds_to
+        strip_str_whitespace
+        treat_as_option
+        type
+        types
+        values
+      }.map { |v| v.to_sym }
+
+    end # module Constants
+  end # module Util_
+  public
+
+  def self.included base # :nodoc:
+
+    base.extend self
+  end
+
+  private
+  # Check a given parameter (value=+value+, name=+name+) for type and value
+  #
+  # === Signature
+  #
+  # * *Parameters:*
+  #   - +value+ the parameter whose value and type is to be checked
+  #   - +name+ (::String, ::Symbol) the name of the parameter to be checked
+  #   - +options+ (::Hash) options that moderate the behaviour
+  #
+  # * *Options:*
+  #   - +:allow_nil+ (boolean) The +value+ must not be +nil+ unless this option is true
+  #   - +:nil+ an alias for +:allow_nil+
+  #   - +:ignore_case+ (boolean) When +:values+ is specified, comparisons of strings, or arrays of strings, will be carried out in a case-insensitive manner
+  #   - +:types+ (::Array) An array of types one of which +value+ must be (or must be derived from). One of these types may be an array of types, in which case +value+ may be an array that must consist wholly of those types
+  #   - +:type+ (::Class) A single type parameter, used only if +:types+ is not specified
+  #   - +:values+ (::Array) an array of values one of which +value+ must be
+  #   - +:responds_to+ (::Array) An array of symbols specifying all messages to which the parameter will respond
+  #   - +:reject_empty+ (boolean) requires value to respond to +empty?+ message and to do so with false, unless +nil+
+  #   - +:require_empty+ (boolean) requires value to respond to +empty?+ message and to do so with true, unless +nil+
+  #   - +:nothrow+ (boolean) causes failure to be indicated by a +nil+ return rather than a thrown exception
+  #   - +:message+ (::String) specifies a message to be used in any thrown exception, which suppresses internal message preparation
+  #   - +:strip_str_whitespace+ (boolean) If +value+ is a string (as determined by responding to +to_str+ message), then it will be stripped - leading and trailing whitespace removed - before any processing
+  #   - +:treat_as_option+ (boolean) If true, the value will be treated as an option when reporting check failure
+  #
+  # This method is private, because it should only be used within methods
+  def check_parameter value, name, options = {}, &block
+
+    Util_.check_parameter value, name, options, &block
+  end
+
+  # @see check_parameter
+  #
+  # @note This is obsolete, and will be removed in a future version.
+  # Please use +check_parameter+ instead
+  def check_param value, name, options = {}, &block
+
+    Util_.check_parameter value, name, options, &block
+  end
+
+  # Specific form of the +check_parameter()+ that is used to check
+  # options, taking instead the hash and the key
+  #
+  # === Signature
+  #
+  # * *Parameters:*
+  #   - +h+ (::Hash) The options hash from which the named element is to be tested. May not be +nil+
+  #   - +name+ (::String, ::Symbol, [ ::String, ::Symbol ]) The options key name, or an array of names. May not be +nil+
+  #   - +options+ (::Hash) options that moderate the behaviour in the same way as for +check_parameter()+ except that the +:treat_as_option+ option (with the value +true+) is merged in before calling +check_parameter()+
+  #
+  # * *Options:*
+  def check_option h, name, options = {}, &block
+
+    Util_.check_option h, name, options, &block
+  end
 
-	public
-	# Check a given parameter (value=+value+, name=+name+) for type and value
-	#
-	# === Signature
-	#
-	# * *Parameters:*
-	#   - +value+ the parameter whose value and type is to be checked
-	#   - +name+ the name of the parameter to be checked
-	#   - +options+ options
-	#
-	# * *Options:*
-	#   - +:allow_nil+ (boolean) The +value+ must not be +nil+ unless this option is true
-	#   - +:nil+ an alias for +:allow_nil+
-	#   - +:ignore_case+ (boolean) When +:values+ is specified, comparisons of strings, or arrays of strings, will be carried out in a case-insensitive manner
-	#   - +:types+ (::Array) An array of types one of which +value+ must be (or must be derived from). One of these types may be an array of types, in which case +value+ may be an array that must consist wholly of those types
-	#   - +:type+ (::Class) A single type parameter, used only if +:types+ is not specified
-	#   - +:values+ (::Array) an array of values one of which +value+ must be
-	#   - +:responds_to+ (::Array) An array of symbols specifying all messages to which the parameter will respond
-	#   - +:reject_empty+ (boolean) requires value to respond to +empty?+ message and to do so with false, unless +nil+
-	#   - +:require_empty+ (boolean) requires value to respond to +empty?+ message and to do so with true, unless +nil+
-	#   - +:nothrow+ (boolean) causes failure to be indicated by a +nil+ return rather than a thrown exception
-	#   - +:message+ (boolean) specifies a message to be used in any thrown exception, which suppresses internal message preparation
-	#   - +:treat_as_option+ (boolean) If true, the value will be treated as an option when reporting check failure
-	#
-	def self.check_parameter value, name, options = {}, &block
+  public
+  # Check a given parameter (value=+value+, name=+name+) for type and value
+  #
+  # === Signature
+  #
+  # * *Parameters:*
+  #   - +value+ the parameter whose value and type is to be checked
+  #   - +name+ the name of the parameter to be checked
+  #   - +options+ options
+  #
+  # * *Options:*
+  #   - +:allow_nil+ (boolean) The +value+ must not be +nil+ unless this option is true
+  #   - +:nil+ an alias for +:allow_nil+
+  #   - +:ignore_case+ (boolean) When +:values+ is specified, comparisons of strings, or arrays of strings, will be carried out in a case-insensitive manner
+  #   - +:types+ (::Array) An array of types one of which +value+ must be (or must be derived from). One of these types may be an array of types, in which case +value+ may be an array that must consist wholly of those types
+  #   - +:type+ (::Class) A single type parameter, used only if +:types+ is not specified
+  #   - +:values+ (::Array) an array of values one of which +value+ must be
+  #   - +:responds_to+ (::Array) An array of symbols specifying all messages to which the parameter will respond
+  #   - +:reject_empty+ (boolean) requires value to respond to +empty?+ message and to do so with false, unless +nil+
+  #   - +:require_empty+ (boolean) requires value to respond to +empty?+ message and to do so with true, unless +nil+
+  #   - +:nothrow+ (boolean) causes failure to be indicated by a +nil+ return rather than a thrown exception
+  #   - +:message+ (boolean) specifies a message to be used in any thrown exception, which suppresses internal message preparation
+  #   - +:treat_as_option+ (boolean) If true, the value will be treated as an option when reporting check failure
+  #
+  def self.check_parameter value, name, options = {}, &block
 
-		Util_.check_parameter value, name, options, &block
-	end
+    Util_.check_parameter value, name, options, &block
+  end
 
-	# @see check_parameter
-	#
-	# @note This is obsolete, and will be removed in a future version.
-	# Please use +check_parameter+ instead
-	def self.check_param value, name, options = {}, &block
+  # @see check_parameter
+  #
+  # @note This is obsolete, and will be removed in a future version.
+  # Please use +check_parameter+ instead
+  def self.check_param value, name, options = {}, &block
 
-		Util_.check_parameter value, name, options, &block
-	end
+    Util_.check_parameter value, name, options, &block
+  end
 
-	# Specific form of the +check_parameter()+ that is used to check
-	# options, taking instead the hash and the key
-	#
-	# === Signature
-	#
-	# * *Parameters:*
-	#   - +h+ (::Hash) The options hash from which the named element is to be tested. May not be +nil+
-	#   - +name+ (::String, ::Symbol, [ ::String, ::Symbol ]) The options key name, or an array of names. May not be +nil+
-	#   - +options+ (::Hash) options that moderate the behaviour in the same way as for +check_parameter()+ except that the +:treat_as_option+ option (with the value +true+) is merged in before calling +check_parameter()+
-	#
-	# * *Options:*
-	def self.check_option h, name, options = {}, &block
+  # Specific form of the +check_parameter()+ that is used to check
+  # options, taking instead the hash and the key
+  #
+  # === Signature
+  #
+  # * *Parameters:*
+  #   - +h+ (::Hash) The options hash from which the named element is to be tested. May not be +nil+
+  #   - +name+ (::String, ::Symbol, [ ::String, ::Symbol ]) The options key name, or an array of names. May not be +nil+
+  #   - +options+ (::Hash) options that moderate the behaviour in the same way as for +check_parameter()+ except that the +:treat_as_option+ option (with the value +true+) is merged in before calling +check_parameter()+
+  #
+  # * *Options:*
+  def self.check_option h, name, options = {}, &block
 
-		Util_.check_option h, name, options, &block
-	end
+    Util_.check_option h, name, options, &block
+  end
 
-	private
-	def Util_.check_option h, names, options = {}, &block
+  private
+  def Util_.check_option h, names, options = {}, &block
 
-		warn "#{self}::#{__method__}: given parameter h - value '#{h.inspect}' - must be a #{::Hash} but is a #{h.class}" unless ::Hash === h
+    warn "#{self}::#{__method__}: given parameter h - value '#{h.inspect}' - must be a #{::Hash} but is a #{h.class}" unless ::Hash === h
 
-		case names
-		when ::Array
+    case names
+    when ::Array
 
-			allow_nil	=	options[:allow_nil] || options[:nil]
+      allow_nil = options[:allow_nil] || options[:nil]
 
-			# find the first item whose name is in the hash ...
+      # find the first item whose name is in the hash ...
 
-			found_name	=	names.find { |name| h.has_key?(name) }
+      found_name = names.find { |name| h.has_key?(name) }
 
-			if found_name.nil? && allow_nil
+      if found_name.nil? && allow_nil
 
-				return nil
-			end
+        return nil
+      end
 
-			# ... or use the first (just to get a name for reporting)
+      # ... or use the first (just to get a name for reporting)
 
-			found_name	||=	names[0]
+      found_name ||= names[0]
 
-			Util_.check_parameter h[found_name], found_name, options.merge({ treat_as_option: true }), &block
-		else
+      Util_.check_parameter h[found_name], found_name, options.merge({ treat_as_option: true }), &block
+    else
 
-			name	=	names
+      name = names
 
-			Util_.check_parameter h[name], name, options.merge({ treat_as_option: true }), &block
-		end
-	end
+      Util_.check_parameter h[name], name, options.merge({ treat_as_option: true }), &block
+    end
+  end
 
-	def Util_.check_parameter value, name, options, &block
+  def Util_.check_parameter value, name, options, &block
 
-		if $DEBUG
+    if $DEBUG
 
-			unrecognised_option_names	=	options.keys - Util_::Constants::RECOGNISED_OPTION_NAMES
+      unrecognised_option_names = options.keys - Util_::Constants::RECOGNISED_OPTION_NAMES
 
-			unless unrecognised_option_names.empty?
+      unless unrecognised_option_names.empty?
 
-				s	=	"#{self}::check_parameter: the following options are not recognised:"
+        s = "#{self}::check_parameter: the following options are not recognised:"
 
-				unrecognised_option_names.each { |n| s += "\n\t'#{n}'" }
+        unrecognised_option_names.each { |n| s += "\n\t'#{n}'" }
 
-				warn s
-			end
-		end
+        warn s
+      end
+    end
 
-		# strip whitespace
+    # strip whitespace
 
-		if !value.nil? && options[:strip_str_whitespace]
+    if !value.nil? && options[:strip_str_whitespace]
 
-			if value.respond_to? :to_str
+      if value.respond_to? :to_str
 
-				value = value.to_str.strip
-			else
+        value = value.to_str.strip
+      else
 
-				warn "#{self}::#{__method__}: options[:strip_str_whitespace] specified but value - '#{value}' (#{value.class}) - does not respond to to_str" unless value.respond_to? :to_str
-			end
-		end
+        warn "#{self}::#{__method__}: options[:strip_str_whitespace] specified but value - '#{value}' (#{value.class}) - does not respond to to_str" unless value.respond_to? :to_str
+      end
+    end
 
 
-		failed_check	=	false
-		options			||=	{}
-		message			=	options[:message]
-		treat_as_option	=	options[:treat_as_option]
-		return_value	=	value
-		param_s			=	treat_as_option	? 'option' : 'parameter'
-		allow_nil		=	options[:allow_nil] || options[:nil]
+    failed_check      =   false
+    options           ||= {}
+    message           =   options[:message]
+    treat_as_option   =   options[:treat_as_option]
+    param_s           =   treat_as_option ? 'option' : 'parameter'
+    allow_nil         =   options[:allow_nil] || options[:nil]
 
-		warn "#{self}::check_parameter: invoked with non-string/non-symbol name: name.class=#{name.class}" unless name && [ ::String, ::Symbol ].any? { |c| name.is_a?(c) }
+    warn "#{self}::check_parameter: invoked with non-string/non-symbol name: name.class=#{name.class}" unless name && [ ::String, ::Symbol ].any? { |c| name.is_a?(c) }
 
-		if treat_as_option
+    if treat_as_option
 
-			case name
-			when ::String
+      case name
+      when ::String
 
-				;
-			when ::Symbol
+        ;
+      when ::Symbol
 
-				name = ':' + name.to_s
-			else
-			end
-		end
+        name = ':' + name.to_s
+      else
+      end
+    end
 
 
-		# nil check
+    # nil check
 
-		if value.nil? && !allow_nil
+    if value.nil? && !allow_nil
 
-			failed_check	=	true
+      failed_check = true
 
-			unless options[:nothrow]
+      unless options[:nothrow]
 
-				unless message
+        unless message
 
-					if name.nil?
+          if name.nil?
 
-						message	=	"#{param_s} may not be nil"
-					else
+            message = "#{param_s} may not be nil"
+          else
 
-						message	=	"#{param_s} '#{name}' may not be nil"
-					end
-				end
+            message = "#{param_s} '#{name}' may not be nil"
+          end
+        end
 
-				raise ArgumentError, message
-			end
-		end
+        raise ArgumentError, message
+      end
+    end
 
-		# check type(s)
+    # check type(s)
 
-		unless value.nil?
+    unless value.nil?
 
-			# types
+      # types
 
-			types		=	options[:types] || []
-			if options.has_key? :type
+      types = options[:types] || []
+      if options.has_key? :type
 
-				types	<<	options[:type] if types.empty?
-			end
-			types		=	[value.class] if types.empty?
-			types		=	types.map { |type| :boolean == type ? [ ::TrueClass, ::FalseClass ] : type }.flatten if types.include?(:boolean)
+        types << options[:type] if types.empty?
+      end
+      types = [value.class] if types.empty?
+      types = types.map { |type| :boolean == type ? [ ::TrueClass, ::FalseClass ] : type }.flatten if types.include?(:boolean)
 
-			warn "#{self}::check_parameter: options[:types] of type #{types.class} - should be #{::Array}" unless types.is_a?(Array)
-			warn "#{self}::check_parameter: options[:types] - '#{types}' - should contain only classes or arrays of classes" if types.is_a?(::Array) && !types.all? { |c| ::Class === c || (::Array === c && c.all? { |c2| ::Class === c2 }) }
+      warn "#{self}::check_parameter: options[:types] of type #{types.class} - should be #{::Array}" unless types.is_a?(Array)
+      warn "#{self}::check_parameter: options[:types] - '#{types}' - should contain only classes or arrays of classes" if types.is_a?(::Array) && !types.all? { |c| ::Class === c || (::Array === c && c.all? { |c2| ::Class === c2 }) }
 
-			unless types.any? do |t|
+      unless types.any? do |t|
 
-				case t
-				when ::Class
+        case t
+        when ::Class
 
-					# the (presumed) scalar argument is of type t?
-					value.is_a?(t)
-				when ::Array
+          # the (presumed) scalar argument is of type t?
+          value.is_a?(t)
+        when ::Array
 
-					# the (presumed) vector argument's elements are the
-					# possible types
-					value.all? { |v| t.any? { |t2| v.is_a?(t2) }} if ::Array === value
-				else
+          # the (presumed) vector argument's elements are the
+          # possible types
+          value.all? { |v| t.any? { |t2| v.is_a?(t2) }} if ::Array === value
+        else
 
-				end
-			end then
+        end
+      end then
 
-				failed_check	=	true
+        failed_check = true
 
-				unless options[:nothrow]
+        unless options[:nothrow]
 
-					unless message
+          unless message
 
-						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+            s_name = name.is_a?(String) ? "'#{name}' " : ''
 
-						types_0		=	types.select { |t| ::Class === t }.uniq
-						types_ar	=	types.select { |t| ::Array === t }.flatten.uniq
+            types_0 = types.select { |t| ::Class === t }.uniq
+            types_ar = types.select { |t| ::Array === t }.flatten.uniq
 
-						if types_ar.empty?
+            if types_ar.empty?
 
-							s_types_0	=	Util_.join_with_or types_0
+              s_types_0 = Util_.join_with_or types_0
 
-							message		=	"#{param_s} #{s_name}(#{value.class}) must be an instance of #{s_types_0}"
-						elsif types_0.empty?
+              message = "#{param_s} #{s_name}(#{value.class}) must be an instance of #{s_types_0}"
+            elsif types_0.empty?
 
-							s_types_ar	=	Util_.join_with_or types_ar
+              s_types_ar = Util_.join_with_or types_ar
 
-							message		=	"#{param_s} #{s_name}(#{value.class}) must be an array containing instance(s) of #{s_types_ar}"
-						else
+              message = "#{param_s} #{s_name}(#{value.class}) must be an array containing instance(s) of #{s_types_ar}"
+            else
 
-							s_types_0	=	Util_.join_with_or types_0
+              s_types_0 = Util_.join_with_or types_0
 
-							s_types_ar	=	Util_.join_with_or types_ar
+              s_types_ar = Util_.join_with_or types_ar
 
-							message		=	"#{param_s} #{s_name}(#{value.class}) must be an instance of #{s_types_0}, or an array containing instance(s) of #{s_types_ar}"
-						end
-					end
+              message = "#{param_s} #{s_name}(#{value.class}) must be an instance of #{s_types_0}, or an array containing instance(s) of #{s_types_ar}"
+            end
+          end
 
-					raise TypeError, message
-				end
-			end
+          raise TypeError, message
+        end
+      end
 
 
-			# messages
+      # messages
 
-			messages	=	options[:responds_to] || []
-			messages	=	[ messages ] unless messages.respond_to? :each
+      messages = options[:responds_to] || []
+      messages = [ messages ] unless messages.respond_to? :each
 
-			warn "#{self}::check_parameter: options[:responds_to] of type #{messages.class} - should be #{::Array}" unless messages.is_a?(Array)
-			warn "#{self}::check_parameter: options[:responds_to] should contain only symbols or strings" if messages.is_a?(::Array) && !messages.all? { |m| ::Symbol === m || ::String === m }
+      warn "#{self}::check_parameter: options[:responds_to] of type #{messages.class} - should be #{::Array}" unless messages.is_a?(Array)
+      warn "#{self}::check_parameter: options[:responds_to] should contain only symbols or strings" if messages.is_a?(::Array) && !messages.all? { |m| ::Symbol === m || ::String === m }
 
-			messages.each do |m|
+      messages.each do |m|
 
-				unless value.respond_to? m
+        unless value.respond_to? m
 
-					s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+          s_name = name.is_a?(String) ? "'#{name}' " : ''
 
-					raise TypeError, "#{param_s} #{s_name}(#{value.class}) must respond to the '#{m}' message"
-				end
-			end
+          raise TypeError, "#{param_s} #{s_name}(#{value.class}) must respond to the '#{m}' message"
+        end
+      end
 
-		end
+    end
 
-		# reject/require empty?
+    # reject/require empty?
 
-		unless value.nil?
+    unless value.nil?
 
-			if options[:reject_empty]
+      if options[:reject_empty]
 
-				warn "#{self}::check_parameter: value '#{value}' of type #{value.class} does not respond to empty?" unless value.respond_to? :empty?
+        warn "#{self}::check_parameter: value '#{value}' of type #{value.class} does not respond to empty?" unless value.respond_to? :empty?
 
-				if value.empty?
+        if value.empty?
 
-					failed_check	=	true
+          failed_check = true
 
-					unless options[:nothrow]
+          unless options[:nothrow]
 
-						unless message
-							s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+            unless message
+              s_name = name.is_a?(String) ? "'#{name}' " : ''
 
-							message		=	"#{param_s} #{s_name}must not be empty"
-						end
+              message = "#{param_s} #{s_name}must not be empty"
+            end
 
-						raise ArgumentError, message
-					end
-				end
-			end
+            raise ArgumentError, message
+          end
+        end
+      end
 
-			if options[:require_empty]
+      if options[:require_empty]
 
-				warn "#{self}::check_parameter: value '#{value}' of type #{value.class} does not respond to empty?" unless value.respond_to? :empty?
+        warn "#{self}::check_parameter: value '#{value}' of type #{value.class} does not respond to empty?" unless value.respond_to? :empty?
 
-				unless value.empty?
+        unless value.empty?
 
-					failed_check	=	true
+          failed_check = true
 
-					unless options[:nothrow]
+          unless options[:nothrow]
 
-						unless message
+            unless message
 
-							s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+              s_name = name.is_a?(String) ? "'#{name}' " : ''
 
-							message		=	"#{param_s} #{s_name}must be empty"
-						end
+              message = "#{param_s} #{s_name}must be empty"
+            end
 
-						raise ArgumentError, message
-					end
-				end
-			end
-		end
+            raise ArgumentError, message
+          end
+        end
+      end
+    end
 
-		# check value(s)
+    # run block
 
-		unless value.nil? || !(values = options[:values])
+    if value and block
 
-			warn "#{self}::check_parameter: options[:values] of type #{values.class} - should be #{::Array}" unless values.is_a?(Array)
+      warn "#{self}::check_parameter: block arity must be 1 or 2" unless (1..2).include? block.arity
 
-			found	=	false
+      r = nil
 
-			io		=	options[:ignore_order] && ::Array === value
+      begin
 
-			do_case	=	options[:ignore_case] ? lambda do |v|
+        if 1 == block.arity
 
-				case v
-				when ::String
+          r = block.call(value)
+        else
 
-					return :string
-				when ::Array
+          r = block.call(value, options)
+        end
 
-					return :array_of_strings if v.all? { |s| ::String === s }
-				end
+      rescue StandardError => x
 
-				nil
-			end : lambda { |v| nil }
+        xmsg = x.message || ''
 
-			value_ic	=	do_case.call(value)
-			value_io	=	nil
-			value_uc	=	nil
+        if xmsg.empty?
 
-			values.each do |v|
+          xmsg ||= message
 
-				if ::Range === v && !(::Range === value) && v.cover?(value)
+          if xmsg.empty?
 
-					found = true
-					break
-				end
+            s_name = name.is_a?(String) ? "'#{name}' " : ''
+            xmsg = "#{param_s} #{s_name}failed validation against caller-supplied block"
+          end
 
-				if value == v
+          raise $!, xmsg, $!.backtrace
+        end
 
-					found = true
-					break
-				end
+        raise
+      end
 
-				# ignore-case comparing
+      if r.is_a?(::Exception)
 
-				if value_ic
+        # An exception returned from the block, so raise it, with
+        # its message or a custom message
 
-					unless value_uc
+        x = r
+        xmsg = x.message || ''
 
-						case value_ic
-						when :string
+        if xmsg.empty?
 
-							value_uc	=	value.upcase
-						when :array_of_strings
+          xmsg ||= message
 
-							value_uc	=	value.map { |s| s.upcase }
-							value_uc	=	value_uc.sort if io
-						end
-					end
+          if xmsg.empty?
 
-					v_ic	=	do_case.call(v)
+            s_name = name.is_a?(String) ? "'#{name}' " : ''
+            xmsg = "#{param_s} #{s_name}failed validation against caller-supplied block"
+          end
 
-					if v_ic == value_ic
+          raise x, xmsg
+        end
 
-						case v_ic
-						when :string
+        raise x
 
-							if value_uc == v.upcase
+      elsif !r
 
-								found = true
-								break
-							end
-						when :array_of_strings
+        failed_check = true
 
-							v_uc	=	v.map { |s| s.upcase }
-							v_uc	=	v_uc.sort if io
+        unless options[:nothrow]
 
-							if value_uc == v_uc
+          s_name = name.is_a?(String) ? "'#{name}' " : ''
+          xmsg = "#{param_s} #{s_name}failed validation against caller-supplied block"
 
-								found = true
-								break
-							end
-						end
-					end
-				elsif io
+          if value.is_a?(::Numeric)
 
-					unless value_io
+            raise RangeError, xmsg
+          else
 
-						value_io	=	value.sort
-					end
+            raise ArgumentError, xmsg
+          end
+        end
 
-					if ::Array === v
+      elsif r.is_a?(::TrueClass)
 
-						v_io		=	v.sort
+        ;
+      else
 
-						if value_io == v_io
+        value = r
+      end
+    end
 
-							found = true
-							break
-						end
-					end
-				end
-			end
+    # check value(s)
 
-			unless found
+    unless value.nil? || !(values = options[:values])
 
-				failed_check	=	true
+      warn "#{self}::check_parameter: options[:values] of type #{values.class} - should be #{::Array}" unless values.is_a?(Array)
 
-				unless options[:nothrow]
+      found = false
 
-					unless message
+      io = options[:ignore_order] && ::Array === value
 
-						s_name		=	name.is_a?(String) ? "'#{name}' " : ''
+      do_case = options[:ignore_case] ? lambda do |v|
 
-						message		=	"#{param_s} #{s_name}value '#{value}' not found equal/within any of required values or ranges"
-					end
+        case v
+        when ::String
 
-					if value.is_a?(::Numeric)
+          :string
+        when ::Array
 
-						raise RangeError, message
-					else
+          :array_of_strings if v.all? { |s| ::String === s }
+        else
 
-						raise ArgumentError, message
-					end
-				end
-			end
-		end
+          nil
+        end
+      end : lambda { |v| nil }
 
-		# run block
+      value_ic = do_case.call(value)
+      value_io = nil
+      value_uc = nil
 
-		if value and block
+      values.each do |v|
 
-			warn "#{self}::check_parameter: block arity must be 1 or 2" unless (1..2).include? block.arity
+        if ::Range === v && !(::Range === value) && v.cover?(value)
 
-			r	=	nil
+          found = true
+          break
+        end
 
-			begin
+        if value == v
 
-				if 1 == block.arity
+          found = true
+          break
+        end
 
-					r = block.call(value)
-				else
+        # ignore-case comparing
 
-					r = block.call(value, options)
-				end
+        if value_ic
 
-			rescue StandardError => x
+          unless value_uc
 
-				xmsg	=	x.message || ''
+            case value_ic
+            when :string
 
-				if xmsg.empty?
+              value_uc = value.upcase
+            when :array_of_strings
 
-					xmsg	||=	message
+              value_uc = value.map { |s| s.upcase }
+              value_uc = value_uc.sort if io
+            end
+          end
 
-					if xmsg.empty?
+          v_ic = do_case.call(v)
 
-						s_name	=	name.is_a?(String) ? "'#{name}' " : ''
-						xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
-					end
+          if v_ic == value_ic
 
-					raise $!, xmsg, $!.backtrace
-				end
+            case v_ic
+            when :string
 
-				raise
-			end
+              if value_uc == v.upcase
 
-			if r.is_a?(::Exception)
+                found = true
+                break
+              end
+            when :array_of_strings
 
-				# An exception returned from the block, so raise it, with
-				# its message or a custom message
+              v_uc = v.map { |s| s.upcase }
+              v_uc = v_uc.sort if io
 
-				x		=	r
-				xmsg	=	x.message || ''
+              if value_uc == v_uc
 
-				if xmsg.empty?
+                found = true
+                break
+              end
+            end
+          end
+        elsif io
 
-					xmsg	||=	message
+          unless value_io
 
-					if xmsg.empty?
+            value_io = value.sort
+          end
 
-						s_name	=	name.is_a?(String) ? "'#{name}' " : ''
-						xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
-					end
+          if ::Array === v
 
-					raise x, xmsg
-				end
+            v_io = v.sort
 
-				raise x
+            if value_io == v_io
 
-			elsif !r
+              found = true
+              break
+            end
+          end
+        end
+      end
 
-				failed_check	=	true
+      unless found
 
-				unless options[:nothrow]
+        failed_check = true
 
-					s_name	=	name.is_a?(String) ? "'#{name}' " : ''
-					xmsg	=	"#{param_s} #{s_name}failed validation against caller-supplied block"
+        unless options[:nothrow]
 
-					if value.is_a?(::Numeric)
+          unless message
 
-						raise RangeError, xmsg
-					else
+            s_name = name.is_a?(String) ? "'#{name}' " : ''
 
-						raise ArgumentError, xmsg
-					end
-				end
+            message = "#{param_s} #{s_name}value '#{value}' not found equal/within any of required values or ranges"
+          end
 
-			elsif r.is_a?(::TrueClass)
+          if value.is_a?(::Numeric)
 
-				;
-			else
+            raise RangeError, message
+          else
 
-				return_value	=	r
-			end
-		end
+            raise ArgumentError, message
+          end
+        end
+      end
+    end
 
-		failed_check ? nil : return_value
-	end
+    failed_check ? nil : value
+  end
 
 end # module ParameterChecking
 
@@ -688,5 +688,4 @@ end # module Quality
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-
 
