@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::EndsWith module
 #
 # Created:  13th April 2016
-# Updated:  29th March 2024
+# Updated:  12th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -45,99 +45,95 @@
 # ######################################################################## #
 
 
-# ##########################################################
-# ::Xqsr3::StringUtilities::EndsWith
-
 =begin
 =end
 
 module Xqsr3
 module StringUtilities
 
-# +include+-able module that provides ::string_ends_with? and #ends_with?
-# methods
-module EndsWith
+  # +include+-able module that provides ::string_ends_with? and #ends_with?
+  # methods
+  module EndsWith
 
-  private
-  # @!visibility private
-  module EndsWith_Helper_ # :nodoc: all
+    private
+    # @!visibility private
+    module EndsWith_Helper_ # :nodoc: all
 
-    def self.string_ends_with_helper_ s, prefix # :nodoc:
+      def self.string_ends_with_helper_ s, prefix # :nodoc:
 
-      if prefix.nil? || prefix.empty?
+        if prefix.nil? || prefix.empty?
 
-        return ''
-      elsif prefix.size < s.size
+          return ''
+        elsif prefix.size < s.size
 
-        return prefix if s[(s.size - prefix.size) ... s.size] == prefix
-      elsif prefix.size == s.size
+          return prefix if s[(s.size - prefix.size) ... s.size] == prefix
+        elsif prefix.size == s.size
 
-        return prefix if prefix == s
-      else
+          return prefix if prefix == s
+        else
+
+          nil
+        end
 
         nil
       end
 
-      nil
-    end
+      def self.string_ends_with_array_ s, args # :nodoc:
 
-    def self.string_ends_with_array_ s, args # :nodoc:
+        return '' if args.empty?
 
-      return '' if args.empty?
+        args.each do |prefix|
 
-      args.each do |prefix|
+          case prefix
+          when ::NilClass
 
-        case prefix
-        when ::NilClass
+            return ''
+          when ::String
 
-          return ''
-        when ::String
+            r = self.string_ends_with_helper_ s, prefix
 
-          r = self.string_ends_with_helper_ s, prefix
+            return r if r
+          else
 
-          return r if r
-        else
+            if prefix.respond_to? :to_str
 
-          if prefix.respond_to? :to_str
+              return self.string_ends_with_helper_ s.prefix.to_str
+            end
 
-            return self.string_ends_with_helper_ s.prefix.to_str
+            raise TypeError, "ends_with? can be passed instances of #{::String}, or nil, or types that respond to to_str"
           end
-
-          raise TypeError, "ends_with? can be passed instances of #{::String}, or nil, or types that respond to to_str"
         end
+
+        return nil
       end
-
-      return nil
     end
-  end
-  public
+    public
 
-  # Reports on whether a string +s+ ends with a given prefix or set of
-  # prefixes (+args+)
-  #
-  # === Signature
-  #
-  # * *Parameters:*
-  #   - +s+ (String) The string to be evaluated
-  #   - +args+ 0+ arguments against which +s+ will be evaluated
-  def self.string_ends_with? s, *args
+    # Reports on whether a string +s+ ends with a given prefix or set of
+    # prefixes (+args+)
+    #
+    # === Signature
+    #
+    # * *Parameters:*
+    #   - +s+ (+String+) The string to be evaluated;
+    #   - +args+ 0+ arguments against which +s+ will be evaluated;
+    def self.string_ends_with? s, *args
 
-    EndsWith_Helper_.string_ends_with_array_ s, args
-  end
+      EndsWith_Helper_.string_ends_with_array_ s, args
+    end
 
-  # Reports on whether the instance ends with a given prefix or set of
-  # prefixes (+args+)
-  #
-  # === Signature
-  #
-  # * *Parameters:*
-  #   - +args+ 0+ arguments against which the instance will be evaluated
-  def ends_with? *args
+    # Reports on whether the instance ends with a given prefix or set of
+    # prefixes (+args+)
+    #
+    # === Signature
+    #
+    # * *Parameters:*
+    #   - +args+ 0+ arguments against which the instance will be evaluated
+    def ends_with? *args
 
-    EndsWith_Helper_.string_ends_with_array_ self, args
-  end
-end # module EndsWith
-
+      EndsWith_Helper_.string_ends_with_array_ self, args
+    end
+  end # module EndsWith
 end # module StringUtilities
 end # module Xqsr3
 

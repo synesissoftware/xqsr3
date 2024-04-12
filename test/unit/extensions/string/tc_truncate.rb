@@ -2,10 +2,12 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/string/truncate'
 
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
+
 
 class Test_String_truncate < Test::Unit::TestCase
 

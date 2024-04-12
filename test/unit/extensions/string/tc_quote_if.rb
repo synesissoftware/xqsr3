@@ -2,12 +2,14 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/string/quote_if'
 
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
 
 require 'stringio'
+
 
 class Test_String_quote_if < Test::Unit::TestCase
 

@@ -2,9 +2,11 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../lib')
 
+
 require 'xqsr3/version'
 
 require 'test/unit'
+
 
 class Test_version < Test::Unit::TestCase
 

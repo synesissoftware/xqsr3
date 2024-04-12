@@ -2,10 +2,12 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/string/to_symbol'
 
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
+
 
 class Test_String_to_symbol < Test::Unit::TestCase
 

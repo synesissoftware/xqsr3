@@ -2,7 +2,9 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/hash/slice'
+
 
 class Test_Hash_slice < Test::Unit::TestCase
 

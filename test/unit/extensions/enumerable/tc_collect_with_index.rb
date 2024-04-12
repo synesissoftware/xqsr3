@@ -2,9 +2,11 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/enumerable/collect_with_index'
 
 require 'test/unit'
+
 
 class Test_Enumerable_collect_with_index < Test::Unit::TestCase
 

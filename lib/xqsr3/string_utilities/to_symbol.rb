@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::ToSymbol module
 #
 # Created:  14th April 2016
-# Updated:  29th March 2024
+# Updated:  12th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -45,118 +45,114 @@
 # ######################################################################## #
 
 
-# ##########################################################
-# ::Xqsr3::StringUtilities::ToSymbol
-
 =begin
 =end
 
 module Xqsr3
 module StringUtilities
 
-# To-symbol conversion facilities
-#
-module ToSymbol
+  # To-symbol conversion facilities
+  #
+  module ToSymbol
 
-  private
-  # @!visibility private
-  module ToSymbol_Helper_ # :nodoc: all
+    private
+    # @!visibility private
+    module ToSymbol_Helper_ # :nodoc: all
 
-    module Constants # :nodoc:
+      module Constants # :nodoc:
 
-      SymbolCharacters0 = 'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-      SymbolCharactersN = 'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789'
-    end
-
-    def self.string_to_symbol_with_options_ s, options # :nodoc:
-
-      case s
-      when ::String
-        ;
-      else
-
-        if s.respond_to? :to_str
-
-          s = s.to_str
-        else
-
-          raise TypeError, "string argument must be of type #{::String} or a type that will respond to to_str"
-        end
+        SymbolCharacters0 = 'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        SymbolCharactersN = 'abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789'
       end
 
-      case options
-      when ::Hash
-        ;
-      else
+      def self.string_to_symbol_with_options_ s, options # :nodoc:
 
-        raise TypeError, "options must be of type #{::Hash}, #{options.class} given"
-      end
-
-      return nil if s.empty?
-
-      transform_characters = options[:transform_characters] || []
-
-      s.chars.map.with_index do |c, index|
-
-        if 0 != index && Constants::SymbolCharactersN.include?(c)
-
-          c
-        elsif 0 == index && Constants::SymbolCharacters0.include?(c)
-
-          c
+        case s
+        when ::String
+          ;
         else
 
-          case c
-          when '-'
+          if s.respond_to? :to_str
 
-            return nil if options[:reject_hyphens]
-          when ' '
-
-            return nil if options[:reject_spaces] || options[:reject_whitespace]
-          when ?\t
-
-            return nil if options[:reject_tabs] || options[:reject_whitespace]
+            s = s.to_str
           else
 
-            return nil unless transform_characters.include? c
+            raise TypeError, "string argument must be of type #{::String} or a type that will respond to to_str"
           end
-
-          '_'
         end
-      end.join('').to_sym
+
+        case options
+        when ::Hash
+          ;
+        else
+
+          raise TypeError, "options must be of type #{::Hash}, #{options.class} given"
+        end
+
+        return nil if s.empty?
+
+        transform_characters = options[:transform_characters] || []
+
+        s.chars.map.with_index do |c, index|
+
+          if 0 != index && Constants::SymbolCharactersN.include?(c)
+
+            c
+          elsif 0 == index && Constants::SymbolCharacters0.include?(c)
+
+            c
+          else
+
+            case c
+            when '-'
+
+              return nil if options[:reject_hyphens]
+            when ' '
+
+              return nil if options[:reject_spaces] || options[:reject_whitespace]
+            when ?\t
+
+              return nil if options[:reject_tabs] || options[:reject_whitespace]
+            else
+
+              return nil unless transform_characters.include? c
+            end
+
+            '_'
+          end
+        end.join('').to_sym
+      end
     end
-  end
-  public
+    public
 
-  # Converts the given string +s+ to a symbol according to the given
-  # +options+
-  #
-  # === Signature
-  #
-  # * *Parameters:*
-  #   - +s+ (String) The string to convert
-  #   - +options+ (Hash) Options hash
-  #
-  # * *Options:*
-  #   - +:reject_hyphens+ (boolean)
-  #   - +:reject_spaces+ (boolean)
-  #   - +:reject_tabs+ (boolean)
-  #   - +:reject_whitespace+ (boolean)
-  #   - +:transform_characters+ (boolean)
-  def self.string_to_symbol s, options = {}
+    # Converts the given string +s+ to a symbol according to the given
+    # +options+
+    #
+    # === Signature
+    #
+    # * *Parameters:*
+    #   - +s+ (+String+) The string to convert;
+    #   - +options+ (+Hash+) Options that control the behaviour of the method;
+    #
+    # * *Options:*
+    #   - +:reject_hyphens+ (boolean);
+    #   - +:reject_spaces+ (boolean);
+    #   - +:reject_tabs+ (boolean);
+    #   - +:reject_whitespace+ (boolean);
+    #   - +:transform_characters+ (boolean);
+    def self.string_to_symbol s, options = {}
 
-    ToSymbol_Helper_.string_to_symbol_with_options_ s, options
-  end
+      ToSymbol_Helper_.string_to_symbol_with_options_ s, options
+    end
 
-  # Converts the instance to a symbol, according to the given +options+
-  #
-  # See Xqsr3::StringUtilities::ToSymbol::string_to_symbol for options
-  def to_symbol options = {}
+    # Converts the instance to a symbol, according to the given +options+
+    #
+    # See Xqsr3::StringUtilities::ToSymbol::string_to_symbol for options
+    def to_symbol options = {}
 
-    ToSymbol_Helper_.string_to_symbol_with_options_ self, options
-  end
-end # module ToSymbol
-
+      ToSymbol_Helper_.string_to_symbol_with_options_ self, options
+    end
+  end # module ToSymbol
 end # module StringUtilities
 end # module Xqsr3
 

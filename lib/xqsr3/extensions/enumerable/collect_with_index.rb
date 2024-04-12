@@ -5,7 +5,7 @@
 # Purpose:  Adds a collect_with_index() method to the Enumerable module
 #
 # Created:  24th October 2010
-# Updated:  29th March 2024
+# Updated:  12th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -44,9 +44,6 @@
 #
 # ######################################################################## #
 
-
-# ##########################################################
-# ::Enumerable
 
 =begin
 =end

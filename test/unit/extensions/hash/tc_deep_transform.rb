@@ -2,12 +2,14 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
+
 require 'xqsr3/extensions/hash/deep_transform'
 
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
 
 require 'stringio'
+
 
 class Test_Hash_deep_transform < Test::Unit::TestCase
 

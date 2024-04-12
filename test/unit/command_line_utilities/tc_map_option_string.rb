@@ -2,12 +2,15 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../lib')
 
+
 require 'xqsr3/command_line_utilities/map_option_string'
 
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
 
+
 include ::Xqsr3::CommandLineUtilities
+
 
 class Test_Xqsr3_CommandLineUtilities_map_option_string < Test::Unit::TestCase
 

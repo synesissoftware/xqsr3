@@ -1,6 +1,11 @@
 # **xqsr3** Changes
 
 
+## 0.39.2.1 - 12th April 2024
+
+* wholesale documentation improvements
+
+
 ## 0.39.2 - 12th April 2024
 
 * fixed conditional definition / overriding of `Test::Unit::Assertions` assertion methods

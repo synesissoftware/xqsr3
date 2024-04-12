@@ -5,7 +5,7 @@
 # Purpose:  Adds a to_s_grp() method to the Integer class
 #
 # Created:  29th March 2024
-# Updated:  29th March 2024
+# Updated:  12th April 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -43,9 +43,6 @@
 #
 # ######################################################################## #
 
-
-# ##########################################################
-# ::Integer
 
 =begin
 =end

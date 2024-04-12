@@ -2,12 +2,15 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../lib')
 
+
 require 'xqsr3/io/writelines'
 
 require 'test/unit'
 require 'stringio'
 
+
 include ::Xqsr3::IO
+
 
 class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 

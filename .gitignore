@@ -6,6 +6,7 @@
 /.config/
 /.git/
 /.svn/
+/.vscode/
 
 /.bundle/
 /.yardoc/
@@ -27,7 +28,9 @@ old-gems/
 /tmp/
 /vendor/bundle/
 
+
 # directories (by pattern)
+
 
 # files (by name)
 
@@ -42,6 +45,7 @@ _yardoc
 Gemfile.lock
 
 /spec/examples.txt
+
 
 # files (by pattern)
 

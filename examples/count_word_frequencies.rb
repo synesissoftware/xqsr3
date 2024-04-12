@@ -2,7 +2,9 @@
 
 # examples/count_word_frequencies.rb
 
+
 require 'xqsr3/containers/frequency_map'
+
 
 include Xqsr3::Containers
 

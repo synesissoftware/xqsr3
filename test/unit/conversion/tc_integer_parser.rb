@@ -2,11 +2,12 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../lib')
 
+
 require 'xqsr3/conversion/integer_parser'
 
 require 'xqsr3/extensions/test/unit'
-
 require 'test/unit'
+
 
 class Test_IntegerParser < Test::Unit::TestCase
 

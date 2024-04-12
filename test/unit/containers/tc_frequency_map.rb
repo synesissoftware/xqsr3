@@ -2,12 +2,15 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../lib')
 
+
 require 'xqsr3/containers/frequency_map'
 
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
 
+
 include ::Xqsr3::Containers
+
 
 class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 

@@ -2,10 +2,10 @@
 
 $:.unshift File.join(File.dirname(__FILE__), '../../../lib')
 
+
 require 'xqsr3/array_utilities/join_with_or'
 
 require 'xqsr3/extensions/test/unit'
-
 require 'test/unit'
 
 
@@ -109,7 +109,9 @@ class Test_Xqsr3_ArrayUtilities_join_with_or_by_module < Test::Unit::TestCase
   end
 end
 
+
 require 'xqsr3/extensions/array/join_with_or'
+
 
 class Test_Xqsr3_ArrayUtilities_join_with_or_by_include < Test::Unit::TestCase
 

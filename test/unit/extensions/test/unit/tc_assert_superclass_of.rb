@@ -2,9 +2,11 @@
 
 $:.unshift File.join(File.dirname(__FILE__), *(['..']*5), 'lib')
 
+
 require 'xqsr3/extensions/test/unit/assert_superclass_of'
 
 require 'test/unit'
+
 
 class Test_assert_superclass_of < Test::Unit::TestCase
 

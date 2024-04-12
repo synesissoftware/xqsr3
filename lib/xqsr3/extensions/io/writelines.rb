@@ -47,16 +47,13 @@
 
 require 'xqsr3/io/writelines'
 
-# ##########################################################
-# ::IO
 
 =begin
 =end
 
 class IO
 
-  # Extends +IO+ class with the +::Xqsr3::IO::write_lines+ method
-  #
+  # Extends +IO+ class with the +Xqsr3::IO::writelines+ method
   #
   #def self.writelines(path, contents, lineSep = nil, columnSep = nil)
   def self.writelines(path, contents, *args)
