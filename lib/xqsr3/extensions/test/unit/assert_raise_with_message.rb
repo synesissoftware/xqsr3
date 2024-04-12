@@ -28,7 +28,7 @@ module Unit
 
 module Assertions
 
-  undef :assert_raise_with_message if respond_to? :assert_raise_with_message
+  undef :assert_raise_with_message if self.method_defined? :assert_raise_with_message
 
   # Asserts that the attached block raises an exception of one of the
   # exceptions defined by +type_spec+ and/or has a message matching

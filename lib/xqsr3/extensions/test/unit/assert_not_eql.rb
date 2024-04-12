@@ -1,10 +1,13 @@
 
+require 'test/unit/assertions'
+
+
 module Test
 module Unit
 
 module Assertions
 
-  unless respond_to? :assert_not_eql
+  unless self.method_defined? :assert_not_eql
 
     # Assert that +expected+ and +actual+ have different hash keys, as
     # evaluated by the instance method +eq?+

@@ -1,10 +1,13 @@
 
+require 'test/unit/assertions'
+
+
 module Test
 module Unit
 
 module Assertions
 
-  unless respond_to? :assert_type_has_instance_methods
+  unless self.method_defined? :assert_type_has_instance_methods
 
     # Fails unless the given +type+ responds to all of the messages
     # given by +message_spec+

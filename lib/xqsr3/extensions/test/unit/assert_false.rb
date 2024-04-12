@@ -1,10 +1,13 @@
 
+require 'test/unit/assertions'
+
+
 module Test
 module Unit
 
 module Assertions
 
-  unless respond_to? :assert_false
+  unless self.method_defined? :assert_false
 
     # Assert that +expression+ is +false+ (and not merely _falsey_)
     def assert_false(expression, failure_message = '')
