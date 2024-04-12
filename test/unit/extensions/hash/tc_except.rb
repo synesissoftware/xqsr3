@@ -19,7 +19,7 @@ class Test_Hash_except < Test::Unit::TestCase
 
     i = {}
 
-    i.except! *[]
+    i.except!(*[])
 
     assert_equal h, i
   end

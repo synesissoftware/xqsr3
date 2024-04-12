@@ -16,15 +16,15 @@ class Test_IntegerParser < Test::Unit::TestCase
 
   def test_show_base_being_ignored
 
-    assert_equal -100, IP.to_integer(-100)
-    assert_equal -100, IP.to_integer(-100, 0)
-    assert_equal -100, IP.to_integer(-100.0, 0)
-    assert_equal -100, IP.to_integer(-100.0, 10)
+    assert_equal(-100, IP.to_integer(-100))
+    assert_equal(-100, IP.to_integer(-100, 0))
+    assert_equal(-100, IP.to_integer(-100.0, 0))
+    assert_equal(-100, IP.to_integer(-100.0, 10))
 
-    assert_equal -100, IP.to_integer('-100')
-    assert_equal -100, IP.to_integer('-100', 0)
-    assert_equal -100, IP.to_integer('-100', 10)
-    assert_equal -4, IP.to_integer('-100', 2)
+    assert_equal(-100, IP.to_integer('-100'))
+    assert_equal(-100, IP.to_integer('-100', 0))
+    assert_equal(-100, IP.to_integer('-100', 10))
+    assert_equal(-4, IP.to_integer('-100', 2))
   end
 
   def test_default_for_invalid_type
@@ -34,15 +34,15 @@ class Test_IntegerParser < Test::Unit::TestCase
 
   def test_to_integer_with_valid_values
 
-    assert_equal 0, IP.to_integer(0)
-    assert_equal +1, IP.to_integer(1)
-    assert_equal +1, IP.to_integer(+1)
-    assert_equal -1, IP.to_integer(-1)
+    assert_equal(0, IP.to_integer(0))
+    assert_equal(+1, IP.to_integer(1))
+    assert_equal(+1, IP.to_integer(+1))
+    assert_equal(-1, IP.to_integer(-1))
 
-    assert_equal 0, IP.to_integer('0')
-    assert_equal +1, IP.to_integer('1')
-    assert_equal +1, IP.to_integer('+1')
-    assert_equal -1, IP.to_integer('-1')
+    assert_equal(0, IP.to_integer('0'))
+    assert_equal(+1, IP.to_integer('1'))
+    assert_equal(+1, IP.to_integer('+1'))
+    assert_equal(-1, IP.to_integer('-1'))
   end
 
   def test_to_integer_with_invalid_values
