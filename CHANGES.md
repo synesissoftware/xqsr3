@@ -1,5 +1,12 @@
 # **xqsr3** Changes
 
+
+## 0.39.1 - 30th March 2024
+
+* extends `Integer` class with the `#to_s_grp()` method
+* canonicalising whitespace and file format
+
+
 ## 0.39.0 - 29th March 2024
 
 * added `Integer#to_s_grp` extension method, available via **xqsr3/extensions/integer** (or **xqsr3/extensions/integer/to_s_grp**)
