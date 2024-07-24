@@ -1,6 +1,11 @@
 # **xqsr3** Changes
 
 
+## 0.39.3 - 27th July 2024
+
+* minor fixes
+
+
 ## 0.39.2.1 - 12th April 2024
 
 * wholesale documentation improvements

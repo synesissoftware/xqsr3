@@ -5,7 +5,7 @@
 # Purpose:  FrequencyMap container
 #
 # Created:  28th January 2005
-# Updated:  12th April 2024
+# Updated:  24th July 2024
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -362,8 +362,10 @@ module Containers
 
       case rhs
       when self.class
+
         return self == rhs
       else
+
         return false
       end
     end
@@ -377,8 +379,10 @@ module Containers
 
       case default
       when ::NilClass, ::Integer
+
         ;
       else
+
         raise TypeError, "default parameter ('#{default}') must be of type #{::Integer}, but was of type #{default.class}"
       end
 
@@ -390,10 +394,13 @@ module Containers
 
           case block.arity
           when 0
+
             return yield
           when 1
+
             return yield key
           else
+
             raise ArgumentError, "given block must take a single parameter - #{block.arity} given"
           end
         end
@@ -431,8 +438,10 @@ module Containers
 
       case value
       when ::NilClass, ::Integer
+
         ;
       else
+
         raise TypeError, "parameter ('#{value}') must be of type #{::Integer}, but was of type #{value.class}"
       end
 
