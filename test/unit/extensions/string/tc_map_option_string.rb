@@ -35,5 +35,10 @@ class Test_String_map_option_string < Test::Unit::TestCase
       assert_nil shortcut.map_option_string(option_strings)
     end
   end
+
+  def test_nil
+
+    assert_nil nil.map_option_string []
+  end
 end
 
