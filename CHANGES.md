@@ -1,6 +1,11 @@
 # **xqsr3** Changes
 
 
+## 0.39.3.1 - 6th March 2025
+
+* warnings
+
+
 ## 0.39.3 - 27th July 2024
 
 * minor fixes
