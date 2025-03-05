@@ -19,10 +19,10 @@ It may be pronounced (lamely) as "excusers".
 - [Components](#components)
 - [Examples](#examples)
 - [Project Information](#project-information)
-  - [Where to get help](#where-to-get-help)
-  - [Contribution guidelines](#contribution-guidelines)
-  - [Related projects](#related-projects)
-  - [License](#license)
+	- [Where to get help](#where-to-get-help)
+	- [Contribution guidelines](#contribution-guidelines)
+	- [Related projects](#related-projects)
+	- [License](#license)
 
 ## Installation
 
@@ -42,7 +42,7 @@ require 'xqsr3/containers/frequency_map'
 ```
 
 Alternatively, to use all **test/unit** extensions you would ``require`` all
-relatived via the file:
+relative via the file:
 
 ```Ruby
 require 'xqsr3/extensions/test/unit'
@@ -96,14 +96,17 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 **xqsr3** is a runtime dependency of:
 
 * the **[libCLImate.Ruby](https://github.com/synesissoftware/libCLImate.Ruby)** library;
+* the **[comment_strip-ruby](https://github.com/synesissoftware/comment_strip.r)** library;
 * the [**xqsr3-xml**](https://github.com/synesissoftware.com/xqsr3-xml/) library.
 
 and a development dependency of:
 
 * the **[CLASP.Ruby](https://github.com/synesissoftware/CLASP.Ruby)** library;
 * the **[cmpfs.Ruby](https://github.com/synesissoftware/cmpfs.Ruby)** library;
+* the **[Diagnosticism.Ruby](https://github.com/synesissoftware/Diagnosticism.Ruby)** library;
 * the **[libpath.Ruby](https://github.com/synesissoftware/libpath.Ruby)** library;
 * the **[Pantheios.Ruby](https://github.com/synesissoftware/Pantheios.Ruby)** library.
+* the **[recls.Ruby](https://github.com/synesissoftware/recls.Ruby)** library;
 * the **[Quench.Ruby](https://github.com/synesissoftware/Quench.Ruby)** library.
 
 ### License
