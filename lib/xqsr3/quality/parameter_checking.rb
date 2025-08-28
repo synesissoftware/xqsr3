@@ -5,13 +5,13 @@
 # Purpose:  Definition of the ParameterChecking module
 #
 # Created:  12th February 2015
-# Updated:  12th April 2024
+# Updated:  29th August 2025
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -603,7 +603,7 @@ module Quality
                 value_uc = value.upcase
               when :array_of_strings
 
-                value_uc = value.map { |s| s.upcase }
+                value_uc = value.map(&:upcase)
                 value_uc = value_uc.sort if io
               end
             end
@@ -622,7 +622,7 @@ module Quality
                 end
               when :array_of_strings
 
-                v_uc = v.map { |s| s.upcase }
+                v_uc = v.map(&:upcase)
                 v_uc = v_uc.sort if io
 
                 if value_uc == v_uc

@@ -1,6 +1,11 @@
 # **xqsr3** Changes
 
 
+## 0.39.4 - 29th August 2025
+
+* warnings;
+
+
 ## 0.39.3.2 - 29th August 2025
 
 * boilerplate;
