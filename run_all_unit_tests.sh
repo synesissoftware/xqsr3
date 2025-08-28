@@ -8,9 +8,9 @@
 #           executing each rbenv version
 #
 # Created:  9th June 2011
-# Updated:  17th August 2024
+# Updated:  28th August 2025
 #
-# Copyright (c) Matthew Wilson, 2011-2024
+# Copyright (c) Matthew Wilson, 2011-2025
 # All rights reserved
 #
 # Redistribution and use in source and binary forms, with or without
@@ -53,6 +53,7 @@ while [ -h "$Source" ]; do
   [[ $Source != /* ]] && Source="$ScriptDir/$Source"
 done
 ScriptDir="$(cd -P "$( dirname "$Source" )" && pwd)"
+Basename="$(basename $Source)"
 
 
 # colours
@@ -81,14 +82,14 @@ do
 
   case "$arg" in
 
-    --pwd)
+  --pwd)
 
-      ProjectDir=$(pwd)
-      ;;
-    *)
+    ProjectDir=$(pwd)
+    ;;
+  *)
 
-      Arguments="$Arguments $arg"
-      ;;
+    Arguments="$Arguments $arg"
+    ;;
   esac
 done
 
@@ -96,61 +97,70 @@ done
 # special command-line handling ('--rbenv-versions')
 # rbenv handling
 
-RunRbEnvAllVersions=
 Arguments=
+FoundHelp=
+RunRbEnvAllVersions=
 
 for arg in "$@"
 do
 
   case "$arg" in
 
-    --rbenv-versions)
+  --help)
 
-      RunRbEnvAllVersions=1
-      ;;
-    *)
+    FoundHelp=1
+    Arguments="$Arguments $arg"
+    ;;
+  --rbenv-versions)
 
-      Arguments="$Arguments $arg"
-      ;;
+    RunRbEnvAllVersions=1
+    ;;
+  *)
+
+    Arguments="$Arguments $arg"
+    ;;
   esac
 done
+
+if [ ! -z "$FoundHelp" ]; then
+
+  RunRbEnvAllVersions=
+fi
 
 if [ ! -z "$RunRbEnvAllVersions" ]; then
 
   if ! command -v rbenv > /dev/null; then
 
-    >&2 echo "$0: ${RbEnvClr_Red}${RbEnvClr_Bold}rbenv${RbEnvClr_None} not detected"
+  >&2 echo "$0: ${RbEnvClr_Red}${RbEnvClr_Bold}rbenv${RbEnvClr_None} not detected"
 
-    exit 1
+  exit 1
   fi
 
   if [ ! -e "$ProjectDir/.ruby-version" ];then
 
-    >&2 echo "$0: ${RbEnvClr_Red}${RbEnvClr_Bold}.ruby-version${RbEnvClr_None} file not detected"
+  >&2 echo "$0: ${RbEnvClr_Red}${RbEnvClr_Bold}.ruby-version${RbEnvClr_None} file not detected"
 
-    exit 1
+  exit 1
   fi
 
   exclusions=()
   if [ -e "$ProjectDir/.ruby-version-exclusions" ]; then
 
-    exclusion_lines=`cat "$ProjectDir/.ruby-version-exclusions"`
-    for line in $exclusion_lines; do
+  exclusion_lines=`cat "$ProjectDir/.ruby-version-exclusions"`
+  for line in $exclusion_lines; do
 
-      exclusions+=($line)
-    done
+    exclusions+=($line)
+  done
   fi
 
   echo "executing command line '${RbEnvClr_Blue}${RbEnvClr_Bold}$0 $Arguments${RbEnvClr_None}' with all Ruby versions ..."
 
   current=$(rbenv local)
 
-  #echo "current version: $current"
-
   versions=()
   while IFS= read -r line; do
 
-    versions+=("$line")
+  versions+=("$line")
   done < <(rbenv versions --bare)
 
   echo "versions: ${RbEnvClr_Blue}${RbEnvClr_Bold}${versions[*]}${RbEnvClr_None}; skipped versions: ${RbEnvClr_Blue}${RbEnvClr_Bold}${exclusions[*]}${RbEnvClr_None}; current version: ${RbEnvClr_Blue}${RbEnvClr_Bold}${current}${RbEnvClr_None}"
@@ -160,33 +170,33 @@ if [ ! -z "$RunRbEnvAllVersions" ]; then
   for version in ${versions[@]}
   do
 
-    echo
+  echo
 
-    skip=
+  skip=
 
-    for exclusion in "${exclusions[@]}"; do
+  for exclusion in "${exclusions[@]}"; do
 
-      if [[ "$exclusion" == "$version" ]]; then
+    if [[ "$exclusion" == "$version" ]]; then
 
-        skip=1
-      fi
-    done
-
-    if [ "$skip" != "" ]; then
-
-      echo "skipping Ruby version ${RbEnvClr_Blue}${RbEnvClr_Bold}$version${RbEnvClr_None}:"
-    else
-
-      echo "processing Ruby version ${RbEnvClr_Blue}${RbEnvClr_Bold}$version${RbEnvClr_None}:"
-
-      echo -e "\texecuting command line '$0 $Arguments' with Ruby version $version ..."
-      rbenv local $version
-
-      if ! $0 $Arguments; then
-
-        result=1
-      fi
+    skip=1
     fi
+  done
+
+  if [ "$skip" != "" ]; then
+
+    echo "skipping Ruby version ${RbEnvClr_Blue}${RbEnvClr_Bold}$version${RbEnvClr_None}:"
+  else
+
+    echo "processing Ruby version ${RbEnvClr_Blue}${RbEnvClr_Bold}$version${RbEnvClr_None}:"
+
+    echo -e "\texecuting command line '$0 $Arguments' with Ruby version $version ..."
+    rbenv local $version
+
+    if ! $0 $Arguments; then
+
+    result=1
+    fi
+  fi
   done
 
   rbenv local $current
@@ -204,58 +214,59 @@ WarningsFlag=-W0
 for v in "$@"
 do
 
-    case "$v" in
+  case "$v" in
 
-        --debug)
+    --debug)
 
-            DebugFlag=--debug
-            ;;
-        --help)
+      DebugFlag=--debug
+      ;;
+    --help)
 
-            echo "USAGE: $Source { | --help | [ --debug ] [ --separate ] }"
-            echo
-            echo "flags:"
-            echo
-            echo "  --help"
-            echo "    shows this help and terminates"
-            echo
-            echo "  --debug"
-            echo "    executes Ruby interpreter in debug mode"
-            echo
-            echo "  --pwd"
-            echo "    executes from present working directory, rather than relative to the script directory"
-            echo
-            echo "  --rbenv-versions"
-            echo "    executes this script (with all other specified arguments) for each rbenv version (except those listed in the file .ruby-version-exclusions, if present)"
-            echo
-            echo "  --separate"
-            echo "    executes each unit-test in a separate program"
-            echo
-            echo "  --warnings"
-            echo "    executes Ruby interpreter in warnings mode"
-            echo
+      cat << EOF
+USAGE: $Basename { | --help | [ --debug ] [ --pwd ] [ --rbenv-versions ] [ --separate ] [ --warnings ]}
 
-            exit
-            ;;
-               --pwd)
+flags:
 
-            # already-processed as special case above
-            ;;
-        --separate)
+  --help
+  shows this help and terminates
 
-            Separate=true
-            ;;
-        --warnings)
+  --debug
+  executes Ruby interpreter in debug mode
 
-            WarningsFlag=-W2 #-W:performance
-            ;;
-        *)
+  --pwd
+  executes from present working directory, rather than relative to the script directory
 
-            >&2 echo "unrecognised argument; use --help for usage"
+  --rbenv-versions
+  executes this script (with all other specified arguments) for each rbenv version (except those listed in the file .ruby-version-exclusions, if present)
 
-            exit 1
-            ;;
-    esac
+  --separate
+  executes each unit-test in a separate program
+
+  --warnings
+  executes Ruby interpreter in warnings mode
+EOF
+
+      exit 0
+      ;;
+    --pwd)
+
+      # already-processed as special case above
+      ;;
+    --separate)
+
+      Separate=true
+      ;;
+    --warnings|--warn)
+
+      WarningsFlag=-W2 #-W:performance
+      ;;
+    *)
+
+      >&2 echo "unrecognised argument '$v'; use --help for usage"
+
+      exit 1
+      ;;
+  esac
 done
 
 

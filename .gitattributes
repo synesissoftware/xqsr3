@@ -1,0 +1,13 @@
+*.c linguist-language=C
+*.h linguist-language=C
+*.cpp linguist-detectable=C++
+*.hpp linguist-detectable=C++
+*.cxx linguist-detectable=C++
+*.hxx linguist-detectable=C++
+*.html linguist-detectable=C++
+*.rb linguist-detectable=Ruby
+*.sh linguist-detectable=false
+*.vimrc linguist-detectable=false
+makefile linguist-detectable=true
+makefile linguist-detectable=Ruby
+CMakeLists.txt linguist-detectable=false

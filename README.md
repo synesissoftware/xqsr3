@@ -1,8 +1,12 @@
 # xqsr3 <!-- omit in toc -->
 
+![Language](https://img.shields.io/badge/Ruby-CC342D?style=flat&logo=ruby&logoColor=white)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Gem Version](https://badge.fury.io/rb/xqsr3.svg)](https://badge.fury.io/rb/xqsr3)
+[![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/xqsr3)](https://github.com/synesissoftware/xqsr3/commits/master)
+
 e**X**tensions by fine **Q**uantum for **S**tandard **R**uby and **3**rd-party libraries
 
-[![Gem Version](https://badge.fury.io/rb/xqsr3.svg)](https://badge.fury.io/rb/xqsr3)
 
 ## Introduction
 
@@ -23,6 +27,7 @@ It may be pronounced (lamely) as "excusers".
 	- [Contribution guidelines](#contribution-guidelines)
 	- [Related projects](#related-projects)
 	- [License](#license)
+
 
 ## Installation
 
@@ -49,6 +54,7 @@ require 'xqsr3/extensions/test/unit'
 ```
 
 which brings in nine extensions.
+
 
 ## Components
 
@@ -77,19 +83,24 @@ and extensions to the following standard library components:
 * String extensions
 * test/unit extensions
 
+
 ## Examples
 
 Examples are provided in the ```examples``` directory, along with a markdown description for each. A detailed list TOC of them is provided in [EXAMPLES.md](./EXAMPLES.md).
 
+
 ## Project Information
+
 
 ### Where to get help
 
 [GitHub Page](https://github.com/synesissoftware/xqsr3 "GitHub Page")
 
+
 ### Contribution guidelines
 
 Defect reports, feature requests, and pull requests are welcome on https://github.com/synesissoftware/xqsr3.
+
 
 ### Related projects
 
@@ -108,6 +119,7 @@ and a development dependency of:
 * the **[Pantheios.Ruby](https://github.com/synesissoftware/Pantheios.Ruby)** library.
 * the **[recls.Ruby](https://github.com/synesissoftware/recls.Ruby)** library;
 * the **[Quench.Ruby](https://github.com/synesissoftware/Quench.Ruby)** library.
+
 
 ### License
 
