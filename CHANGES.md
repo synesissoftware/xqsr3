@@ -3,6 +3,8 @@
 
 ## 0.39.4 - 29th August 2025
 
+* GitHub Actions;
+* Rakefile;
 * warnings;
 
 
