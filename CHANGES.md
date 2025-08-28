@@ -1,6 +1,11 @@
 # **xqsr3** Changes
 
 
+## 0.39.3.2 - 29th August 2025
+
+* boilerplate;
+
+
 ## 0.39.3.1 - 6th March 2025
 
 * warnings
@@ -109,11 +114,6 @@
 ## 0.35.0 - 31st October 2019
 
 * `::Xqsr3::IO.writelines()` / `::IO.writelines()` now recognises `:no_last_eol` option, which, if truey, suppresses the EOL on the last line/element in the written collection
-
-
-## 0.34.0 - 4th July 2019
-
-* added `Hash#slice` for Ruby versions < 2.5, available via **xqsr3/extensions/hash** (or **xqsr3/extensions/hash/slice**)
 
 
 ## 0.34.0 - 4th July 2019
