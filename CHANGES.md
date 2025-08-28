@@ -4,6 +4,7 @@
 ## 0.39.3.2 - 29th August 2025
 
 * boilerplate;
+* updated **run_all_unit_tests.sh** (from https://github.com/synesissoftware/misc-dev-scripts);
 
 
 ## 0.39.3.1 - 6th March 2025
