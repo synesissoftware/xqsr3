@@ -27,6 +27,7 @@ jobs:
     strategy:
       matrix:
         os:
+          - macos-latest
           - ubuntu-latest
           - windows-latest
 
@@ -39,17 +40,16 @@ jobs:
           - '3.0'
           - '2.7'
           - '2.6'
-          - '2.5'
-          - '2.2'
-          - '2.0'
 
         include:
-          - os: macos-latest
-            ruby-version: '3.3'
+          - os: ubuntu-latest
+            ruby-version: '2.6'
+          - os: ubuntu-latest
+            ruby-version: '2.5'
+          - os: ubuntu-latest
+            ruby-version: '2.4'
           - os: windows-latest
-            ruby-version: '3.3'
-          # - os: windows-latest
-          #   ruby-version: mingw
+            ruby-version: mingw
           # - os: windows-latest
           #   ruby-version: ucrt
 
