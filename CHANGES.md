@@ -5,6 +5,7 @@
 
 * GitHub Actions;
 * Rakefile;
+* Ruby 3.4 compatibility;
 * warnings;
 
 

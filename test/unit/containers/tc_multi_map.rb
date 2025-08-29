@@ -8,11 +8,15 @@ require 'xqsr3/containers/multi_map'
 require 'xqsr3/extensions/test/unit'
 require 'test/unit'
 
+require 'xqsr3/internal_/test_ruby_version_'
+
 
 include ::Xqsr3::Containers
 
 
 class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
+
+  include Xqsr3::Internal_
 
   def test_class_operator_subscript_1
 
@@ -908,21 +912,49 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
     assert_equal "{}", mm.to_s
 
+
     mm.store :abc
 
-    assert_equal "{:abc=>[]}", mm.to_s
+    if TestRubyVersion_.is_at_least? [ 3, 4 ]
+
+      assert_equal "{abc: []}", mm.to_s
+    else
+
+      assert_equal "{:abc=>[]}", mm.to_s
+    end
+
 
     mm.store :abc, 1
 
-    assert_equal "{:abc=>[1]}", mm.to_s
+    if TestRubyVersion_.is_at_least? [ 3, 4 ]
+
+      assert_equal "{abc: [1]}", mm.to_s
+    else
+
+      assert_equal "{:abc=>[1]}", mm.to_s
+    end
+
 
     mm.store :abc, 1, 23
 
-    assert_equal "{:abc=>[1, 23]}", mm.to_s
+    if TestRubyVersion_.is_at_least? [ 3, 4 ]
+
+      assert_equal "{abc: [1, 23]}", mm.to_s
+    else
+
+      assert_equal "{:abc=>[1, 23]}", mm.to_s
+    end
+
 
     mm.store :def, *(0...10).to_a
 
-    assert_equal "{:abc=>[1, 23], :def=>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}", mm.to_s
+    if TestRubyVersion_.is_at_least? [ 3, 4 ]
+
+      assert_equal "{abc: [1, 23], def: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}", mm.to_s
+    else
+
+      assert_equal "{:abc=>[1, 23], :def=>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}", mm.to_s
+    end
   end
 end
 
