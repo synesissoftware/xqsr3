@@ -4,6 +4,7 @@
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Gem Version](https://badge.fury.io/rb/xqsr3.svg)](https://badge.fury.io/rb/xqsr3)
 [![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/xqsr3)](https://github.com/synesissoftware/xqsr3/commits/master)
+[![Ruby](https://github.com/synesissoftware/xqsr3/actions/workflows/ruby.yml/badge.svg)](https://github.com/synesissoftware/xqsr3/actions/workflows/ruby.yml)
 
 e**X**tensions by fine **Q**uantum for **S**tandard **R**uby and **3**rd-party libraries
 
