@@ -16,7 +16,7 @@ include ::Xqsr3::Containers
 
 class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
-  include Xqsr3::Internal_
+  RUBY_IS_3_4_OR_LATER = Xqsr3::Internal_::TestRubyVersion_.is_at_least? [ 3, 4 ]
 
   def test_class_operator_subscript_1
 
@@ -915,7 +915,7 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
     mm.store :abc
 
-    if TestRubyVersion_.is_at_least? [ 3, 4 ]
+    if RUBY_IS_3_4_OR_LATER
 
       assert_equal "{abc: []}", mm.to_s
     else
@@ -926,7 +926,7 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
     mm.store :abc, 1
 
-    if TestRubyVersion_.is_at_least? [ 3, 4 ]
+    if RUBY_IS_3_4_OR_LATER
 
       assert_equal "{abc: [1]}", mm.to_s
     else
@@ -937,7 +937,7 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
     mm.store :abc, 1, 23
 
-    if TestRubyVersion_.is_at_least? [ 3, 4 ]
+    if RUBY_IS_3_4_OR_LATER
 
       assert_equal "{abc: [1, 23]}", mm.to_s
     else
@@ -948,7 +948,7 @@ class Test_Xqsr3_Containers_MultiMap < Test::Unit::TestCase
 
     mm.store :def, *(0...10).to_a
 
-    if TestRubyVersion_.is_at_least? [ 3, 4 ]
+    if RUBY_IS_3_4_OR_LATER
 
       assert_equal "{abc: [1, 23], def: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}", mm.to_s
     else
