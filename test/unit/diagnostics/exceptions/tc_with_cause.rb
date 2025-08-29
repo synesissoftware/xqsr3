@@ -230,7 +230,7 @@ class Test_WithCause_throwing < Test::Unit::TestCase
 
       re = /:\d+:in\s+\`f'\s*$/
 
-      assert (re =~ x_bt0), 'not receieved from f()'
+      assert_match(re, x_bt0, "The received backtrace line '#{x_bt0}' in the exception received from `f()` did not match the expected pattern '#{re}'")
     end
   end
 
@@ -255,13 +255,13 @@ class Test_WithCause_throwing < Test::Unit::TestCase
 
       re_x = /:in\s+\`rescue in g\'\s*$/
 
-      assert (re_x =~ x_bt0), 'not receieved from g()'
+      assert_match(re_x, x_bt0, "The received backtrace line '#{x_bt0}' in the exception received from `g()` did not match the expected pattern '#{re_x}'")
 
       c_bt0 = x.cause.backtrace[0]
 
       re_c = /:in\s+\`f\'\s*$/
 
-      assert (re_c =~ c_bt0), 'not receieved from f()'
+      assert_match(re_c, c_bt0, "The received backtrace line '#{x_bt0}' in the exception received from `f()` (via `g()`) did not match the expected pattern '#{re_c}'")
 
       assert_not_empty x.chained_backtrace
     end
