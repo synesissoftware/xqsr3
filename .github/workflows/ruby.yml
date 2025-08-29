@@ -19,9 +19,12 @@ permissions:
 jobs:
   test:
 
-    runs-on: ubuntu-latest
     strategy:
       matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+
         ruby-version:
           # - head
           # - '3.4'
@@ -33,10 +36,13 @@ jobs:
           - '2.6'
           - '2.5'
 
-    steps:
-    - uses: actions/checkout@v4
+    runs-on: ${{ matrix.os }}
 
-    - name: Set up Ruby
+    steps:
+    - name: Checking out code
+      uses: actions/checkout@v4
+
+    - name: Set up Ruby v${{ matrix.ruby-version }}
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
