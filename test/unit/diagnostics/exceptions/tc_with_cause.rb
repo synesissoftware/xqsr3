@@ -5,10 +5,16 @@ $:.unshift File.join(File.dirname(__FILE__), '../../../../lib')
 
 require 'xqsr3/diagnostics/exceptions/with_cause'
 
+require 'xqsr3/extensions/test/unit'
 require 'test/unit'
+
+require 'xqsr3/internal_/test_ruby_version_'
+
 
 
 class Test_WithCause < Test::Unit::TestCase
+
+  RUBY_IS_3_4_OR_LATER = Xqsr3::Internal_::TestRubyVersion_.is_at_least? [ 3, 4 ]
 
   class SomeExceptionWithCause < ::Exception
 
@@ -179,6 +185,8 @@ end
 
 class Test_WithCause_throwing < Test::Unit::TestCase
 
+  RUBY_IS_3_4_OR_LATER = Xqsr3::Internal_::TestRubyVersion_.is_at_least? [ 3, 4 ]
+
   class SomeExceptionWithCause < ::Exception
 
     include ::Xqsr3::Diagnostics::Exceptions::WithCause
@@ -226,9 +234,12 @@ class Test_WithCause_throwing < Test::Unit::TestCase
       assert_empty x.chainees
       assert_not_empty x.backtrace
 
+
       x_bt0 = x.backtrace[0]
 
-      assert (/:in\s+\`f\'\s*$/ =~ x_bt0), 'not receieved from f()'
+      re = RUBY_IS_3_4_OR_LATER ? /:\d+:in\s+'#{self.class.name}#f'\s*$/ : /:\d+:in\s+\`f'\s*$/
+
+      assert_match(re, x_bt0, "The received backtrace line '#{x_bt0}' in the exception received from `f()` did not match the expected pattern '#{re}'")
     end
   end
 
@@ -249,13 +260,20 @@ class Test_WithCause_throwing < Test::Unit::TestCase
       assert_not_empty x.backtrace
       assert_not_empty x.cause.backtrace
 
+
       x_bt0 = x.backtrace[0]
 
-      assert (/:in\s+\`rescue in g\'\s*$/ =~ x_bt0), 'not receieved from g()'
+      re_x = RUBY_IS_3_4_OR_LATER ? /\d+:in\s+'#{self.class.name}#g'\s*$/ : /\d+:in\s+\`rescue in g'\s*$/
+
+      assert_match(re_x, x_bt0, "The received backtrace line '#{x_bt0}' in the exception received from `g()` did not match the expected pattern '#{re_x}'")
+
 
       c_bt0 = x.cause.backtrace[0]
 
-      assert (/:in\s+\`f\'\s*$/ =~ c_bt0), 'not receieved from f()'
+      re_c = RUBY_IS_3_4_OR_LATER ? /:in\s+'#{self.class.name}#f'\s*$/ : /:\d+:in\s+\`f'\s*$/
+
+      assert_match(re_c, c_bt0, "The received backtrace line '#{x_bt0}' in the exception received from `f()` (via `g()`) did not match the expected pattern '#{re_c}'")
+
 
       assert_not_empty x.chained_backtrace
     end

@@ -1,6 +1,14 @@
 # **xqsr3** Changes
 
 
+## 0.39.4 - 29th August 2025
+
+* GitHub Actions;
+* Rakefile;
+* Ruby 3.4 compatibility;
+* warnings;
+
+
 ## 0.39.3.2 - 29th August 2025
 
 * boilerplate;
