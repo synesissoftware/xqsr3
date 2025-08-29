@@ -228,7 +228,9 @@ class Test_WithCause_throwing < Test::Unit::TestCase
 
       x_bt0 = x.backtrace[0]
 
-      assert (/:in\s+\`f\'\s*$/ =~ x_bt0), 'not receieved from f()'
+      re = /:\d+:in\s+\`f'\s*$/
+
+      assert (re =~ x_bt0), 'not receieved from f()'
     end
   end
 
@@ -251,11 +253,15 @@ class Test_WithCause_throwing < Test::Unit::TestCase
 
       x_bt0 = x.backtrace[0]
 
-      assert (/:in\s+\`rescue in g\'\s*$/ =~ x_bt0), 'not receieved from g()'
+      re_x = /:in\s+\`rescue in g\'\s*$/
+
+      assert (re_x =~ x_bt0), 'not receieved from g()'
 
       c_bt0 = x.cause.backtrace[0]
 
-      assert (/:in\s+\`f\'\s*$/ =~ c_bt0), 'not receieved from f()'
+      re_c = /:in\s+\`f\'\s*$/
+
+      assert (re_c =~ c_bt0), 'not receieved from f()'
 
       assert_not_empty x.chained_backtrace
     end
