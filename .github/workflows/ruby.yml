@@ -38,6 +38,16 @@ jobs:
           - '2.2'
           - '2.0'
 
+        include:
+          - os: windows-latest
+            ruby-version: '3.3'
+          - os: windows-latest
+            ruby-version: mingw
+          - os: windows-latest
+            ruby-version: ucrt
+          - os: macos-latest
+            ruby-version: '3.3'
+
     runs-on: ${{ matrix.os }}
 
     steps:
