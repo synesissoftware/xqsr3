@@ -254,11 +254,11 @@ module Quality
 
         unless unrecognised_option_names.empty?
 
-          s = "#{self}::check_parameter: the following options are not recognised:"
+          warn_msg = "#{self}::check_parameter: the following options are not recognised:"
 
-          unrecognised_option_names.each { |n| s += "\n\t'#{n}'" }
+          unrecognised_option_names.each { |n| warn_msg += "\n\t'#{n}'" }
 
-          warn s
+          warn warn_msg
         end
       end
 
