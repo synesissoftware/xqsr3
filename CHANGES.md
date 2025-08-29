@@ -5,6 +5,7 @@
 
 * GitHub Actions;
 * Rakefile;
+* warnings;
 
 
 ## 0.39.3.2 - 29th August 2025
