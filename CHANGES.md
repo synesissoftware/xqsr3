@@ -3,7 +3,7 @@
 
 ## 0.39.6 - 14th August 2026
 
-T.B.C.
+* fixed **BoolParser** default matching to require whole-string `true`/`false` (case-insensitive), aligned `:default_value` / `:true_value` / `:false_value` options with documented names (legacy `:default` / `:true` / `:false` still accepted), and allowed falsy override values;
 
 
 ## 0.39.5 - 13th August 2026
