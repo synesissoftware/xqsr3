@@ -6,6 +6,11 @@
 * fixed **MultiMap**: no longer subclasses +Hash+ (data lived only in +@inner+, so inherited +keys+/+key?+ lied); added +keys+/+key?+/+include?+/+member?+; fixed +to_hash+; deep-copy on +dup+/+clone+; +MultiMap[]+ no longer mutates nested arrays; Hash merges splat array values consistently with +MultiMap[]+ / +to_h+;
 * fixed `IO.writelines` Hash EOL lookahead (+each_with_index+ was not destructuring key/value pairs);
 * aligned `xqsr3/extensions` (and thus `xqsr3/all_extensions`) with documented extension packs — now loads **integer**, **kernel**, and **string** as well as **enumerable/detect_map**;
+* fixed **FrequencyMap** (+#store(0)+ removes key; +#to_h+/+#to_hash+ return copies; +#[]+ / +#each_by_key+ docs);
+* fixed **ParameterChecking** (+#ignore_order+ recognised; +:types+ no longer mutates caller array) and **join_with_or** (+treat_as_option:+);
+* fixed `Enumerable#detect_map` to return falsy hits (+nil+ means continue);
+* fixed `Integer#to_s_grp` to honour +:separator+ for the single-group path;
+* fixed `ExceptionUtilities.raise_with_options` to use +set_backtrace+ instead of deprecated 3-arg +raise+; documented **WithCause** +#cause+ shadowing;
 
 
 ## 0.39.6 - 14th August 2026

@@ -5,13 +5,13 @@
 # Purpose:  ::Enumerable#detect_map extension
 #
 # Created:  3rd December 2017
-# Updated:  29th March 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -54,13 +54,15 @@ module Enumerable
   # of a particular value in a collection. The only constraint is that you
   # get back the object unchanged.
   #
-  # The +Enumerable+#+map+ method provides a way to transform the contents of
-  # a collection. The only constraint is that you get back another
+  # The +Enumerable+#+map+ method provides a way to transform the contents
+  # of a collection. The only constraint is that you get back another
   # collection.
   #
   # This extension method, +Enumerable+#+detect_map+ combines the features
   # of both, in that it detects the presence of a particular value in a
-  # collection and transform the detected value.
+  # collection and transform the detected value. The block should return
+  # +nil+ to continue searching; any other value (including +false+ or +0+)
+  # is treated as a hit and returned immediately.
   #
   #  [ 1, 2, 3 ].detect_map { |v| -2 * v if v > 2 } # => -6
   #
@@ -75,13 +77,17 @@ module Enumerable
 
       self.each do |v|
 
-        r = yield(v) and return r
+        r = yield(v)
+
+        return r unless r.nil?
       end
     when 2
 
       self.each do |k, v|
 
-        r = yield(k, v) and return r
+        r = yield(k, v)
+
+        return r unless r.nil?
       end
     else
 
