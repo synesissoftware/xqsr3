@@ -87,6 +87,7 @@ and extensions to the following standard library components:
 * Array extensions
 * Enumerable extensions
 * Hash extensions
+* Integer extensions
 * IO extensions
 * Kernel extensions
 * String extensions
