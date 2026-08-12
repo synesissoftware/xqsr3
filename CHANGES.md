@@ -1,7 +1,7 @@
 # **xqsr3** Changes <!-- omit in toc -->
 
 
-## 0.39.5 - 12th August 2026
+## 0.39.4.1 - 12th August 2026
 
 * updated **LICENSE** to canonical BSD-3-Clause form (copyright through 2026);
 * rewritten **.gitattributes** for Ruby (EOL, diff, Linguist);
