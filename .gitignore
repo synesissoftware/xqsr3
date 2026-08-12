@@ -1,27 +1,26 @@
 
 # directories (by name)
 
-/.bzr/
 /.bundle/
+/.bzr/
 /.config/
 /.git/
 /.svn/
 /.vscode/
-
-/.bundle/
 /.yardoc/
+
+/_build/
 /_yardoc/
 
-old-gems/
-
 /InstalledFiles/
-
 /build/
 /coverage/
 /doc/
 /lib/bundler/man/
+/old-gems/
 /pkg/
 /rdoc/
+/scratch/
 /spec/reports/
 /test/tmp/
 /test/version_tmp/
@@ -40,8 +39,7 @@ old-gems/
 .repl_history
 .ruby-version
 .rvmrc
-.yardoc
-_yardoc
+
 Gemfile.lock
 
 /spec/examples.txt
@@ -50,6 +48,7 @@ Gemfile.lock
 # files (by pattern)
 
 *~
+*.*~
 .dat*
 *.b64
 *.gem
