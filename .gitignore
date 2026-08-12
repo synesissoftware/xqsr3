@@ -57,5 +57,6 @@ Gemfile.lock
 *.scc
 *.suo
 *.swp
+*.tmp
 *.zip
 
