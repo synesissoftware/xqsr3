@@ -8,6 +8,7 @@
 * updated CI branch triggers in **.github/workflows/ruby.yml**;
 * wired **Gemfile** to `gemspec` with explicit **rake** / **test-unit** (Ruby-version-aware **rake** pins); removed obsolete gemspec `rake '~> 2'` development dependency;
 * extended **.github/workflows/ruby.yml** with gem build/install smoke on the test matrix and a Ubuntu/**3.3** warnings job;
+* reordered **README.md** (tagline before badges), added **Dependencies** (Efferent / Afferent), and lexicographically sorted related-project lists;
 * boilerplate (**CHANGES.md**, **EXAMPLES.md**, **.gitignore**, **.vscode/settings.json**);
 
 
