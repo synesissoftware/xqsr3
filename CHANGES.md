@@ -5,6 +5,7 @@
 
 * fixed **BoolParser** default matching to require whole-string `true`/`false` (case-insensitive), aligned `:default_value` / `:true_value` / `:false_value` options with documented names (legacy `:default` / `:true` / `:false` still accepted), and allowed falsy override values;
 * fixed `Kernel#Integer` extension to honour the supplied +base+ (was always forced to +0+);
+* fixed `Enumerable#unique` to honour its optional two-parameter equality comparator block;
 
 
 ## 0.39.5 - 13th August 2026
