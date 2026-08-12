@@ -1,6 +1,15 @@
 # **xqsr3** Changes <!-- omit in toc -->
 
 
+## 0.39.5 - 12th August 2026
+
+* removed `< 4` upper bound from `required_ruby_version` in **xqsr3.gemspec**;
+* updated **LICENSE** to canonical BSD-3-Clause form (copyright through 2026);
+* rewritten **.gitattributes** for Ruby (EOL, diff, Linguist);
+* updated CI branch triggers in **.github/workflows/ruby.yml**;
+* boilerplate (**CHANGES.md**, **EXAMPLES.md**, **.gitignore**, **.vscode/settings.json**);
+
+
 ## 0.39.4 - 29th August 2025
 
 * GitHub Actions;
