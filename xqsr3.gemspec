@@ -1,7 +1,15 @@
-# gemspec for xqsr3
+# ######################################################################## #
+# File:     xqsr3.gemspec
+#
+# Purpose:  Gemspec for xqsr3 library
+#
+# Created:  14th February 2014
+# Updated:  13th August 2026
+#
+# ######################################################################## #
+
 
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
-
 
 require 'xqsr3/version'
 
@@ -9,8 +17,8 @@ require 'xqsr3/version'
 Gem::Specification.new do |spec|
 
   spec.name         = 'xqsr3'
-  spec.version      = Xqsr3::VERSION
   spec.summary      = 'xqsr3'
+  spec.version      = Xqsr3::VERSION
   spec.description  = <<END_DESC
 eXtensions by fine Quantum for Standard Ruby and 3rd-party libraries is a
 lightweight, low-coupling library of assorted extensions to standard Ruby
