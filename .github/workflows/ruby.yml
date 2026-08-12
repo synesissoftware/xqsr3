@@ -7,16 +7,19 @@
 
 #
 # Created: 29th August 2025
-# Updated: 29th August 2025
+# Updated: 24th July 2026
 #
 
 name: Ruby
 
 on:
   push:
-    branches: [ "master", "dev", "gha" ]
+    branches:
+      - master
+      - dev
+      - boilerplate
+      - idiomatic
   pull_request:
-    branches: [ "master", "dev", "gha" ]
 
 permissions:
   contents: read
