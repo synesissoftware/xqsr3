@@ -24,7 +24,7 @@ END_DESC
   spec.homepage     = 'http://github.com/synesissoftware/xqsr3'
   spec.license      = 'BSD-3-Clause'
 
-  spec.required_ruby_version = [ '>= 2.0', '< 5' ]
+  spec.required_ruby_version = [ '>= 2.0' ]
 
   spec.add_development_dependency "rake", '~> 2'
 
