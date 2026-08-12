@@ -1,6 +1,11 @@
 # **xqsr3** Changes <!-- omit in toc -->
 
 
+## 0.39.7 - 15th August 2026
+
+T.B.C.
+
+
 ## 0.39.6 - 14th August 2026
 
 * fixed **BoolParser** default matching to require whole-string `true`/`false` (case-insensitive), aligned `:default_value` / `:true_value` / `:false_value` options with documented names (legacy `:default` / `:true` / `:false` still accepted), and allowed falsy override values;
