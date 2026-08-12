@@ -1,4 +1,4 @@
-# CLASP.Ruby Examples <!-- omit in toc -->
+# **xqsr3** Examples <!-- omit in toc -->
 
 |Name|Source & Description|Summary|
 |---|---|---|

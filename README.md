@@ -24,10 +24,10 @@ It may be pronounced (lamely) as "excusers".
 - [Components](#components)
 - [Examples](#examples)
 - [Project Information](#project-information)
-	- [Where to get help](#where-to-get-help)
-	- [Contribution guidelines](#contribution-guidelines)
-	- [Related projects](#related-projects)
-	- [License](#license)
+  - [Where to get help](#where-to-get-help)
+  - [Contribution guidelines](#contribution-guidelines)
+  - [Related projects](#related-projects)
+  - [License](#license)
 
 
 ## Installation
@@ -35,7 +35,7 @@ It may be pronounced (lamely) as "excusers".
 Install via **gem** as in:
 
 ```
-gem install libclimate-ruby
+gem install xqsr3
 ```
 
 or add it to your `Gemfile`.
@@ -72,7 +72,7 @@ which brings in nine extensions.
 * String Utilities
 * ~~XML Utilities~~ **NOTE**: The **XML** components formerly in **xqsr3** in
    versions **0.29**-**0.30** are now contained in the separate project
-   [**xqsr3-xml**](https://github.com/synesissoftware.com/xqsr3-xml/).
+   [**xqsr3-xml**](https://github.com/synesissoftware/xqsr3-xml/).
 
 and extensions to the following standard library components:
 
@@ -109,7 +109,7 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 
 * the **[libCLImate.Ruby](https://github.com/synesissoftware/libCLImate.Ruby)** library;
 * the **[comment_strip-ruby](https://github.com/synesissoftware/comment_strip.r)** library;
-* the [**xqsr3-xml**](https://github.com/synesissoftware.com/xqsr3-xml/) library.
+* the [**xqsr3-xml**](https://github.com/synesissoftware/xqsr3-xml/) library.
 
 and a development dependency of:
 
