@@ -1,6 +1,11 @@
 # **xqsr3** Changes <!-- omit in toc -->
 
 
+## 0.39.6 - 14th August 2026
+
+T.B.C.
+
+
 ## 0.39.5 - 13th August 2026
 
 * removed `< 4` upper bound from `required_ruby_version` in **xqsr3.gemspec**;
