@@ -10,6 +10,7 @@
 * extended **.github/workflows/ruby.yml** with gem build/install smoke on the test matrix and a Ubuntu/**3.3** warnings job;
 * reordered **README.md** (tagline before badges), added **Dependencies** (Efferent / Afferent), and lexicographically sorted related-project lists;
 * added **TODO.md**, **NEWS.md**, and **AUTHORS.md**; normalised **CHANGES.md** bullets and removed legacy "previous versions / T.B.C." stub;
+* polished **xqsr3.gemspec** (`https` homepage, Rubygems `metadata` URIs, dropped `Date.today`, package **AUTHORS**/**CHANGES**/**EXAMPLES**/**NEWS**/**TODO**);
 * boilerplate (**CHANGES.md**, **EXAMPLES.md**, **.gitignore**, **.vscode/settings.json**);
 
 
