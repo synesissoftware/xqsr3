@@ -3,7 +3,7 @@
 
 ## 0.39.7 - 15th August 2026
 
-T.B.C.
+* fixed **MultiMap**: no longer subclasses +Hash+ (data lived only in +@inner+, so inherited +keys+/+key?+ lied); added +keys+/+key?+/+include?+/+member?+; fixed +to_hash+; deep-copy on +dup+/+clone+; +MultiMap[]+ no longer mutates nested arrays; Hash merges splat array values consistently with +MultiMap[]+ / +to_h+;
 
 
 ## 0.39.6 - 14th August 2026
