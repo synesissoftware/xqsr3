@@ -182,6 +182,30 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
     assert_equal "abc\ndef\nghi\n", s.string
   end
 
+  def test_hash_value_with_embedded_eol
+
+    input = { 'ab' => "c\nmore", 'de' => 'f' }
+
+    s = StringIO.new
+
+    r = ::Xqsr3::IO.writelines s, input
+
+    assert_equal 2, r
+    assert_equal "abc\nmoredef", s.string
+  end
+
+  def test_hash_key_with_embedded_eol
+
+    input = { "ab\nx" => 'c', 'de' => 'f' }
+
+    s = StringIO.new
+
+    r = ::Xqsr3::IO.writelines s, input
+
+    assert_equal 2, r
+    assert_equal "ab\nxcdef", s.string
+  end
+
   def test_strings_with_cr_in_array_and_line_sep
 
     input = [ "abc\n", "def\n", "ghi\n" ]
