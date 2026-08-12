@@ -2,7 +2,7 @@
 
 | Date               | News Item                   |
 | ------------------ | --------------------------- |
-| 12th August 2026   | [**xqsr3** 0.49.4.1](https://github.com/synesissoftware/xqsr3/releases/tag/0.49.4.1) |
+| 12th August 2026   | [**xqsr3** 0.39.4.1](https://github.com/synesissoftware/xqsr3/releases/tag/0.39.4.1) |
 | 29th August 2025   | **xqsr3** 0.39.4 released   |
 | 29th August 2025   | **xqsr3** 0.39.3.2 released |
 | 6th March 2025     | **xqsr3** 0.39.3.1 released |
