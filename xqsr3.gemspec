@@ -26,8 +26,6 @@ END_DESC
 
   spec.required_ruby_version = [ '>= 2.0', '< 4' ]
 
-  spec.add_development_dependency "rake", '~> 2'
-
   spec.files = Dir[ 'Rakefile', '{bin,examples,lib,man,spec,test}/**/*', 'README*', 'LICENSE*' ] & `git ls-files -z`.split("\0")
 end
 

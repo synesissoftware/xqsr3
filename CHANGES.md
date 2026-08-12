@@ -6,6 +6,7 @@
 * updated **LICENSE** to canonical BSD-3-Clause form (copyright through 2026);
 * rewritten **.gitattributes** for Ruby (EOL, diff, Linguist);
 * updated CI branch triggers in **.github/workflows/ruby.yml**;
+* wired **Gemfile** to `gemspec` with explicit **rake** / **test-unit** (Ruby-version-aware **rake** pins); removed obsolete gemspec `rake '~> 2'` development dependency;
 * boilerplate (**CHANGES.md**, **EXAMPLES.md**, **.gitignore**, **.vscode/settings.json**);
 
 
