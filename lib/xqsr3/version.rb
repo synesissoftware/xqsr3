@@ -5,7 +5,7 @@
 # Purpose:  Version for Xqsr3 library
 #
 # Created:  3rd April 2016
-# Updated:  14th August 2026
+# Updated:  16th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
