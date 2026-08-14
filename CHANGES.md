@@ -1,7 +1,7 @@
 # **xqsr3** Changes <!-- omit in toc -->
 
 
-## 0.39.6 - 14th August 2026
+## 0.39.6 - 15th August 2026
 
 * fixed **BoolParser** default matching to require whole-string `true`/`false` (case-insensitive), aligned `:default_value` / `:true_value` / `:false_value` options with documented names (legacy `:default` / `:true` / `:false` still accepted), and allowed falsy override values;
 * fixed `Kernel#Integer` extension to honour the supplied +base+ (was always forced to +0+);
@@ -10,7 +10,7 @@
 * fixed `String#starts_with?` / `String#ends_with?` (+StringUtilities+) +to_str+ candidate path (was +s.prefix.to_str+);
 
 
-## 0.39.5 - 13th August 2026
+## 0.39.5 - 14th August 2026
 
 * removed `< 4` upper bound from `required_ruby_version` in **xqsr3.gemspec**;
 
