@@ -1,4 +1,4 @@
-# xqsr3 Example - **count_word_frequencies**
+# xqsr3 - Example - **count_word_frequencies**
 
 ## Summary
 
