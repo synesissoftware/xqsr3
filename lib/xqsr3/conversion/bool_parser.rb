@@ -5,13 +5,13 @@
 # Purpose:  Definition of the ::Xqsr3::Conversion::BoolParser module
 #
 # Created:  3rd June 2017
-# Updated:  12th April 2024
+# Updated:  12th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -65,12 +65,24 @@ module Conversion
       end
     end
 
+    # Resolves an option that may be named by one or more keys, preserving
+    # explicitly supplied +nil+/+false+ values (unlike +Hash#fetch+ with +||+).
+    def self.option_value_ options, *keys, default_value
+
+      keys.each do |key|
+
+        return options[key] if options.key?(key)
+      end
+
+      default_value
+    end
+
     public
 
-    # Recognised truey values
-    DEFAULT_TRUE_VALUES   = [ /true/i, '1' ]
-    # Recognised falsey values
-    DEFAULT_FALSE_VALUES  = [ /false/i, '0' ]
+    # Recognised truey values (whole-string match)
+    DEFAULT_TRUE_VALUES   = [ /\Atrue\z/i, '1' ]
+    # Recognised falsey values (whole-string match)
+    DEFAULT_FALSE_VALUES  = [ /\Afalse\z/i, '0' ]
 
     # Attempts to parse the given string +s+ to a Boolean value, based on the
     # given +options+
@@ -84,18 +96,18 @@ module Conversion
     # * *Options:*
     #   - +:false_values+ (+Array+) An array of strings or regular expressions against which to match for false value. Defaults to +DEFAULT_FALSE_VALUES+;
     #   - +:true_values+ (+Array+) An array of strings or regular expressions against which to match for true value. Defaults to +DEFAULT_TRUE_VALUES+;
-    #   - +:default_value+ An object to be returned if matching fails.  Defaults to +nil+;
-    #   - +:false_value+ An object to be returned if matching succeeds to match against +:false_values+. Defaults to +false+;
-    #   - +:true_value+ An object to be returned if matching succeeds to match against +:true_values+. Defaults to +true+;
+    #   - +:default_value+ An object to be returned if matching fails. Defaults to +nil+. Alias: +:default+;
+    #   - +:false_value+ An object to be returned if matching succeeds to match against +:false_values+. Defaults to +false+. Alias: +:false+;
+    #   - +:true_value+ An object to be returned if matching succeeds to match against +:true_values+. Defaults to +true+. Alias: +:true+;
     def self.to_bool s, **options
 
       true_values   = options[:true_values] || DEFAULT_TRUE_VALUES
       true_values   = [ true_values ] unless true_values.is_a? ::Array
       false_values  = options[:false_values] || DEFAULT_FALSE_VALUES
       false_values  = [ false_values ] unless false_values.is_a? ::Array
-      default_value = options[:default] || nil
-      true_value    = options[:true] || true
-      false_value   = options[:false] || false
+      default_value = self.option_value_ options, :default_value, :default, nil
+      true_value    = self.option_value_ options, :true_value, :true, true
+      false_value   = self.option_value_ options, :false_value, :false, false
 
       return true_value if true_values.any? { |v| self.matches_to_ s, v }
       return false_value if false_values.any? { |v| self.matches_to_ s, v }
@@ -107,4 +119,3 @@ end # module Conversion
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-

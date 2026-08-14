@@ -7,16 +7,19 @@
 
 #
 # Created: 29th August 2025
-# Updated: 29th August 2025
+# Updated: 12th August 2026
 #
 
 name: Ruby
 
 on:
   push:
-    branches: [ "master", "dev", "gha" ]
+    branches:
+      - master
+      - dev
+      - boilerplate
+      - idiomatic
   pull_request:
-    branches: [ "master", "dev", "gha" ]
 
 permissions:
   contents: read
@@ -65,5 +68,37 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
+    - name: Show Ruby version
+      run: ruby -v
+
     - name: Run tests
-      run: rake test
+      run: bundle exec rake test
+
+    - name: Gem build and install smoke
+      shell: bash
+      run: |
+        gem build xqsr3.gemspec
+        gem install --local xqsr3-*.gem
+        ruby -e "require 'xqsr3/version'; abort('VERSION missing') unless defined?(Xqsr3::VERSION); puts Xqsr3::VERSION"
+
+  warnings:
+
+    name: Warnings
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checking out code
+      uses: actions/checkout@v4
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+
+    - name: Show Ruby version
+      run: ruby -v
+
+    - name: Run unit tests with warnings
+      run: ./run_all_unit_tests.sh --lib --warnings

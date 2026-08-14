@@ -66,6 +66,21 @@ class Test_String_starts_with < Test::Unit::TestCase
     assert_nil 'd'.starts_with?(*prefixes)
     assert 'defghi'.starts_with?(*prefixes)
   end
+
+  def test_with_to_str
+
+    prefix = Object.new
+    def prefix.to_str; 'ab'; end
+
+    assert_equal 'ab', 'abcd'.starts_with?(prefix)
+    assert_nil 'xyz'.starts_with?(prefix)
+    assert_equal 'ab', 'abcd'.starts_with?('zz', prefix)
+  end
+
+  def test_with_unsupported_type
+
+    assert_raise(TypeError) { 'abcd'.starts_with?(Object.new) }
+  end
 end
 
 

@@ -69,5 +69,41 @@ class Test_Enumerable_unique_test < Test::Unit::TestCase
 
     assert_equal exp, dest
   end
+
+  def test_unique_with_comparator_block
+
+    src = [ 1, 2, 1.0, 3 ]
+
+    # Default uniqueness uses Hash (#eql?/#hash), so 1 and 1.0 both remain.
+    assert_equal [ 1, 2, 1.0, 3 ], src.unique
+
+    # Numeric == treats 1 and 1.0 as equal.
+    dest = src.unique { |a, b| a == b }
+
+    assert_equal [ 1, 2, 3 ], dest
+  end
+
+  def test_unique_with_comparator_block_to_s
+
+    src = [ 1, 2, '1', 3, '2' ]
+
+    dest = src.unique { |a, b| a.to_s == b.to_s }
+
+    assert_equal [ 1, 2, 3 ], dest
+  end
+
+  def test_unique_with_comparator_block_preserves_first
+
+    src = [ 'A', 'b', 'a', 'B' ]
+
+    dest = src.unique { |a, b| a.downcase == b.downcase }
+
+    assert_equal [ 'A', 'b' ], dest
+  end
+
+  def test_unique_with_wrong_arity_block
+
+    assert_raise(ArgumentError) { [ 1, 2 ].unique { |a| a } }
+  end
 end
 

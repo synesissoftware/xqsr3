@@ -26,6 +26,23 @@ class Test_X_Kernel_Integer < Test::Unit::TestCase
     assert_equal(-1, Integer('-1'))
   end
 
+  def test_Integer_with_base
+
+    assert_equal 16, Integer('10', 16)
+    assert_equal 8, Integer('10', 8)
+    assert_equal 10, Integer('10', 10)
+    assert_equal 2, Integer('10', 2)
+    assert_equal 255, Integer('ff', 16)
+    assert_equal 255, Integer('FF', 16)
+  end
+
+  def test_Integer_with_base_and_options
+
+    assert_equal 16, Integer('10', 16, default: 0)
+    assert_equal 0, Integer('gg', 16, default: 0)
+    assert_nil Integer('gg', 16, nil: true)
+  end
+
   def test_Integer_with_invalid_values
 
     assert_raise(TypeError) { Integer nil }
