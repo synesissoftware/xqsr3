@@ -1,4 +1,4 @@
-# **xqsr3** Changes
+# xqsr3 - Changes <!-- omit in toc -->
 
 
 ## 0.39.4 - 29th August 2025
