@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/version.rb
 #
 # Purpose:  Version for Xqsr3 library
 #
 # Created:  3rd April 2016
-# Updated:  14th August 2026
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #

@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 require 'xqsr3/string_utilities/truncate'
 
 

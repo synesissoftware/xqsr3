@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 %w{
 
   join_with_or

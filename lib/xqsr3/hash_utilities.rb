@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 %w{
 
   deep_transform

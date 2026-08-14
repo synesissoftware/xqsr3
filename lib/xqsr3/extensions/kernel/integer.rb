@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/extensions/kernel/integer.rb
 #
 # Purpose:  Adds a Integer 'overload' to the Kernel module
 #
 # Created:  21st November 2017
-# Updated:  12th August 2026
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
