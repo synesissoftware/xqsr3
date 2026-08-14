@@ -1,6 +1,11 @@
 # **xqsr3** Changes <!-- omit in toc -->
 
 
+## 0.39.5 - 14th August 2026
+
+* removed `< 4` upper bound from `required_ruby_version` in **xqsr3.gemspec**;
+
+
 ## 0.39.4.1 - 12th August 2026
 
 * updated **LICENSE** to canonical BSD-3-Clause form (copyright through 2026);

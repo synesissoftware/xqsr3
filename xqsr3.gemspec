@@ -21,7 +21,7 @@ END_DESC
   spec.homepage     = 'https://github.com/synesissoftware/xqsr3'
   spec.license      = 'BSD-3-Clause'
 
-  spec.required_ruby_version = [ '>= 2.0', '< 4' ]
+  spec.required_ruby_version = [ '>= 2.0' ]
 
   spec.metadata = {
     'bug_tracker_uri' => 'https://github.com/synesissoftware/xqsr3/issues',
