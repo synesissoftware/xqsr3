@@ -24,9 +24,7 @@
 /tmp/
 /vendor/bundle/
 
-
 # directories (by pattern)
-
 
 # files (by name)
 
@@ -36,7 +34,6 @@
 .rvmrc
 
 /spec/examples.txt
-
 
 # files (by pattern)
 
