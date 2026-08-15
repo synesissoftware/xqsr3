@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 %w{
 
   map_option_string

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'xqsr3/array_utilities/join_with_or'
 
 

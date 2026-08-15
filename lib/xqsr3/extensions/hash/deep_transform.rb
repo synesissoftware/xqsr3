@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'xqsr3/hash_utilities/deep_transform'
 
 

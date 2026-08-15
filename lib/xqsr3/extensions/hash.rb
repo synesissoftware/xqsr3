@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'xqsr3/extensions/hash/deep_transform'
 require 'xqsr3/extensions/hash/except'
 require 'xqsr3/extensions/hash/has_match'

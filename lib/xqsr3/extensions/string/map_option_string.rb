@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'xqsr3/command_line_utilities/map_option_string'
 
 

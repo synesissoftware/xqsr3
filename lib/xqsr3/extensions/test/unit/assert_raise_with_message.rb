@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'xqsr3/internal_/test_unit_version_'
 
 
