@@ -122,9 +122,9 @@ class Test_parameter_checks_as_included_module < Test::Unit::TestCase
 
   # test 2
 
-  def check_method_2 a, types, options = {}
+  def check_method_2 a, types, options = {}, &block
 
-    check_param a, 'a', options.merge({ types: types })
+    check_param a, 'a', options.merge({ types: types }), &block
   end
 
   def test_2
