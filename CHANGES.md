@@ -4,7 +4,7 @@
 ## 0.39.9 - 21st August 2026
 
 * `IO.writelines` writes via `<<` of `to_s` fragments instead of interpolating into frozen strings (Ruby 3.4+ `-W`);
-* writelines unit tests use `StringIO.new(+'', …)` so the destination buffer is not a frozen literal;
+* writelines unit tests use a local `writable_stringio` helper (`String.new` buffer, not `+''`) so **StringIO** is writable on Ruby 2.0 through 3.4+;
 * **test/unit/quality/tc_parameter_checking.rb**: `check_method_2` forwards the validation block; `assert_nil` / `assert_not_nil` invocations wrapped so **test-unit** does not warn under Ruby 3.4;
 * library source **Home:** URLs now use `https`;
 * **EXAMPLES.md** example links are repo-relative (`./examples/…`);
