@@ -5,13 +5,13 @@
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::StartsWith module
 #
 # Created:  13th April 2016
-# Updated:  12th April 2024
+# Updated:  12th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -97,10 +97,13 @@ module StringUtilities
 
             if prefix.respond_to? :to_str
 
-              return self.string_starts_with_helper_ s.prefix.to_str
-            end
+              r = self.string_starts_with_helper_ s, prefix.to_str
 
-            raise TypeError, "starts_with? can be passed instances of #{::String}, or nil, or types that respond to to_str"
+              return r if r
+            else
+
+              raise TypeError, "starts_with? can be passed instances of #{::String}, or nil, or types that respond to to_str"
+            end
           end
         end
 

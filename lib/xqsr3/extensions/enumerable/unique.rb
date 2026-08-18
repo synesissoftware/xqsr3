@@ -5,13 +5,13 @@
 # Purpose:  Adds a unique() method to the Enumerable module
 #
 # Created:  5th March 2007
-# Updated:  12th April 2024
+# Updated:  12th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -52,22 +52,27 @@ module Enumerable
 
   # Removes all duplicate elements in a sequence subject to an optional
   # two-parameter block in order to return an array containing unique
-  # elements
+  # elements. The first occurrence of each unique element is retained, in
+  # encounter order.
+  #
+  # Without a block, uniqueness is determined by +Hash+ membership (i.e.
+  # +#eql?+ / +#hash+).
+  #
+  # With a block of arity 2, the block is treated as an equality predicate:
+  # when it returns a truey value for +(kept, candidate)+, +candidate+ is
+  # treated as a duplicate of +kept+ and is discarded. Comparator mode is
+  # O(n^2) in the number of elements.
   #
   #  [ 1, 2, 3 ].unique # => [ 1, 2, 3 ]
   #  [ 1, 2, 1, 3 ].unique # => [ 1, 2, 3 ]
+  #  [ 1, 2, 1.0 ].unique { |a, b| a.to_s == b.to_s } # => [ 1, 2 ]
   def unique(&block)
 
-    if not block
+    ar = self.to_a
 
-      return unique { |a, b| a == b }
-    else
+    return ar if ar.length < 2
 
-      raise ArgumentError, "block requires two parameters" unless block.arity == 2
-
-      ar = self.to_a
-
-      return ar if ar.length < 2
+    unless block
 
       r = []
       h = {}
@@ -83,8 +88,21 @@ module Enumerable
 
       return r
     end
+
+    raise ArgumentError, "block requires two parameters" unless block.arity == 2
+
+    r = []
+
+    ar.each do |v|
+
+      unless r.any? { |kept| yield(kept, v) }
+
+        r << v
+      end
+    end
+
+    return r
   end
 end # module Enumerable
 
 # ############################## end of file ############################# #
-
