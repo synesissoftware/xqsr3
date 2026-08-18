@@ -4,6 +4,7 @@
 ## 0.39.9 - 21st August 2026
 
 * updated **README.md** afferent (fan-in) dependent lists;
+* expanded **xqsr3.gemspec** `spec.summary` to the README tagline;
 
 
 ## 0.39.8 - 20th August 2026

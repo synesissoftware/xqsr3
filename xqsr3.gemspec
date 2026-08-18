@@ -17,7 +17,7 @@ require 'xqsr3/version'
 Gem::Specification.new do |spec|
 
   spec.name         = 'xqsr3'
-  spec.summary      = 'xqsr3'
+  spec.summary      = 'eXtensions by fine Quantum for Standard Ruby and 3rd-party libraries'
   spec.version      = Xqsr3::VERSION
   spec.description  = <<END_DESC
 eXtensions by fine Quantum for Standard Ruby and 3rd-party libraries is a
