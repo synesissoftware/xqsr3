@@ -5,13 +5,13 @@
 # Purpose:  FrequencyMap container
 #
 # Created:  28th January 2005
-# Updated:  24th July 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -203,7 +203,7 @@ module Containers
       false
     end
 
-    # Obtains the count for a given key, or +nil+ if the key does not exist
+    # Obtains the count for a given key, or +0+ if the key does not exist
     #
     # === Signature
     #
@@ -294,7 +294,8 @@ module Containers
     # Enumerates each entry pair - element + frequency - in key order
     #
     # Note: this method is more expensive than +each+ because an array of
-    # keys must be created and sorted from which enumeration is directed
+    # keys must be created and sorted from which enumeration is directed.
+    # Keys must be mutually comparable via +<=>+.
     def each_by_key
 
       sorted_elements = @elements.sort { |a, b| a[0] <=> b[0] }
@@ -588,7 +589,8 @@ module Containers
 
     # Causes an element with the given +key+ and +count+ to be stored. If an
     # element with the given +key+ already exists, its count will be adjusted,
-    # as will the total count
+    # as will the total count. A +count+ of +0+ removes the key (consistent
+    # with +#push+ reducing a count to zero).
     #
     # === Return
     #  +true+ if the element was inserted; +false+ if the element was
@@ -599,7 +601,13 @@ module Containers
 
       old_count = @elements[key] || 0
 
-      @elements.store key, count
+      if 0 == count
+
+        @elements.delete key
+      else
+
+        @elements.store key, count
+      end
 
       @count += count - old_count
 
@@ -612,16 +620,16 @@ module Containers
       @elements.to_a
     end
 
-    # Obtains reference to internal hash instance (which must *not* be modified)
+    # Obtains a +Hash+ copy of the instance contents
     def to_h
 
-      @elements.to_h
+      @elements.dup
     end
 
     # Obtains equivalent hash to instance
     def to_hash
 
-      @elements.to_hash
+      @elements.dup
     end
 
     # A string-form of the instance

@@ -889,6 +889,13 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
     assert_equal 2, fm.size
 
     assert_raise(::TypeError) { fm.store :ghi, :blah }
+
+    fm.store :abc, 0
+
+    assert_not fm.has_key?(:abc)
+    assert_equal 2, fm.count
+    assert_equal 1, fm.size
+    assert_equal 0, fm[:abc]
   end
 
   def test_to_a
@@ -918,7 +925,18 @@ class Test_Xqsr3_Containers_FrequencyMap < Test::Unit::TestCase
 
     fm << :def << :def << :def
 
-    assert_equal ({:abc => 2, :def => 3}), fm.to_h
+    h = fm.to_h
+
+    assert_equal ({:abc => 2, :def => 3}), h
+    assert_equal h, fm.to_hash
+    assert_not_same fm.instance_variable_get(:@elements), h
+
+    h[:abc] = 99
+    h[:xyz] = 1
+
+    assert_equal 2, fm[:abc]
+    assert_equal 5, fm.count
+    assert_not fm.has_key?(:xyz)
   end
 
   def test_values

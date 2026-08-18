@@ -133,7 +133,9 @@ module Exceptions
     end
 
     # The cause / inner-exception, if any, specified to the instance
-    # initialiser
+    # initialiser. This attribute shadows +Exception#cause+ (the interpreter's
+    # raise-chain cause); for includers, +#cause+ refers to this module's
+    # +@cause+.
     attr_reader :cause
 
     # The options passed to the initialiser, with +:cause+ removed, if

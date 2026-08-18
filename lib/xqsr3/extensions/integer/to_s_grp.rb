@@ -83,7 +83,7 @@ class Integer
       return self.to_s
     when 1
 
-      return self.to_s.chars.to_a.reverse.each_slice(numbers[0]).map(&:join).join(',').reverse
+      return self.to_s.chars.to_a.reverse.each_slice(numbers[0]).map(&:join).join(separator).reverse
     else
 
       reversed_chars = self.to_s.chars.to_a#.reverse

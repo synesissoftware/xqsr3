@@ -22,6 +22,9 @@ class Test_X_Integer_to_s_grp < Test::Unit::TestCase
     assert_equal "8,7,6,5,4,3,2,1", 87654321.to_s_grp(1)
 
     assert_equal "876,54321", 87654321.to_s_grp(5)
+
+    assert_equal "87 654 321", 87654321.to_s_grp(3, separator: ' ')
+    assert_equal "87_654_321", 87654321.to_s_grp(3, separator: '_')
   end
 
   def test_array_with_single_number

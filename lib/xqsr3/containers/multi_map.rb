@@ -5,13 +5,13 @@
 # Purpose:  multimap container
 #
 # Created:  21st March 2007
-# Updated:  24th July 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -51,8 +51,8 @@
 module Xqsr3
 module Containers
 
-  # Hash-like class that stores as mapped values in arrays
-  class MultiMap < ::Hash
+  # Hash-like class that stores mapped values in arrays
+  class MultiMap
 
     include Enumerable
 
@@ -102,9 +102,10 @@ module Containers
 
               raise ArgumentError, "cannot pass an empty array in array of arrays initialiser" if ar.empty?
 
-              key = ar.shift
+              key = ar[0]
+              values = ar[1 ... ar.size]
 
-              ar.each { |value| h[key] << value }
+              values.each { |value| h[key] << value }
             end
 
             return self.[](h)
@@ -134,6 +135,18 @@ module Containers
       @merge_is_multi = true
 
       @inner = Hash.new
+    end
+
+    # Deep-copies +@inner+ (and each values array) after +dup+/+clone+
+    def initialize_copy other
+
+      @merge_is_multi = other.instance_variable_get(:@merge_is_multi)
+      @inner = {}
+
+      other.instance_variable_get(:@inner).each do |k, vals|
+
+        @inner[k] = vals.dup
+      end
     end
 
     # Obtains the values, if any, for the given key; returns +nil+ if no
@@ -412,6 +425,16 @@ module Containers
       @inner.has_key? key
     end
 
+    alias include? has_key?
+    alias key? has_key?
+    alias member? has_key?
+
+    # An array of all keys in the instance
+    def keys
+
+      @inner.keys
+    end
+
     # Returns +true+ if any key has the given +value+; +false+ otherwise
     #
     # === Signature
@@ -533,18 +556,25 @@ module Containers
       case other
       when self.class
 
-        ;
+        other.each do |k, v|
+
+          self.push k, v
+        end
       when ::Hash
 
-        ;
+        other.each do |k, v|
+
+          if ::Array === v
+
+            self.push k, *v
+          else
+
+            self.push k, v
+          end
+        end
       else
 
         raise TypeError, "parameter must be an instance of #{self.class} or #{Hash}"
-      end
-
-      other.each do |k, v|
-
-        self.push k, v
       end
 
       self
@@ -598,7 +628,13 @@ module Containers
 
         other.each do |k, v|
 
-          self.store k, v
+          if ::Array === v
+
+            self.store k, *v
+          else
+
+            self.store k, v
+          end
         end
       else
 
@@ -680,10 +716,17 @@ module Containers
       @inner.to_h
     end
 
-    # Obtains equivalent hash to instance
+    # Obtains equivalent hash to instance (independent copy)
     def to_hash
 
-      @elements.to_hash
+      h = {}
+
+      @inner.each do |k, vals|
+
+        h[k] = vals.dup
+      end
+
+      h
     end
 
     # A string-form of the instance
