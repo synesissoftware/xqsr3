@@ -7,7 +7,7 @@
 
 #
 # Created: 29th August 2025
-# Updated: 18th August 2026
+# Updated: 19th August 2026
 #
 
 name: Ruby
@@ -53,7 +53,6 @@ jobs:
           - '3.0'
           - '2.7'
           - '2.6'
-          - '2.0'
 
         include:
           - os: ubuntu-latest
