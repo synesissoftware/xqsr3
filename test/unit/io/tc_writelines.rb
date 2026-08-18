@@ -18,7 +18,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = 'abc'
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input
 
@@ -30,7 +30,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = [ 'abc' ]
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input
 
@@ -42,7 +42,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'abc' => '' }
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input
 
@@ -54,7 +54,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = [ 'abc', 'def' ]
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input
 
@@ -66,7 +66,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = [ 'abc', 'def' ]
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input, line_separator: ''
 
@@ -78,7 +78,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input
 
@@ -90,7 +90,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input, no_last_eol: true
 
@@ -102,7 +102,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input, column_separator: "\t"
 
@@ -114,7 +114,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input, line_separator: '+'
 
@@ -126,7 +126,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input, line_separator: '+', column_separator: "\t"
 
@@ -138,7 +138,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input, line_separator: '+', column_separator: "\t", no_last_eol: true
 
@@ -150,7 +150,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = StringIO.new(+'', 'a')
 
     r = ::Xqsr3::IO.writelines s, input, line_separator: '+', column_separator: '-'
 
