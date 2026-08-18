@@ -14,7 +14,7 @@
 
 ## Packaging improvements
 
-* [ ] after the packaging/boilerplate/CI baseline release: bump **VERSION**, drop gemspec `required_ruby_version` `< 4` upper bound, and align **CHANGES**;
+* [x] ~~~after the packaging/boilerplate/CI baseline release: bump **VERSION**, drop gemspec `required_ruby_version` `< 4` upper bound, and align **CHANGES**~~~;
 * [x] ~~~gemspec polish: `https` homepage, Rubygems `metadata` URIs, stop using `Date.today`, include **CHANGES.md** in packaged files~~~;
 
 
