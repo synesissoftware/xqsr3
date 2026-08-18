@@ -1,18 +1,24 @@
 # xqsr3 - Changes <!-- omit in toc -->
 
 
+## 0.39.9 - 21st August 2026
+
+T.B.C.
+
+
 ## 0.39.8 - 20th August 2026
 
-* added **.editorconfig** and **.github/dependabot.yml**;
-* added **CONTRIBUTING.md**, **INSTALL.md**, and **SECURITY.md**;
-* filled **FAQ.md** install FAQ skeleton;
-* normalised **AUTHORS.md** to contributor tables;
-* expanded **CHANGES.md** and **NEWS.md** historical coverage (tag/CHANGE chronology);
-* updated **.github/workflows/ruby.yml** — push branches include **rc1**/**rc2**/**rc3**, `fail-fast: false`, bash defaults, remove **Gemfile.lock** before `setup-ruby`;
-* updated **.gitattributes** (**Gemfile.lock** as text without `-diff`) and **.gitignore**;
-* updated **Gemfile** dependency quote style (double-quoted gem names, single-quoted constraints);
-* updated **Rakefile** (`# frozen_string_literal: true`, `'lib'`+`'test'` load paths, single-quoted task fields);
+* added `# frozen_string_literal: true` to all **lib/** sources;
+* **Rakefile**: `# frozen_string_literal: true` and `test` on the load path;
 * polished **xqsr3.gemspec** (standard File/Purpose/Created/Updated banner; multi-line `authors` / `email`);
+* added **.editorconfig**;
+* added **.github/dependabot.yml** (bundler and GitHub Actions, weekly);
+* **.gitattributes**: **Gemfile.lock** is now a normal text file (no longer `-diff`); regenerated lockfile with path gem and **rake** / **test-unit** pins;
+* updated CI in **.github/workflows/ruby.yml** (`rc1`/`rc2`/`rc3` branch triggers; `fail-fast: false`; default `bash` shell; remove **Gemfile.lock** before `setup-ruby`);
+* added **CONTRIBUTING.md**, **INSTALL.md**, and **SECURITY.md**; populated **FAQ.md**;
+* reformatted **AUTHORS.md** as tables;
+* backfilled historical **NEWS.md** release rows and **CHANGES.md** version entries;
+* updated **Gemfile** dependency quote style (double-quoted gem names, single-quoted constraints);
 
 
 ## 0.39.7 - 19th August 2026

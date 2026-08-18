@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/extensions/enumerable/collect_with_index.rb
 #
 # Purpose:  Adds a collect_with_index() method to the Enumerable module
 #
 # Created:  24th October 2010
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #

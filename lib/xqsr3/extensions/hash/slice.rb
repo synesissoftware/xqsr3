@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 unless Hash.instance_methods.include? :slice
 

@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/string_utilities/starts_with.rb
 #
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::StartsWith module
 #
 # Created:  13th April 2016
-# Updated:  12th August 2026
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #

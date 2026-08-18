@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require 'xqsr3/string_utilities/nil_if_empty'
 

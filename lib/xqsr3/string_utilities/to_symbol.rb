@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/string_utilities/to_symbol.rb
 #
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::ToSymbol module
 #
 # Created:  14th April 2016
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #

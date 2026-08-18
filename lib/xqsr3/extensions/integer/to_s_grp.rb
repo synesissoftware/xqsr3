@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/extensions/integer/to_s_grp.rb
 #
 # Purpose:  Adds a to_s_grp() method to the Integer class
 #
 # Created:  29th March 2024
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
