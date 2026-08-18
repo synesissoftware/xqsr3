@@ -3,7 +3,7 @@
 
 ## 0.39.9 - 21st August 2026
 
-T.B.C.
+* updated **README.md** afferent (fan-in) dependent lists;
 
 
 ## 0.39.8 - 20th August 2026

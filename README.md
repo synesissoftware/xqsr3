@@ -138,8 +138,9 @@ Projects that depend on **xqsr3**:
 
 ##### Runtime dependents
 
-* [**comment_strip-ruby**](https://github.com/synesissoftware/comment_strip.r);
+* [**comment_strip.r**](https://github.com/synesissoftware/comment_strip.r);
 * [**libCLImate.Ruby**](https://github.com/synesissoftware/libCLImate.Ruby);
+* [**oss-src-tools**](https://github.com/mwsis/oss-src-tools);
 * [**xqsr3-xml**](https://github.com/synesissoftware/xqsr3-xml/);
 
 
@@ -149,9 +150,11 @@ Projects that depend on **xqsr3**:
 * [**cmpfs.Ruby**](https://github.com/synesissoftware/cmpfs.Ruby);
 * [**Diagnosticism.Ruby**](https://github.com/synesissoftware/Diagnosticism.Ruby);
 * [**libpath.Ruby**](https://github.com/synesissoftware/libpath.Ruby);
+* [**p99.Ruby**](https://github.com/synesissoftware/p99.Ruby);
 * [**Pantheios.Ruby**](https://github.com/synesissoftware/Pantheios.Ruby);
-* [**Quench.Ruby**](https://github.com/synesissoftware/Quench.Ruby);
+* [**recls-helpers.Ruby**](https://github.com/synesissoftware/recls-helpers.Ruby);
 * [**recls.Ruby**](https://github.com/synesissoftware/recls.Ruby);
+* [**to_be.Ruby**](https://github.com/synesissoftware/to_be.Ruby);
 
 
 ### Related projects
