@@ -58,6 +58,10 @@ END_DESC
     'SECURITY*',
     'TODO*',
   ] & `git ls-files -z`.split("\0")
+  spec.files -= [
+    '.ruby-version',
+    'Gemfile.lock',
+  ]
 end
 
 

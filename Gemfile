@@ -2,6 +2,9 @@
 
 source "https://rubygems.org"
 
+# no-op on Bundler that lacks the lockfile DSL (Ruby 2.x CI)
+lockfile false if respond_to?(:lockfile)
+
 gemspec
 
 # rake 13 requires Ruby >= 2.3
