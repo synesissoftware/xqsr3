@@ -5,6 +5,7 @@
 
 * updated **README.md** afferent (fan-in) dependent lists;
 * expanded **xqsr3.gemspec** `spec.summary` to the README tagline;
+* updated **run_all_unit_tests.sh** (from https://github.com/synesissoftware/misc-dev-scripts) to skip **tput** when **$TERM** is unset or stdout is not a TTY;
 
 
 ## 0.39.8 - 20th August 2026
