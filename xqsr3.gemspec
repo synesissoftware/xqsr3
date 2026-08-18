@@ -4,7 +4,7 @@
 # Purpose:  Gemspec for xqsr3 library
 #
 # Created:  14th February 2014
-# Updated:  15th August 2026
+# Updated:  19th August 2026
 #
 # ######################################################################## #
 
@@ -48,10 +48,14 @@ END_DESC
     '{bin,examples,lib,man,spec,test}/**/*',
     'AUTHORS*',
     'CHANGES*',
+    'CONTRIBUTING*',
     'EXAMPLES*',
+    'FAQ*',
+    'INSTALL*',
     'LICENSE*',
     'NEWS*',
     'README*',
+    'SECURITY*',
     'TODO*',
   ] & `git ls-files -z`.split("\0")
 end
