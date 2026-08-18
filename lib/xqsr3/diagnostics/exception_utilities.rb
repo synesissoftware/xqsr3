@@ -180,7 +180,8 @@ module Diagnostics
 
           bt = x.backtrace
           (0..called_indirectly).each { bt.shift }
-          Kernel.raise x, x.message, bt
+          x.set_backtrace bt
+          Kernel.raise x
         end
       end
 
@@ -204,7 +205,8 @@ module Diagnostics
 
         bt = x.backtrace
         (0..called_indirectly).each { bt.shift }
-        Kernel.raise x, x.message, bt
+        x.set_backtrace bt
+        Kernel.raise x
       end
     end
   end # module ExceptionUtilities

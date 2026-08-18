@@ -22,6 +22,9 @@ class Test_Enumerable_detect_map < Test::Unit::TestCase
     assert_nil [].detect_map { |v| return -2 * v }
     assert_equal(-2, [ 1, 2, 3, 4, 5 ].detect_map { |v| -2 * v })
     assert_equal(-4, [ 1, 2, 3, 4, 5 ].detect_map { |v| -2 * v if 2 == v })
+
+    assert_equal false, [ 1, 2, 3 ].detect_map { |v| false if 1 == v }
+    assert_equal 0, [ 1, 2, 3 ].detect_map { |v| 0 if 2 == v }
   end
 
   def test_with_hash
