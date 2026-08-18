@@ -12,7 +12,7 @@
 * expanded **xqsr3.gemspec** `spec.summary` to the README tagline; packaged **CONTRIBUTING**, **FAQ**, **INSTALL**, and **SECURITY**;
 * updated **run_all_unit_tests.sh** (from https://github.com/synesissoftware/misc-dev-scripts) to skip **tput** when **$TERM** is unset or stdout is not a TTY;
 * CI **Warnings** job now runs on Ruby **3.4**;
-* stop tracking **Gemfile.lock** (already gitignored); **Gemfile** sets `lockfile false` when Bundler supports it;
+* stop tracking **Gemfile.lock** (already gitignored); **Gemfile** sets `lockfile false` when Bundler supports it; CI uses `bundler-cache: false` because Bundler 4 then writes no lockfile and **ruby/setup-ruby** cache cats **Gemfile.lock**;
 * **xqsr3.gemspec**: `required_ruby_version` is the range `>= 2.0`; **Gemfile.lock** and **.ruby-version** excluded from `spec.files`;
 
 
