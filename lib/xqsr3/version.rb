@@ -7,7 +7,7 @@
 # Created:  3rd April 2016
 # Updated:  21st August 2026
 #
-# Home:     http://github.com/synesissoftware/xqsr3
+# Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #

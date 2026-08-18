@@ -5,9 +5,9 @@
 # Purpose:  Definition of the ::Xqsr3::ArrayUtilities::JoinWithOr module
 #
 # Created:  7th December 2017
-# Updated:  15th August 2026
+# Updated:  19th August 2026
 #
-# Home:     http://github.com/synesissoftware/xqsr3
+# Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
