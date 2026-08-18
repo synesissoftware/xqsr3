@@ -5,13 +5,13 @@
 # Purpose:  Adds a Integer 'overload' to the Kernel module
 #
 # Created:  21st November 2017
-# Updated:  12th April 2024
+# Updated:  12th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -70,7 +70,7 @@ module Kernel
   #   - +:nil+ Returns +nil+ if +arg+ is +nil+ or cannot be converted by (the original) +Kernel#Integer+. Ignored if +:default+ is specified;
   def Integer(arg, base = 0, **options, &block)
 
-    ::Xqsr3::Conversion::IntegerParser.to_integer arg, base = 0, **options, &block
+    ::Xqsr3::Conversion::IntegerParser.to_integer arg, base, **options, &block
   end
 
   private :xqsr3_Integer_original_method

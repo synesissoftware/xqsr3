@@ -5,13 +5,13 @@
 # Purpose:  Definition of the ::Xqsr3::HashUtilities::DeepTransform module
 #
 # Created:  3rd June 2017
-# Updated:  12th April 2024
+# Updated:  12th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -92,7 +92,7 @@ module HashUtilities
 
     def do_deep_transform_on_self_ &block # :nodoc:
 
-      ::Xqsr3::Quality::ParameterChecking.check_parameter h, 'h', responds_to: [ :[]=, :delete, :keys ]
+      ::Xqsr3::Quality::ParameterChecking.check_parameter self, 'self', responds_to: [ :[]=, :delete, :keys ]
 
       case block.arity
       when 1
@@ -116,6 +116,8 @@ module HashUtilities
           v = v.deep_transform(&block) if ::Hash === v
 
           k, v = yield(k, v)
+
+          self[k] = v
         end
       else
 
@@ -134,7 +136,7 @@ module HashUtilities
     end
 
     # Executes the given mandatory 1- or 2-parameter block on the receiving
-    # instance, whihc must be a +Hash+ or a type that responds to +[]+,
+    # instance, which must be a +Hash+ or a type that responds to +[]+,
     # +delete+, and +keys+ messages, changing the keys (1-parameter block)
     # or keys and values (2-parameter block).
     #
@@ -143,10 +145,11 @@ module HashUtilities
     def deep_transform! &block
 
       do_deep_transform_on_self_(&block)
+
+      self
     end
   end # module DeepTransform
 end # module HashUtilities
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-

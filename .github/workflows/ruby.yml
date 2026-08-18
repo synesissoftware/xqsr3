@@ -7,7 +7,7 @@
 
 #
 # Created: 29th August 2025
-# Updated: 12th August 2026
+# Updated: 18th August 2026
 #
 
 name: Ruby
@@ -62,6 +62,10 @@ jobs:
     - name: Checking out code
       uses: actions/checkout@v4
 
+    - name: Remove Gemfile.lock
+      shell: bash
+      run: rm -f Gemfile.lock
+
     - name: Set up Ruby v${{ matrix.ruby-version }}
       uses: ruby/setup-ruby@v1
       with:
@@ -90,6 +94,10 @@ jobs:
     steps:
     - name: Checking out code
       uses: actions/checkout@v4
+
+    - name: Remove Gemfile.lock
+      shell: bash
+      run: rm -f Gemfile.lock
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1

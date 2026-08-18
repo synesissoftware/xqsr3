@@ -16,6 +16,7 @@ class Test_Hash_deep_transform < Test::Unit::TestCase
   def test_Hash_has_method
 
     assert Hash.new.respond_to? :deep_transform
+    assert Hash.new.respond_to? :deep_transform!
   end
 
   def test_with_empty
@@ -44,6 +45,45 @@ class Test_Hash_deep_transform < Test::Unit::TestCase
     assert_equal h_1, h.deep_transform { |k| k.respond_to?(:to_sym) ? k.to_sym : k }
     assert_equal h_1, h.deep_transform { |k, v| [ k.respond_to?(:to_sym) ? k.to_sym : k, v ] }
     assert_equal h_2, h.deep_transform { |k, v| [ k.respond_to?(:to_sym) ? k.to_sym : k, v.respond_to?(:to_sym) ? v.to_sym : v ] }
+  end
+
+  def test_bang_transform_to_same
+
+    jkl = 12
+    h = { 'abc' => 'def', ghi: jkl, mno: { p: 'q', 'r' => 'st' } }
+    orig = h.dup
+
+    assert_same h, h.deep_transform! { |k| k }
+    assert_equal orig, h
+
+    h = orig.dup
+    assert_same h, h.deep_transform! { |k, v| [ k, v ] }
+    assert_equal orig, h
+  end
+
+  def test_bang_transform_to_symbolise_keys
+
+    jkl = 12
+    h = { 'abc' => 'def', ghi: jkl, mno: { p: 'q', 'r' => 'st' } }
+    h_1 = { abc: 'def', ghi: jkl, mno: { p: 'q', r: 'st' } }
+
+    assert_same h, h.deep_transform! { |k| k.respond_to?(:to_sym) ? k.to_sym : k }
+    assert_equal h_1, h
+  end
+
+  def test_bang_transform_keys_and_values
+
+    jkl = 12
+    h = { 'abc' => 'def', ghi: jkl, mno: { p: 'q', 'r' => 'st' } }
+    h_2 = { abc: :def, ghi: jkl, mno: { p: :q, r: :st } }
+
+    assert_same h, h.deep_transform! { |k, v| [ k.respond_to?(:to_sym) ? k.to_sym : k, v.respond_to?(:to_sym) ? v.to_sym : v ] }
+    assert_equal h_2, h
+  end
+
+  def test_bang_wrong_arity
+
+    assert_raise(ArgumentError) { { a: 1 }.deep_transform! { |a, b, c| [ a, b ] } }
   end
 end
 

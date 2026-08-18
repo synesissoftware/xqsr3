@@ -66,6 +66,21 @@ class Test_String_ends_with < Test::Unit::TestCase
     assert_nil 'd'.ends_with?(*prefixes)
     assert 'abcdef'.ends_with?(*prefixes)
   end
+
+  def test_with_to_str
+
+    suffix = Object.new
+    def suffix.to_str; 'cd'; end
+
+    assert_equal 'cd', 'abcd'.ends_with?(suffix)
+    assert_nil 'xyz'.ends_with?(suffix)
+    assert_equal 'cd', 'abcd'.ends_with?('zz', suffix)
+  end
+
+  def test_with_unsupported_type
+
+    assert_raise(TypeError) { 'abcd'.ends_with?(Object.new) }
+  end
 end
 
 
