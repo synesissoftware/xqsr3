@@ -9,6 +9,7 @@
 * fixed `Hash#deep_transform!` (+NameError+ on +self+ check; arity-2 results were not written back);
 * fixed `String#starts_with?` / `String#ends_with?` (+StringUtilities+) +to_str+ candidate path (was +s.prefix.to_str+);
 * updated **run_all_unit_tests.sh** (from https://github.com/synesissoftware/misc-dev-scripts);
+* fixed Windows CI by running **Gemfile.lock** removal under `bash` (`rm -f` is not valid PowerShell);
 
 
 ## 0.39.5 - 14th August 2026
