@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/string_utilities/truncate.rb
 #
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::Truncate module
 #
 # Created:  12th April 2018
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #

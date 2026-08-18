@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/diagnostics/inspect_builder.rb
 #
 # Purpose:  ::Xqsr3::Diagnostics::InspectBuilder module
 #
 # Created:  4th September 2018
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #

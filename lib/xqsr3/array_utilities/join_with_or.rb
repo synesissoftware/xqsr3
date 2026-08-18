@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/array_utilities/join_with_or.rb
 #
 # Purpose:  Definition of the ::Xqsr3::ArrayUtilities::JoinWithOr module
 #
 # Created:  7th December 2017
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #

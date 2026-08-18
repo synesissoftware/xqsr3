@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/hash_utilities/key_matching.rb
 #
 # Purpose:  Definition of the ::Xqsr3::HashUtilities::KeyMatching module
 #
 # Created:  15th November 2017
-# Updated:  29th March 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
