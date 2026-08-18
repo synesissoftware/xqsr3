@@ -3,9 +3,16 @@
 
 ## 0.39.9 - 21st August 2026
 
+* `IO.writelines` writes via `<<` of `to_s` fragments instead of interpolating into frozen strings (Ruby 3.4+ `-W`);
+* writelines unit tests use `StringIO.new(+'', …)` so the destination buffer is not a frozen literal;
+* **test/unit/quality/tc_parameter_checking.rb**: `check_method_2` forwards the validation block; `assert_nil` / `assert_not_nil` invocations wrapped so **test-unit** does not warn under Ruby 3.4;
+* library source **Home:** URLs now use `https`;
+* **EXAMPLES.md** example links are repo-relative (`./examples/…`);
 * updated **README.md** afferent (fan-in) dependent lists;
-* expanded **xqsr3.gemspec** `spec.summary` to the README tagline;
+* expanded **xqsr3.gemspec** `spec.summary` to the README tagline; packaged **CONTRIBUTING**, **FAQ**, **INSTALL**, and **SECURITY**;
 * updated **run_all_unit_tests.sh** (from https://github.com/synesissoftware/misc-dev-scripts) to skip **tput** when **$TERM** is unset or stdout is not a TTY;
+* CI **Warnings** job now runs on Ruby **3.4**;
+* regenerated **Gemfile.lock** for **0.39.9**;
 
 
 ## 0.39.8 - 20th August 2026
