@@ -14,6 +14,7 @@
 * CI **Warnings** job now runs on Ruby **3.4**;
 * stop tracking **Gemfile.lock** (already gitignored); **Gemfile** sets `lockfile false` when Bundler supports it; CI uses `bundler-cache: false` because Bundler 4 then writes no lockfile and **ruby/setup-ruby** cache cats **Gemfile.lock**;
 * **xqsr3.gemspec**: `required_ruby_version` is the range `>= 2.0`; **Gemfile.lock** and **.ruby-version** excluded from `spec.files`;
+* TODO: CI `on.push.branches` is the canonical seven names (dropped **bp-3**);
 
 
 ## 0.39.8 - 20th August 2026
