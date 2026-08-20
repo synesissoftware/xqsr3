@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/array_utilities/join_with_or.rb
 #
 # Purpose:  Definition of the ::Xqsr3::ArrayUtilities::JoinWithOr module
 #
 # Created:  7th December 2017
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -77,10 +77,10 @@ module ArrayUtilities
       ::Xqsr3::Quality::ParameterChecking.check_parameter ar, 'ar', type: ::Array, allow_nil: true
       ::Xqsr3::Quality::ParameterChecking.check_parameter options, 'options', type: ::Hash, allow_nil: false
 
-      ::Xqsr3::Quality::ParameterChecking.check_parameter options[:or], ':or', type: ::String, option: true, allow_nil: true
-      ::Xqsr3::Quality::ParameterChecking.check_parameter options[:oxford_comma], ':oxford_comma', types: [ ::FalseClass, ::TrueClass ], option: true, allow_nil: true
-      ::Xqsr3::Quality::ParameterChecking.check_parameter options[:quote_char], ':quote_char', type: ::String, option: true, allow_nil: true
-      ::Xqsr3::Quality::ParameterChecking.check_parameter options[:separator], ':separator', type: ::String, option: true, allow_nil: true
+      ::Xqsr3::Quality::ParameterChecking.check_parameter options[:or], ':or', type: ::String, treat_as_option: true, allow_nil: true
+      ::Xqsr3::Quality::ParameterChecking.check_parameter options[:oxford_comma], ':oxford_comma', types: [ ::FalseClass, ::TrueClass ], treat_as_option: true, allow_nil: true
+      ::Xqsr3::Quality::ParameterChecking.check_parameter options[:quote_char], ':quote_char', type: ::String, treat_as_option: true, allow_nil: true
+      ::Xqsr3::Quality::ParameterChecking.check_parameter options[:separator], ':separator', type: ::String, treat_as_option: true, allow_nil: true
 
       return '' if ar.nil?
       return '' if ar.empty?

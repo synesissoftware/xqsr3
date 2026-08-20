@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/internal_/test_unit_version_.rb
 #
@@ -6,7 +6,7 @@
 #           Test::Unit module
 #
 # Created:  March 2nd 2019
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #

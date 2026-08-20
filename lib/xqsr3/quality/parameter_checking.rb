@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/quality/parameter_checking.rb
 #
 # Purpose:  Definition of the ParameterChecking module
 #
 # Created:  12th February 2015
-# Updated:  29th August 2025
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -82,6 +82,7 @@ module Quality
 
           allow_nil
           ignore_case
+          ignore_order
           message
           nil
           nothrow
@@ -118,6 +119,7 @@ module Quality
     #   - +:allow_nil+ (boolean) The +value+ must not be +nil+ unless this option is true;
     #   - +:nil+ an alias for +:allow_nil+;
     #   - +:ignore_case+ (boolean) When +:values+ is specified, comparisons of strings, or arrays of strings, will be carried out in a case-insensitive manner;
+    #   - +:ignore_order+ (boolean) When +:values+ is specified and +value+ is an +Array+, comparisons may ignore element order;
     #   - +:types+ (+Array+) An array of types one of which +value+ must be (or must be derived from). One of these types may be an array of types, in which case +value+ may be an array that must consist wholly of those types;
     #   - +:type+ (+Class+) A single type parameter, used only if +:types+ is not specified;
     #   - +:values+ (+Array+) an array of values one of which +value+ must be;
@@ -174,6 +176,7 @@ module Quality
     #   - +:allow_nil+ (boolean) The +value+ must not be +nil+ unless this option is true;
     #   - +:nil+ an alias for +:allow_nil+;
     #   - +:ignore_case+ (boolean) When +:values+ is specified, comparisons of strings, or arrays of strings, will be carried out in a case-insensitive manner;
+    #   - +:ignore_order+ (boolean) When +:values+ is specified and +value+ is an +Array+, comparisons may ignore element order;
     #   - +:types+ (+Array+) An array of types one of which +value+ must be (or must be derived from). One of these types may be an array of types, in which case +value+ may be an array that must consist wholly of those types;
     #   - +:type+ (+Class+) A single type parameter, used only if +:types+ is not specified;
     #   - +:values+ (+Array+) an array of values one of which +value+ must be;
@@ -328,7 +331,7 @@ module Quality
 
         # types
 
-        types = options[:types] || []
+        types = (options[:types] || []).dup
         if options.has_key? :type
 
           types << options[:type] if types.empty?

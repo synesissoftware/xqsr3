@@ -1,17 +1,17 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/io/writelines.rb
 #
 # Purpose:  Adds a writelines() method to the IO module
 #
 # Created:  13th April 2007
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2007-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -125,7 +125,7 @@ module IO
 
     if contents.instance_of? ::Hash
 
-      contents.each_with_index do |k, v, index|
+      contents.each_with_index do |(k, v), index|
 
         if eol_lookahead_limit && eol_lookahead_limit == index
 

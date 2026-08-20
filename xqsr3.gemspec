@@ -4,7 +4,7 @@
 # Purpose:  Gemspec for xqsr3 library
 #
 # Created:  14th February 2014
-# Updated:  13th August 2026
+# Updated:  15th August 2026
 #
 # ######################################################################## #
 
@@ -24,8 +24,13 @@ eXtensions by fine Quantum for Standard Ruby and 3rd-party libraries is a
 lightweight, low-coupling library of assorted extensions to standard Ruby
 and 3rd-party libraries.
 END_DESC
-  spec.authors      = [ 'Matt Wilson' ]
-  spec.email        = 'matthew@synesis.com.au'
+
+  spec.authors      = [
+    'Matt Wilson',
+  ]
+  spec.email        = [
+    'matthew@synesis.com.au',
+  ]
   spec.homepage     = 'https://github.com/synesissoftware/xqsr3'
   spec.license      = 'BSD-3-Clause'
 

@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/diagnostics/exception_utilities.rb
 #
 # Purpose:  Definition of the ExceptionUtilities module
 #
 # Created:  12th February 2015
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -180,7 +180,8 @@ module Diagnostics
 
           bt = x.backtrace
           (0..called_indirectly).each { bt.shift }
-          Kernel.raise x, x.message, bt
+          x.set_backtrace bt
+          Kernel.raise x
         end
       end
 
@@ -204,7 +205,8 @@ module Diagnostics
 
         bt = x.backtrace
         (0..called_indirectly).each { bt.shift }
-        Kernel.raise x, x.message, bt
+        x.set_backtrace bt
+        Kernel.raise x
       end
     end
   end # module ExceptionUtilities

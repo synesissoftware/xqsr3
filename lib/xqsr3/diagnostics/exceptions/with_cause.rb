@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/diagnostics/exceptions/with_cause.rb
 #
 # Purpose:  Definition of the WithCause inclusion module
 #
 # Created:  16th December 2017
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
@@ -133,7 +133,9 @@ module Exceptions
     end
 
     # The cause / inner-exception, if any, specified to the instance
-    # initialiser
+    # initialiser. This attribute shadows +Exception#cause+ (the interpreter's
+    # raise-chain cause); for includers, +#cause+ refers to this module's
+    # +@cause+.
     attr_reader :cause
 
     # The options passed to the initialiser, with +:cause+ removed, if
