@@ -1,6 +1,19 @@
 # xqsr3 - Changes <!-- omit in toc -->
 
 
+## 0.39.8 - 20th August 2026
+
+* added `# frozen_string_literal: true` to all **lib/** sources;
+* added **.editorconfig**;
+* **.gitattributes**: **Gemfile.lock** is now a normal text file (no longer `-diff`); regenerated lockfile with path gem and **rake** / **test-unit** pins;
+* added **.github/dependabot.yml** (bundler and GitHub Actions, weekly);
+* updated CI in **.github/workflows/ruby.yml** (`rc1`/`rc2`/`rc3` branch triggers; default `bash` shell; `fail-fast: false`);
+* added **CONTRIBUTING.md**, **INSTALL.md**, and **SECURITY.md**; populated **FAQ.md**;
+* reformatted **AUTHORS.md** as tables;
+* backfilled historical **NEWS.md** release rows and **CHANGES.md** version entries;
+* **Rakefile**: `# frozen_string_literal: true` and `test` on the load path;
+
+
 ## 0.39.7 - 19th August 2026
 
 * fixed **MultiMap**: no longer subclasses +Hash+ (data lived only in +@inner+, so inherited +keys+/+key?+ lied); added +keys+/+key?+/+include?+/+member?+; fixed +to_hash+; deep-copy on +dup+/+clone+; +MultiMap[]+ no longer mutates nested arrays; Hash merges splat array values consistently with +MultiMap[]+ / +to_h+;
@@ -162,6 +175,11 @@
 * `::Xqsr3::IO.writelines()` / `::IO.writelines()` now recognises `:no_last_eol` option, which, if truey, suppresses the EOL on the last line/element in the written collection;
 
 
+## 0.35 - 31st October 2019
+
+* ::Xqsr3::IO.writelines() / ::IO.writelines() : + now recognises ':no_last_eol' option, which, if truey, suppresses the EOL on the last line/element in the written collection;
+
+
 ## 0.34.0 - 4th July 2019
 
 * added `Hash#slice` for Ruby versions < 2.5, available via **xqsr3/extensions/hash** (or **xqsr3/extensions/hash/slice**);
@@ -204,6 +222,361 @@
 * refactored `Xqsr3::Containers::FrequencyMap`, and corrected `#push()` to handle -ve count;
 * substantially improved documentation for some components (though many more to go);
 * added **EXAMPLES.md** and the **examples/count_word_frequencies.rb** example;
+
+
+## 0.31.3 - 12th April 2019
+
+* fixing up documentation;
+
+
+## 0.31.2 - 10th April 2019
+
+* tidying documentation;
+
+
+## 0.31.1 - 13th March 2019
+
+* fixing up warnings;
+
+
+## 0.31.0 - 2nd March 2019
+
+* added Gemfile (which is empty, since xqsr3 has no dependencies);
+
+
+## 0.30.3 - 28th February 2019
+
+* merge;
+
+
+## 0.30.2 - 19th October 2018
+
+* addressing warnings;
+
+
+## 0.30.1 - 13th October 2018
+
+* FrequencyMap : + added #each_by_key();
+
+
+## 0.29.2 - 13th October 2018
+
+* tagged release;
+
+
+## 0.28.2 - 14th September 2018
+
+* InspectBuilder: + now supports including class having INSPECT_HIDDEN_FIELDS constant;
+
+
+## 0.28.1 - 5th September 2018
+
+* merging in InspectBuilder;
+
+
+## 0.28.0 - 5th September 2018
+
+* Xqsr3::Quality::ParameterChecking : + now accepts pseudo-type :boolean, in the stead of ::TrueClass + ::FalseClass;
+
+
+## 0.27.2 - 4th September 2018
+
+* whitespace;
+
+
+## 0.27.1 - 8th August 2018
+
+* added ::Xqsr3::XML::Utilities::Navigation module; ~ fixed content-comparison in xml_compare();
+
+
+## 0.26.4 - 1st August 2018
+
+* Xqsr3::Conversion::IntegerParser : ~ improved handling of corner cases;
+
+
+## 0.26.3 - 30th July 2018
+
+* tidying;
+
+
+## 0.26.2 - 17th July 2018
+
+* ::Xqsr3::Conversion::IntegerParser : ::to_integer() and #to_integer() : ~ block now takes (up to) 4-parameters : exception, arg, base, options;
+
+
+## 0.26.1 - 17th July 2018
+
+* added ::Xqsr3::Conversion::IntegerParser, which has ::to_integer() and #to_integer(), and reimplemented the Kernel#Integer() in terms of it;
+
+
+## 0.25.2 - 17th July 2018
+
+* fixed missing equivalence of ':allow_nil' and ':nil' options;
+
+
+## 0.25.1 - 18th May 2018
+
+* Kernel#Integer() extension : + added caller-supplied block;
+
+
+## 0.24.1 - 12th April 2018
+
+* added Xqsr3::Extensions::String::Truncate module and extension method #truncate() for String;
+
+
+## 0.23.2 - 9th April 2018
+
+* Xqsr3::Quality::ParameterChecking#check_parameter : ~ now does not check empty? if value.nil?; assert_raise_with_exception() : + now includes exception message when wrong exception type;
+
+
+## 0.22.7 - 21st March 2018
+
+* ::Xqsr3::Quality::ParameterChecking : + now warns about unrecognised options (when );
+
+
+## 0.22.6 - 21st March 2018
+
+* assert_raise_with_message() : ~ fixed defect that was hiding the message 'the block did not throw an exception as was expected';
+
+
+## 0.22.5 - 14th March 2018
+
+* run_all_unit_tests(.sh) : + added '--debug', '--help', and '--separate' flags;
+
+
+## 0.22.4 - 28th February 2018
+
+* cleaning gemspec;
+
+
+## 0.22.3 - 28th February 2018
+
+* ::Xqsr3::XML::Utilities::Compare::xml_compare() : ~ now ignores XML Declarations so that XML documents and nodes may be compared without Declarations getting in the way;
+
+
+## 0.22.2 - 1st February 2018
+
+* ::Xqsr3::XML::Utilities::Compare::Result : + overridden to_s() to return 'same' or 'different, because: .... details ...';
+
+
+## 0.22.1 - 25th January 2018
+
+* version;
+
+
+## 0.21.3 - 8th January 2018
+
+* more unit tests for ::Xqsr3::Quality::ParameterChecking;
+
+
+## 0.21.2 - 8th January 2018
+
+* merging 0.20.3;
+
+
+## 0.21.1 - 6th January 2018
+
+* added assert_type_has_instance_methods() extension method (for Test::Unit);
+
+
+## 0.20.3 - 8th January 2018
+
+* ::Xqsr3::Quality::ParameterChecking::check_parameter() : ~ fix to allow types to contain nested arrays along with non-array type(s);
+
+
+## 0.20.2 - 2nd January 2018
+
+* ::Xqsr3::Quality::ParameterChecking::check_parameter() : ~ fix to allow types to contain nested arrays along with non-array type(s);
+
+
+## 0.20.1 - 22nd December 2017
+
+* added assert_raise_with_message();
+
+
+## 0.19.3 - 21st December 2017
+
+* tidying;
+
+
+## 0.19.2 - 21st December 2017
+
+* tagged release;
+
+
+## 0.19.1 - 21st December 2017
+
+* tagged release;
+
+
+## 0.18.1 - 17th December 2017
+
+* added Xqsr3::Diagnostics::Exceptions::WithCase inclusion module, which enables an exception class to be able to receive a cause (inner exception) in its initialiser, which is then exposed via a +cause+ attribute (along with +chainees+, +exceptions+, +chained_backtrace+, and +chained_message+ attributes);
+
+
+## 0.17.2 - 16th December 2017
+
+* tidying;
+
+
+## 0.17.1 - 9th December 2017
+
+* added Enumerable#detect_map() extension method;
+
+
+## 0.16.1 - 7th December 2017
+
+* added ::Xqsr3::ArrayUtilities::JoinWithOr module, with join_with_or() method;
+
+
+## 0.15.3 - 7th December 2017
+
+* Xqsr3::Quality::ParameterChecking : ~ ensuring that class methods are private - as are instance - but module methods can still be called directly;
+
+
+## 0.15.2 - 22nd November 2017
+
+* improved documentation for Kernel#Integer() extension;
+
+
+## 0.15.1 - 22nd November 2017
+
+* added monkey-patched Kernel.Integer(arg, base = 0, **options);
+
+
+## 0.14.1 - 15th November 2017
+
+* added Xqsr3::HashUtilities::KeyMatching and match() and has_match?() extensions for ::Hash;
+
+
+## 0.13.3 - 1st November 2017
+
+* ParameterChecking : + now accepts type: to specify a single type (recognised when types: is not there);
+
+
+## 0.13.1 - 7th August 2017
+
+* XML compare : ~ more test cases;
+
+
+## 0.12.3 - 2nd August 2017
+
+* tidying;
+
+
+## 0.12.2 - 22nd June 2017
+
+* fixed debug-visible warnings;
+
+
+## 0.12.1 - 7th June 2017
+
+* added String.to_bool extension;
+
+
+## 0.11.2 - 7th June 2017
+
+* tagged release;
+
+
+## 0.11.1 - 7th June 2017
+
+* added ::Xqsr3::HashUtilities::DeepTransform module and + Hash.deep_transform and Hash.deep_transform! extensions; + added ::Xqsr3::StringUtilities::QuoteIf module and String.quote_if extension; + added +responds_to+ option to ::Xqsr3::Quality::ParameterChecking.check_parameter, which takes an array of messages to which the validated parameter must respond;
+
+
+## 0.10.2 - 26th February 2017
+
+* tidying;
+
+
+## 0.10.1 - 26th February 2017
+
+* ::Xqsr3::Quality::ParameterChecking::check_parameter() : + now can validate types of elements contained in array parameters;
+
+
+## 0.9.2 - 26th February 2017
+
+* minor improvement to test case;
+
+
+## 0.9.1 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.8.7 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.8.6 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.8.5 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.8.4 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.8.3 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.8.2 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.8.1 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.7.2 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.7.1 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.6.3 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.6.1 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.5.2 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.5.1 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.4.1 - 26th February 2017
+
+* adding old tag;
+
+
+## 0.2.2 - 26th February 2017
+
+* adding old tag;
 
 
 <!-- ########################### end of file ########################### -->

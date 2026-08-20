@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/command_line_utilities/map_option_string.rb
 #
@@ -6,7 +6,7 @@
 #           module
 #
 # Created:  15th April 2016
-# Updated:  12th April 2024
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #

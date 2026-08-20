@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/quality/parameter_checking.rb
 #
 # Purpose:  Definition of the ParameterChecking module
 #
 # Created:  12th February 2015
-# Updated:  29th August 2025
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #

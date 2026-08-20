@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/extensions/enumerable/unique.rb
 #
 # Purpose:  Adds a unique() method to the Enumerable module
 #
 # Created:  5th March 2007
-# Updated:  12th August 2026
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #

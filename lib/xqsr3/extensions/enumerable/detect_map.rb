@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/extensions/enumerable/detect_map.rb
 #

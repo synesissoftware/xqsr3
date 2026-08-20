@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:     lib/xqsr3/hash_utilities/deep_transform.rb
 #
 # Purpose:  Definition of the ::Xqsr3::HashUtilities::DeepTransform module
 #
 # Created:  3rd June 2017
-# Updated:  12th August 2026
+# Updated:  15th August 2026
 #
 # Home:     http://github.com/synesissoftware/xqsr3
 #
