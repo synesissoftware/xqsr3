@@ -14,6 +14,7 @@
 
 ## Packaging improvements
 
+* [ ] README.md and dosc/*.md introductory elements of main features;
 * [x] ~~~obtain a **run_all_unit_tests.sh** (from **misc-dev-scripts**) that skips `tput` when `$TERM` is unset or stdout is not a TTY (CI: `tput: No value for $TERM and no -T specified`)~~~;
 * [x] ~~~after the packaging/boilerplate/CI baseline release: bump **VERSION**, drop gemspec `required_ruby_version` `< 4` upper bound, and align **CHANGES**~~~;
 * [x] ~~~gemspec polish: `https` homepage, Rubygems `metadata` URIs, stop using `Date.today`, include **CHANGES.md** in packaged files~~~;
