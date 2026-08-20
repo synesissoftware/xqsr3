@@ -4,6 +4,7 @@
 /.bzr/
 /.config/
 /.svn/
+/.vscode/
 /.yardoc/
 
 /_build/
@@ -24,7 +25,9 @@
 /tmp/
 /vendor/bundle/
 
+
 # directories (by pattern)
+
 
 # files (by name)
 
@@ -33,7 +36,10 @@
 .ruby-version
 .rvmrc
 
+Gemfile.lock
+
 /spec/examples.txt
+
 
 # files (by pattern)
 

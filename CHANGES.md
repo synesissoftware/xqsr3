@@ -1,9 +1,21 @@
 # xqsr3 - Changes <!-- omit in toc -->
 
 
-## 0.39.7 - 16th August 2026
+## 0.39.8 - 20th August 2026
 
 * added `# frozen_string_literal: true` to all **lib/** sources;
+* added **.editorconfig**;
+* **.gitattributes**: **Gemfile.lock** is now a normal text file (no longer `-diff`); regenerated lockfile with path gem and **rake** / **test-unit** pins;
+* added **.github/dependabot.yml** (bundler and GitHub Actions, weekly);
+* updated CI in **.github/workflows/ruby.yml** (`rc1`/`rc2`/`rc3` branch triggers; default `bash` shell; `fail-fast: false`);
+* added **CONTRIBUTING.md**, **INSTALL.md**, and **SECURITY.md**; populated **FAQ.md**;
+* reformatted **AUTHORS.md** as tables;
+* backfilled historical **NEWS.md** release rows and **CHANGES.md** version entries;
+* **Rakefile**: `# frozen_string_literal: true` and `test` on the load path;
+
+
+## 0.39.7 - 19th August 2026
+
 * fixed **MultiMap**: no longer subclasses +Hash+ (data lived only in +@inner+, so inherited +keys+/+key?+ lied); added +keys+/+key?+/+include?+/+member?+; fixed +to_hash+; deep-copy on +dup+/+clone+; +MultiMap[]+ no longer mutates nested arrays; Hash merges splat array values consistently with +MultiMap[]+ / +to_h+;
 * fixed `IO.writelines` Hash EOL lookahead (+each_with_index+ was not destructuring key/value pairs);
 * aligned `xqsr3/extensions` (and thus `xqsr3/all_extensions`) with documented extension packs — now loads **integer**, **kernel**, and **string** as well as **enumerable/detect_map**;
@@ -14,13 +26,15 @@
 * fixed `ExceptionUtilities.raise_with_options` to use +set_backtrace+ instead of deprecated 3-arg +raise+; documented **WithCause** +#cause+ shadowing;
 
 
-## 0.39.6 - 15th August 2026
+## 0.39.6 - 18th August 2026
 
 * fixed **BoolParser** default matching to require whole-string `true`/`false` (case-insensitive), aligned `:default_value` / `:true_value` / `:false_value` options with documented names (legacy `:default` / `:true` / `:false` still accepted), and allowed falsy override values;
 * fixed `Kernel#Integer` extension to honour the supplied +base+ (was always forced to +0+);
 * fixed `Enumerable#unique` to honour its optional two-parameter equality comparator block;
 * fixed `Hash#deep_transform!` (+NameError+ on +self+ check; arity-2 results were not written back);
 * fixed `String#starts_with?` / `String#ends_with?` (+StringUtilities+) +to_str+ candidate path (was +s.prefix.to_str+);
+* updated **run_all_unit_tests.sh** (from https://github.com/synesissoftware/misc-dev-scripts);
+* fixed Windows CI by running **Gemfile.lock** removal under `bash` (`rm -f` is not valid PowerShell);
 
 
 ## 0.39.5 - 14th August 2026

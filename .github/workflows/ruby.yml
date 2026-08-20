@@ -7,7 +7,7 @@
 
 #
 # Created: 29th August 2025
-# Updated: 15th August 2026
+# Updated: 18th August 2026
 #
 
 name: Ruby
@@ -67,7 +67,11 @@ jobs:
 
     steps:
     - name: Checking out code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
+
+    - name: Remove Gemfile.lock
+      shell: bash
+      run: rm -f Gemfile.lock
 
     - name: Remove Gemfile.lock
       run: rm -f Gemfile.lock
@@ -99,7 +103,11 @@ jobs:
 
     steps:
     - name: Checking out code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
+
+    - name: Remove Gemfile.lock
+      shell: bash
+      run: rm -f Gemfile.lock
 
     - name: Remove Gemfile.lock
       run: rm -f Gemfile.lock
