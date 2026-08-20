@@ -5,9 +5,9 @@
 # Purpose:  Adds a writelines() method to the IO module
 #
 # Created:  13th April 2007
-# Updated:  15th August 2026
+# Updated:  19th August 2026
 #
-# Home:     http://github.com/synesissoftware/xqsr3
+# Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
@@ -80,7 +80,10 @@ module IO
 
           target << line_separator unless first
 
-          target << "#{k}#{column_separator}#{v}"
+          # target << "#{k}#{column_separator}#{v}"
+          target << k.to_s
+          target << column_separator
+          target << v.to_s
 
           first = false
         end
@@ -90,7 +93,7 @@ module IO
 
           target << line_separator unless first
 
-          target << "#{element}"
+          target << element.to_s
 
           first = false
         end
@@ -101,13 +104,19 @@ module IO
 
         contents.each do |k, v|
 
-          target << "#{k}#{column_separator}#{v}#{line_separator}"
+          # target << "#{k}#{column_separator}#{v}#{line_separator}"
+          target << k.to_s
+          target << column_separator
+          target << v.to_s
+          target << line_separator
         end
       else
 
         contents.each do |element|
 
-          target << "#{element}#{line_separator}"
+          # target << "#{element}#{line_separator}"
+          target << element.to_s
+          target << line_separator
         end
       end
     end

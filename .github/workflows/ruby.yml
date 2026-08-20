@@ -7,7 +7,7 @@
 
 #
 # Created: 29th August 2025
-# Updated: 18th August 2026
+# Updated: 19th August 2026
 #
 
 name: Ruby
@@ -18,6 +18,7 @@ on:
       - master
       - dev
       - boilerplate
+      - bp-3
       - idiomatic
       - rc1
       - rc2
@@ -77,7 +78,13 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+        # Bundler 4 honours Gemfile `lockfile false`, so no Gemfile.lock
+        # is written. bundler-cache cats that file after `bundle lock`
+        # and fails on Windows 3.2+ (setup-ruby installs Bundler ~> 4).
+        bundler-cache: false
+
+    - name: Install gems
+      run: bundle install
 
     - name: Show Ruby version
       run: ruby -v
@@ -109,8 +116,11 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.3'
-        bundler-cache: true
+        ruby-version: '3.4'
+        bundler-cache: false
+
+    - name: Install gems
+      run: bundle install
 
     - name: Show Ruby version
       run: ruby -v

@@ -5,9 +5,9 @@
 # Purpose:  Adds a unique() method to the Enumerable module
 #
 # Created:  5th March 2007
-# Updated:  15th August 2026
+# Updated:  19th August 2026
 #
-# Home:     http://github.com/synesissoftware/xqsr3
+# Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #

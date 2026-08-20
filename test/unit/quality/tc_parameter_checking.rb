@@ -122,9 +122,9 @@ class Test_parameter_checks_as_included_module < Test::Unit::TestCase
 
   # test 2
 
-  def check_method_2 a, types, options = {}
+  def check_method_2 a, types, options = {}, &block
 
-    check_param a, 'a', options.merge({ types: types })
+    check_param a, 'a', options.merge({ types: types }), &block
   end
 
   def test_2
@@ -143,7 +143,7 @@ class Test_parameter_checks_as_included_module < Test::Unit::TestCase
     assert_not_nil check_method_2(//, [ [ ::String ], ::Regexp ], nothrow: true)
     assert_not_nil check_method_2([ [ 'abc', 'def' ], [ 'ghi', 'jkl' ] ], [ [ ::String ], ::Regexp, [ ::Array ] ], nothrow: true)
 
-    assert_not_nil check_method_2([ [ 'abc', 'def' ], [ 'ghi', 'jkl' ] ], [ [ ::String ], ::Regexp, [ ::Array ] ], nothrow: true) do |v|
+    assert_not_nil(check_method_2([ [ 'abc', 'def' ], [ 'ghi', 'jkl' ] ], [ [ ::String ], ::Regexp, [ ::Array ] ], nothrow: true) do |v|
 
       if ::Array === v
 
@@ -154,9 +154,9 @@ class Test_parameter_checks_as_included_module < Test::Unit::TestCase
 
         true
       end
-    end
+    end)
 
-    assert_nil check_method_2([ [ 'abc', 'def' ], nil, [ 'ghi', 'jkl' ] ], [ [ ::String ], ::Regexp, [ ::Array ] ], nothrow: true) do |v|
+    assert_nil(check_method_2([ [ 'abc', 'def' ], nil, [ 'ghi', 'jkl' ] ], [ [ ::String ], ::Regexp, [ ::Array ] ], nothrow: true) do |v|
 
       if ::Array === v
 
@@ -167,7 +167,7 @@ class Test_parameter_checks_as_included_module < Test::Unit::TestCase
 
         true
       end
-    end
+    end)
   end
 
 

@@ -14,11 +14,21 @@ include ::Xqsr3::IO
 
 class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
+  # HACK: StringIO needs a mutable backing buffer. `StringIO.new('', 'a')`
+  # fails when the empty literal is frozen (Ruby 3.4+ frozen-string-literal
+  # defaults). `StringIO.new(+'', 'a')` uses `String#+@`, which does not
+  # exist before Ruby 2.3 (CI: 2.0 `undefined method '+@'`). `String.new`
+  # allocates an unfrozen empty string on MRI 1.9.3 through 4.x.
+  def writable_stringio(mode = 'a')
+
+    StringIO.new(String.new, mode)
+  end
+
   def test_single_string
 
     input = 'abc'
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input
 
@@ -30,7 +40,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = [ 'abc' ]
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input
 
@@ -42,7 +52,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'abc' => '' }
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input
 
@@ -54,7 +64,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = [ 'abc', 'def' ]
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input
 
@@ -66,7 +76,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = [ 'abc', 'def' ]
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input, line_separator: ''
 
@@ -78,7 +88,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input
 
@@ -90,7 +100,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input, no_last_eol: true
 
@@ -102,7 +112,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input, column_separator: "\t"
 
@@ -114,7 +124,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input, line_separator: '+'
 
@@ -126,7 +136,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input, line_separator: '+', column_separator: "\t"
 
@@ -138,7 +148,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input, line_separator: '+', column_separator: "\t", no_last_eol: true
 
@@ -150,7 +160,7 @@ class Test_Xqsr3_IO_writelines < Test::Unit::TestCase
 
     input = { 'ab' => 'c', 'de' => 'f' }
 
-    s = StringIO.new '', 'a'
+    s = writable_stringio
 
     r = ::Xqsr3::IO.writelines s, input, line_separator: '+', column_separator: '-'
 

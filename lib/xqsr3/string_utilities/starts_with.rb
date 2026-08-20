@@ -5,9 +5,9 @@
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::StartsWith module
 #
 # Created:  13th April 2016
-# Updated:  15th August 2026
+# Updated:  19th August 2026
 #
-# Home:     http://github.com/synesissoftware/xqsr3
+# Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #

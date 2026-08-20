@@ -5,9 +5,9 @@
 # Purpose:  Documentation of the ::Xqsr3 modules
 #
 # Created:  10th June 2016
-# Updated:  15th August 2026
+# Updated:  19th August 2026
 #
-# Home:     http://github.com/synesissoftware/xqsr3
+# Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #

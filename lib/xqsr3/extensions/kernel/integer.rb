@@ -5,9 +5,9 @@
 # Purpose:  Adds a Integer 'overload' to the Kernel module
 #
 # Created:  21st November 2017
-# Updated:  15th August 2026
+# Updated:  19th August 2026
 #
-# Home:     http://github.com/synesissoftware/xqsr3
+# Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #

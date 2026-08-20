@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    xqsr3 (0.39.7)
+    xqsr3 (0.39.9)
 
 GEM
   remote: https://rubygems.org/

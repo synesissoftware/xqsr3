@@ -1,17 +1,35 @@
 # xqsr3 - Changes <!-- omit in toc -->
 
 
+## 0.39.9 - 21st August 2026
+
+* `IO.writelines` writes via `<<` of `to_s` fragments instead of interpolating into frozen strings (Ruby 3.4+ `-W`);
+* writelines unit tests use a local `writable_stringio` helper (`String.new` buffer, not `+''`) so **StringIO** is writable on Ruby 2.0 through 3.4+;
+* **test/unit/quality/tc_parameter_checking.rb**: `check_method_2` forwards the validation block; `assert_nil` / `assert_not_nil` invocations wrapped so **test-unit** does not warn under Ruby 3.4;
+* library source **Home:** URLs now use `https`;
+* **EXAMPLES.md** example links are repo-relative (`./examples/…`);
+* updated **README.md** afferent (fan-in) dependent lists;
+* expanded **xqsr3.gemspec** `spec.summary` to the README tagline; packaged **CONTRIBUTING**, **FAQ**, **INSTALL**, and **SECURITY**;
+* updated **run_all_unit_tests.sh** (from https://github.com/synesissoftware/misc-dev-scripts) to skip **tput** when **$TERM** is unset or stdout is not a TTY;
+* CI **Warnings** job now runs on Ruby **3.4**;
+* stop tracking **Gemfile.lock** (already gitignored); **Gemfile** sets `lockfile false` when Bundler supports it; CI uses `bundler-cache: false` because Bundler 4 then writes no lockfile and **ruby/setup-ruby** cache cats **Gemfile.lock**;
+* **xqsr3.gemspec**: `required_ruby_version` is the range `>= 2.0`; **Gemfile.lock** and **.ruby-version** excluded from `spec.files`;
+* TODO: CI `on.push.branches` is the canonical seven names (dropped **bp-3**);
+
+
 ## 0.39.8 - 20th August 2026
 
 * added `# frozen_string_literal: true` to all **lib/** sources;
+* **Rakefile**: `# frozen_string_literal: true` and `test` on the load path;
+* polished **xqsr3.gemspec** (standard File/Purpose/Created/Updated banner; multi-line `authors` / `email`);
 * added **.editorconfig**;
-* **.gitattributes**: **Gemfile.lock** is now a normal text file (no longer `-diff`); regenerated lockfile with path gem and **rake** / **test-unit** pins;
 * added **.github/dependabot.yml** (bundler and GitHub Actions, weekly);
-* updated CI in **.github/workflows/ruby.yml** (`rc1`/`rc2`/`rc3` branch triggers; default `bash` shell; `fail-fast: false`);
+* **.gitattributes**: **Gemfile.lock** is now a normal text file (no longer `-diff`); regenerated lockfile with path gem and **rake** / **test-unit** pins;
+* updated CI in **.github/workflows/ruby.yml** (`rc1`/`rc2`/`rc3` branch triggers; `fail-fast: false`; default `bash` shell; remove **Gemfile.lock** before `setup-ruby`);
 * added **CONTRIBUTING.md**, **INSTALL.md**, and **SECURITY.md**; populated **FAQ.md**;
 * reformatted **AUTHORS.md** as tables;
 * backfilled historical **NEWS.md** release rows and **CHANGES.md** version entries;
-* **Rakefile**: `# frozen_string_literal: true` and `test` on the load path;
+* updated **Gemfile** dependency quote style (double-quoted gem names, single-quoted constraints);
 
 
 ## 0.39.7 - 19th August 2026
