@@ -7,6 +7,8 @@ explain how to combine components to solve common Ruby programming tasks.
   components in a small application workflow;
 * [Choosing a Component](./choosing-a-component.md) — select components and
   loading scopes according to the problem being solved;
+* [Parsing and Validating External Input](./parsing-and-validating-input.md)
+  — separate normalization, conversion, and validation at boundaries;
 
 The component catalogue is available in
 [`docs/components/`](../components/README.md).
