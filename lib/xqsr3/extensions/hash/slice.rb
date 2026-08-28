@@ -2,8 +2,10 @@
 
 unless Hash.instance_methods.include? :slice
 
+  # Standard Ruby Hash extended with #slice when unavailable.
   class Hash
 
+    # Returns a new hash containing only the requested existing keys.
     def slice(*args)
 
       r = {}

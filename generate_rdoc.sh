@@ -6,7 +6,7 @@
 # Purpose:  Generates documentation
 #
 # Created:  11th June 2016
-# Updated:  14th August 2026
+# Updated:  28th August 2026
 #
 #############################################################################
 
@@ -20,6 +20,8 @@ rdoc \
   -x *.gemspec \
   \
   -x doc/ \
+  -x docs/ \
+  -x examples/ \
   -x gems/ \
   -x old-gems/ \
   -x test/performance/ \
