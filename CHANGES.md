@@ -1,6 +1,12 @@
 # xqsr3 - Changes <!-- omit in toc -->
 
 
+## 0.39.10 - 28th August 2026
+
+* **Gemfile.lock** is no longer tracked in the repository, completing the **0.39.9** lockfile work (`lockfile false` in **Gemfile**, **.gitignore** entry, and `spec.files` exclusion in **xqsr3.gemspec**);
+* TODO: **README.md** and **docs/*.md** introductory material for the main features;
+
+
 ## 0.39.9 - 21st August 2026
 
 * `IO.writelines` writes via `<<` of `to_s` fragments instead of interpolating into frozen strings (Ruby 3.4+ `-W`);
