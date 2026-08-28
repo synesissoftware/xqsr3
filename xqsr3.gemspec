@@ -13,6 +13,7 @@ $:.unshift File.join(File.dirname(__FILE__), 'lib')
 
 require 'xqsr3/version'
 
+
 PROJECT_URL = 'https://github.com/synesissoftware/xqsr3'
 
 
