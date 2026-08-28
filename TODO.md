@@ -7,6 +7,15 @@
 * [x] ~~~quiet Ruby 3.4 `test-unit` warnings for blocks passed to `assert_nil` / `assert_not_nil` in **test/unit/quality/tc_parameter_checking.rb**~~~;
 
 
+## Documentation
+
+* [ ] Curated component catalogue under **docs/components/**;
+* [ ] Task-oriented user guide under **docs/guides/**;
+* [ ] Expanded generated API reference;
+* [ ] Executable cookbook and recipe documentation;
+* [ ] Static documentation website with search and versioned references;
+
+
 ## Performance improvements
 
 * \<none>
