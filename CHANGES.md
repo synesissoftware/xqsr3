@@ -1,6 +1,17 @@
 # xqsr3 - Changes <!-- omit in toc -->
 
 
+## 0.39.11 - 29th August 2026
+
+* Documented construct summaries in **FrequencyMap**, **ExceptionUtilities**,
+  **WithCause**, and **ParameterChecking** now terminate with periods and
+  comply with the 76-column rule;
+* Refreshed `Updated:` fields and copyright date ranges in modified library
+  sources;
+* Bumped the library version to 0.39.11 and recorded the release in
+  **NEWS.md**;
+
+
 ## 0.39.10 - 28th August 2026
 
 * **Gemfile.lock** is no longer tracked in the repository, completing the **0.39.9** lockfile work (`lockfile false` in **Gemfile**, **.gitignore** entry, and `spec.files` exclusion in **xqsr3.gemspec**);
