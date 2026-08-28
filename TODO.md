@@ -9,7 +9,7 @@
 
 ## Documentation
 
-* [ ] Curated component catalogue under **docs/components/**;
+* [x] ~~~curated component catalogue under **docs/components/**~~~;
 * [x] ~~~task-oriented user guide under **docs/guides/**~~~;
 * [ ] Expanded generated API reference;
 * [ ] Executable cookbook and recipe documentation;
