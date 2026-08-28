@@ -4,7 +4,7 @@
 # Purpose:  Gemspec for xqsr3 library
 #
 # Created:  14th February 2014
-# Updated:  19th August 2026
+# Updated:  28th August 2026
 #
 # ######################################################################## #
 
@@ -12,6 +12,8 @@
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
 
 require 'xqsr3/version'
+
+PROJECT_URL = 'https://github.com/synesissoftware/xqsr3'
 
 
 Gem::Specification.new do |spec|
@@ -31,16 +33,16 @@ END_DESC
   spec.email        = [
     'matthew@synesis.com.au',
   ]
-  spec.homepage     = 'https://github.com/synesissoftware/xqsr3'
+  spec.homepage     = PROJECT_URL
   spec.license      = 'BSD-3-Clause'
 
-  spec.required_ruby_version = [ '>= 2.0' ]
+  spec.required_ruby_version = [ '>= 2.0', '< 5' ]
 
   spec.metadata = {
-    'bug_tracker_uri' => 'https://github.com/synesissoftware/xqsr3/issues',
-    'changelog_uri' => 'https://github.com/synesissoftware/xqsr3/blob/master/CHANGES.md',
-    'homepage_uri' => 'https://github.com/synesissoftware/xqsr3',
-    'source_code_uri' => 'https://github.com/synesissoftware/xqsr3',
+    'bug_tracker_uri' => "#{PROJECT_URL}/issues",
+    'changelog_uri' => "#{PROJECT_URL}/blob/master/CHANGES.md",
+    'homepage_uri' => PROJECT_URL,
+    'source_code_uri' => PROJECT_URL,
   }
 
   spec.files = Dir[

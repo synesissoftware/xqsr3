@@ -1,6 +1,14 @@
 # xqsr3 - Changes <!-- omit in toc -->
 
 
+## 0.39.10 - 28th August 2026
+
+* **Gemfile.lock** is no longer tracked in the repository, completing the **0.39.9** lockfile work (`lockfile false` in **Gemfile**, **.gitignore** entry, and `spec.files` exclusion in **xqsr3.gemspec**);
+* **xqsr3.gemspec** adopts the `PROJECT_URL` idiom, defining the GitHub project URL once and reusing it for `spec.homepage` and the `spec.metadata` URIs;
+* **xqsr3.gemspec**: `required_ruby_version` is now the range `>= 2.0`, `< 5`, matching the constraint form used by the other Synesis gems;
+* TODO: **README.md** and **docs/*.md** introductory material for the main features;
+
+
 ## 0.39.9 - 21st August 2026
 
 * `IO.writelines` writes via `<<` of `to_s` fragments instead of interpolating into frozen strings (Ruby 3.4+ `-W`);

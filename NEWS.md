@@ -2,6 +2,7 @@
 
 | Date                | News Item                                                                            |
 | ------------------- | ------------------------------------------------------------------------------------ |
+| 28th August 2026    | [**xqsr3** 0.39.10](https://github.com/synesissoftware/xqsr3/releases/tag/0.39.10)   |
 | 21st August 2026    | [**xqsr3** 0.39.9](https://github.com/synesissoftware/xqsr3/releases/tag/0.39.9)     |
 | 20th August 2026    | [**xqsr3** 0.39.8](https://github.com/synesissoftware/xqsr3/releases/tag/0.39.8)     |
 | 19th August 2026    | [**xqsr3** 0.39.7](https://github.com/synesissoftware/xqsr3/releases/tag/0.39.7)     |
