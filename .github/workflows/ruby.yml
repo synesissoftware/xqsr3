@@ -19,6 +19,8 @@ on:
       - dev
       - boilerplate
       - doc
+      - doc.1
+      - doc.2
       - doc.3
       - idiomatic
       - rc1
