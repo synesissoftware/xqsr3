@@ -49,13 +49,13 @@ gem install xqsr3
 or add it to your `Gemfile`.
 
 Use is via specific APIs or groups. For example, in order to use the
-``FrequencyMap`` class you would ``require`` the source file, as in:
+`FrequencyMap` class you would `require` the source file, as in:
 
 ```Ruby
 require 'xqsr3/containers/frequency_map'
 ```
 
-Alternatively, to use _all_ **test/unit** extensions you would ``require`` all
+Alternatively, to use _all_ **test/unit** extensions you would `require` all
 relative via the file:
 
 ```Ruby
@@ -100,7 +100,7 @@ available under [docs/guides/](./docs/guides/README.md).
 
 ## Examples
 
-Examples are provided in the ```examples``` directory, along with a markdown description for each. A detailed list TOC of them is provided in [EXAMPLES.md](./EXAMPLES.md).
+Examples are provided in the `examples` directory, along with a markdown description for each. A detailed list TOC of them is provided in [EXAMPLES.md](./EXAMPLES.md).
 
 
 ## Project Information

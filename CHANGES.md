@@ -3,39 +3,21 @@
 
 ## 0.39.11 - 29th August 2026
 
-* Added a user-oriented component catalogue under **docs/components/**,
-  covering standalone components, extensions, loading paths, API summaries,
-  and representative usage;
-* Added task-oriented guides under **docs/guides/** for getting started,
-  component selection, input parsing and validation, collection processing,
-  failure handling, and output formatting;
-* Added **docs/reference/README.md** describing the generated RDoc reference,
-  and updated **generate_rdoc.sh** to exclude authored **docs/** and
-  **examples/** content from generated output;
-* Expanded source-level RDoc documentation and visibility annotations for the
-  public API, including **FrequencyMap**, **BoolParser**,
-  **ExceptionUtilities**, **WithCause**, **ParameterChecking**, and extension
-  classes;
-* Extended **README.md** with linked component categories and navigation to
-  the component catalogue and user guides;
-* Added a GitHub Actions Documentation job to
-  **.github/workflows/ruby.yml** that generates an RDoc coverage report under
-  Ruby 3.4, and aligned its push branch triggers with the canonical set;
-* Added Ruby 4.0 to the GitHub Actions test matrix across the supported
-  operating systems;
-* Made the RDoc coverage check fail when a documentable API entity is
-  undocumented;
-* Added `--help` support to the Unix and Windows RDoc helpers, using project
-  metadata from **.sis/**;
-* Made the Unix and Windows RDoc helpers runnable from any working directory,
-  with `--pwd` selecting the caller's directory and `SIS_RDOC_DOC_DIR`
-  controlling the generated-document directory;
+* Added a user-oriented component catalogue under **docs/components/**, covering standalone components, extensions, loading paths, API summaries, and representative usage;
+* Added task-oriented guides under **docs/guides/** for getting started, component selection, input parsing and validation, collection processing, failure handling, and output formatting;
+* Normalised legacy Markdown inline-code, checklist, table, and heading markup in **README.md**, **EXAMPLES.md**, **FAQ.md**, **TODO.md**, and the example guide;
+* Added **docs/reference/README.md** describing the generated RDoc reference, and updated **generate_rdoc.sh** to exclude authored **docs/** and **examples/** content from generated output;
+* Expanded source-level RDoc documentation and visibility annotations for the public API, including **FrequencyMap**, **BoolParser**, **ExceptionUtilities**, **WithCause**, **ParameterChecking**, and extension classes;
+* Extended **README.md** with linked component categories and navigation to the component catalogue and user guides;
+* Added a GitHub Actions Documentation job to **.github/workflows/ruby.yml** that generates an RDoc coverage report under Ruby 3.4, and aligned its push branch triggers with the canonical set;
+* Added Ruby 4.0 to the GitHub Actions test matrix across the supported operating systems;
+* Made the RDoc coverage check fail when a documentable API entity is undocumented;
+* Added `--help` support to the Unix and Windows RDoc helpers, using project metadata from **.sis/**;
+* Made the Unix and Windows RDoc helpers runnable from any working directory, with `--pwd` selecting the caller's directory and `SIS_RDOC_DOC_DIR` controlling the generated-document directory;
 * Added documentation follow-up items to **TODO.md**;
 * Removed the **.vscode/** ignore rule from **.gitignore**;
-* Refreshed `Updated:` fields and copyright date ranges in modified library
-  sources;
-* Bumped the library version to 0.39.11 and recorded the release in
-  **NEWS.md**;
+* Refreshed `Updated:` fields and copyright date ranges in modified library sources;
+* Bumped the library version to 0.39.11 and recorded the release in **NEWS.md**;
 
 
 ## 0.39.10 - 28th August 2026

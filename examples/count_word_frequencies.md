@@ -2,7 +2,7 @@
 
 ## Summary
 
-Simple example illustrating use of ``FrequencyMap`` class.
+Simple example illustrating use of `FrequencyMap` class.
 
 ## Source
 
@@ -57,7 +57,7 @@ __END__
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ```
 
-The code is pretty self-explanatory. I've grabbed some **Lorem Ipsum** and placed into an ``__END__`` section, which is then read (via ``DATA``) and ``split`` into ``words``. These words are then pushed into ``FrequencyMap`` instances in two ways: manually; and via ``FrequencyMap::ByElement``. Each list is written out, omitting single occurrences, inside an ``each_by_frequency`` loop.
+The code is pretty self-explanatory. I've grabbed some **Lorem Ipsum** and placed into an `__END__` section, which is then read (via `DATA`) and `split` into `words`. These words are then pushed into `FrequencyMap` instances in two ways: manually; and via `FrequencyMap::ByElement`. Each list is written out, omitting single occurrences, inside an `each_by_frequency` loop.
 
 ## Usage
 
@@ -80,3 +80,4 @@ Analyse DATA words via FrequencyMap
 ```
 
 
+<!-- ########################### end of file ########################### -->
