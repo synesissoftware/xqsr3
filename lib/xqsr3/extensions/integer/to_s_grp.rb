@@ -5,7 +5,7 @@
 # Purpose:  Adds a to_s_grp() method to the Integer class
 #
 # Created:  29th March 2024
-# Updated:  19th August 2026
+# Updated:  28th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -47,6 +47,7 @@
 =begin
 =end
 
+# Standard Ruby Integer extended with #to_s_grp.
 class Integer
 
   # Extends +Integer+ type with the +#to_s_grp()+ method

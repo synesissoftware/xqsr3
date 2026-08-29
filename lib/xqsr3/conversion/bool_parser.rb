@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::Conversion::BoolParser module
 #
 # Created:  3rd June 2017
-# Updated:  19th August 2026
+# Updated:  28th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -55,7 +55,7 @@ module Conversion
   module BoolParser
 
     private
-    def self.matches_to_ s, expr
+    def self.matches_to_ s, expr # :nodoc:
 
       case expr
       when ::Regexp
