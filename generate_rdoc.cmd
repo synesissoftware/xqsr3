@@ -6,7 +6,7 @@ REM
 REM Purpose:  Generates documentation
 REM
 REM Created:  14th August 2026
-REM Updated:  14th August 2026
+REM Updated:  29th August 2026
 REM
 REM ########################################################################
 
@@ -19,6 +19,8 @@ rdoc ^
   -x run_all_unit_tests.sh ^
   -x *.gemspec ^
   -x doc/ ^
+  -x docs/ ^
+  -x examples/ ^
   -x gems/ ^
   -x old-gems/ ^
   -x test/performance/ ^
