@@ -7,6 +7,7 @@
 * Added task-oriented guides under **docs/guides/** for getting started, component selection, input parsing and validation, collection processing, failure handling, and output formatting;
 * Normalised legacy Markdown inline-code, checklist, table, and heading markup in **README.md**, **EXAMPLES.md**, **FAQ.md**, **TODO.md**, and the example guide;
 * Added **docs/reference/README.md** describing the generated RDoc reference, and updated **generate_rdoc.sh** to exclude authored **docs/** and **examples/** content from generated output;
+* Included authored **docs/** content in the gem package while continuing to exclude generated **doc/** output;
 * Set the generated RDoc title to the **xqsr3** API reference, and excluded project boilerplate pages from the reference;
 * Expanded source-level RDoc documentation and visibility annotations for the public API, including **FrequencyMap**, **BoolParser**, **ExceptionUtilities**, **WithCause**, **ParameterChecking**, and extension classes;
 * Replaced a remaining placeholder example and legacy RDoc markup in public API comments;

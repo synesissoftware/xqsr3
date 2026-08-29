@@ -4,7 +4,7 @@
 # Purpose:  Gemspec for xqsr3 library
 #
 # Created:  14th February 2014
-# Updated:  28th August 2026
+# Updated:  29th August 2026
 #
 # ######################################################################## #
 
@@ -48,7 +48,7 @@ END_DESC
 
   spec.files = Dir[
     'Rakefile',
-    '{bin,examples,lib,man,spec,test}/**/*',
+    '{bin,docs,examples,lib,man,spec,test}/**/*',
     'AUTHORS*',
     'CHANGES*',
     'CONTRIBUTING*',
