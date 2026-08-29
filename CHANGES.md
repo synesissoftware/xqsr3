@@ -23,6 +23,13 @@
   Ruby 3.4, and aligned its push branch triggers with the canonical set;
 * Added Ruby 4.0 to the GitHub Actions test matrix across the supported
   operating systems;
+* Made the RDoc coverage check fail when a documentable API entity is
+  undocumented;
+* Added `--help` support to the Unix and Windows RDoc helpers, using project
+  metadata from **.sis/**;
+* Made the Unix and Windows RDoc helpers runnable from any working directory,
+  with `--pwd` selecting the caller's directory and `SIS_RDOC_DOC_DIR`
+  controlling the generated-document directory;
 * Added documentation follow-up items to **TODO.md**;
 * Removed the **.vscode/** ignore rule from **.gitignore**;
 * Refreshed `Updated:` fields and copyright date ranges in modified library
