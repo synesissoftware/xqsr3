@@ -18,8 +18,6 @@ on:
       - master
       - dev
       - boilerplate
-      - doc
-      - doc.1
       - idiomatic
       - rc1
       - rc2
