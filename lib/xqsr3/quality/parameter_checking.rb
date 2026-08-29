@@ -5,13 +5,13 @@
 # Purpose:  Definition of the ParameterChecking module
 #
 # Created:  12th February 2015
-# Updated:  19th August 2026
+# Updated:  28th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -51,10 +51,9 @@
 module Xqsr3
 module Quality
 
-  # Inclusion module that creates class and instance methods +check_option()+
-  # and +check_parameter()+ that may be used to check option/parameter values
-  # and types.
-  #
+  # Inclusion module that creates class and instance methods
+  # +check_option()+ and +check_parameter()+ that may be used to check
+  # option/parameter values and types.
   module ParameterChecking
 
     private
@@ -106,7 +105,8 @@ module Quality
     end
 
     private
-    # Check a given parameter (value=+value+, name=+name+) for type and value
+    # Check a given parameter (value=+value+, name=+name+) for type and
+    # value.
     #
     # === Signature
     #
@@ -140,14 +140,14 @@ module Quality
     # @see check_parameter
     #
     # @note This is obsolete, and will be removed in a future version.
-    # Please use +check_parameter+ instead
+    # Please use +check_parameter+ instead.
     def check_param value, name, options = {}, &block
 
       Util_.check_parameter value, name, options, &block
     end
 
     # Specific form of the +check_parameter()+ that is used to check
-    # options, taking instead the hash and the key
+    # options, taking instead the hash and the key.
     #
     # === Signature
     #
@@ -163,7 +163,8 @@ module Quality
     end
 
     public
-    # Check a given parameter (value=+value+, name=+name+) for type and value
+    # Check a given parameter (value=+value+, name=+name+) for type and
+    # value.
     #
     # === Signature
     #
@@ -195,14 +196,14 @@ module Quality
     # @see check_parameter
     #
     # @note This is obsolete, and will be removed in a future version.
-    # Please use +check_parameter+ instead
+    # Please use +check_parameter+ instead.
     def self.check_param value, name, options = {}, &block
 
       Util_.check_parameter value, name, options, &block
     end
 
     # Specific form of the +check_parameter()+ that is used to check
-    # options, taking instead the hash and the key
+    # options, taking instead the hash and the key.
     #
     # === Signature
     #

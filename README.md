@@ -69,29 +69,33 @@ which brings in nine extensions.
 
 **xqsr3** provides components in the following categories:
 
-* Array Utilities
-* Command-line Utilities
-* Containers
-* Conversion
-* Diagnostics
-* Hash Utilities
-* IO
-* Quality
-* String Utilities
+* [Array Utilities](./docs/components/array-utilities.md);
+* [Command-line Utilities](./docs/components/command-line-utilities.md);
+* [Containers](./docs/components/containers.md);
+* [Conversion](./docs/components/conversion.md);
+* [Diagnostics](./docs/components/diagnostics.md);
+* [Hash Utilities](./docs/components/hash-utilities.md);
+* [IO](./docs/components/io.md);
+* [Quality](./docs/components/quality.md);
+* [String Utilities](./docs/components/string-utilities.md);
 * ~~XML Utilities~~ **NOTE**: The **XML** components formerly in **xqsr3** in
    versions **0.29**-**0.30** are now contained in the separate project
    [**xqsr3-xml**](https://github.com/synesissoftware/xqsr3-xml/).
 
 and extensions to the following standard library components:
 
-* Array extensions
-* Enumerable extensions
-* Hash extensions
-* Integer extensions
-* IO extensions
-* Kernel extensions
-* String extensions
-* test/unit extensions
+* [Array extensions](./docs/components/extensions.md#array-extensions);
+* [Enumerable extensions](./docs/components/extensions.md#enumerable-extensions);
+* [Hash extensions](./docs/components/extensions.md#hash-extensions);
+* [Integer extensions](./docs/components/extensions.md#integer-extensions);
+* [IO extensions](./docs/components/extensions.md#io-extensions);
+* [Kernel extensions](./docs/components/extensions.md#kernel-extensions);
+* [String extensions](./docs/components/extensions.md#string-extensions);
+* [test/unit extensions](./docs/components/extensions.md#testunit-extensions);
+
+The complete [component catalogue](./docs/components/README.md) provides
+loading instructions and initial API summaries. Task-oriented guides will be
+developed separately under [docs/guides/](./docs/guides/README.md).
 
 
 ## Examples

@@ -5,13 +5,13 @@
 # Purpose:  Definition of the ExceptionUtilities module
 #
 # Created:  12th February 2015
-# Updated:  19th August 2026
+# Updated:  28th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2015-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -54,7 +54,9 @@ module Diagnostics
   module ExceptionUtilities
 
     # Raises an instance of a named exception that takes options in its
-    # constructor, as in:
+    # constructor.
+    #
+    # For example:
     #
     #     class ArgumentErrorWithOptions < ArgumentError
     #
@@ -74,7 +76,8 @@ module Diagnostics
     #       $stderr.puts x.options # => {:opt1=>:val1, :opt2=>"val2"}
     #     end
     #
-    # It can also be used with full compatibility with <tt>Kernel#raise</tt>, as in:
+    # It can also be used with full compatibility with
+    # <tt>Kernel#raise</tt>, as in:
     #
     #     begin
     #
