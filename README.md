@@ -55,7 +55,7 @@ Use is via specific APIs or groups. For example, in order to use the
 require 'xqsr3/containers/frequency_map'
 ```
 
-Alternatively, to use all **test/unit** extensions you would ``require`` all
+Alternatively, to use _all_ **test/unit** extensions you would ``require`` all
 relative via the file:
 
 ```Ruby
@@ -94,8 +94,8 @@ and extensions to the following standard library components:
 * [test/unit extensions](./docs/components/extensions.md#testunit-extensions);
 
 The complete [component catalogue](./docs/components/README.md) provides
-loading instructions and initial API summaries. Task-oriented guides will be
-developed separately under [docs/guides/](./docs/guides/README.md).
+loading instructions and initial API summaries. The task-oriented guides are
+available under [docs/guides/](./docs/guides/README.md).
 
 
 ## Examples
