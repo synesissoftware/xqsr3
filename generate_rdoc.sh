@@ -102,13 +102,19 @@ rm -rfd "$DocDir"
 run_rdoc() {
 
   rdoc \
+    --title "$ProjectName API Reference" \
     --op "$DocDir" \
     -x build_gem.cmd \
     -x build_gem.sh \
     -x generate_rdoc.cmd \
     -x generate_rdoc.sh \
     -x run_all_unit_tests.sh \
-    -x *.gemspec \
+    -x '.*\.gemspec' \
+    -x '.*\.gem' \
+    -x '.*\.md' \
+    -x Gemfile \
+    -x LICENSE \
+    -x Rakefile \
     \
     -x "$DocDir/" \
     -x docs/ \

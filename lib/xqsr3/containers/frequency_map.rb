@@ -5,7 +5,7 @@
 # Purpose:  FrequencyMap container
 #
 # Created:  28th January 2005
-# Updated:  28th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -291,7 +291,7 @@ module Containers
       end
     end
 
-    # Enumerates each entry pair - element + frequency - in key order.
+    # Enumerates each entry pair (element, frequency) in key order.
     #
     # Note: this method is more expensive than +each+ because an array of
     # keys must be created and sorted from which enumeration is directed.
@@ -308,7 +308,7 @@ module Containers
       end
     end
 
-    # Enumerates each entry pair - element + frequency - in descending order
+    # Enumerates each entry pair (element, frequency) in descending order
     # of frequency.
     #
     # Note: this method is expensive, as it must create a new dictionary
@@ -593,8 +593,8 @@ module Containers
     # (consistent with +#push+ reducing a count to zero).
     #
     # === Return
-    #  +true+ if the element was inserted; +false+ if the element was
-    #  overwritten
+    # Returns <tt>true</tt> if the element was inserted; returns
+    # <tt>false</tt> if it was overwritten.
     def store key, count
 
       raise TypeError, "'count' parameter must be of type #{::Integer}, but was of type #{count.class}" unless Integer === count
@@ -614,7 +614,7 @@ module Containers
       old_count == 0
     end
 
-    # Converts instance to an array of +[key,value]+ pairs.
+    # Converts instance to an array of <tt>[key, value]</tt> pairs.
     def to_a
 
       @elements.to_a

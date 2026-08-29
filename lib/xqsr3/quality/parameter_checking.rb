@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ParameterChecking module
 #
 # Created:  12th February 2015
-# Updated:  28th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -52,8 +52,8 @@ module Xqsr3
 module Quality
 
   # Inclusion module that creates class and instance methods
-  # +check_option()+ and +check_parameter()+ that may be used to check
-  # option/parameter values and types.
+  # <tt>check_option()</tt> and <tt>check_parameter()</tt> that may be
+  # used to check option/parameter values and types.
   module ParameterChecking
 
     private
@@ -140,13 +140,13 @@ module Quality
     # @see check_parameter
     #
     # @note This is obsolete, and will be removed in a future version.
-    # Please use +check_parameter+ instead.
+    # Please use <tt>check_parameter</tt> instead.
     def check_param value, name, options = {}, &block
 
       Util_.check_parameter value, name, options, &block
     end
 
-    # Specific form of the +check_parameter()+ that is used to check
+    # Specific form of <tt>check_parameter()</tt> that is used to check
     # options, taking instead the hash and the key.
     #
     # === Signature
@@ -154,7 +154,7 @@ module Quality
     # * *Parameters:*
     #   - +h+ (+Hash+) The options hash from which the named element is to be tested. May not be +nil+;
     #   - +name+ (+String+, +Symbol+, +[ String, Symbol ]+) The options key name, or an array of names. May not be +nil+;
-    #   - +options+ (+Hash+) Options that control the behaviour of the method in the same way as for +check_parameter()+ except that the +:treat_as_option+ option (with the value +true+) is merged in before calling +check_parameter()+;
+    #   - +options+ (+Hash+) Options that control the behaviour of the method in the same way as for <tt>check_parameter()</tt> except that the +:treat_as_option+ option (with the value +true+) is merged in before calling <tt>check_parameter()</tt>;
     #
     # * *Options:*
     def check_option h, name, options = {}, &block
@@ -196,13 +196,13 @@ module Quality
     # @see check_parameter
     #
     # @note This is obsolete, and will be removed in a future version.
-    # Please use +check_parameter+ instead.
+    # Please use <tt>check_parameter</tt> instead.
     def self.check_param value, name, options = {}, &block
 
       Util_.check_parameter value, name, options, &block
     end
 
-    # Specific form of the +check_parameter()+ that is used to check
+    # Specific form of <tt>check_parameter()</tt> that is used to check
     # options, taking instead the hash and the key.
     #
     # === Signature
@@ -210,7 +210,7 @@ module Quality
     # * *Parameters:*
     #   - +h+ (+Hash+) The options hash from which the named element is to be tested. May not be +nil+;
     #   - +name+ (+String+, +Symbol+, +[ String, Symbol ]+) The options key name, or an array of names. May not be +nil+;
-    #   - +options+ (+Hash+) Options that control the behaviour of the method in the same way as for +check_parameter()+ except that the +:treat_as_option+ option (with the value +true+) is merged in before calling +check_parameter()+;
+    #   - +options+ (+Hash+) Options that control the behaviour of the method in the same way as for <tt>check_parameter()</tt> except that the +:treat_as_option+ option (with the value +true+) is merged in before calling <tt>check_parameter()</tt>;
     #
     # * *Options:*
     def self.check_option h, name, options = {}, &block

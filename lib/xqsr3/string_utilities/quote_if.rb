@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::QuoteIf module
 #
 # Created:  3rd June 2017
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -51,7 +51,8 @@
 module Xqsr3
 module StringUtilities
 
-  # +include+-able module that provides ::quote_if and #quote_if methods
+  # <tt>include</tt>-able module that provides ::quote_if and #quote_if
+  # methods.
   module QuoteIf
 
     private

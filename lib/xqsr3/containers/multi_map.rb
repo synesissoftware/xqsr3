@@ -5,7 +5,7 @@
 # Purpose:  multimap container
 #
 # Created:  21st March 2007
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -137,7 +137,8 @@ module Containers
       @inner = Hash.new
     end
 
-    # Deep-copies +@inner+ (and each values array) after +dup+/+clone+
+    # Deep-copies <tt>@inner</tt> (and each values array) after
+    # +dup+/+clone+.
     def initialize_copy other
 
       @merge_is_multi = other.instance_variable_get(:@merge_is_multi)
@@ -156,7 +157,7 @@ module Containers
       return @inner[key]
     end
 
-    # Adds/assigns a new key+values pair. Equivalent to
+    # Adds/assigns a new key/value pair. Equivalent to
     #
     #   store(key, *values)
     #
@@ -704,7 +705,7 @@ module Containers
       @inner[key] = values
     end
 
-    # Converts instance to an array of +[key,value]+ pairs
+    # Converts instance to an array of <tt>[key, value]</tt> pairs.
     def to_a
 
       self.flatten

@@ -5,7 +5,7 @@
 # Purpose:  ::Xqsr3::Diagnostics::InspectBuilder module
 #
 # Created:  4th September 2018
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -63,7 +63,7 @@ module Diagnostics
       NORMALISE_FUNCTION = lambda { |ar| ar.map { |v| v.to_s }.map { |v| '@' == v[0] ? v : "@#{v}" } }
     end # module InspectBuilder_Utilities
 
-    # Generates an inspect string for the +include+-ing class
+    # Generates an inspect string for the <tt>include</tt>-ing class.
     #
     # === Signature
     #

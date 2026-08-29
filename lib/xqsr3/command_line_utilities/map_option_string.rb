@@ -6,7 +6,7 @@
 #           module
 #
 # Created:  15th April 2016
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -55,7 +55,8 @@ require 'xqsr3/string_utilities/to_symbol'
 module Xqsr3
 module CommandLineUtilities
 
-  # +include+-able module providing facilities for mapping strings to options
+  # <tt>include</tt>-able module providing facilities for mapping strings
+  # to options.
   #
   # === Components of interest
   # * ::Xqsr3::CommandLineUtilities::MapOptionString.map_option_string_from_string

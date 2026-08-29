@@ -12,7 +12,7 @@
 * [x] ~~~curated component catalogue under **docs/components/**~~~ - ✅;
 * [x] ~~~task-oriented user guide under **docs/guides/**~~~ - ✅;
 * [ ] Additional example programs covering the public component categories;
-* [ ] Expanded generated API reference;
+* [x] ~~~Expanded generated API reference~~~ - ✅;
 * [ ] Executable cookbook and recipe documentation;
 * [ ] Static documentation website with search and versioned references;
 

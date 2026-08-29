@@ -12,15 +12,16 @@ catalogue:
 
 ## Generate the reference
 
-From the project root, run:
+From any directory, run:
 
 ```Shell
 ./generate_rdoc.sh
 ```
 
 The script removes any previous generated output and writes the new reference
-to `doc/`. The generated files are build output and should not be edited by
-hand.
+to `doc/` by default. Use `--pwd` to operate in the caller's current directory,
+or set `SIS_RDOC_DOC_DIR` to choose another output directory. The generated
+files are build output and should not be edited by hand.
 
 
 ## Reading the reference

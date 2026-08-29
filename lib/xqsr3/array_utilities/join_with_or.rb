@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::ArrayUtilities::JoinWithOr module
 #
 # Created:  7th December 2017
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -54,7 +54,8 @@ require 'xqsr3/quality/parameter_checking'
 module Xqsr3
 module ArrayUtilities
 
-  # +include+-able module that provides sequence-joining functionality
+  # <tt>include</tt>-able module that provides sequence-joining
+  # functionality.
   module JoinWithOr
 
     extend self

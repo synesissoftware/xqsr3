@@ -7,7 +7,9 @@
 * Added task-oriented guides under **docs/guides/** for getting started, component selection, input parsing and validation, collection processing, failure handling, and output formatting;
 * Normalised legacy Markdown inline-code, checklist, table, and heading markup in **README.md**, **EXAMPLES.md**, **FAQ.md**, **TODO.md**, and the example guide;
 * Added **docs/reference/README.md** describing the generated RDoc reference, and updated **generate_rdoc.sh** to exclude authored **docs/** and **examples/** content from generated output;
+* Set the generated RDoc title to the **xqsr3** API reference, and excluded project boilerplate pages from the reference;
 * Expanded source-level RDoc documentation and visibility annotations for the public API, including **FrequencyMap**, **BoolParser**, **ExceptionUtilities**, **WithCause**, **ParameterChecking**, and extension classes;
+* Replaced a remaining placeholder example and legacy RDoc markup in public API comments;
 * Extended **README.md** with linked component categories and navigation to the component catalogue and user guides;
 * Added a GitHub Actions Documentation job to **.github/workflows/ruby.yml** that generates an RDoc coverage report under Ruby 3.4, and aligned its push branch triggers with the canonical set;
 * Added Ruby 4.0 to the GitHub Actions test matrix across the supported operating systems;

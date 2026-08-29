@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::Conversion::IntegerParser module
 #
 # Created:  21st November 2017
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -51,7 +51,7 @@
 module Xqsr3
 module Conversion
 
-  # +include-able module that provides Integer parsing
+  # <tt>include</tt>-able module that provides Integer parsing.
   module IntegerParser
 
     private
@@ -161,8 +161,8 @@ module Conversion
     #   - +block+ An optional caller-supplied 4-parameter block - taking the exception, +arg+, +base+, and +options+ - that will be invoked with the +ArgumentError+ exception, allowing the caller to take additional action. If the block returns then its return value will be returned to the caller;
     #
     # * *Options:*
-    #   - +:default+ A default value to be used when +arg+ is +nil+ or cannot be converted by (the original) +Kernel#Integer+;
-    #   - +:nil+ Returns +nil+ if +arg+ is +nil+ or cannot be converted by (the original) +Kernel#Integer+. Ignored if +:default+ is specified;
+    #   - +:default+ A default value to be used when +arg+ is +nil+ or cannot be converted by (the original) <tt>Kernel#Integer</tt>;
+    #   - +:nil+ Returns +nil+ if +arg+ is +nil+ or cannot be converted by (the original) <tt>Kernel#Integer</tt>. Ignored if +:default+ is specified;
     def self.to_integer arg, base = 0, **options, &block
 
       IntegerParser_Helper_.to_integer_ arg, base, options, &block
