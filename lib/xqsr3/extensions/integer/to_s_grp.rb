@@ -5,13 +5,13 @@
 # Purpose:  Adds a to_s_grp() method to the Integer class
 #
 # Created:  29th March 2024
-# Updated:  28th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2024-2026, Matthew Wilson and Synesis Information Systems
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
