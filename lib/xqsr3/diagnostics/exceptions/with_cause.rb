@@ -5,13 +5,13 @@
 # Purpose:  Definition of the WithCause inclusion module
 #
 # Created:  16th December 2017
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2017-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -53,23 +53,31 @@ module Diagnostics
 module Exceptions
 
   # This inclusion module adds to an exception class the means to chain a
-  # cause (aka inner-exception), which is then exposed with the +cause+
-  # attribute
+  # cause (aka inner-exception), which is then exposed with the
+  # <tt>cause</tt> attribute.
   #
   # *Examples:*
   #
   # Passing an exception cause as a parameter
   #
-  #  T.B.C.
+  #     class ConfigurationError < StandardError
+  #       include Xqsr3::Diagnostics::Exceptions::WithCause
+  #     end
+  #
+  #     cause = ArgumentError.new 'port is not numeric'
+  #     error = ConfigurationError.new cause
+  #
+  #     error.cause # => cause
+  #     error.chained_message # => 'port is not numeric'
   #
   module WithCause
 
-    # Array of hidden fields
+    # Array of hidden fields.
     INSPECT_HIDDEN_FIELDS = [ 'has_implicit_message', 'uses_cause_message' ]
 
     # Defines an initializer for an exception class that allows a cause (aka
     # an inner exception) to be specified, either as the first or last
-    # argument or as a +:cause+ option
+    # argument or as a <tt>:cause</tt> option.
     #
     # === Signature
     #
@@ -133,16 +141,16 @@ module Exceptions
     end
 
     # The cause / inner-exception, if any, specified to the instance
-    # initialiser. This attribute shadows +Exception#cause+ (the interpreter's
-    # raise-chain cause); for includers, +#cause+ refers to this module's
-    # +@cause+.
+    # initialiser. This attribute shadows <tt>Exception#cause</tt> (the
+    # interpreter's raise-chain cause); for includers, <tt>#cause</tt>
+    # refers to this module's <tt>@cause</tt>.
     attr_reader :cause
 
-    # The options passed to the initialiser, with +:cause+ removed, if
-    # present
+    # The options passed to the initialiser, with <tt>:cause</tt> removed,
+    # if present.
     attr_reader :options
 
-    # Message obtained by concatenation of all chained exceptions' messages
+    # Message obtained by concatenation of all chained exceptions' messages.
     #
     # === Signature
     #
@@ -168,7 +176,7 @@ module Exceptions
       "#{m}#{sep}#{cm}"
     end
 
-    # An array of exceptions in the chain, excluding +self+
+    # An array of exceptions in the chain, excluding <tt>self</tt>.
     def chainees
 
       return [] unless cause
@@ -180,13 +188,13 @@ module Exceptions
       r
     end
 
-    # An array of exceptions in the chain, including +self+
+    # An array of exceptions in the chain, including +self+.
     def exceptions
 
       [ self ] + chainees
     end
 
-    # A combination of the backtrace(s) of all chained exception(s)
+    # A combination of the backtrace(s) of all chained exception(s).
     def chained_backtrace
 
       b = backtrace

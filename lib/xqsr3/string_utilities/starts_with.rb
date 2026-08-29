@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::StartsWith module
 #
 # Created:  13th April 2016
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -51,8 +51,8 @@
 module Xqsr3
 module StringUtilities
 
-  # +include+-able module that provides ::string_starts_with? and #starts_with?
-  # methods
+  # <tt>include</tt>-able module that provides ::string_starts_with? and
+  # #starts_with? methods.
   module StartsWith
 
     private

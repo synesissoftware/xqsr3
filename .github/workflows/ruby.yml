@@ -7,7 +7,7 @@
 
 #
 # Created: 29th August 2025
-# Updated: 19th August 2026
+# Updated: 29th August 2026
 #
 
 name: Ruby
@@ -18,7 +18,6 @@ on:
       - master
       - dev
       - boilerplate
-      - bp-3
       - idiomatic
       - rc1
       - rc2
@@ -33,6 +32,26 @@ defaults:
     shell: bash
 
 jobs:
+
+  documentation:
+
+    name: Documentation
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checking out code
+      uses: actions/checkout@v7
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.4'
+        bundler-cache: false
+
+    - name: Generate RDoc coverage report
+      run: ./generate_rdoc.sh -C
+
   test:
 
     strategy:
@@ -46,6 +65,7 @@ jobs:
 
         ruby-version:
           # - head
+          - '4.0'
           - '3.4'
           - '3.3'
           - '3.2'

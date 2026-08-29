@@ -5,13 +5,13 @@
 # Purpose:  Documentation of the ::Xqsr3 modules
 #
 # Created:  10th June 2016
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
 # Author:   Matthew Wilson
 #
-# Copyright (c) 2019-2024, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2016-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
@@ -75,10 +75,18 @@ module Xqsr3
 
   # Containers
   #
+  # === Subordinate modules of interest
+  # * ::Xqsr3::Containers::FrequencyMap
+  # * ::Xqsr3::Containers::MultiMap
+  #
   module Containers
   end # module Containers
 
   # Conversion
+  #
+  # === Subordinate modules of interest
+  # * ::Xqsr3::Conversion::BoolParser
+  # * ::Xqsr3::Conversion::IntegerParser
   #
   module Conversion
   end # module Conversion
@@ -121,14 +129,21 @@ module Xqsr3
   # * ::Xqsr3::HashUtilities::KeyMatching
   module HashUtilities
 
-    # Exception-related utilities
+    # Deep hash transformation
     #
     # === Components of interest
-    # * ::Xqsr3::Diagnostics::HashUtilities::deep_transform
-    # * ::Xqsr3::Diagnostics::HashUtilities::deep_transform!
+    # * ::Xqsr3::HashUtilities::DeepTransform
     #
     module DeepTransform
     end # module DeepTransform
+
+    # Hash key matching
+    #
+    # === Components of interest
+    # * ::Xqsr3::HashUtilities::KeyMatching
+    #
+    module KeyMatching
+    end # module KeyMatching
   end # module HashUtilities
 
   # IO

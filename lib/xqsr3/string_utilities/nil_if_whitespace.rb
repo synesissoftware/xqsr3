@@ -6,7 +6,7 @@
 #           module
 #
 # Created:  25th January 2018
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -52,8 +52,8 @@
 module Xqsr3
 module StringUtilities
 
-  # +include+-able module that provides ::string_nil_if_whitespace and
-  # #nil_if_whitespace methods
+  # <tt>include</tt>-able module that provides ::string_nil_if_whitespace
+  # and #nil_if_whitespace methods.
   module NilIfWhitespace
 
     private

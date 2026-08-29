@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::Conversion::BoolParser module
 #
 # Created:  3rd June 2017
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -51,11 +51,11 @@
 module Xqsr3
 module Conversion
 
-  # +include-able module that provides Boolean parsing
+  # <tt>include</tt>-able module that provides Boolean parsing.
   module BoolParser
 
     private
-    def self.matches_to_ s, expr
+    def self.matches_to_ s, expr # :nodoc:
 
       case expr
       when ::Regexp
@@ -66,7 +66,8 @@ module Conversion
     end
 
     # Resolves an option that may be named by one or more keys, preserving
-    # explicitly supplied +nil+/+false+ values (unlike +Hash#fetch+ with +||+).
+    # explicitly supplied <tt>nil</tt>/<tt>false</tt> values (unlike
+    # <tt>Hash#fetch</tt> with <tt>||</tt>).
     def self.option_value_ options, *keys, default_value
 
       keys.each do |key|

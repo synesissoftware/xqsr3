@@ -10,9 +10,6 @@ it will be used to create one.
 - [Q1: "How do I install this library?"](#q1-how-do-i-install-this-library)
 
 
-# FAQs: <!-- omit in toc -->
-
-
 ## Q1: "How do I install this library?"
 
 Install via **gem**:

@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::StringUtilities::NilIfEmpty module
 #
 # Created:  25th January 2018
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -51,8 +51,8 @@
 module Xqsr3
 module StringUtilities
 
-  # +include+-able module that provides ::string_nil_if_empty and
-  # #nil_if_empty methods
+  # <tt>include</tt>-able module that provides ::string_nil_if_empty and
+  # #nil_if_empty methods.
   module NilIfEmpty
 
     private

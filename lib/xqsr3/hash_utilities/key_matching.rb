@@ -5,7 +5,7 @@
 # Purpose:  Definition of the ::Xqsr3::HashUtilities::KeyMatching module
 #
 # Created:  15th November 2017
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -54,8 +54,8 @@ require 'xqsr3/quality/parameter_checking'
 module Xqsr3
 module HashUtilities
 
-  # +include+-able module that provides ::has_match?, #has_match?, ::match,
-  # and #match methods
+  # <tt>include</tt>-able module that provides ::has_match?, #has_match?,
+  # ::match, and #match methods
   module KeyMatching
 
     private

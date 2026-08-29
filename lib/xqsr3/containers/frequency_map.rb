@@ -5,7 +5,7 @@
 # Purpose:  FrequencyMap container
 #
 # Created:  28th January 2005
-# Updated:  19th August 2026
+# Updated:  29th August 2026
 #
 # Home:     https://github.com/synesissoftware/xqsr3
 #
@@ -55,13 +55,13 @@ module Xqsr3
 module Containers
 
   # Hash-like class that counts, as the map's values, the frequencies of
-  # elements, as the map's keys
+  # elements, as the map's keys.
   class FrequencyMap
 
     include Enumerable
     include ::Xqsr3::Diagnostics::InspectBuilder
 
-    # Class that provides a Hash[]-like syntax as follows:
+    # Class that provides a Hash[]-like syntax as follows.
     #
     #    fm = FrequencyMap::ByElement[ 'abc', 'def', 'abc', :x, 'x', :y ]
     #
@@ -79,7 +79,7 @@ module Containers
     #    fm[:z]    # => 0
     ByElement = Class.new do
 
-      # Create an instance of Xqsr3::FrequencyMap from an array
+      # Create an instance of Xqsr3::FrequencyMap from an array.
       def self.[] *args
 
         fm = FrequencyMap.new
@@ -92,7 +92,7 @@ module Containers
       private_class_method :new
     end
 
-    # Creates an instance from the given arguments
+    # Creates an instance from the given arguments.
     def self.[] *args
 
       return self.new if 0 == args.length
@@ -156,14 +156,14 @@ module Containers
       end
     end
 
-    # Initialises an instance
+    # Initialises an instance.
     def initialize
 
       @elements = {}
       @count    = 0
     end
 
-    # Pushes an element into the map, assigning it an initial count of 1
+    # Pushes an element into the map, assigning it an initial count of 1.
     #
     # === Signature
     #
@@ -174,7 +174,7 @@ module Containers
       push key, 1
     end
 
-    # Compares the instance for equality against +rhs+
+    # Compares the instance for equality against +rhs+.
     #
     # === Signature
     #
@@ -203,7 +203,7 @@ module Containers
       false
     end
 
-    # Obtains the count for a given key, or +0+ if the key does not exist
+    # Obtains the count for a given key, or +0+ if the key does not exist.
     #
     # === Signature
     #
@@ -214,7 +214,7 @@ module Containers
       @elements[key] || 0
     end
 
-    # Assigns a key and a count
+    # Assigns a key and a count.
     #
     # === Signature
     #
@@ -232,32 +232,32 @@ module Containers
     end
 
     # Searches the instance comparing each element with +key+, returning the
-    # count if found, or +nil+ if not
+    # count if found, or +nil+ if not.
     def assoc key
 
       @elements.assoc key
     end
 
-    # Removes all elements from the instance
+    # Removes all elements from the instance.
     def clear
 
       @elements.clear
       @count = 0
     end
 
-    # The total number of instances recorded
+    # The total number of instances recorded.
     def count
 
       @count
     end
 
-    # Obtains the default value of the instance, which will always be +nil+
+    # Obtains the default value of the instance, which will always be +nil+.
     def default
 
       @elements.default
     end
 
-    # Deletes the element with the given +key+ and its counts
+    # Deletes the element with the given +key+ and its counts.
     #
     # === Signature
     #
@@ -270,7 +270,7 @@ module Containers
       @count -= key_count if key_count
     end
 
-    # Duplicates the instance
+    # Duplicates the instance.
     def dup
 
       fm = self.class.new
@@ -278,9 +278,9 @@ module Containers
       fm.merge! self
     end
 
-    # Calls _block_ once for each element in the instance, passing the element
-    # and its frequency as parameters. If no block is provided, an enumerator
-    # is returned
+    # Calls _block_ once for each element in the instance, passing the
+    # element and its frequency as parameters. If no block is provided, an
+    # enumerator is returned.
     def each
 
       return @elements.each unless block_given?
@@ -291,7 +291,7 @@ module Containers
       end
     end
 
-    # Enumerates each entry pair - element + frequency - in key order
+    # Enumerates each entry pair (element, frequency) in key order.
     #
     # Note: this method is more expensive than +each+ because an array of
     # keys must be created and sorted from which enumeration is directed.
@@ -308,8 +308,8 @@ module Containers
       end
     end
 
-    # Enumerates each entry pair - element + frequency - in descending
-    # order of frequency
+    # Enumerates each entry pair (element, frequency) in descending order
+    # of frequency.
     #
     # Note: this method is expensive, as it must create a new dictionary
     # and map all entries into it in order to achieve the ordering
@@ -326,7 +326,7 @@ module Containers
     end
 
     # Calls _block_ once for each element in the instance, passing the
-    # element. If no block is provided, an enumerator is returned
+    # element. If no block is provided, an enumerator is returned.
     def each_key
 
       return @elements.each_key unless block_given?
@@ -340,7 +340,7 @@ module Containers
     alias each_pair each
 
     # Calls _block_ once for each element in the instance, passing the
-    # count. If no block is provided, an enumerator is returned
+    # count. If no block is provided, an enumerator is returned.
     def each_value
 
       return @elements.each_value unless block_given?
@@ -351,14 +351,14 @@ module Containers
       end
     end
 
-    # Returns +true+ if instance contains no elements; +false+ otherwise
+    # Returns +true+ if instance contains no elements; +false+ otherwise.
     def empty?
 
       0 == size
     end
 
     # Returns +true+ if +rhs+ is an instance of +FrequencyMap+ and contains
-    # the same elements and their counts; +false+ otherwise
+    # the same elements and their counts; +false+ otherwise.
     def eql? rhs
 
       case rhs
@@ -375,7 +375,7 @@ module Containers
     # +key+ cannot be found, there are several options: with no other
     # arguments, it will raise a +KeyError+ exception; if +default+ is
     # given, then that will be returned; if the optional code block is
-    # specified, then that will be run and its result returned
+    # specified, then that will be run and its result returned.
     def fetch key, default = nil, &block
 
       case default
@@ -412,21 +412,21 @@ module Containers
       @elements[key]
     end
 
-    # Returns the equivalent flattened form of the instance
+    # Returns the equivalent flattened form of the instance.
     def flatten
 
       @elements.flatten
     end
 
-    # Returns +true+ if an element with the given +key+ is in the map; +false+
-    # otherwise
+    # Returns +true+ if an element with the given +key+ is in the map;
+    # +false+ otherwise.
     def has_key? key
 
       @elements.has_key? key
     end
 
-    # Returns +true+ if an element with a count of the given +value+ is in the
-    # map; +false+ otherwise
+    # Returns +true+ if an element with a count of the given +value+ is in
+    # the map; +false+ otherwise.
     #
     # === Signature
     #
@@ -449,7 +449,7 @@ module Containers
       @elements.has_value? value
     end
 
-    # A hash-code for this instance
+    # A hash-code for this instance.
     def hash
 
       @elements.hash
@@ -457,7 +457,7 @@ module Containers
 
     alias include? has_key?
 
-    # A diagnostics string form of the instance
+    # A diagnostics string form of the instance.
     def inspect
 
       make_inspect show_fields: true
@@ -470,7 +470,7 @@ module Containers
 =begin
 =end
 
-    # Returns the element that has the given count, or +nil+ if none found
+    # Returns the element that has the given count, or +nil+ if none found.
     #
     # === Signature
     #
@@ -488,13 +488,13 @@ module Containers
 
     alias key? has_key?
 
-    # An array of the elements only
+    # An array of the elements only.
     def keys
 
       @elements.keys
     end
 
-    # The number of elements in the map
+    # The number of elements in the map.
     def length
 
       @elements.length
@@ -502,8 +502,8 @@ module Containers
 
     alias member? has_key?
 
-    # Returns a new instance containing a merging of the current instance and
-    # the +fm+ instance
+    # Returns a new instance containing a merging of the current instance
+    # and the +fm+ instance.
     #
     # NOTE: where any element is found in both merging instances the count
     # will be a combination of the two counts
@@ -519,7 +519,7 @@ module Containers
       fm_new
     end
 
-    # Merges the contents of +fm+ into the current instance
+    # Merges the contents of +fm+ into the current instance.
     #
     # NOTE: where any element is found in both merging instances the count
     # will be a combination of the two counts
@@ -542,7 +542,7 @@ module Containers
 
     # Pushes the +element+ and +count+. If the +element+ already exists,
     # +count+ will be added to the existing count; otherwise it will be
-    # +count+
+    # +count+.
     #
     # === Signature
     #
@@ -574,8 +574,8 @@ module Containers
       self
     end
 
-    # Removes a key-value pair from the instance and return as a two-item
-    # array
+    # Removes a key-value pair from the instance and returns it as a two-item
+    # array.
     def shift
 
       r = @elements.shift
@@ -588,13 +588,13 @@ module Containers
     alias size length
 
     # Causes an element with the given +key+ and +count+ to be stored. If an
-    # element with the given +key+ already exists, its count will be adjusted,
-    # as will the total count. A +count+ of +0+ removes the key (consistent
-    # with +#push+ reducing a count to zero).
+    # element with the given +key+ already exists, its count will be
+    # adjusted, as will the total count. A +count+ of +0+ removes the key
+    # (consistent with +#push+ reducing a count to zero).
     #
     # === Return
-    #  +true+ if the element was inserted; +false+ if the element was
-    #  overwritten
+    # Returns <tt>true</tt> if the element was inserted; returns
+    # <tt>false</tt> if it was overwritten.
     def store key, count
 
       raise TypeError, "'count' parameter must be of type #{::Integer}, but was of type #{count.class}" unless Integer === count
@@ -614,31 +614,31 @@ module Containers
       old_count == 0
     end
 
-    # Converts instance to an array of +[key,value]+ pairs
+    # Converts instance to an array of <tt>[key, value]</tt> pairs.
     def to_a
 
       @elements.to_a
     end
 
-    # Obtains a +Hash+ copy of the instance contents
+    # Obtains a +Hash+ copy of the instance contents.
     def to_h
 
       @elements.dup
     end
 
-    # Obtains equivalent hash to instance
+    # Obtains an equivalent hash to the instance.
     def to_hash
 
       @elements.dup
     end
 
-    # A string-form of the instance
+    # A string-form of the instance.
     def to_s
 
       @elements.to_s
     end
 
-    # An array of all frequencies (without element keys) in the instance
+    # An array of all frequencies (without element keys) in the instance.
     def values
 
       @elements.values

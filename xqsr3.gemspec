@@ -4,7 +4,7 @@
 # Purpose:  Gemspec for xqsr3 library
 #
 # Created:  14th February 2014
-# Updated:  28th August 2026
+# Updated:  29th August 2026
 #
 # ######################################################################## #
 
@@ -12,6 +12,7 @@
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
 
 require 'xqsr3/version'
+
 
 PROJECT_URL = 'https://github.com/synesissoftware/xqsr3'
 
@@ -47,7 +48,7 @@ END_DESC
 
   spec.files = Dir[
     'Rakefile',
-    '{bin,examples,lib,man,spec,test}/**/*',
+    '{bin,docs,examples,lib,man,spec,test}/**/*',
     'AUTHORS*',
     'CHANGES*',
     'CONTRIBUTING*',
