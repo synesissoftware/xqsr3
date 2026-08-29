@@ -20,8 +20,9 @@
   the component catalogue and user guides;
 * Added a GitHub Actions Documentation job to
   **.github/workflows/ruby.yml** that generates an RDoc coverage report under
-  Ruby 3.4, and replaced the **bp-3** branch trigger with **doc** and
-  **doc.1**;
+  Ruby 3.4, and aligned its push branch triggers with the canonical set;
+* Added Ruby 4.0 to the GitHub Actions test matrix across the supported
+  operating systems;
 * Added documentation follow-up items to **TODO.md**;
 * Removed the **.vscode/** ignore rule from **.gitignore**;
 * Refreshed `Updated:` fields and copyright date ranges in modified library
