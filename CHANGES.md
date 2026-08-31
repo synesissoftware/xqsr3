@@ -69,14 +69,14 @@
 * aligned `xqsr3/extensions` (and thus `xqsr3/all_extensions`) with documented extension packs — now loads **integer**, **kernel**, and **string** as well as **enumerable/detect_map**;
 * fixed **FrequencyMap** (+#store(0)+ removes key; +#to_h+/+#to_hash+ return copies; +#[]+ / +#each_by_key+ docs);
 * fixed **ParameterChecking** (+#ignore_order+ recognised; +:types+ no longer mutates caller array) and **join_with_or** (+treat_as_option:+);
-* fixed `Enumerable#detect_map` to return falsy hits (+nil+ means continue);
+* fixed `Enumerable#detect_map` to return falsey hits (+nil+ means continue);
 * fixed `Integer#to_s_grp` to honour +:separator+ for the single-group path;
 * fixed `ExceptionUtilities.raise_with_options` to use +set_backtrace+ instead of deprecated 3-arg +raise+; documented **WithCause** +#cause+ shadowing;
 
 
 ## 0.39.6 - 18th August 2026
 
-* fixed **BoolParser** default matching to require whole-string `true`/`false` (case-insensitive), aligned `:default_value` / `:true_value` / `:false_value` options with documented names (legacy `:default` / `:true` / `:false` still accepted), and allowed falsy override values;
+* fixed **BoolParser** default matching to require whole-string `true`/`false` (case-insensitive), aligned `:default_value` / `:true_value` / `:false_value` options with documented names (legacy `:default` / `:true` / `:false` still accepted), and allowed falsey override values;
 * fixed `Kernel#Integer` extension to honour the supplied +base+ (was always forced to +0+);
 * fixed `Enumerable#unique` to honour its optional two-parameter equality comparator block;
 * fixed `Hash#deep_transform!` (+NameError+ on +self+ check; arity-2 results were not written back);
